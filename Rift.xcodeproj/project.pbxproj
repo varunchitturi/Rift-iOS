@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
-		274E623126C21FB400C855D4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* ContentView.swift */; };
+		274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* WelcomeView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
+		274E624E26C2F46F00C855D4 /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E624D26C2F46F00C855D4 /* DropDownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
-		274E623026C21FB400C855D4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		274E623226C21FB500C855D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		274E623526C21FB500C855D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		274E623726C21FB500C855D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		274E624D26C2F46F00C855D4 /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +54,8 @@
 		274E622D26C21FB400C855D4 /* Rift */ = {
 			isa = PBXGroup;
 			children = (
+				274E624B26C2656300C855D4 /* Views */,
 				274E622E26C21FB400C855D4 /* RiftApp.swift */,
-				274E623026C21FB400C855D4 /* ContentView.swift */,
 				274E623226C21FB500C855D4 /* Assets.xcassets */,
 				274E623726C21FB500C855D4 /* Info.plist */,
 				274E623426C21FB500C855D4 /* Preview Content */,
@@ -67,6 +69,23 @@
 				274E623526C21FB500C855D4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		274E624B26C2656300C855D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				274E624C26C2F45C00C855D4 /* Components */,
+				274E623026C21FB400C855D4 /* WelcomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		274E624C26C2F45C00C855D4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				274E624D26C2F46F00C855D4 /* DropDownView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				274E623126C21FB400C855D4 /* ContentView.swift in Sources */,
+				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
+				274E624E26C2F46F00C855D4 /* DropDownView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
