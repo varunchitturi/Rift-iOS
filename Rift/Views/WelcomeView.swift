@@ -3,7 +3,7 @@
 //  Rift
 //
 //  Created by Varun Chitturi on 8/9/21.
-//
+// 
 
 import SwiftUI
 
@@ -11,11 +11,10 @@ struct WelcomeView: View {
     
     var body: some View {
         NavigationView {
-            BarButton(text: "Next", iconSystemName: "arrow.right", type: .primary) {
+            CapsuleButton(description: "Next", icon: "arrow.right", type: .primary) {
                 
             }
                 .navigationTitle("Welcome.")
-                
         }
         
     }

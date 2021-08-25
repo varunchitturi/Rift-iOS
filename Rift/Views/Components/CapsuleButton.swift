@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct BarButton: View {
-    var text: String
-    var iconSystemName: String?
+struct CapsuleButton: View {
+    var description: String
+    var icon: String?
     let type: type
     var action: () -> Void
     
@@ -17,10 +17,10 @@ struct BarButton: View {
     private var label: some View {
         HStack{
             Spacer()
-            Text(text)
+            Text(description)
                 .fontWeight(.bold)
-            if iconSystemName != nil {
-                Image(systemName: iconSystemName!)
+            if icon != nil {
+                Image(systemName: icon!)
             }
             Spacer()
         }.padding()
@@ -38,9 +38,6 @@ struct BarButton: View {
         } label: {
             label
         }
-        
-        
-            
     }
     
     enum type {
@@ -70,11 +67,11 @@ struct BarButton: View {
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        BarButton(text: "Primary", iconSystemName: "arrow.right", type: .primary) {
+        CapsuleButton(description: "Primary", icon: "arrow.right", type: .primary) {
             
         }
             .previewLayout(.sizeThatFits)
-        BarButton(text: "Secondary", iconSystemName: "arrow.right", type: .secondary) {
+        CapsuleButton(description: "Secondary", icon: "arrow.right", type: .secondary) {
             
         }
             .previewLayout(.sizeThatFits)
