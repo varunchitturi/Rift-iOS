@@ -8,12 +8,21 @@
 import SwiftUI
 
 
-struct RoundedTextField: View {
-    let label: String
-    let accentColor: Color
-    var icon: String?
+struct CapsuleTextField: View {
+    
+    private let label: String
+    private let accentColor: Color
+    private var icon: String?
     @Binding var text: String
-    @State var isEditing: Bool = false
+    @State private var isEditing: Bool = false
+    
+    init(text: Binding<String>, label: String = "", icon: String? = nil, accentColor: Color = .blue) {
+        self.label = label
+        self.icon = icon
+        self.accentColor = accentColor
+        self._text = text
+    }
+    
     var body: some View {
         VStack(alignment: .leading){
             Text(label)
@@ -52,20 +61,14 @@ struct RoundedTextField: View {
         }
         
     }
-    
-    init(text: Binding<String>, label: String = "", icon: String? = nil, accentColor: Color = .blue) {
-        self.label = label
-        self.icon = icon
-        self.accentColor = accentColor
-        self._text = text
-    }
+
 }
 
 
 
-struct RoundedTextField_Previews: PreviewProvider {
+struct CapsuleTextField_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedTextField(text: .constant(""), label: "Username", icon: "person")
+        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person")
             .previewLayout(.sizeThatFits)
         .padding()
         

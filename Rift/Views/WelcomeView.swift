@@ -11,10 +11,7 @@ struct WelcomeView: View {
     
     var body: some View {
         NavigationView {
-            CapsuleButton(description: "Next", icon: "arrow.right", type: .primary) {
-                
-            }
-                .navigationTitle("Welcome.")
+            
         }
         
     }

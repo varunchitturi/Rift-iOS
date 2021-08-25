@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct CapsuleButton: View {
-    var description: String
-    var icon: String?
-    let type: type
-    var action: () -> Void
+
+    private var description: String
+    private var icon: String?
+    private let style: Style
+    private var action: () -> Void
+    
+    init(description: String, icon: String? = nil, style: CapsuleButton.Style, action: @escaping () -> Void) {
+        self.description = description
+        self.icon = icon
+        self.style = style
+        self.action = action
+    }
     
     @ViewBuilder
     private var label: some View {
@@ -25,10 +33,10 @@ struct CapsuleButton: View {
             Spacer()
         }.padding()
         .font(.headline)
-        .foregroundColor(self.type.foregroundColor)
+        .foregroundColor(self.style.foregroundColor)
         .background(
                 Capsule()
-                    .fill(self.type.backgroundColor)
+                    .fill(self.style.backgroundColor)
         )
     }
     
@@ -40,7 +48,7 @@ struct CapsuleButton: View {
         }
     }
     
-    enum type {
+    enum Style {
         case primary, secondary
         
         var backgroundColor: Color {
@@ -67,11 +75,11 @@ struct CapsuleButton: View {
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleButton(description: "Primary", icon: "arrow.right", type: .primary) {
+        CapsuleButton(description: "Primary", icon: "arrow.right", style: .primary) {
             
         }
             .previewLayout(.sizeThatFits)
-        CapsuleButton(description: "Secondary", icon: "arrow.right", type: .secondary) {
+        CapsuleButton(description: "Secondary", icon: "arrow.right", style: .secondary) {
             
         }
             .previewLayout(.sizeThatFits)
