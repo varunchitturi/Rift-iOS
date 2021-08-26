@@ -6,62 +6,61 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct CapsuleDropDown: View {
+    
+    // TODO: Handle case when CapsuleDropDown is not in a form
+    @State private var isEditing: Bool = false
+    @Binding var selectionIndex: Int?
     private var options: [String]
-    @Binding private var selection: String?
-    @State private var isPresented: Bool = false
     private var label: String
     private var description: String
     
-    init(options: [String], selection: Binding<String?>, label: String, description: String) {
+    var selection: String? {
+        selectionIndex != nil ? options[selectionIndex!] : nil
+    }
+    
+    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>) {
         self.options = options
-        self._selection = selection
         self.label = label
         self.description = description
+        self._selectionIndex = selectionIndex
     }
     
     var body: some View {
-        
+        let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing)
         VStack(alignment: .leading) {
             Text(label)
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(Color("Tertiary"))
             
-            Button {
-                isPresented = true
-            } label: {
-                HStack {
-                    Text(selection ?? description)
-                        .foregroundColor(Color("Tertiary"))
-                        .fontWeight(.semibold)
-                        .padding(.leading)
-                    
-                       
-                    Spacer()
-                    Image(systemName: "chevron.down")
-                        .foregroundColor(Color("Tertiary"))
-                        .padding(.trailing)
-                }
-                .padding()
-                .background(
-                    Capsule()
-                        .fill(Color("Secondary"))
-                )
-                
-            }.sheet(isPresented: $isPresented) {
-                
+            
+            HStack {
+                pickerField
+                    .padding(.leading)
+                Spacer()
+                Image(systemName: "chevron.down")
+                    .foregroundColor(Color("Tertiary"))
+                    .padding(.trailing)
+            }
+            .padding()
+            .background(
+                Capsule()
+                    .fill(Color("Secondary"))
+            )
+            .onTapGesture {
+                pickerField.showPicker($isEditing)
             }
         }
-        
     }
-            
+    
 }
 
 struct CapsuleDropDown_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleDropDown(options: ["Option 1", "Option 2", "Option 3"], selection: .constant("Defult Selection"), label: "DropDown", description: "Make a selection")
+        CapsuleDropDown("DropDown", description: "Pick an option",  options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(3))
             .padding()
     }
 }

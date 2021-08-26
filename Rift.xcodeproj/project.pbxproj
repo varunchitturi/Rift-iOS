@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2721EEF426D6F16200C5E906 /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF326D6F16200C5E906 /* UIPickerField.swift */; };
+		2721EEF626D743A900C5E906 /* PickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF526D743A900C5E906 /* PickerField.swift */; };
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
 		274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* WelcomeView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2721EEF326D6F16200C5E906 /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
+		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2721EEF126D6EF4500C5E906 /* Bridges */ = {
+			isa = PBXGroup;
+			children = (
+				2721EEF326D6F16200C5E906 /* UIPickerField.swift */,
+				2721EEF526D743A900C5E906 /* PickerField.swift */,
+			);
+			path = Bridges;
+			sourceTree = "<group>";
+		};
 		274E622226C21FB400C855D4 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +104,7 @@
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
 				276F222926D4329F00588588 /* CapsuleTextField.swift */,
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
+				2721EEF126D6EF4500C5E906 /* Bridges */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -171,10 +185,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2721EEF426D6F16200C5E906 /* UIPickerField.swift in Sources */,
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
+				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

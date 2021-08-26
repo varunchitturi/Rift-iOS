@@ -9,23 +9,23 @@ import SwiftUI
 
 struct CapsuleButton: View {
 
-    private var description: String
+    private var label: String
     private var icon: String?
     private let style: Style
     private var action: () -> Void
     
-    init(description: String, icon: String? = nil, style: CapsuleButton.Style, action: @escaping () -> Void) {
-        self.description = description
+    init(_ label: String, icon: String? = nil, style: CapsuleButton.Style, action: @escaping () -> Void) {
+        self.label = label
         self.icon = icon
         self.style = style
         self.action = action
     }
     
     @ViewBuilder
-    private var label: some View {
+    private var labelView: some View {
         HStack{
             Spacer()
-            Text(description)
+            Text(label)
                 .fontWeight(.bold)
             if icon != nil {
                 Image(systemName: icon!)
@@ -44,7 +44,7 @@ struct CapsuleButton: View {
         Button {
             action()
         } label: {
-            label
+            labelView
         }
     }
     
@@ -75,11 +75,11 @@ struct CapsuleButton: View {
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleButton(description: "Primary", icon: "arrow.right", style: .primary) {
+        CapsuleButton("Primary", icon: "arrow.right", style: .primary) {
             
         }
             .previewLayout(.sizeThatFits)
-        CapsuleButton(description: "Secondary", icon: "arrow.right", style: .secondary) {
+        CapsuleButton("Secondary", icon: "arrow.right", style: .secondary) {
             
         }
             .previewLayout(.sizeThatFits)
