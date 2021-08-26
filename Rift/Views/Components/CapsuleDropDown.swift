@@ -9,8 +9,7 @@ import SwiftUI
 import UIKit
 
 struct CapsuleDropDown: View {
-    
-    // TODO: Handle case when CapsuleDropDown is not in a form
+
     @State private var isEditing: Bool = false
     @Binding var selectionIndex: Int?
     private var options: [String]
@@ -30,6 +29,9 @@ struct CapsuleDropDown: View {
     
     var body: some View {
         let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing)
+        let dropDownIcon = Image(systemName: "chevron.down")
+                                .foregroundColor(Color("Tertiary"))
+                                .padding(.trailing)
         VStack(alignment: .leading) {
             Text(label)
                 .font(.caption)
@@ -39,11 +41,11 @@ struct CapsuleDropDown: View {
             
             HStack {
                 pickerField
-                    .padding(.leading)
-                Spacer()
-                Image(systemName: "chevron.down")
                     .foregroundColor(Color("Tertiary"))
-                    .padding(.trailing)
+                    .padding(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
+                dropDownIcon
             }
             .padding()
             .background(

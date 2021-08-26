@@ -10,14 +10,8 @@ import SwiftUI
 struct WelcomeView: View {
     @State private var selectionIndex: Int?
     var body: some View {
-        
-            Form {
-                CapsuleDropDown("DropDown",description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: $selectionIndex)
-                    .padding()
-            }
-            
-                
-        
+        CapsuleDropDown("DropDown",description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: $selectionIndex)
+            .padding()
         
     }
 }

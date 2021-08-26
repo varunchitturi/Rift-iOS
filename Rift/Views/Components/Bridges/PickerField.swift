@@ -38,11 +38,17 @@ struct PickerField: UIViewRepresentable {
             uiView.text = label
         }
     }
+    
     func showPicker(_ show: Binding<Bool>) {
         if !show.wrappedValue {
             show.wrappedValue = true
             pickerField.becomeFirstResponder()
         }
+    }
+    
+    func foregroundColor(_ color: Color) -> PickerField {
+        pickerField.textColor = UIColor(color)
+        return self
     }
 }
 
