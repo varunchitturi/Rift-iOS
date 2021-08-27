@@ -48,7 +48,7 @@ struct CourseCard: View {
                         .font(.caption)
                         .lineLimit(1)
                 }
-                .padding([.top, .bottom])
+                .padding([.bottom], 0)
                 Spacer()
                 VStack {
                     Circle()
@@ -56,7 +56,7 @@ struct CourseCard: View {
                         .frame(minWidth: DrawingConstants.minCircleRadius, idealWidth: DrawingConstants.idealCirlceRadius, maxWidth: DrawingConstants.maxCircleRadius, minHeight: DrawingConstants.maxCircleRadius, idealHeight: DrawingConstants.idealCirlceRadius, maxHeight: DrawingConstants.maxCircleRadius, alignment: .trailing)
                         .overlay(
                             Text(letterGrade)
-                                .font(.title3)
+                                .font(.headline)
                                 .fontWeight(.semibold)
                                 .scaledToFill()
                                 .minimumScaleFactor(0.01)
@@ -64,10 +64,10 @@ struct CourseCard: View {
                         )
                     Text((percentage?.description ?? "N/A") + "%")
                         .lineLimit(1)
+                        .font(.caption)
                         .frame(width: 80)
                     
                 }
-                .padding(.trailing)
             }
             .foregroundColor(Color("Tertiary"))
             .padding()
@@ -82,8 +82,8 @@ struct CourseCard: View {
     private struct DrawingConstants {
         static let circleBackground = Color(red: 10, green: 10, blue: 10)
         static let circleForeground = Color(red: 10, green: 10, blue: 10)
-        static let minCircleRadius = 35.0
-        static let maxCircleRadius = 43.0
+        static let minCircleRadius: CGFloat = 30.0
+        static let maxCircleRadius: CGFloat = 35.0
         static let idealCirlceRadius = minCircleRadius / maxCircleRadius
     }
     
@@ -91,8 +91,9 @@ struct CourseCard: View {
 
 struct CourseCard_Previews: PreviewProvider {
     static var previews: some View {
-        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", percentage: 100.322)
-            .previewLayout(.sizeThatFits)
+        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", percentage: 100.32)
+            .preferredColorScheme(.dark)
+            .padding()
             
     }
 }
