@@ -64,8 +64,6 @@ struct CapsuleTextField: View {
 
 }
 
-
-
 struct CapsuleTextField_Previews: PreviewProvider {
     static var previews: some View {
         CapsuleTextField(text: .constant(""), label: "TextField", icon: "person")

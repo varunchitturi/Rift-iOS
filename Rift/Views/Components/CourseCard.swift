@@ -9,33 +9,19 @@ import SwiftUI
 
 struct CourseCard: View {
     
-    init(courseName: String, teacher: String, percentage: Double?) {
-        self.percentage = percentage
+    init(courseName: String, teacher: String, pointsEarned: Double? = nil, totalPoints: Double? = nil, letterGrade: String? = nil) {
+        if let pointsEarned = pointsEarned, let totalPoints = totalPoints, totalPoints != 0 {
+            self.percentage = round((pointsEarned/totalPoints) * 10000) / 100
+        }
+       
         self.courseName = courseName
         self.teacher = teacher
-        
+        self.letterGrade = letterGrade
     }
-    
     var courseName: String
     var teacher: String
     var percentage: Double?
-    var letterGrade: String {
-        if let percentage = self.percentage {
-            switch percentage{
-            case _ where percentage >= 90:
-                return "A"
-            case _ where percentage >= 80:
-                return "B"
-            case _ where percentage >= 70:
-                return "C"
-            case _ where percentage >= 60:
-                return "D"
-            default:
-                return "F"
-            }
-        }
-        return "N/A"
-    }
+    var letterGrade: String?
     var body: some View {
         Group {
             HStack {
@@ -55,12 +41,12 @@ struct CourseCard: View {
                         .fill(Color("Background"))
                         .frame(minWidth: DrawingConstants.minCircleRadius, idealWidth: DrawingConstants.idealCirlceRadius, maxWidth: DrawingConstants.maxCircleRadius, minHeight: DrawingConstants.maxCircleRadius, idealHeight: DrawingConstants.idealCirlceRadius, maxHeight: DrawingConstants.maxCircleRadius, alignment: .trailing)
                         .overlay(
-                            Text(letterGrade)
-                                .font(.headline)
+                            Text(letterGrade ?? "N/A")
                                 .fontWeight(.semibold)
                                 .scaledToFill()
                                 .minimumScaleFactor(0.01)
                                 .foregroundColor(Color("Foreground"))
+                                .padding(9)
                         )
                     Text((percentage?.description ?? "N/A") + "%")
                         .lineLimit(1)
@@ -91,7 +77,7 @@ struct CourseCard: View {
 
 struct CourseCard_Previews: PreviewProvider {
     static var previews: some View {
-        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", percentage: 100.32)
+        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", pointsEarned: 90, totalPoints: 101, letterGrade: "B+")
             .preferredColorScheme(.dark)
             .padding()
             
