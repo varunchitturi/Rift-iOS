@@ -26,7 +26,6 @@ struct CapsuleButton: View {
         HStack{
             Spacer()
             Text(label)
-                .fontWeight(.bold)
             if icon != nil {
                 Image(systemName: icon!)
             }

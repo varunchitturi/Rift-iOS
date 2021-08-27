@@ -14,6 +14,7 @@
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
 		276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F222926D4329F00588588 /* CapsuleTextField.swift */; };
+		2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771159C26D8297C00EBBB99 /* CourseCard.swift */; };
 		278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F272426D5E97F000FF26F /* CapsuleDropDown.swift */; };
 		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		274E623526C21FB500C855D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		274E623726C21FB500C855D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		276F222926D4329F00588588 /* CapsuleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleTextField.swift; sourceTree = "<group>"; };
+		2771159C26D8297C00EBBB99 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
 				276F222926D4329F00588588 /* CapsuleTextField.swift */,
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
+				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
 				2721EEF126D6EF4500C5E906 /* Bridges */,
 			);
 			path = Components;
@@ -191,6 +194,7 @@
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
+				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
