@@ -14,10 +14,18 @@ struct TabBar: View {
             Rectangle()
                 .cornerRadius(DrawingConstants.barCornerRadius, corners: [.topLeft, .topRight])
                 .foregroundColor(Color("Secondary"))
-                .frame(minHeight: DrawingConstants.barMinHeight, idealHeight: DrawingConstants.barIdealHeight, maxHeight: DrawingConstants.barMaxHeight, alignment: .bottom)
-                .shadow(color: Color("Tertiary").opacity(DrawingConstants.barShadowOpacity), radius: DrawingConstants.barShadowRadius, x: DrawingConstants.barShadowXOffset, y: DrawingConstants.barShadowYOffset)
+                .frame(minHeight: DrawingConstants.barMinHeight,
+                       idealHeight: DrawingConstants.barIdealHeight,
+                       maxHeight: DrawingConstants.barMaxHeight,
+                       alignment: .bottom)
+                .shadow(color: Color("Tertiary")
+                            .opacity(DrawingConstants.barShadowOpacity),
+                        radius: DrawingConstants.barShadowRadius,
+                        x: DrawingConstants.barShadowXOffset,
+                        y: DrawingConstants.barShadowYOffset)
             HStack{
-                ForEach(Tab.allCases, id: \.rawValue) {tab in
+                ForEach(0..<Tab.allCases.count) {index in
+                    let tab = Tab.allCases[index]
                     Spacer()
                     VStack {
                         tab.icon

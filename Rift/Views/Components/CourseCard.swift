@@ -39,7 +39,13 @@ struct CourseCard: View {
                 VStack {
                     Circle()
                         .fill(Color("Background"))
-                        .frame(minWidth: DrawingConstants.minCircleRadius, idealWidth: DrawingConstants.idealCirlceRadius, maxWidth: DrawingConstants.maxCircleRadius, minHeight: DrawingConstants.maxCircleRadius, idealHeight: DrawingConstants.idealCirlceRadius, maxHeight: DrawingConstants.maxCircleRadius, alignment: .trailing)
+                        .frame(minWidth: DrawingConstants.minCircleRadius,
+                               idealWidth: DrawingConstants.idealCirlceRadius,
+                               maxWidth: DrawingConstants.maxCircleRadius,
+                               minHeight: DrawingConstants.maxCircleRadius,
+                               idealHeight: DrawingConstants.idealCirlceRadius,
+                               maxHeight: DrawingConstants.maxCircleRadius,
+                               alignment: .trailing)
                         .overlay(
                             Text(letterGrade ?? "N/A")
                                 .fontWeight(.semibold)
