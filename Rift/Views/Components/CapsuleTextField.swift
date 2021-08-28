@@ -33,7 +33,7 @@ struct CapsuleTextField: View {
             HStack {
                 if icon != nil {
                     Image(systemName: icon!)
-                        .foregroundColor(isEditing ? accentColor : Color("Tertiary"))
+                        .foregroundColor(isEditing ? accentColor : Color("Quartenary"))
                 }
                 TextField("", text: $text) {isEditing in
                     self.isEditing = isEditing
@@ -66,9 +66,14 @@ struct CapsuleTextField: View {
 
 struct CapsuleTextField_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person")
+        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person.fill")
+            .padding()
             .previewLayout(.sizeThatFits)
-        .padding()
+        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person.fill")
+            .padding()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
+       
         
     }
 }

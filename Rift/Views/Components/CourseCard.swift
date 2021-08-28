@@ -78,8 +78,12 @@ struct CourseCard: View {
 struct CourseCard_Previews: PreviewProvider {
     static var previews: some View {
         CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", pointsEarned: 90, totalPoints: 101, letterGrade: "B+")
-            .preferredColorScheme(.dark)
             .padding()
+            .previewLayout(.sizeThatFits)
+        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", pointsEarned: 90, totalPoints: 101, letterGrade: "B+")
+            .padding()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
             
     }
 }

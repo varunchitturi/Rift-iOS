@@ -73,5 +73,9 @@ struct TabBar_Previews: PreviewProvider {
         TabBar(selected: .constant(.courses))
             .padding(.top)
             .previewLayout(.sizeThatFits)
+        TabBar(selected: .constant(.courses))
+            .padding(.top)
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

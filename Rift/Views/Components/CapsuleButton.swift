@@ -55,13 +55,13 @@ struct CapsuleButton: View {
             case .primary:
                 return Color("Primary")
             case .secondary:
-                return .white
+                return Color("Secondary")
             }
         }
         var foregroundColor: Color {
             switch self {
             case .primary:
-                return .white
+                return Color("Secondary")
             case .secondary:
                 return Color("Primary")
             }
@@ -77,10 +77,23 @@ struct SwiftUIView_Previews: PreviewProvider {
         CapsuleButton("Primary", icon: "arrow.right", style: .primary) {
             
         }
-            .previewLayout(.sizeThatFits)
+        .padding()
+        .previewLayout(.sizeThatFits)
         CapsuleButton("Secondary", icon: "arrow.right", style: .secondary) {
             
         }
-            .previewLayout(.sizeThatFits)
+        .previewLayout(.sizeThatFits)
+        CapsuleButton("Primary", icon: "arrow.right", style: .primary) {
+            
+        }
+        .padding()
+        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
+        CapsuleButton("Secondary", icon: "arrow.right", style: .secondary) {
+            
+        }
+        .padding()
+        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
     }
 }
