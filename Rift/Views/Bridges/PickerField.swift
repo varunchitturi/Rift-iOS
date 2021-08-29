@@ -16,7 +16,6 @@ struct PickerField: UIViewRepresentable {
     private let label: String
     private let pickerField: UIPickerField
     
-    
     init(_ label: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, tintColor: Color) {
         self.label = label
         self._selectionIndex = selectionIndex

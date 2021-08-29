@@ -19,11 +19,12 @@ struct LogInView: View {
                         
                     }
                     TextDivider("or")
-                        .foregroundColor(Color("Tertiary"))
+                        
                         .padding(.vertical, DrawingConstants.dividerPadding)
                     CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"))
                     CapsuleTextField("Password", text: $passwordTextField, icon: "key.fill", accentColor: Color("Primary"))
                 }
+                .foregroundColor(Color("Tertiary"))
                 CapsuleButton("Log In", style: .primary) {
                     
                 }

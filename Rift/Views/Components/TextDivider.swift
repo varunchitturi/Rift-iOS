@@ -18,6 +18,7 @@ struct TextDivider: View {
         Divider()
             .overlay(
                 Text(text)
+                    .font(.caption)
                     .fontWeight(.bold)
                     .padding([.horizontal])
                     .background(

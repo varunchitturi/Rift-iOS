@@ -28,29 +28,48 @@ struct CapsuleDropDown: View {
     }
     
     var body: some View {
+        
         let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing, tintColor: Color("Primary"))
+           
+        
         let dropDownIcon = Image(systemName: "chevron.down")
-                                .foregroundColor(Color("Tertiary"))
                                 .padding(.trailing)
+        let backgroundCapsule = Capsule()
+            .fill(Color("Secondary"))
+        let label = Text(label)
+            .font(.caption)
+            .fontWeight(.bold)
+        
         VStack(alignment: .leading) {
-            Text(label)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(Color("Tertiary"))
             
-            
+            isEditing ? label.foregroundColor(Color("Primary")) : label.foregroundColor(Color("Tertiary"))
+
             HStack {
-                pickerField
-                    .foregroundColor(Color("Tertiary"))
-                    .padding(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
+                isEditing ? pickerField
+                    .modifier(pickerFieldConfig())
+                    .foregroundColor(Color("Primary")) : pickerField
+                    .modifier(pickerFieldConfig())
+                    .foregroundColor(Color("Teritary"))
+                    
+                    
                 Spacer()
-                dropDownIcon
+                isEditing ? dropDownIcon
+                    .foregroundColor(Color("Primary")) : dropDownIcon
+                    .foregroundColor(Color("Tertiary"))
             }
             .padding()
             .background(
-                Capsule()
-                    .fill(Color("Secondary"))
+                ZStack {
+                    backgroundCapsule
+                    
+                    if isEditing {
+                        backgroundCapsule
+                        Capsule()
+                            .stroke()
+                            .fill(Color("Primary"))
+                    }
+                }
+                
             )
             .onTapGesture {
                 pickerField.showPicker($isEditing)
@@ -58,7 +77,16 @@ struct CapsuleDropDown: View {
         }
     }
     
+    private struct pickerFieldConfig: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .padding(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
 }
+
+
 
 struct CapsuleDropDown_Previews: PreviewProvider {
     static var previews: some View {
