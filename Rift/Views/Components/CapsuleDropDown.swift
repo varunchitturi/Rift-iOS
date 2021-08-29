@@ -30,8 +30,6 @@ struct CapsuleDropDown: View {
     var body: some View {
         
         let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing, tintColor: Color("Primary"))
-           
-        
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .padding(.trailing)
         let backgroundCapsule = Capsule()
@@ -41,49 +39,33 @@ struct CapsuleDropDown: View {
             .fontWeight(.bold)
         
         VStack(alignment: .leading) {
-            
-            isEditing ? label.foregroundColor(Color("Primary")) : label.foregroundColor(Color("Tertiary"))
-
+            label
             HStack {
-                isEditing ? pickerField
-                    .modifier(pickerFieldConfig())
-                    .foregroundColor(Color("Primary")) : pickerField
-                    .modifier(pickerFieldConfig())
-                    .foregroundColor(Color("Teritary"))
-                    
-                    
+                pickerField
+                    .padding(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
-                isEditing ? dropDownIcon
-                    .foregroundColor(Color("Primary")) : dropDownIcon
-                    .foregroundColor(Color("Tertiary"))
+                dropDownIcon
+                    
             }
             .padding()
             .background(
                 ZStack {
                     backgroundCapsule
-                    
                     if isEditing {
-                        backgroundCapsule
                         Capsule()
                             .stroke()
                             .fill(Color("Primary"))
                     }
                 }
-                
             )
             .onTapGesture {
                 pickerField.showPicker($isEditing)
             }
         }
+        .foregroundColor(isEditing ? Color("Primary") : Color("Tertiary"))
     }
     
-    private struct pickerFieldConfig: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .padding(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-    }
 }
 
 
