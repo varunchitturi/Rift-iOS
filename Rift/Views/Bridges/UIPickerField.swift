@@ -12,23 +12,23 @@ class UIPickerField: UITextField {
     private var options: [String]
     @Binding var selectionIndex: Int?
     @Binding var editingState: Bool
-    init(options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>) {
+    init(options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, tintColor: Color) {
         self.options = options
         self._selectionIndex = selectionIndex
         self._editingState = isEditing
         super.init(frame: .zero)
         
         self.inputView = picker
-        self.tintColor = UIColor(Color("Primary"))
+        self.tintColor = UIColor(tintColor)
         
-        let toolBar = UIToolbar()
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: DrawingConstants.pickerToolBarHeight))
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.sizeToFit()
             
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.finishEditing))
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-
+        
         toolBar.setItems([spacer, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         self.inputAccessoryView = toolBar
@@ -63,6 +63,10 @@ class UIPickerField: UITextField {
 
     override func caretRect(for position: UITextPosition) -> CGRect {
         .null
+    }
+    
+    private struct DrawingConstants {
+        static let pickerToolBarHeight: CGFloat = 50
     }
     
 }

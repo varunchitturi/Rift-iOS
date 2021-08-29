@@ -16,7 +16,7 @@ struct CapsuleTextField: View {
     @Binding var text: String
     @State private var isEditing: Bool = false
     
-    init(text: Binding<String>, label: String = "", icon: String? = nil, accentColor: Color = .blue) {
+    init(_ label: String = "", text: Binding<String>, icon: String? = nil, accentColor: Color = .blue) {
         self.label = label
         self.icon = icon
         self.accentColor = accentColor
@@ -66,10 +66,10 @@ struct CapsuleTextField: View {
 
 struct CapsuleTextField_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person.fill")
+        CapsuleTextField("TextField", text: .constant(""),  icon: "person.fill")
             .padding()
             .previewLayout(.sizeThatFits)
-        CapsuleTextField(text: .constant(""), label: "TextField", icon: "person.fill")
+        CapsuleTextField("TextField", text: .constant(""),  icon: "person.fill")
             .padding()
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)

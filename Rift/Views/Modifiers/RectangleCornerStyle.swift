@@ -1,13 +1,13 @@
 //
-//  RectangleCornerRadius.swift
-//  RectangleCornerRadius
+//  RectangleCornerStyle.swift
+//  RectangleCornerStyle
 //
 //  Created by Varun Chitturi on 8/27/21.
 //
 
 import SwiftUI
 
-struct RectangleRoundedCorner: Shape {
+struct RectangleCornerStyle: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
     
@@ -17,8 +17,8 @@ struct RectangleRoundedCorner: Shape {
     }
 }
 
-extension Shape {
+extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RectangleRoundedCorner(radius: radius, corners: corners))
+        clipShape(RectangleCornerStyle(radius: radius, corners: corners))
     }
 }

@@ -17,12 +17,12 @@ struct PickerField: UIViewRepresentable {
     private let pickerField: UIPickerField
     
     
-    init(_ label: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>) {
+    init(_ label: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, tintColor: Color) {
         self.label = label
         self._selectionIndex = selectionIndex
         self.options = options
         self._isEditing = isEditing
-        self.pickerField = UIPickerField(options: options, selectionIndex: selectionIndex, isEditing: isEditing)
+        self.pickerField = UIPickerField(options: options, selectionIndex: selectionIndex, isEditing: isEditing, tintColor: tintColor)
     }
     
     func makeUIView(context: UIViewRepresentableContext<PickerField>) -> UITextField {
@@ -42,8 +42,8 @@ struct PickerField: UIViewRepresentable {
     func showPicker(_ show: Binding<Bool>) {
         if !show.wrappedValue {
             show.wrappedValue = true
-            pickerField.becomeFirstResponder()
         }
+        pickerField.becomeFirstResponder()
     }
     
     func foregroundColor(_ color: Color) -> PickerField {

@@ -28,7 +28,7 @@ struct CapsuleDropDown: View {
     }
     
     var body: some View {
-        let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing)
+        let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing, tintColor: Color("Primary"))
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .foregroundColor(Color("Tertiary"))
                                 .padding(.trailing)

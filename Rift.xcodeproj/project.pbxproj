@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		270CE0E526D98A93009768A7 /* RectangleCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CE0E426D98A93009768A7 /* RectangleCornerRadius.swift */; };
+		270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */; };
 		2721EEF426D6F16200C5E906 /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF326D6F16200C5E906 /* UIPickerField.swift */; };
 		2721EEF626D743A900C5E906 /* PickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF526D743A900C5E906 /* PickerField.swift */; };
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
@@ -19,10 +19,14 @@
 		278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F272426D5E97F000FF26F /* CapsuleDropDown.swift */; };
 		278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
 		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
+		27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */; };
+		27D0F5B426DAFD060004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */; };
+		27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
+		27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		270CE0E426D98A93009768A7 /* RectangleCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCornerRadius.swift; sourceTree = "<group>"; };
+		270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCornerStyle.swift; sourceTree = "<group>"; };
 		2721EEF326D6F16200C5E906 /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
 		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +40,10 @@
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		278FD66126D89FAA00C85BCD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
+		27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewStyle.swift; sourceTree = "<group>"; };
+		27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorUtils.swift; path = Rift/Views/Modifiers/ColorUtils.swift; sourceTree = SOURCE_ROOT; };
+		27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		27D0F5B926DB2C530004F0A2 /* TextDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDivider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +60,8 @@
 		270CE0E326D98A72009768A7 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				270CE0E426D98A93009768A7 /* RectangleCornerRadius.swift */,
+				270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */,
+				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -67,6 +76,7 @@
 		27113CB726D9E86B00126AB0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -83,8 +93,8 @@
 		274E622226C21FB400C855D4 = {
 			isa = PBXGroup;
 			children = (
-				274E622D26C21FB400C855D4 /* Rift */,
 				274E622C26C21FB400C855D4 /* Products */,
+				274E622D26C21FB400C855D4 /* Rift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,7 +133,10 @@
 			isa = PBXGroup;
 			children = (
 				274E624C26C2F45C00C855D4 /* Components */,
+				2721EEF126D6EF4500C5E906 /* Bridges */,
+				270CE0E326D98A72009768A7 /* Modifiers */,
 				274E623026C21FB400C855D4 /* WelcomeView.swift */,
+				27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,8 +149,7 @@
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
 				278FD66126D89FAA00C85BCD /* TabBar.swift */,
-				270CE0E326D98A72009768A7 /* Modifiers */,
-				2721EEF126D6EF4500C5E906 /* Bridges */,
+				27D0F5B926DB2C530004F0A2 /* TextDivider.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -221,13 +233,17 @@
 				2721EEF426D6F16200C5E906 /* UIPickerField.swift in Sources */,
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
+				27D0F5B426DAFD060004F0A2 /* ColorUtils.swift in Sources */,
+				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
 				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
-				270CE0E526D98A93009768A7 /* RectangleCornerRadius.swift in Sources */,
+				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
+				27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */,
+				27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

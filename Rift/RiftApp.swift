@@ -11,7 +11,7 @@ import SwiftUI
 struct RiftApp: App {
     var body: some Scene {
         WindowGroup {
-            WelcomeView()
+            LogInView()
         }
     }
 }

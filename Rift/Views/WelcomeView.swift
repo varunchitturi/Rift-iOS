@@ -8,17 +8,44 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var selectionIndex: Int?
+    @State private var stateSelectionIndex: Int?
+    @State private var districtSelectionIndex: Int?
+    
     var body: some View {
-        Text("Hello")
+        NavigationView {
+            VStack {
+                ScrollView {
+                    Spacer(minLength: DrawingConstants.formTopPadding)
+                    CapsuleDropDown("State", description: "Choose State", options: ["CA", "VA"], selectionIndex: $stateSelectionIndex)
+                        .padding(.bottom)
+
+                    CapsuleDropDown("District", description: "Choose District", options: ["FUSD", "FUHSD"], selectionIndex: $districtSelectionIndex)
+                        
+                }
+                
+                CapsuleButton("Next", icon: "arrow.right", style: .primary) {
+                    
+                }
+            }
+            .padding()
+            .navigationTitle("Welcome")
+        }
+        .navigationBarColor(backgroundColor: Color("Primary"))
     }
+    
+    private struct DrawingConstants {
+        static let formTopPadding: CGFloat = 70
+    }
+    
 }
+
+
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView()
-            .previewDevice("iPhone 11")
+            .previewDevice("iPod touch (7th generation)")
         WelcomeView()
-            .previewDevice("iPhone SE (2nd generation)")
+            .previewDevice("iPhone 11")
     }
 }
