@@ -17,17 +17,15 @@ class UIPickerField: UITextField {
         self._selectionIndex = selectionIndex
         self._editingState = isEditing
         super.init(frame: .zero)
-        
         self.inputView = picker
         self.tintColor = UIColor(tintColor)
         
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: DrawingConstants.pickerToolBarHeight))
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.sizeToFit()
             
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.finishEditing))
-        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.finishEditing))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         toolBar.setItems([spacer, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -36,9 +34,9 @@ class UIPickerField: UITextField {
     
     @objc
     private func finishEditing() {
-        self.editingState = false
         self.selectionIndex = self.picker.selectedRow(inComponent: 0)
-        self.endEditing(true)
+        editingState = false
+        self.resignFirstResponder()
     }
     
     @available(*, unavailable)
@@ -87,4 +85,6 @@ extension UIPickerField: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectionIndex = row
     }
+    
+    
 }

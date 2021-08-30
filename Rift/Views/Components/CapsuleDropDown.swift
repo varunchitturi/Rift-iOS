@@ -60,7 +60,7 @@ struct CapsuleDropDown: View {
                 }
             )
             .onTapGesture {
-                pickerField.showPicker($isEditing)
+                isEditing = true
             }
         }
         .foregroundColor(isEditing ? Color("Primary") : Color("Tertiary"))
@@ -72,7 +72,7 @@ struct CapsuleDropDown: View {
 
 struct CapsuleDropDown_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleDropDown("DropDown", description: "Pick an option",  options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(3))
+        CapsuleDropDown("DropDown", description: "Pick an option",  options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(0))
             .padding()
     }
 }

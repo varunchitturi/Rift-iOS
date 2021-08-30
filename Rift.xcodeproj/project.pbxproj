@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,9 +20,11 @@
 		278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
 		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
 		27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */; };
-		27D0F5B426DAFD060004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */; };
 		27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
 		27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
+		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; };
+		27D0F5D426DD9A300004F0A2 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */; };
+		27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,9 +43,10 @@
 		278FD66126D89FAA00C85BCD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 		27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewStyle.swift; sourceTree = "<group>"; };
-		27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorUtils.swift; path = Rift/Views/Modifiers/ColorUtils.swift; sourceTree = SOURCE_ROOT; };
 		27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		27D0F5B926DB2C530004F0A2 /* TextDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDivider.swift; sourceTree = "<group>"; };
+		27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocaleUtils.swift; sourceTree = "<group>"; };
+		27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,21 +68,6 @@
 				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 			);
 			path = Modifiers;
-			sourceTree = "<group>";
-		};
-		27113CB626D9E86400126AB0 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View Models";
-			sourceTree = "<group>";
-		};
-		27113CB726D9E86B00126AB0 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				27D0F5B326DAFD060004F0A2 /* ColorUtils.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		2721EEF126D6EF4500C5E906 /* Bridges */ = {
@@ -109,10 +98,8 @@
 		274E622D26C21FB400C855D4 /* Rift */ = {
 			isa = PBXGroup;
 			children = (
+				27D0F5CB26DB7BBF0004F0A2 /* Utils */,
 				274E624B26C2656300C855D4 /* Views */,
-				27113CB626D9E86400126AB0 /* View Models */,
-				27B4AA3026D21E4F0080BF65 /* Models */,
-				27113CB726D9E86B00126AB0 /* Utils */,
 				274E622E26C21FB400C855D4 /* RiftApp.swift */,
 				274E623226C21FB500C855D4 /* Assets.xcassets */,
 				274E623726C21FB500C855D4 /* Info.plist */,
@@ -154,11 +141,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		27B4AA3026D21E4F0080BF65 /* Models */ = {
+		27D0F5CB26DB7BBF0004F0A2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */,
+				27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */,
 			);
-			path = Models;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +166,9 @@
 			dependencies = (
 			);
 			name = Rift;
+			packageProductDependencies = (
+				27D0F5CD26DB7DF80004F0A2 /* Algorithms */,
+			);
 			productName = Rift;
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
 			productType = "com.apple.product-type.application";
@@ -204,6 +196,9 @@
 				Base,
 			);
 			mainGroup = 274E622226C21FB400C855D4;
+			packageReferences = (
+				27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 274E622C26C21FB400C855D4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,10 +228,11 @@
 				2721EEF426D6F16200C5E906 /* UIPickerField.swift in Sources */,
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
-				27D0F5B426DAFD060004F0A2 /* ColorUtils.swift in Sources */,
 				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
 				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
+				27D0F5D426DD9A300004F0A2 /* LocaleUtils.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
+				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
@@ -432,6 +428,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		27D0F5CD26DB7DF80004F0A2 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 274E622326C21FB400C855D4 /* Project object */;
 }

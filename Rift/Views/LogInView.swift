@@ -12,27 +12,24 @@ struct LogInView: View {
     @State private var passwordTextField: String = ""
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ScrollView {
-                    CapsuleButton("Single Sign-On", style: .secondary) {
-                        
-                    }
-                    TextDivider("or")
-                        
-                        .padding(.vertical, DrawingConstants.dividerPadding)
-                    CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"))
-                    CapsuleTextField("Password", text: $passwordTextField, icon: "key.fill", accentColor: Color("Primary"))
-                }
-                .foregroundColor(Color("Tertiary"))
-                CapsuleButton("Log In", style: .primary) {
+        VStack {
+            ScrollView {
+                CapsuleButton("Single Sign-On", style: .secondary) {
                     
                 }
+                TextDivider("or")
+                    
+                    .padding(.vertical, DrawingConstants.dividerPadding)
+                CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"))
+                CapsuleTextField("Password", text: $passwordTextField, icon: "key.fill", accentColor: Color("Primary"))
             }
-            .padding()
-            .navigationTitle("Log In")
+            .foregroundColor(Color("Tertiary"))
+            CapsuleButton("Log In", style: .primary) {
+                
+            }
         }
-        .navigationBarColor(backgroundColor: Color("Primary"))
+        .padding()
+        .navigationTitle("Log In")
     }
     
     private struct DrawingConstants {

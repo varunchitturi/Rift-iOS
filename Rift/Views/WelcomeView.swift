@@ -23,14 +23,19 @@ struct WelcomeView: View {
                         
                 }
                 
-                CapsuleButton("Next", icon: "arrow.right", style: .primary) {
-                    
+                NavigationLink(destination: LogInView()) {
+                    CapsuleButton("Next", icon: "arrow.right", style: .primary) {
+                        
+                    }
                 }
+                
+                
             }
-            .padding()
             .navigationTitle("Welcome")
+            .padding()
         }
         .navigationBarColor(backgroundColor: Color("Primary"))
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private struct DrawingConstants {
