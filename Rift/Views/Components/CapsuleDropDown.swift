@@ -12,13 +12,13 @@ struct CapsuleDropDown: View {
 
     @State private var isEditing: Bool = false
     @Binding var selectionIndex: Int?
-    private var options: [String]
-    private var label: String
-    private var description: String
     
     var selection: String? {
         selectionIndex != nil ? options[selectionIndex!] : nil
     }
+    private var options: [String]
+    private var label: String
+    private var description: String
     
     init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>) {
         self.options = options
@@ -29,7 +29,7 @@ struct CapsuleDropDown: View {
     
     var body: some View {
         
-        let pickerField = PickerField(description, options: options, selectionIndex: $selectionIndex, isEditing: $isEditing, tintColor: Color("Primary"))
+        let pickerField = PickerField(options: options, placeholder: description, selectionIndex: $selectionIndex, isEditing: $isEditing)
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .padding(.trailing)
         let backgroundCapsule = Capsule()
@@ -62,6 +62,7 @@ struct CapsuleDropDown: View {
             .onTapGesture {
                 isEditing = true
             }
+            
         }
         .foregroundColor(isEditing ? Color("Primary") : Color("Tertiary"))
     }
@@ -72,7 +73,6 @@ struct CapsuleDropDown: View {
 
 struct CapsuleDropDown_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleDropDown("DropDown", description: "Pick an option",  options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(0))
-            .padding()
+        CapsuleDropDown("DropDown", description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(nil))
     }
 }

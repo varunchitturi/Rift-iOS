@@ -7,39 +7,78 @@
 
 import SwiftUI
 
-struct PickerField: UIViewRepresentable {
-    
-    @Binding var selectionIndex: Int?
+struct PickerField : UIViewRepresentable {
+
+    var options : [String]
+    var placeholder : String
+ 
+    @Binding var selectionIndex : Int?
     @Binding var isEditing: Bool
-    
-    private var options: [String]
-    private let label: String
-    private let tintColor: Color
-    
-    init(_ label: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, tintColor: Color) {
-        self.label = label
-        self._selectionIndex = selectionIndex
-        self.options = options
-        self._isEditing = isEditing
-        self.tintColor = tintColor
+
+    var selection: String? {
+        selectionIndex != nil ? options[selectionIndex!] : nil
+    }
+
+    private let pickerField = UIPickerField()
+    private let picker = UIPickerView()
+
+    func makeCoordinator() -> PickerField.Coordinator {
+        Coordinator(textfield: self)
     }
     
+    func beginEditing() {
+        pickerField.becomeFirstResponder()
+    }
+
     func makeUIView(context: UIViewRepresentableContext<PickerField>) -> UITextField {
-        let pickerField = UIPickerField(options: options, selectionIndex: $selectionIndex, isEditing: $isEditing, tintColor: tintColor)
-        pickerField.placeholder = label
+        picker.delegate = context.coordinator
+        picker.dataSource = context.coordinator
+        pickerField.placeholder = placeholder
+        pickerField.inputView = picker
+        pickerField.delegate = context.coordinator
         return pickerField
     }
     
+
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<PickerField>) {
-        if let index = selectionIndex {
-            uiView.text = options[index]
-        } else {
-            uiView.text = label
-        }
+        uiView.text = selection
         if isEditing {
-            uiView.becomeFirstResponder()
+            DispatchQueue.main.async {
+                uiView.becomeFirstResponder()
+            }
         }
     }
+
+    class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
+
+        private let parent : PickerField
+
+        init(textfield : PickerField) {
+            self.parent = textfield
+        }
+
+        func numberOfComponents(in pickerView: UIPickerView) -> Int {
+            return 1
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return self.parent.options.count
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return self.parent.options[row]
+        }
+        
+        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            self.parent.$selectionIndex.wrappedValue = row
+        }
+        
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            self.parent.pickerField.resignFirstResponder()
+            DispatchQueue.main.async {
+                self.parent.isEditing = false
+            }
+        }
+        
+    }
 }
-
-

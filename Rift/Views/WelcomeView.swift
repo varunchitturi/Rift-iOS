@@ -11,6 +11,8 @@ struct WelcomeView: View {
     @State private var stateSelectionIndex: Int?
     @State private var districtSelectionIndex: Int?
     
+    // TODO: create state selection and district selection computed vars
+    
     var body: some View {
         NavigationView {
             VStack {
