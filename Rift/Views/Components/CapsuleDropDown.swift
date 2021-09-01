@@ -28,8 +28,7 @@ struct CapsuleDropDown: View {
     }
     
     var body: some View {
-        
-        let pickerField = PickerField(options: options, placeholder: description, selectionIndex: $selectionIndex, isEditing: $isEditing)
+        var pickerField = PickerField(options: options, placeholder: description, selectionIndex: $selectionIndex, isEditing: $isEditing)
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .padding(.trailing)
         let backgroundCapsule = Capsule()
@@ -42,11 +41,11 @@ struct CapsuleDropDown: View {
             label
             HStack {
                 pickerField
+                    .foregroundColor(Color("Tertiary"))
                     .padding(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 dropDownIcon
-                    
             }
             .padding()
             .background(

@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct PickerField : UIViewRepresentable {
+    
+    init(options: [String], placeholder: String, selectionIndex: Binding<Int?>, isEditing: Binding<Bool>) {
+        self.options = options
+        self.placeholder = placeholder
+        self._selectionIndex = selectionIndex
+        self._isEditing = isEditing
+        self.pickerField = UIPickerField(isEditing: isEditing)
+    }
+    
 
     var options : [String]
     var placeholder : String
+    var textColor: Color? {
+        get {
+            pickerField.textColor != nil ? Color(pickerField.textColor!) : nil
+        }
+        
+        set {
+            pickerField.textColor = newValue != nil ? UIColor(newValue!) : nil
+        }
+    }
  
     @Binding var selectionIndex : Int?
     @Binding var isEditing: Bool
@@ -19,15 +37,12 @@ struct PickerField : UIViewRepresentable {
         selectionIndex != nil ? options[selectionIndex!] : nil
     }
 
-    private let pickerField = UIPickerField()
+    private let pickerField: UIPickerField
     private let picker = UIPickerView()
-
+    
+    
     func makeCoordinator() -> PickerField.Coordinator {
         Coordinator(textfield: self)
-    }
-    
-    func beginEditing() {
-        pickerField.becomeFirstResponder()
     }
 
     func makeUIView(context: UIViewRepresentableContext<PickerField>) -> UITextField {
@@ -45,6 +60,11 @@ struct PickerField : UIViewRepresentable {
         if isEditing {
             DispatchQueue.main.async {
                 uiView.becomeFirstResponder()
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                uiView.resignFirstResponder()
             }
         }
     }
@@ -70,11 +90,11 @@ struct PickerField : UIViewRepresentable {
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            self.parent.$selectionIndex.wrappedValue = row
+            self.parent.selectionIndex = row
         }
         
         func textFieldDidEndEditing(_ textField: UITextField) {
-            self.parent.pickerField.resignFirstResponder()
+            self.parent.selectionIndex = self.parent.picker.selectedRow(inComponent: 0)
             DispatchQueue.main.async {
                 self.parent.isEditing = false
             }

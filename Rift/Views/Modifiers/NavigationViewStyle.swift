@@ -19,12 +19,10 @@ struct NavigationViewStyle: ViewModifier {
         foregroundAppearance.backgroundColor = UIColor(self.backgroundColor)
         foregroundAppearance.titleTextAttributes = [.foregroundColor: UIColor(self.foregroundColor)]
         foregroundAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(self.foregroundColor)]
-        
         UINavigationBar.appearance().standardAppearance = foregroundAppearance
         UINavigationBar.appearance().compactAppearance = foregroundAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = foregroundAppearance
         UINavigationBar.appearance().tintColor = UIColor(self.foregroundColor)
-        
     }
     
     func body(content: Content) -> some View {

@@ -9,17 +9,18 @@ import SwiftUI
 
 struct CapsuleButton: View {
 
-    private var label: String
-    private var icon: String?
-    private let style: Style
-    private var action: () -> Void
+    var label: String
+    var icon: String?
+    let style: Style
+    private var action: (() -> Void)?
     
-    init(_ label: String, icon: String? = nil, style: CapsuleButton.Style, action: @escaping () -> Void) {
+    init(_ label: String, icon: String? = nil, style: CapsuleButton.Style, action: (() -> Void)? = nil) {
         self.label = label
         self.icon = icon
         self.style = style
         self.action = action
     }
+    
     
     @ViewBuilder
     private var labelView: some View {
@@ -40,9 +41,12 @@ struct CapsuleButton: View {
     }
     
     var body: some View {
-        Button {
-            action()
-        } label: {
+        if action != nil {
+            labelView.onTapGesture {
+                action!()
+            }
+        }
+        else {
             labelView
         }
     }
@@ -67,9 +71,6 @@ struct CapsuleButton: View {
             }
         }
     }
-    
-    
-    
 }
 
 struct SwiftUIView_Previews: PreviewProvider {

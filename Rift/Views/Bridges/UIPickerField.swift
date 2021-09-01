@@ -9,7 +9,10 @@ import SwiftUI
 
 class UIPickerField: UITextField {
     
-    init() {
+    @Binding var editingState: Bool
+    
+    init(isEditing: Binding<Bool>) {
+        self._editingState = isEditing
         super.init(frame: .zero)
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: DrawingConstants.pickerToolBarHeight))
         toolBar.barStyle = .default
@@ -30,7 +33,7 @@ class UIPickerField: UITextField {
     
     @objc
     private func finishEditing() {
-        self.endEditing(false)
+        editingState = false
     }
     
     override func selectionRects(for range: UITextRange) -> [UITextSelectionRect] {
