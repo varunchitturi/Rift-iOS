@@ -10,17 +10,23 @@ import SwiftUI
 
 struct CapsuleTextField: View {
     
-    private let label: String
-    private let accentColor: Color
-    private var icon: String?
+    let label: String
+    let accentColor: Color
+    var icon: String?
     @Binding var text: String
+    let isSecureStyle: Bool
+    @State private var isSecure: Bool = false
     @State private var isEditing: Bool = false
     
-    init(_ label: String = "", text: Binding<String>, icon: String? = nil, accentColor: Color = .blue) {
+    private let configuration: (UITextField) -> ()
+    
+    init(_ label: String = "", text: Binding<String>, icon: String? = nil, accentColor: Color = Color("AccentColor"), isSecureStyle: Bool = false, configuration: @escaping (UITextField) -> () = {_ in}) {
         self.label = label
         self.icon = icon
         self.accentColor = accentColor
         self._text = text
+        self.isSecureStyle = isSecureStyle
+        self.configuration = configuration
     }
     
     var body: some View {
@@ -35,28 +41,25 @@ struct CapsuleTextField: View {
                     Image(systemName: icon!)
                         .foregroundColor(isEditing ? accentColor : Color("Quartenary"))
                 }
-                TextField("", text: $text) {isEditing in
-                    self.isEditing = isEditing
+                LegacyTextField(text: $text, isEditing: $isEditing) {textField in
+                    textField.isSecureTextEntry = isSecure
+                    textField.clearsOnBeginEditing = false
+                    textField.textColor = UIColor(Color("Tertiary"))
+                    textField.keyboardType = .alphabet
+                    configuration(textField)
                 }
+                if isSecureStyle {
+                    (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))
+                        .foregroundColor(Color("Quartenary"))
+                        .onTapGesture {
+                            isSecure.toggle()
+                        }
+                }
+                
             }
             .padding()
             .background(
-                ZStack {
-                    let backgroundRectangle =  RoundedRectangle(cornerRadius: .infinity)
-                        .fill(Color("Secondary"))
-                    let accentRectangle =  RoundedRectangle(cornerRadius: .infinity)
-                        .stroke()
-                        .fill(accentColor)
-                    if isEditing {
-                        backgroundRectangle
-                        accentRectangle
-                    }
-                    else {
-                       backgroundRectangle
-                    }
-                   
-                }
-                
+                CapsuleFieldBackground(isEditing: $isEditing, accentColor: accentColor)
             )
         }
         

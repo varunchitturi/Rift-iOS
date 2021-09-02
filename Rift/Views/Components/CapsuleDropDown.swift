@@ -12,6 +12,7 @@ struct CapsuleDropDown: View {
 
     @State private var isEditing: Bool = false
     @Binding var selectionIndex: Int?
+    var accentColor: Color
     
     var selection: String? {
         selectionIndex != nil ? options[selectionIndex!] : nil
@@ -20,19 +21,18 @@ struct CapsuleDropDown: View {
     private var label: String
     private var description: String
     
-    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>) {
+    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, accentColor: Color = Color("AccentColor")) {
         self.options = options
         self.label = label
         self.description = description
         self._selectionIndex = selectionIndex
+        self.accentColor = accentColor
     }
     
     var body: some View {
         var pickerField = PickerField(options: options, placeholder: description, selectionIndex: $selectionIndex, isEditing: $isEditing)
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .padding(.trailing)
-        let backgroundCapsule = Capsule()
-            .fill(Color("Secondary"))
         let label = Text(label)
             .font(.caption)
             .fontWeight(.bold)
@@ -49,14 +49,7 @@ struct CapsuleDropDown: View {
             }
             .padding()
             .background(
-                ZStack {
-                    backgroundCapsule
-                    if isEditing {
-                        Capsule()
-                            .stroke()
-                            .fill(Color("Primary"))
-                    }
-                }
+                CapsuleFieldBackground(isEditing: $isEditing, accentColor: accentColor)
             )
             .onTapGesture {
                 isEditing = true

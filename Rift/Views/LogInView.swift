@@ -20,12 +20,13 @@ struct LogInView: View {
                 TextDivider("or")
                     
                     .padding(.vertical, DrawingConstants.dividerPadding)
-                CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"))
-                CapsuleTextField("Password", text: $passwordTextField, icon: "key.fill", accentColor: Color("Primary"))
+                CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"), configuration: LegacyTextField.customInputConfiguration)
+                    
+                CapsuleTextField("Password", text: $passwordTextField, icon: "key.fill", accentColor: Color("Primary"), isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
             }
             .foregroundColor(Color("Tertiary"))
             CapsuleButton("Log In", style: .primary) {
-                
+                print("log in")
             }
         }
         .padding()
