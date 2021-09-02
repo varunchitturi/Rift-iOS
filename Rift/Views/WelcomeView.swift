@@ -20,7 +20,7 @@ struct WelcomeView: View {
         NavigationView {
             VStack {
                 ScrollView {
-                    Spacer(minLength: DrawingConstants.formTopPadding)
+                    Spacer(minLength: DrawingConstants.formTopSpacing)
                     CapsuleDropDown("State", description: "Choose State", options: ["CA", "VA"], selectionIndex: $stateSelectionIndex)
                         .padding(.bottom)
 
@@ -43,7 +43,7 @@ struct WelcomeView: View {
     }
     
     private struct DrawingConstants {
-        static let formTopPadding: CGFloat = 70
+        static let formTopSpacing: CGFloat = 70
     }
 }
 
