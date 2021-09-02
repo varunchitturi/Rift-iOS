@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct NavigationViewStyle: ViewModifier {
     let backgroundColor: Color

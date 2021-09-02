@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct RiftApp: App {
+    @State var text: String = ""
+    @State var autocompletePossibilites: [String] = ["Autocomplete", "Autofill"]
     var body: some Scene {
+        // TODO: Change status bar color
+        
         WindowGroup {
-            WelcomeView()
+            CapsuleAutoCompleteField(text: $text, autocompletePossibilites: $autocompletePossibilites, minimumQueryLength: 3, accentColor: Color("Primary"), label: "Auto")
         }
     }
 }

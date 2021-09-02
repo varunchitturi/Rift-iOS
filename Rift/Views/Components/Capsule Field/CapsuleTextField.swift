@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct CapsuleTextField: View {
+
     
     let label: String
     let accentColor: Color
@@ -34,11 +35,7 @@ struct CapsuleTextField: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            Text(label)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(isEditing ? accentColor : Color("Tertiary"))
-            
+            CapsuleFieldLabel(label: label, accentColor: accentColor, isEditing: $isEditing)
             HStack {
                 if icon != nil {
                     Image(systemName: icon!)
@@ -52,7 +49,6 @@ struct CapsuleTextField: View {
                         configuration(textField)
                     }
                    
-                // TODO: handle return on keyboard
                 if isSecureStyle {
                     (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))
                         .foregroundColor(Color("Quartenary"))
@@ -65,8 +61,9 @@ struct CapsuleTextField: View {
             .disabledStyle()
             .padding()
             .background(
-                CapsuleFieldBackground(isEditing: $isEditing, accentColor: accentColor)
+                CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)
             )
+            .fixedSize(horizontal: false, vertical: true)
         }
         
     }

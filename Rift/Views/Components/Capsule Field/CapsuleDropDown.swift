@@ -33,12 +33,9 @@ struct CapsuleDropDown: View {
         var pickerField = PickerField(options: options, placeholder: description, selectionIndex: $selectionIndex, isEditing: $isEditing)
         let dropDownIcon = Image(systemName: "chevron.down")
                                 .padding(.trailing)
-        let label = Text(label)
-            .font(.caption)
-            .fontWeight(.bold)
         
         VStack(alignment: .leading) {
-            label
+            CapsuleFieldLabel(label: label, accentColor: accentColor, isEditing: $isEditing)
             HStack {
                 pickerField
                     .foregroundColor(Color("Tertiary"))
@@ -50,7 +47,7 @@ struct CapsuleDropDown: View {
             .disabledStyle()
             .padding()
             .background(
-                CapsuleFieldBackground(isEditing: $isEditing, accentColor: accentColor)
+                CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)
             )
             .onTapGesture {
                 isEditing = true

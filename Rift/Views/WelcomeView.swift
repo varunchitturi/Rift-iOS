@@ -10,18 +10,25 @@ import SwiftUI
 struct WelcomeView: View {
     @State private var stateSelectionIndex: Int?
     @State private var districtSelectionIndex: Int?
+    
+    let stateOptions = Array(LocaleUtils.USStates.keys).sorted()
     private var navigationDisabled: Bool {
         stateSelectionIndex == nil || districtSelectionIndex == nil
     }
     
+    private var stateSelection: String? {
+        return stateSelectionIndex != nil ? stateOptions[stateSelectionIndex!] : nil
+    }
     // TODO: create state selection and district selection computed vars
     
+    
+   
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
                     Spacer(minLength: DrawingConstants.formTopSpacing)
-                    CapsuleDropDown("State", description: "Choose State", options: ["CA", "VA"], selectionIndex: $stateSelectionIndex)
+                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $stateSelectionIndex)
                         .padding(.bottom)
 
                     CapsuleDropDown("District", description: "Choose District", options: ["FUSD", "FUHSD"], selectionIndex: $districtSelectionIndex)

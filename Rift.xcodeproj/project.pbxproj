@@ -30,6 +30,11 @@
 		27D0F5D426DD9A300004F0A2 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */; };
 		27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
 		27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
+		27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */; };
+		27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
+		27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */; };
+		27FF50DD26E073FA0001F8D6 /* CapsuleAutoCompleteField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DC26E073FA0001F8D6 /* CapsuleAutoCompleteField.swift */; };
+		27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,11 @@
 		27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocaleUtils.swift; sourceTree = "<group>"; };
 		27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		27FF50D226E067270001F8D6 /* DisabledStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledStyle.swift; sourceTree = "<group>"; };
+		27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarUtils.swift; sourceTree = "<group>"; };
+		27FF50D826E0725D0001F8D6 /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
+		27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleViewModel.swift; sourceTree = "<group>"; };
+		27FF50DC26E073FA0001F8D6 /* CapsuleAutoCompleteField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleAutoCompleteField.swift; sourceTree = "<group>"; };
+		27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +122,8 @@
 		274E622D26C21FB400C855D4 /* Rift */ = {
 			isa = PBXGroup;
 			children = (
+				27FF50D726E072400001F8D6 /* Models */,
+				27FF50D626E072370001F8D6 /* View Models */,
 				27D0F5CB26DB7BBF0004F0A2 /* Utils */,
 				274E624B26C2656300C855D4 /* Views */,
 				274E622E26C21FB400C855D4 /* RiftApp.swift */,
@@ -145,13 +157,11 @@
 		274E624C26C2F45C00C855D4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				27FF50E426E0788A0001F8D6 /* Capsule Field */,
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
-				276F222926D4329F00588588 /* CapsuleTextField.swift */,
-				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
 				278FD66126D89FAA00C85BCD /* TabBar.swift */,
 				27D0F5B926DB2C530004F0A2 /* TextDivider.swift */,
-				272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -161,8 +171,37 @@
 			children = (
 				27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */,
 				27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */,
+				27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		27FF50D626E072370001F8D6 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		27FF50D726E072400001F8D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				27FF50D826E0725D0001F8D6 /* Locale.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		27FF50E426E0788A0001F8D6 /* Capsule Field */ = {
+			isa = PBXGroup;
+			children = (
+				272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */,
+				27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */,
+				276F222926D4329F00588588 /* CapsuleTextField.swift */,
+				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
+				27FF50DC26E073FA0001F8D6 /* CapsuleAutoCompleteField.swift */,
+			);
+			path = "Capsule Field";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +281,7 @@
 			files = (
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
+				27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */,
 				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
 				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
 				27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */,
@@ -251,14 +291,18 @@
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
+				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
 				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
 				272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
+				27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */,
 				27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */,
 				27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */,
+				27FF50DD26E073FA0001F8D6 /* CapsuleAutoCompleteField.swift in Sources */,
 				272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */,
+				27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */,
 				27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
