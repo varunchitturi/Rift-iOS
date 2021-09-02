@@ -42,12 +42,15 @@ struct CapsuleButton: View {
     
     var body: some View {
         if action != nil {
-            labelView.onTapGesture {
+            Button {
                 action!()
+            } label: {
+                labelView
             }
         }
         else {
             labelView
+                .disabledStyle()
         }
     }
     
@@ -70,6 +73,9 @@ struct CapsuleButton: View {
                 return Color("Primary")
             }
         }
+    }
+    private struct DrawingConstants {
+        static let disabledOpacity = 0.6
     }
 }
 

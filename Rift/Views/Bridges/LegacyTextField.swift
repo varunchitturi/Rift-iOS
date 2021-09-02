@@ -11,7 +11,7 @@ struct LegacyTextField: UIViewRepresentable {
     @Binding var isEditing: Bool
     @Binding var text: String
     
-    private let configuration: (UILegacyTextField) -> ()
+    private let configuration: (UITextField) -> ()
     
     init(text: Binding<String>, isEditing: Binding<Bool>, configuration: @escaping (UITextField) -> () = {textfield in}) {
         self._isEditing = isEditing
@@ -27,6 +27,7 @@ struct LegacyTextField: UIViewRepresentable {
     }
     func updateUIView(_ uiView: UILegacyTextField, context: Context) {
         uiView.text = text
+        uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         configuration(uiView)
         switch isEditing {
         case true: _ = uiView.becomeFirstResponder()
@@ -39,6 +40,7 @@ struct LegacyTextField: UIViewRepresentable {
     static func customInputConfiguration(_ textField: UITextField){
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
     }
     
     func makeCoordinator() -> Coordinator {
@@ -62,11 +64,21 @@ struct LegacyTextField: UIViewRepresentable {
         }
         
         func textFieldDidBeginEditing(_ textField: UITextField) {
+            DispatchQueue.main.async {
                 self.isEditing = true
+            }
+        }
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            DispatchQueue.main.async {
+                self.isEditing = false
+            }
         }
         
-        func textFieldDidEndEditing(_ textField: UITextField) {
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            DispatchQueue.main.async {
                 self.isEditing = false
+            }
+            return true
         }
     }
 }

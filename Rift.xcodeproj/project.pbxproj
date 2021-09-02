@@ -29,6 +29,7 @@
 		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; };
 		27D0F5D426DD9A300004F0A2 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */; };
 		27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
+		27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		27D0F5B926DB2C530004F0A2 /* TextDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDivider.swift; sourceTree = "<group>"; };
 		27D0F5D326DD9A300004F0A2 /* LocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocaleUtils.swift; sourceTree = "<group>"; };
 		27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
+		27FF50D226E067270001F8D6 /* DisabledStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */,
 				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 				27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */,
+				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */,
 				272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */,
 				27D0F5D426DD9A300004F0A2 /* LocaleUtils.swift in Sources */,
+				27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,

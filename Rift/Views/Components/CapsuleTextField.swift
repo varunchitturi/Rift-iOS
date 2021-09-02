@@ -26,6 +26,9 @@ struct CapsuleTextField: View {
         self.accentColor = accentColor
         self._text = text
         self.isSecureStyle = isSecureStyle
+        if isSecureStyle {
+            isSecure = true
+        }
         self.configuration = configuration
     }
     
@@ -41,13 +44,15 @@ struct CapsuleTextField: View {
                     Image(systemName: icon!)
                         .foregroundColor(isEditing ? accentColor : Color("Quartenary"))
                 }
-                LegacyTextField(text: $text, isEditing: $isEditing) {textField in
-                    textField.isSecureTextEntry = isSecure
-                    textField.clearsOnBeginEditing = false
-                    textField.textColor = UIColor(Color("Tertiary"))
-                    textField.keyboardType = .alphabet
-                    configuration(textField)
-                }
+                
+                    LegacyTextField(text: $text, isEditing: $isEditing) {textField in
+                        textField.isSecureTextEntry = isSecure
+                        textField.textColor = UIColor(Color("Tertiary"))
+                        textField.keyboardType = .alphabet
+                        configuration(textField)
+                    }
+                   
+                // TODO: handle return on keyboard
                 if isSecureStyle {
                     (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))
                         .foregroundColor(Color("Quartenary"))
@@ -57,6 +62,7 @@ struct CapsuleTextField: View {
                 }
                 
             }
+            .disabledStyle()
             .padding()
             .background(
                 CapsuleFieldBackground(isEditing: $isEditing, accentColor: accentColor)

@@ -26,12 +26,11 @@ struct WelcomeView: View {
 
                     CapsuleDropDown("District", description: "Choose District", options: ["FUSD", "FUHSD"], selectionIndex: $districtSelectionIndex)
                         .disabled(stateSelectionIndex == nil)
-                        .opacity(stateSelectionIndex == nil ? DrawingConstants.disabledOpacity : DrawingConstants.enabledOpacity )
+                       
                         
                 }
                 NavigationLink(destination: LogInView()) {
                     CapsuleButton("Next", icon: "arrow.right", style: .primary)
-                        .opacity(navigationDisabled ? DrawingConstants.disabledOpacity : DrawingConstants.enabledOpacity)
                 }
                 .disabled(navigationDisabled)
                 
@@ -45,8 +44,6 @@ struct WelcomeView: View {
     
     private struct DrawingConstants {
         static let formTopPadding: CGFloat = 70
-        static let disabledOpacity = 0.6
-        static let enabledOpacity: Double = 1
     }
 }
 

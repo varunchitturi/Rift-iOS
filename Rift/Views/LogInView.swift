@@ -18,7 +18,6 @@ struct LogInView: View {
                     
                 }
                 TextDivider("or")
-                    
                     .padding(.vertical, DrawingConstants.dividerPadding)
                 CapsuleTextField("Username", text: $usernameTextField, icon: "person.fill", accentColor: Color("Primary"), configuration: LegacyTextField.customInputConfiguration)
                     
