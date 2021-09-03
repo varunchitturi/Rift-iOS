@@ -21,6 +21,4 @@ extension UITextField {
         self.textColor = color
         self.attributedText = attributedText
     }
-    
-    
 }

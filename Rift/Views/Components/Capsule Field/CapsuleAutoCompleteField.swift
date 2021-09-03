@@ -25,6 +25,9 @@ struct CapsuleAutoCompleteField: View {
             .background(
                 CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)
             )
+            .onTapGesture {
+                isEditing = true
+            }
             .fixedSize(horizontal: false, vertical: true)
         }
     

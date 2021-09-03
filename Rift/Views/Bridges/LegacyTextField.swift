@@ -9,7 +9,6 @@ import SwiftUI
 
 
 // TODO: capture weak self for all async operations and make them sync for faster UI updates
-// TODO: allow carrot to be moved to query text
 struct LegacyTextField: UIViewRepresentable {
     @Binding var isEditing: Bool
     @Binding var text: NSMutableAttributedString
@@ -41,14 +40,19 @@ struct LegacyTextField: UIViewRepresentable {
         if autocompletionEnabled {
             uiView.setTypingColor(UIColor(textColor))
             uiView.moveCaret(to: query.count)
-            
         }
         uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        switch isEditing {
-        case true: _ = uiView.becomeFirstResponder()
-        case false: uiView.resignFirstResponder()
+            switch isEditing {
+            case true:
+                DispatchQueue.main.async { _ = uiView.becomeFirstResponder() }
+            case false:
+                DispatchQueue.main.async { uiView.resignFirstResponder() }
         }
+           
         configuration(uiView)
+        
+
+        
     }
     
     static func customInputConfiguration(_ textField: UITextField){
@@ -161,6 +165,20 @@ struct LegacyTextField: UIViewRepresentable {
                 }
             }
         }
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            guard let startPosition = textField.selectedTextRange?.start, let endPostion = textField.selectedTextRange?.end else {
+               return
+            }
+            let query = retreiveNonAutocompleteText(for: textField.attributedText)
+            var startIndex = textField.offset(from: textField.beginningOfDocument, to: startPosition)
+            var endIndex = textField.offset(from: textField.beginningOfDocument, to: endPostion)
+            startIndex = min(query.count, startIndex)
+            endIndex = min(query.count, endIndex)
+            if let newStartPosition = textField.position(from: textField.beginningOfDocument, offset: startIndex), let newEndPosition = textField.position(from: textField.beginningOfDocument, offset: endIndex) {
+                textField.selectedTextRange = textField.textRange(from: newStartPosition, to: newEndPosition)
+                
+            }
+        }
         func textFieldDidEndEditing(_ textField: UITextField) {
             DispatchQueue.main.async {[weak self] in
                 if let resetedAttributedText = self?.resetedTextAttributes(for: self?.text) {
@@ -176,7 +194,6 @@ struct LegacyTextField: UIViewRepresentable {
         }
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.endEditing(false)
-
             return true
         }
     }
