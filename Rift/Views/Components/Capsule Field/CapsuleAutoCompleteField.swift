@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CapsuleAutoCompleteField: View {
     @State private var isEditing: Bool = false
-    @Binding var text: String
+    @Binding var text: NSMutableAttributedString
     @Binding var autocompletePossibilites: [String]
     let minimumQueryLength: Int
     let accentColor: Color
@@ -32,7 +32,7 @@ struct CapsuleAutoCompleteField: View {
 }
 
 struct CapsuleAutoCompleteField_Previews: PreviewProvider {
-    @State static var text: String = ""
+    @State static var text = NSMutableAttributedString(string: "")
     @State static var autocompletePossibilites: [String] = ["Autocomplete", "Autofill"]
 
     static var previews: some View {

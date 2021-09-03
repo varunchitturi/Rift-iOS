@@ -14,14 +14,14 @@ struct CapsuleTextField: View {
     let label: String
     let accentColor: Color
     var icon: String?
-    @Binding var text: String
+    @Binding var text: NSMutableAttributedString
     let isSecureStyle: Bool
     @State private var isSecure: Bool = false
     @State private var isEditing: Bool = false
     
     private let configuration: (UITextField) -> ()
     
-    init(_ label: String = "", text: Binding<String>, icon: String? = nil, accentColor: Color = Color("AccentColor"), isSecureStyle: Bool = false, configuration: @escaping (UITextField) -> () = {_ in}) {
+    init(_ label: String = "", text: Binding<NSMutableAttributedString>, icon: String? = nil, accentColor: Color = Color("AccentColor"), isSecureStyle: Bool = false, configuration: @escaping (UITextField) -> () = {_ in}) {
         self.label = label
         self.icon = icon
         self.accentColor = accentColor
@@ -71,11 +71,14 @@ struct CapsuleTextField: View {
 }
 
 struct CapsuleTextField_Previews: PreviewProvider {
+    @State static var text = NSMutableAttributedString(string: "")
+    
     static var previews: some View {
-        CapsuleTextField("TextField", text: .constant(""),  icon: "person.fill")
+        
+        CapsuleTextField("TextField", text: $text,  icon: "person.fill")
             .padding()
             .previewLayout(.sizeThatFits)
-        CapsuleTextField("TextField", text: .constant(""),  icon: "person.fill")
+        CapsuleTextField("TextField", text: $text,  icon: "person.fill")
             .padding()
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)

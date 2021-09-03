@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct RiftApp: App {
-    @State var text: String = ""
+    @State var text = NSMutableAttributedString(string: "")
     @State var autocompletePossibilites: [String] = ["Autocomplete", "Autofill"]
     var body: some Scene {
         // TODO: Change status bar color

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LogInView: View {
-    @State private var usernameTextField: String = ""
-    @State private var passwordTextField: String = ""
+    @State private var usernameTextField = NSMutableAttributedString(string: "")
+    @State private var passwordTextField = NSMutableAttributedString(string: "")
     
     var body: some View {
         VStack {
