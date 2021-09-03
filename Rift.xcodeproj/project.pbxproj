@@ -12,6 +12,7 @@
 		272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
 		272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */; };
 		272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */; };
+		272F790026E205C100CDA668 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */; };
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
 		274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* WelcomeView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
+		272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 			path = Bridges;
 			sourceTree = "<group>";
 		};
+		272F78FE26E205AE00CDA668 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		274E622226C21FB400C855D4 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +155,7 @@
 		274E624B26C2656300C855D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				272F78FE26E205AE00CDA668 /* Extensions */,
 				274E624C26C2F45C00C855D4 /* Components */,
 				2721EEF126D6EF4500C5E906 /* Bridges */,
 				270CE0E326D98A72009768A7 /* Modifiers */,
@@ -290,6 +301,7 @@
 				27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
+				272F790026E205C100CDA668 /* UITextFieldExtensions.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
