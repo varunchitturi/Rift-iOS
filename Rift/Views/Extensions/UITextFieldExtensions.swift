@@ -16,7 +16,7 @@ extension UITextField {
         }
     }
     
-    func setTypingColor(_ color: UIColor) {
+    func foregroundColor(_ color: UIColor) {
         let attributedText = self.attributedText
         self.textColor = color
         self.attributedText = attributedText

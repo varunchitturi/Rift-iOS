@@ -9,6 +9,7 @@ import SwiftUI
 
 
 extension PickerField {
+    // TODO: Check whether this should be state
     mutating func foregroundColor(_ color: Color) -> some View {
         textColor = color
         return self

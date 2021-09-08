@@ -13,12 +13,12 @@ struct TabBar: View {
         ZStack {
             Rectangle()
                 .cornerRadius(DrawingConstants.barCornerRadius, corners: [.topLeft, .topRight])
-                .foregroundColor(Color("Secondary"))
+                .foregroundColor(DrawingConstants.foregroundColor)
                 .frame(minHeight: DrawingConstants.barMinHeight,
                        idealHeight: DrawingConstants.barIdealHeight,
                        maxHeight: DrawingConstants.barMaxHeight,
                        alignment: .bottom)
-                .shadow(color: Color("Tertiary")
+                .shadow(color: DrawingConstants.backgroundColor
                             .opacity(DrawingConstants.barShadowOpacity),
                         radius: DrawingConstants.barShadowRadius,
                         x: DrawingConstants.barShadowXOffset,
@@ -33,7 +33,7 @@ struct TabBar: View {
                             .font(.caption)
                         
                     }
-                    .foregroundColor(selected == tab ? Color("Primary") : Color("Quartenary"))
+                    .foregroundColor(selected == tab ? DrawingConstants.accentColor : DrawingConstants.secondaryForegroundColor)
                     .onTapGesture {
                         selected = tab
                     }
@@ -53,6 +53,10 @@ struct TabBar: View {
         static let barShadowRadius: CGFloat = 7
         static let barShadowXOffset: CGFloat = 0
         static let barShadowYOffset: CGFloat = -5
+        static let foregroundColor = Color("Secondary")
+        static let accentColor = Color("Primary")
+        static let backgroundColor = Color("Tertiary")
+        static let secondaryForegroundColor = Color("Quartenary")
     }
     
     enum Tab: String, CaseIterable {

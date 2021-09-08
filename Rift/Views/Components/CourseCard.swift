@@ -29,7 +29,7 @@ struct CourseCard: View {
                     Text(courseName)
                         .lineLimit(1)
                     Text(teacher)
-                        .foregroundColor(Color("Quartenary"))
+                        .foregroundColor(DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
                         .font(.caption)
                         .lineLimit(1)
@@ -38,7 +38,7 @@ struct CourseCard: View {
                 Spacer()
                 VStack {
                     Circle()
-                        .fill(Color("Background"))
+                        .fill(DrawingConstants.circleBackground)
                         .frame(minWidth: DrawingConstants.minCircleRadius,
                                idealWidth: DrawingConstants.idealCirlceRadius,
                                maxWidth: DrawingConstants.maxCircleRadius,
@@ -51,7 +51,7 @@ struct CourseCard: View {
                                 .fontWeight(.semibold)
                                 .scaledToFill()
                                 .minimumScaleFactor(0.01)
-                                .foregroundColor(Color("Foreground"))
+                                .foregroundColor(DrawingConstants.circleForeground)
                                 .padding(9)
                         )
                     Text((percentage?.description ?? "N/A") + "%")
@@ -61,22 +61,25 @@ struct CourseCard: View {
                     
                 }
             }
-            .foregroundColor(Color("Tertiary"))
+            .foregroundColor(DrawingConstants.foregroundColor)
             .padding()
         }
         .background(
             RoundedRectangle(cornerRadius: 25)
-                .fill(Color("Secondary"))
+                .fill(DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
-        static let circleBackground = Color(red: 10, green: 10, blue: 10)
-        static let circleForeground = Color(red: 10, green: 10, blue: 10)
         static let minCircleRadius: CGFloat = 30.0
         static let maxCircleRadius: CGFloat = 35.0
         static let idealCirlceRadius = minCircleRadius / maxCircleRadius
+        static let foregroundColor = Color("Tertiary")
+        static let backgroundColor = Color("Secondary")
+        static let circleForeground = Color("Foreground")
+        static let circleBackground = Color("Background")
+        static let secondaryForegroundColor = Color("Quartenary")
     }
     
 }

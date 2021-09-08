@@ -47,6 +47,7 @@ struct CapsuleButton: View {
             } label: {
                 labelView
             }
+            .disabledStyle()
         }
         else {
             labelView
@@ -60,22 +61,24 @@ struct CapsuleButton: View {
         var backgroundColor: Color {
             switch self {
             case .primary:
-                return Color("Primary")
+                return DrawingConstants.primaryColor
             case .secondary:
-                return Color("Secondary")
+                return DrawingConstants.secondaryColor
             }
         }
         var foregroundColor: Color {
             switch self {
             case .primary:
-                return Color("Secondary")
+                return DrawingConstants.secondaryColor
             case .secondary:
-                return Color("Primary")
+                return DrawingConstants.primaryColor
             }
         }
     }
     private struct DrawingConstants {
         static let disabledOpacity = 0.6
+        static let primaryColor = Color("Primary")
+        static let secondaryColor = Color("Secondary")
     }
 }
 

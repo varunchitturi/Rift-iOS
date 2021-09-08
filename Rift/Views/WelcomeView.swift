@@ -9,11 +9,12 @@ import SwiftUI
 
 struct WelcomeView: View {
     @State private var stateSelectionIndex: Int?
-    @State private var districtSelectionIndex: Int?
+    @State private var districtSelection: String?
     
-    let stateOptions = Array(LocaleUtils.USStates.keys).sorted()
+    let stateOptions = LocaleUtils.USTerritory.allCases.sorted() as! [String]
     private var navigationDisabled: Bool {
-        stateSelectionIndex == nil || districtSelectionIndex == nil
+        stateSelectionIndex == nil || districtSelection == nil
+        
     }
     
     private var stateSelection: String? {
@@ -31,10 +32,10 @@ struct WelcomeView: View {
                     CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $stateSelectionIndex)
                         .padding(.bottom)
 
-                    CapsuleDropDown("District", description: "Choose District", options: ["FUSD", "FUHSD"], selectionIndex: $districtSelectionIndex)
-                        .disabled(stateSelectionIndex == nil)
-                       
+                    CapsuleFieldModularButton("District", description: "Choose District", text: $districtSelection, icon: "chevron.down") {
                         
+                    }
+                        .disabled(stateSelectionIndex == nil)
                 }
                 NavigationLink(destination: LogInView()) {
                     CapsuleButton("Next", icon: "arrow.right", style: .primary)
@@ -45,12 +46,13 @@ struct WelcomeView: View {
             .navigationTitle("Welcome")
             .padding()
         }
-        .navigationBarColor(backgroundColor: Color("Primary"))
+        .navigationBarColor(backgroundColor: DrawingConstants.navigationColor)
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private struct DrawingConstants {
         static let formTopSpacing: CGFloat = 70
+        static let navigationColor = Color("Primary")
     }
 }
 

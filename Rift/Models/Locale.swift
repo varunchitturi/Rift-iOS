@@ -8,11 +8,12 @@
 import Foundation
 
 struct Locale {
-    var state: String
-    var district: String
-    
-    var stateAbbreviation: String? {
-        LocaleUtils.USStates[state]
-    }
-
+    var id: Int
+    var districtName: String
+    var districtAppName: String
+    var districtBaseURL: URL
+    var districtCode: String
+    var state: LocaleUtils.USTerritory
+    var staffLoginURL: URL
+    var userLoginURL: URL
 }

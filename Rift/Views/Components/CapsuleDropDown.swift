@@ -21,7 +21,7 @@ struct CapsuleDropDown: View {
     private var label: String
     private var description: String
     
-    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, accentColor: Color = Color("AccentColor")) {
+    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, accentColor: Color = DrawingConstants.accentColor) {
         self.options = options
         self.label = label
         self.description = description
@@ -38,7 +38,7 @@ struct CapsuleDropDown: View {
             CapsuleFieldLabel(label: label, accentColor: accentColor, isEditing: $isEditing)
             HStack {
                 pickerField
-                    .foregroundColor(Color("Tertiary"))
+                    .foregroundColor(DrawingConstants.foregroundColor)
                     .padding(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
@@ -54,7 +54,12 @@ struct CapsuleDropDown: View {
             }
             
         }
-        .foregroundColor(isEditing ? Color("Primary") : Color("Tertiary"))
+        .foregroundColor(isEditing ? DrawingConstants.accentColor : DrawingConstants.foregroundColor)
+    }
+    
+    private struct DrawingConstants {
+        static let foregroundColor = Color("Tertiary")
+        static let accentColor = Color("Primary")
     }
     
 }

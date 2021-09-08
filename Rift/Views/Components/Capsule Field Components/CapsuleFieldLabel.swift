@@ -15,7 +15,11 @@ struct CapsuleFieldLabel: View {
         Text(label)
             .font(.caption)
             .fontWeight(.bold)
-            .foregroundColor(isEditing ? accentColor : Color("Tertiary"))
+            .foregroundColor(isEditing ? accentColor : DrawingConstants.textColor)
+    }
+    
+    private struct DrawingConstants {
+        static let textColor = Color("Tertiary")
     }
 }
 

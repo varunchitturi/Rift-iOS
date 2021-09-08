@@ -13,7 +13,7 @@ struct CapsuleFieldBackground: View {
 
     var body: some View {
         let backgroundRectangle =  RoundedRectangle(cornerRadius: .infinity)
-            .fill(Color("Secondary"))
+            .fill(DrawingConstants.secondaryColor)
         let accentRectangle = RoundedRectangle(cornerRadius: .infinity).stroke()
             .fill(accentColor)
         ZStack {
@@ -23,7 +23,12 @@ struct CapsuleFieldBackground: View {
             }
         }
     }
+    private struct DrawingConstants {
+        static let primaryColor = Color("Primary")
+        static let secondaryColor = Color("Secondary")
+    }
 }
+
 
 struct CapsuleFieldBackground_Previews: PreviewProvider {
     static var previews: some View {

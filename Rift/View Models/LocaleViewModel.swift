@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 class LocaleViewModel: ObservableObject {
-    
+    @Published var stateSelectionIndex: Int?
+    @Published var
     // MARK: - Intents
     
     
