@@ -8,34 +8,29 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var stateSelectionIndex: Int?
-    @State private var districtSelection: String?
     
-    let stateOptions = LocaleUtils.USTerritory.allCases.sorted() as! [String]
+    @StateObject private var localeViewModel = LocaleViewModel()
+    @State private var districtSearchIsPresented: Bool = false
+    let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.rawValue}
     private var navigationDisabled: Bool {
-        stateSelectionIndex == nil || districtSelection == nil
-        
+        localeViewModel.chosenLocale == nil
     }
-    
-    private var stateSelection: String? {
-        return stateSelectionIndex != nil ? stateOptions[stateSelectionIndex!] : nil
-    }
-    // TODO: create state selection and district selection computed vars
-    
-    
    
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
                     Spacer(minLength: DrawingConstants.formTopSpacing)
-                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $stateSelectionIndex)
+                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $localeViewModel.stateSelectionIndex)
                         .padding(.bottom)
 
-                    CapsuleFieldModularButton("District", description: "Choose District", text: $districtSelection, icon: "chevron.down") {
-                        
+                    CapsuleFieldModularButton("District", description: "Choose District", text: .constant(localeViewModel.chosenLocale?.districtName), icon: "chevron.down") {
+                        districtSearchIsPresented = true
                     }
-                        .disabled(stateSelectionIndex == nil)
+                        .disabled(localeViewModel.stateSelectionIndex == nil)
+                        .sheet(isPresented: $districtSearchIsPresented) {
+                            DistrictSearchView(localeViewModel: localeViewModel, districtSearchIsPresented: $districtSearchIsPresented)
+                        }
                 }
                 NavigationLink(destination: LogInView()) {
                     CapsuleButton("Next", icon: "arrow.right", style: .primary)

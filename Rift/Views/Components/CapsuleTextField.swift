@@ -11,17 +11,18 @@ import SwiftUI
 struct CapsuleTextField: View {
 
     
-    let label: String?
-    let accentColor: Color
+    var label: String?
+    var accentColor: Color
     var icon: String?
     @Binding var text: String
     let isSecureStyle: Bool
     @State private var isSecure: Bool = false
     @Binding var isEditing: Bool
-    
     private let configuration: (UITextField) -> ()
-    
-    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, accentColor: Color = DrawingConstants.accentColor, isSecureStyle: Bool = false, configuration: @escaping (UITextField) -> () = {_ in}) {
+    private let onEditingChanged: (String) -> ()
+    private let onCommit: (String) -> ()
+ 
+    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, accentColor: Color = DrawingConstants.accentColor, isSecureStyle: Bool = false, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> () = {_ in}, configuration: @escaping (UITextField) -> () = {_ in}) {
         self.label = label
         self.icon = icon
         self.accentColor = accentColor
@@ -31,6 +32,8 @@ struct CapsuleTextField: View {
         if isSecureStyle {
             isSecure = true
         }
+        self.onEditingChanged = onEditingChanged
+        self.onCommit = onCommit
         self.configuration = configuration
     }
     
@@ -45,12 +48,12 @@ struct CapsuleTextField: View {
                         .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
                 }
                 
-                    LegacyTextField(text: $text, isEditing: $isEditing) {textField in
-                        textField.isSecureTextEntry = isSecure
-                        textField.textColor = UIColor(DrawingConstants.textColor)
-                        textField.keyboardType = .alphabet
-                        configuration(textField)
-                    }
+                LegacyTextField(text: $text, isEditing: $isEditing, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
+                    textField.isSecureTextEntry = isSecure
+                    textField.textColor = UIColor(DrawingConstants.textColor)
+                    textField.keyboardType = .alphabet
+                    configuration(textField)
+                })
                    
                 if isSecureStyle {
                     (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))

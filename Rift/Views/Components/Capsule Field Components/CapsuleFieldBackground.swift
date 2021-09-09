@@ -17,9 +17,12 @@ struct CapsuleFieldBackground: View {
         let accentRectangle = RoundedRectangle(cornerRadius: .infinity).stroke()
             .fill(accentColor)
         ZStack {
-            backgroundRectangle
             if isEditing {
+                backgroundRectangle
                 accentRectangle
+            }
+            else {
+                backgroundRectangle
             }
         }
     }

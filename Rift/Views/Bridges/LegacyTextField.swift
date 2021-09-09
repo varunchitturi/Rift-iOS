@@ -15,11 +15,15 @@ struct LegacyTextField: UIViewRepresentable {
     @Binding var options: [String]
     var textColor = DrawingConstants.defaultTextColor
     private let configuration: (UITextField) -> ()
+    private let onEditingChanged: (String) -> ()
+    private let onCommit: (String) -> ()
     
-    init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]> = .constant([]), configuration: @escaping (UITextField) -> () = {textfield in}) {
+    init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]> = .constant([]), onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> (), configuration: @escaping (UITextField) -> () = {_ in}) {
         self._isEditing = isEditing
         self._text = text
         self.configuration = configuration
+        self.onEditingChanged = onEditingChanged
+        self.onCommit = onCommit
         self._options = options
     }
     
@@ -53,7 +57,7 @@ struct LegacyTextField: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text, isEditing: $isEditing, options: $options, textColor: UIColor(textColor))
+        Coordinator(text: $text, isEditing: $isEditing, options: $options, textColor: UIColor(textColor), onEditingChanged: onEditingChanged, onCommit: onCommit)
     }
     
     private struct DrawingConstants {
@@ -64,13 +68,17 @@ struct LegacyTextField: UIViewRepresentable {
         @Binding var isEditing: Bool
         @Binding var text: String
         @Binding var options: [String]
+        private let onEditingChanged: (String) -> ()
+        private let onCommit: (String) -> ()
         var textColor: UIColor
         
-        init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]>, textColor: UIColor) {
+        init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]>, textColor: UIColor, onEditingChanged: @escaping (String) -> (), onCommit: @escaping (String) -> ()) {
             self._isEditing = isEditing
             self._text = text
             self._options = options
             self.textColor = textColor
+            self.onEditingChanged = onEditingChanged
+            self.onCommit = onCommit
             
         }
 
@@ -78,12 +86,9 @@ struct LegacyTextField: UIViewRepresentable {
         
         @objc func textViewDidChange(_ textField: UITextField) {
             let textFieldText = textField.text ?? ""
-            let querySuggestions = options.filter { $0.lowercased().hasPrefix(textFieldText.lowercased())}
-            if querySuggestions.count > 0 && querySuggestions[0] != "" {
-                textField.setMarkedText(querySuggestions[0], selectedRange: NSMakeRange(textFieldText.count, querySuggestions[0].count))
-            }
-            
-    }
+            onEditingChanged(textFieldText)
+            self.text = textFieldText
+        }
         
         func textFieldDidBeginEditing(_ textField: UITextField) {
             DispatchQueue.main.async {[weak self] in
@@ -100,6 +105,7 @@ struct LegacyTextField: UIViewRepresentable {
         }
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.endEditing(false)
+            onCommit(textField.text ?? "")
             return true
         }
     }

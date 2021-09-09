@@ -23,9 +23,9 @@ struct LogInView: View {
                     .padding(.vertical, DrawingConstants.dividerPadding)
                 Spacer()
                 Spacer()
-                CapsuleTextField("Username", text: $usernameTextField, isEditing: $usernameIsEditing, icon: "person.fill", accentColor: Color("Primary"), configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Username", text: $usernameTextField, isEditing: $usernameIsEditing, icon: "person.fill", accentColor: DrawingConstants.accentColor, configuration: LegacyTextField.customInputConfiguration)
                     
-                CapsuleTextField("Password", text: $passwordTextField, isEditing: $passwordIsEditing, icon: "key.fill", accentColor: Color("Primary"), isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Password", text: $passwordTextField, isEditing: $passwordIsEditing, icon: "key.fill", accentColor: DrawingConstants.accentColor, isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
             }
             .foregroundColor(DrawingConstants.fieldForegroundColor)
             Spacer()
@@ -41,6 +41,7 @@ struct LogInView: View {
         static let dividerPadding: CGFloat = 20
         static let formTopSpacing: CGFloat = 30
         static let fieldForegroundColor = Color("Tertiary")
+        static let accentColor = Color("Primary")
     }
     
 }

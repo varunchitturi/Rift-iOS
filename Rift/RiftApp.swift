@@ -14,7 +14,7 @@ struct RiftApp: App {
         // TODO: Change status bar color
         
         WindowGroup {
-            DistrictSearchView()
+            WelcomeView()
         }
     }
 }

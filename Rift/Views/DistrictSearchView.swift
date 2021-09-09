@@ -8,32 +8,53 @@
 import SwiftUI
 
 struct DistrictSearchView: View {
-    @State private var searchQuery: String = ""
+    @ObservedObject var localeViewModel: LocaleViewModel
     @State private var isSearching: Bool = false
+    @State private var searchQuery: String = ""
+    @Binding var districtSearchIsPresented: Bool
     var body: some View {
         VStack {
             HStack {
-                CapsuleTextField(text: $searchQuery, isEditing: $isSearching, icon: "magnifyingglass")
+                CapsuleTextField(text: $searchQuery, isEditing: $isSearching, icon: "magnifyingglass", onEditingChanged: {query in localeViewModel.searchDistrict(for: query)}, configuration:  {textField in
+                    textField.keyboardType = .webSearch
+                    textField.autocorrectionType = .no
+                    textField.autocapitalizationType = .words
+                })
                 if isSearching {
                     Button {
-                        isSearching = false
+                       isSearching = false
                     } label: {
-                        withAnimation {
-                            Text("Cancel")
-                        }
-
+                        Text("Cancel")
+                            .foregroundColor(DrawingConstants.accentColor)
                     }
                 }
+                    
             }
-            .padding(.horizontal)
+            .transition(.opacity)
+            .animation(.default)
+            .padding()
             Spacer()
-            
+            ScrollView {
+                ForEach(localeViewModel.searchResults) {searchResult in
+                    DistrictSearchResultCard(for: searchResult)
+                        .onTapGesture {
+                            localeViewModel.chosenLocale = searchResult
+                            districtSearchIsPresented = false
+                        }
+                    Divider()
+                }
+            }
         }
+    }
+    
+    private struct DrawingConstants {
+        static let accentColor = Color("Primary")
     }
 }
 
 struct DistrictSearchView_Previews: PreviewProvider {
+    @StateObject static var localeViewModel = LocaleViewModel()
     static var previews: some View {
-        DistrictSearchView()
+        DistrictSearchView(localeViewModel: LocaleViewModel(), districtSearchIsPresented: .constant(true))
     }
 }
