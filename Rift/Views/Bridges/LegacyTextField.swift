@@ -37,11 +37,13 @@ struct LegacyTextField: UIViewRepresentable {
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
         uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        DispatchQueue.main.async {
             switch isEditing {
             case true:
-                DispatchQueue.main.async { _ = uiView.becomeFirstResponder() }
+                 _ = uiView.becomeFirstResponder()
             case false:
-                DispatchQueue.main.async { uiView.resignFirstResponder() }
+                uiView.resignFirstResponder()
+            }
         }
            
         configuration(uiView)

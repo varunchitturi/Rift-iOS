@@ -10,7 +10,13 @@ import SwiftUI
 
 class LocaleViewModel: ObservableObject {
     
-    @Published var stateSelectionIndex: Int?
+    @Published var stateSelectionIndex: Int? {
+        willSet {
+            if stateSelectionIndex != newValue {
+                chosenLocale = nil
+            }
+        }
+    }
     @Published var searchResults = [Locale]()
     @Published var chosenLocale: Locale?
     

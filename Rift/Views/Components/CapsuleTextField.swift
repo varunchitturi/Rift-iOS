@@ -56,6 +56,7 @@ struct CapsuleTextField: View {
                 })
                    
                 if isSecureStyle {
+                    // TODO: make image tappable size bigger
                     (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))
                         .foregroundColor(DrawingConstants.foregroundColor)
                         .onTapGesture {

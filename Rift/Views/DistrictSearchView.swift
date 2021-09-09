@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DistrictSearchView: View {
     @ObservedObject var localeViewModel: LocaleViewModel
-    @State private var isSearching: Bool = false
+    @State private var isSearching: Bool = true
     @State private var searchQuery: String = ""
     @Binding var districtSearchIsPresented: Bool
     var body: some View {
@@ -22,7 +22,10 @@ struct DistrictSearchView: View {
                 })
                 if isSearching {
                     Button {
-                       isSearching = false
+                        searchQuery = ""
+                        localeViewModel.searchResults = []
+                        isSearching = false
+                        districtSearchIsPresented = false
                     } label: {
                         Text("Cancel")
                             .foregroundColor(DrawingConstants.accentColor)
@@ -31,22 +34,27 @@ struct DistrictSearchView: View {
             }
             .transition(.opacity)
             .animation(.default)
+            .padding()
             
             Spacer()
             ScrollView {
                 ForEach(localeViewModel.searchResults) {searchResult in
                     Button {
+                        isSearching = false
                         localeViewModel.chosenLocale = searchResult
                         districtSearchIsPresented = false
                     } label: {
-                        DistrictSearchResultCard(for: searchResult)
-                        Divider()
+                        VStack{
+                            DistrictSearchResultCard(for: searchResult)
+                            Divider()
+                        }
                     }
                     
                 }
             }
+            
+            .padding()
         }
-        .padding()
     }
     
     private struct DrawingConstants {

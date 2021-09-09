@@ -10,7 +10,7 @@ import UIKit
 
 struct CapsuleDropDown: View {
 
-    @State private var isEditing: Bool = false
+    @Binding var isEditing: Bool
     @Binding var selectionIndex: Int?
     var accentColor: Color
     
@@ -21,12 +21,13 @@ struct CapsuleDropDown: View {
     private var label: String
     private var description: String
     
-    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, accentColor: Color = DrawingConstants.accentColor) {
+    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, accentColor: Color = DrawingConstants.accentColor) {
         self.options = options
         self.label = label
         self.description = description
         self._selectionIndex = selectionIndex
         self.accentColor = accentColor
+        self._isEditing = isEditing
     }
     
     var body: some View {
@@ -67,7 +68,8 @@ struct CapsuleDropDown: View {
 
 
 struct CapsuleDropDown_Previews: PreviewProvider {
+    @State private static var isEditing = false
     static var previews: some View {
-        CapsuleDropDown("DropDown", description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(nil))
+        CapsuleDropDown("DropDown", description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(nil), isEditing: $isEditing)
     }
 }

@@ -33,7 +33,13 @@ struct Locale: Identifiable, Codable {
     private static let minimumDistrictQueryLength = 3
     
     private static func getDistrictQueryURL(query: String, state: String) -> URL? {
-        return URL(string: Locale.ICDistrictQueryURLPrefix + "query=\(query)&state=\(state)")
+        // TODO: Support spaces in query
+        if let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let state = state.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            return URL(string: Locale.ICDistrictQueryURLPrefix + "query=\(query)&state=\(state)")
+        }
+        else {
+            return nil
+        }
     }
     
     static func searchDistrict(for query: String, state: USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
@@ -54,7 +60,6 @@ struct Locale: Identifiable, Codable {
                         if let data = data {
                             let decoder = JSONDecoder()
                             let localesData = try decoder.decode([String: [Locale]].self, from: data)
-                            print(localesData)
                             if let locales = localesData["data"] {
                                 completion(.success(locales))
                             }
@@ -66,7 +71,12 @@ struct Locale: Identifiable, Codable {
                             completion(.failure(SearchError.noData))
                         }
                     } catch {
-                        completion(.failure(error))
+                        if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                            completion(.success([]))
+                        }
+                        else {
+                            completion(.failure(error))
+                        }
                     }
                 }
             }.resume()
