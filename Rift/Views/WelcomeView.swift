@@ -11,7 +11,7 @@ struct WelcomeView: View {
     
     @StateObject private var localeViewModel = LocaleViewModel()
     @State private var districtSearchIsPresented: Bool = false
-    let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.rawValue}
+    let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.description}
     private var navigationDisabled: Bool {
         localeViewModel.chosenLocale == nil
     }
