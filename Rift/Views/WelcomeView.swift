@@ -25,6 +25,7 @@ struct WelcomeView: View {
                         .padding(.bottom)
 
                     CapsuleFieldModularButton("District", description: "Choose District", text: .constant(localeViewModel.chosenLocale?.districtName), icon: "chevron.down") {
+                        localeViewModel.searchResults = []
                         districtSearchIsPresented = true
                     }
                         .disabled(localeViewModel.stateSelectionIndex == nil)

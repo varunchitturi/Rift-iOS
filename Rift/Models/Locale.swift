@@ -8,14 +8,14 @@
 import Foundation
 
 struct Locale: Identifiable, Codable {
-    let id: Int
-    let districtName: String
-    let districtAppName: String
-    let districtBaseURL: URL
-    let districtCode: String
-    let state: USTerritory
-    let staffLoginURL: URL
-    let userLoginURL: URL
+    var id: Int
+    var districtName: String
+    var districtAppName: String
+    var districtBaseURL: URL
+    var districtCode: String
+    var state: USTerritory
+    var staffLoginURL: URL
+    var userLoginURL: URL
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

@@ -28,23 +28,25 @@ struct DistrictSearchView: View {
                             .foregroundColor(DrawingConstants.accentColor)
                     }
                 }
-                    
             }
             .transition(.opacity)
             .animation(.default)
-            .padding()
+            
             Spacer()
             ScrollView {
                 ForEach(localeViewModel.searchResults) {searchResult in
-                    DistrictSearchResultCard(for: searchResult)
-                        .onTapGesture {
-                            localeViewModel.chosenLocale = searchResult
-                            districtSearchIsPresented = false
-                        }
-                    Divider()
+                    Button {
+                        localeViewModel.chosenLocale = searchResult
+                        districtSearchIsPresented = false
+                    } label: {
+                        DistrictSearchResultCard(for: searchResult)
+                        Divider()
+                    }
+                    
                 }
             }
         }
+        .padding()
     }
     
     private struct DrawingConstants {

@@ -12,8 +12,7 @@ class LocaleViewModel: ObservableObject {
     
     @Published var stateSelectionIndex: Int?
     @Published var searchResults = [Locale]()
-    
-    var chosenLocale: Locale?
+    @Published var chosenLocale: Locale?
     
     var stateSelection: Locale.USTerritory? {
         stateSelectionIndex != nil ? Locale.USTerritory.allCases.sorted()[stateSelectionIndex!] : nil
@@ -27,7 +26,6 @@ class LocaleViewModel: ObservableObject {
                 switch result {
                 case .success(let locales):
                     self?.searchResults = locales
-                    print(locales)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
