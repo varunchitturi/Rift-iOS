@@ -37,7 +37,7 @@ struct DistrictSearchResultCard_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
             ForEach(0..<5) {_ in
-                DistrictSearchResultCard(for: Locale(id: 1, districtName: "Fremont Unified School District", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, userLoginURL: URL(string: "https://")!))
+                DistrictSearchResultCard(for: Locale(id: 1, districtName: "Fremont Unified School District", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!))
                 Divider()
             }
             .padding()

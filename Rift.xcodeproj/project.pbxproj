@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
+		27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */; };
+		27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC526EAA7B300A6ED72 /* LogIn.swift */; };
+		27074EC826EB310300A6ED72 /* URLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC726EB310300A6ED72 /* URLUtils.swift */; };
 		270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */; };
 		2721EEF626D743A900C5E906 /* PickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF526D743A900C5E906 /* PickerField.swift */; };
 		272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
@@ -40,6 +44,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
+		27074EC526EAA7B300A6ED72 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		27074EC726EB310300A6ED72 /* URLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
 		270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCornerStyle.swift; sourceTree = "<group>"; };
 		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
@@ -79,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */,
+				27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +197,7 @@
 			children = (
 				27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */,
 				27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */,
+				27074EC726EB310300A6ED72 /* URLUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */,
+				27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -205,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				27FF50D826E0725D0001F8D6 /* Locale.swift */,
+				27074EC526EAA7B300A6ED72 /* LogIn.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +247,7 @@
 			name = Rift;
 			packageProductDependencies = (
 				27D0F5CD26DB7DF80004F0A2 /* Algorithms */,
+				27074EC126EAA2AC00A6ED72 /* SwiftSoup */,
 			);
 			productName = Rift;
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
@@ -266,6 +278,7 @@
 			mainGroup = 274E622226C21FB400C855D4;
 			packageReferences = (
 				27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 274E622C26C21FB400C855D4 /* Products */;
 			projectDirPath = "";
@@ -293,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */,
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */,
 				27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */,
@@ -307,6 +321,7 @@
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
 				27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */,
+				27074EC826EB310300A6ED72 /* URLUtils.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
 				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
@@ -314,6 +329,7 @@
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
 				27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */,
 				27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */,
+				27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */,
 				27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */,
 				27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */,
 				272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */,
@@ -510,6 +526,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -521,6 +545,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		27074EC126EAA2AC00A6ED72 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		27D0F5CD26DB7DF80004F0A2 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */;

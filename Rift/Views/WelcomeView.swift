@@ -41,10 +41,17 @@ struct WelcomeView: View {
                             DistrictSearchView(localeViewModel: localeViewModel, districtSearchIsPresented: $districtSearchIsPresented)
                         }
                 }
-                NavigationLink(destination: LogInView()) {
-                    CapsuleButton("Next", icon: "arrow.right", style: .primary)
+                if localeViewModel.chosenLocale != nil {
+                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!)) {
+                        CapsuleButton("Next", icon: "arrow.right", style: .primary)
+                    }
+                    .disabled(navigationDisabled)
                 }
-                .disabled(navigationDisabled)
+                else {
+                    CapsuleButton("Next", icon: "arrow.right", style: .primary)
+                        .disabled(navigationDisabled)
+                }
+               
                 
             }
             .navigationTitle("Welcome")

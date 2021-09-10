@@ -15,7 +15,8 @@ struct Locale: Identifiable, Codable {
     var districtCode: String
     var state: USTerritory
     var staffLoginURL: URL
-    var userLoginURL: URL
+    var studentLoginURL: URL
+    var parentLoginURL: URL
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -25,7 +26,8 @@ struct Locale: Identifiable, Codable {
         case districtCode = "district_code"
         case state = "state_code"
         case staffLoginURL = "staff_login_url"
-        case userLoginURL = "student_login_url"
+        case studentLoginURL = "student_login_url"
+        case parentLoginURL = "parent_login_url"
     }
     
     private static let ICDistrictQueryURLPrefix = "https://mobile.infinitecampus.com/mobile/searchDistrict?"
@@ -33,7 +35,6 @@ struct Locale: Identifiable, Codable {
     private static let minimumDistrictQueryLength = 3
     
     private static func getDistrictQueryURL(query: String, state: String) -> URL? {
-        // TODO: Support spaces in query
         if let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let state = state.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             return URL(string: Locale.ICDistrictQueryURLPrefix + "query=\(query)&state=\(state)")
         }
@@ -60,7 +61,12 @@ struct Locale: Identifiable, Codable {
                         if let data = data {
                             let decoder = JSONDecoder()
                             let localesData = try decoder.decode([String: [Locale]].self, from: data)
-                            if let locales = localesData["data"] {
+                            
+                            if var locales = localesData["data"] {
+                                for index in locales.indices {
+                                    locales[index].studentLoginURL.insertPathComponent(after: "portal", with: "students")
+                                    locales[index].parentLoginURL.insertPathComponent(after: "portal", with: "parents")
+                                }
                                 completion(.success(locales))
                             }
                             else {

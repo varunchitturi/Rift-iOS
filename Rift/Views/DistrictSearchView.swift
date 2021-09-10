@@ -40,6 +40,7 @@ struct DistrictSearchView: View {
             ScrollView {
                 ForEach(localeViewModel.searchResults) {searchResult in
                     Button {
+                        // TODO: show activity indicator when results are loading
                         isSearching = false
                         localeViewModel.chosenLocale = searchResult
                         districtSearchIsPresented = false
