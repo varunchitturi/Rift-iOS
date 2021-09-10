@@ -13,6 +13,7 @@ struct LogIn {
     static let samlDOMID = "samlLoginLink"
     
     let locale: Locale
+    // TODO: store http cookies in persistent data
     var authCookies: [HTTPCookie]
     var ssoUrl: URL?
     var url: URL {
