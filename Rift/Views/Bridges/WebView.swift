@@ -11,10 +11,12 @@ import WebKit
 struct WebView: UIViewRepresentable {
     
     let request: URLRequest
+    var cookieObserver: WKHTTPCookieStoreObserver?
     @Binding var cookieJar: HTTPCookieStorage
     
-    init(request: URLRequest, cookieJar: Binding<HTTPCookieStorage> = .constant(HTTPCookieStorage())) {
+    init(request: URLRequest, cookieJar: Binding<HTTPCookieStorage> = .constant(HTTPCookieStorage()), cookieObserver: WKHTTPCookieStoreObserver? = nil) {
         self.request = request
+        self.cookieObserver = cookieObserver
         self._cookieJar = cookieJar
     }
         
@@ -22,16 +24,15 @@ struct WebView: UIViewRepresentable {
         
         let webView = WKWebView()
         webView.clearCookies()
+        webView.configuration.websiteDataStore = .nonPersistent()
+        if let cookieObserver = cookieObserver {
+            webView.configuration.websiteDataStore.httpCookieStore.add(cookieObserver)
+        }
         return webView
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.configuration.websiteDataStore.httpCookieStore.getAllCookies {cookies in
-            for cookie in cookies {
-                cookieJar.setCookie(cookie)
-            }
-        }
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.main.async {
             uiView.load(request)
         }
     }

@@ -26,12 +26,13 @@ struct LogIn {
     
     init(locale: Locale) {
         self.locale = locale
+        authCookies.cookieAcceptPolicy = .always
     }
     
     func getLogInInfo(completion: @escaping (Result<([HTTPCookie], URL?), Error>)  -> Void)  {
         let url = locale.studentLoginURL
-        DispatchQueue.global(qos: .userInitiated).async {
             URLSession.shared.dataTask(with: url) { data, response, error in
+                DispatchQueue.main.async {
                     if let error = error {
                         completion(.failure(error))
                     }
@@ -49,8 +50,8 @@ struct LogIn {
                     else {
                         completion(.failure(LogInInfoError.invalidData))
                     }
+                }
             }.resume()
-        }
     }
     
     enum LogInInfoError: Error {

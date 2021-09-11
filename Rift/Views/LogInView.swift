@@ -12,7 +12,6 @@ struct LogInView: View {
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
     
-    @State private var singleSignOnIsPresented = false
     @State private var username: String = ""
     @State private var password: String = ""
     
@@ -31,7 +30,7 @@ struct LogInView: View {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        singleSignOnIsPresented = true
+                        logInViewModel.singleSignOnIsPresented = true
                     }
                     
                     TextDivider("or")
@@ -52,9 +51,8 @@ struct LogInView: View {
         }
         .padding()
         .navigationTitle("Log In")
-        .sheet(isPresented: $singleSignOnIsPresented) {
-
-            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieJar: $logInViewModel.authCookies)
+        .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
+            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieJar: $logInViewModel.authCookies, cookieObserver: logInViewModel)
         }
     }
     

@@ -57,13 +57,11 @@ struct PickerField : UIViewRepresentable {
 
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<PickerField>) {
         uiView.text = selection
-        if isEditing {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if isEditing {
                 uiView.becomeFirstResponder()
             }
-        }
-        else {
-            DispatchQueue.main.async {
+            else {
                 uiView.resignFirstResponder()
             }
         }
