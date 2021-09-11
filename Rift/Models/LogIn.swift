@@ -14,7 +14,7 @@ struct LogIn {
     
     let locale: Locale
     // TODO: store http cookies in persistent data
-    var authCookies: [HTTPCookie]
+    var authCookies = HTTPCookieStorage()
     var ssoUrl: URL?
     var url: URL {
         locale.studentLoginURL
@@ -26,32 +26,31 @@ struct LogIn {
     
     init(locale: Locale) {
         self.locale = locale
-        self.authCookies = [HTTPCookie]()
     }
     
     func getLogInInfo(completion: @escaping (Result<([HTTPCookie], URL?), Error>)  -> Void)  {
         let url = locale.studentLoginURL
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(error))
-                }
-                else if let _ = data, let response = response as? HTTPURLResponse, let responseUrL = response.url {
-                    let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrL)
-                    do {
-                        let html = try String(contentsOf: url)
-                        let htmlDOM = try SwiftSoup.parse(html)
-                        let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
-                        completion(.success((cookies, URL(string: samlURLString))))
-                    } catch {
-                        completion(.failure(LogInInfoError.errorHTMLRetrieval))
+        DispatchQueue.global(qos: .userInitiated).async {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        completion(.failure(error))
                     }
-                }
-                else {
-                    completion(.failure(LogInInfoError.invalidData))
-                }
-            }
-        }.resume()
+                    else if let _ = data, let response = response as? HTTPURLResponse, let responseUrL = response.url {
+                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrL)
+                        do {
+                            let html = try String(contentsOf: url)
+                            let htmlDOM = try SwiftSoup.parse(html)
+                            let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
+                            completion(.success((cookies, URL(string: samlURLString))))
+                        } catch {
+                            completion(.failure(LogInInfoError.errorHTMLRetrieval))
+                        }
+                    }
+                    else {
+                        completion(.failure(LogInInfoError.invalidData))
+                    }
+            }.resume()
+        }
     }
     
     enum LogInInfoError: Error {

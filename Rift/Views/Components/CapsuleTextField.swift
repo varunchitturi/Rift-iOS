@@ -16,7 +16,6 @@ struct CapsuleTextField: View {
     var icon: String?
     @Binding var text: String
     let isSecureStyle: Bool
-    @State private var isSecure: Bool = false
     @Binding var isEditing: Bool
     private let configuration: (UITextField) -> ()
     private let onEditingChanged: (String) -> ()
@@ -29,9 +28,6 @@ struct CapsuleTextField: View {
         self._text = text
         self._isEditing = isEditing
         self.isSecureStyle = isSecureStyle
-        if isSecureStyle {
-            isSecure = true
-        }
         self.onEditingChanged = onEditingChanged
         self.onCommit = onCommit
         self.configuration = configuration
@@ -49,20 +45,13 @@ struct CapsuleTextField: View {
                 }
                 
                 LegacyTextField(text: $text, isEditing: $isEditing, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
-                    textField.isSecureTextEntry = isSecure
+                    DispatchQueue.main.async {
+                        textField.isSecureTextEntry = isSecureStyle
+                    }
+                    
                     textField.textColor = UIColor(DrawingConstants.textColor)
-                    textField.keyboardType = .alphabet
                     configuration(textField)
                 })
-                   
-                if isSecureStyle {
-                    // TODO: make image tappable size bigger
-                    (isSecure ? Image(systemName: "eye.slash.fill") : Image(systemName: "eye.fill"))
-                        .foregroundColor(DrawingConstants.foregroundColor)
-                        .onTapGesture {
-                            isSecure.toggle()
-                        }
-                }
                 
             }
             .disabledStyle()
@@ -70,6 +59,9 @@ struct CapsuleTextField: View {
             .background(
                 CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)
             )
+            .onTapGesture {
+                isEditing = true
+            }
             .fixedSize(horizontal: false, vertical: true)
           
         }

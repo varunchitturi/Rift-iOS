@@ -15,11 +15,18 @@ struct DistrictSearchView: View {
     var body: some View {
         VStack {
             HStack {
-                CapsuleTextField(text: $searchQuery, isEditing: $isSearching, icon: "magnifyingglass", onEditingChanged: {query in localeViewModel.searchDistrict(for: query)}, configuration:  {textField in
-                    textField.keyboardType = .webSearch
-                    textField.autocorrectionType = .no
-                    textField.autocapitalizationType = .words
-                })
+                CapsuleTextField(text: $searchQuery,
+                                 isEditing: $isSearching,
+                                 icon: "magnifyingglass",
+                                 onEditingChanged: {query in
+                                    localeViewModel.searchDistrict(for: query)
+                                },
+                                configuration:  {textField in
+                                    textField.keyboardType = .webSearch
+                                    textField.autocorrectionType = .no
+                                    textField.autocapitalizationType = .words
+                                })
+                
                 if isSearching {
                     Button {
                         searchQuery = ""
@@ -40,7 +47,6 @@ struct DistrictSearchView: View {
             ScrollView {
                 ForEach(localeViewModel.searchResults) {searchResult in
                     Button {
-                        // TODO: show activity indicator when results are loading
                         isSearching = false
                         localeViewModel.chosenLocale = searchResult
                         districtSearchIsPresented = false
@@ -50,7 +56,6 @@ struct DistrictSearchView: View {
                             Divider()
                         }
                     }
-                    
                 }
             }
             

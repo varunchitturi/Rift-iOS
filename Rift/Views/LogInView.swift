@@ -12,6 +12,10 @@ struct LogInView: View {
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
     
+    @State private var singleSignOnIsPresented = false
+    @State private var username: String = ""
+    @State private var password: String = ""
+    
     init(locale: Locale) {
         logInViewModel = LogInViewModel(locale: locale)
     }
@@ -23,17 +27,22 @@ struct LogInView: View {
                 Spacer(minLength: DrawingConstants.formTopSpacing)
                 if logInViewModel.hasSSOLogin {
                     CapsuleButton("Single Sign-On", style: .secondary) {
-                        
+                        DispatchQueue.main.async {
+                            usernameIsEditing = false
+                            passwordIsEditing = false
+                        }
+                        singleSignOnIsPresented = true
                     }
+                    
                     TextDivider("or")
                         .padding(.vertical, DrawingConstants.dividerPadding)
                     Spacer()
                 }
                 
                 Spacer()
-                CapsuleTextField("Username", text: $logInViewModel.username, isEditing: $usernameIsEditing, icon: "person.fill", accentColor: DrawingConstants.accentColor, configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Username", text: $username, isEditing: $usernameIsEditing, icon: "person.fill", accentColor: DrawingConstants.accentColor, configuration: LegacyTextField.customInputConfiguration)
                     
-                CapsuleTextField("Password", text: $logInViewModel.password, isEditing: $passwordIsEditing, icon: "key.fill", accentColor: DrawingConstants.accentColor, isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Password", text: $password, isEditing: $passwordIsEditing, icon: "key.fill", accentColor: DrawingConstants.accentColor, isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
             }
             .foregroundColor(DrawingConstants.fieldForegroundColor)
             Spacer()
@@ -43,6 +52,10 @@ struct LogInView: View {
         }
         .padding()
         .navigationTitle("Log In")
+        .sheet(isPresented: $singleSignOnIsPresented) {
+
+            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieJar: $logInViewModel.authCookies)
+        }
     }
     
     private struct DrawingConstants {

@@ -10,8 +10,19 @@ import SwiftSoup
 
 class LogInViewModel: ObservableObject {
     @Published private var logIn: LogIn
-    @Published var username: String = ""
-    @Published var password: String = ""
+    
+    var authCookies: HTTPCookieStorage {
+        get {
+            logIn.authCookies
+        }
+        set {
+            logIn.authCookies = newValue
+        }
+    }
+    
+    var ssoURL: URL? {
+        logIn.ssoUrl
+    }
     
     var hasSSOLogin: Bool {
         logIn.ssoUrl != nil
@@ -22,7 +33,9 @@ class LogInViewModel: ObservableObject {
         logIn.getLogInInfo {[weak self] result in
             switch result {
             case .success((let cookies, let ssoUrl)):
-                self?.logIn.authCookies = cookies
+                for cookie in cookies {
+                    self?.logIn.authCookies.setCookie(cookie)
+                }
                 self?.logIn.ssoUrl = ssoUrl
             case .failure(let error):
                 print(error.localizedDescription)

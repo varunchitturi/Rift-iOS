@@ -32,24 +32,21 @@ struct LegacyTextField: UIViewRepresentable {
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textViewDidChange), for: .editingChanged)
         textField.delegate = context.coordinator
         textField.textColor = UIColor(textColor)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return textField
     }
     func updateUIView(_ uiView: UITextField, context: Context) {
+        configuration(uiView)
         uiView.text = text
-        uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         DispatchQueue.main.async {
             switch isEditing {
             case true:
-                 _ = uiView.becomeFirstResponder()
+                _ = uiView.becomeFirstResponder()
             case false:
                 uiView.resignFirstResponder()
+                
             }
         }
-           
-        configuration(uiView)
-        
-
-        
     }
     
     static func customInputConfiguration(_ textField: UITextField){
@@ -66,7 +63,7 @@ struct LegacyTextField: UIViewRepresentable {
         static let defaultTextColor = Color("Tertiary")
     }
     
-    public class Coordinator: NSObject, UITextFieldDelegate {
+    class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var isEditing: Bool
         @Binding var text: String
         @Binding var options: [String]
@@ -88,26 +85,31 @@ struct LegacyTextField: UIViewRepresentable {
         
         @objc func textViewDidChange(_ textField: UITextField) {
             let textFieldText = textField.text ?? ""
-            onEditingChanged(textFieldText)
             self.text = textFieldText
+            DispatchQueue.main.async {
+                self.onEditingChanged(textFieldText)
+            }
+          
         }
         
         func textFieldDidBeginEditing(_ textField: UITextField) {
-            DispatchQueue.main.async {[weak self] in
-                self?.isEditing = true
+            DispatchQueue.main.async {
+                self.isEditing = true
             }
         }
         
         func textFieldDidEndEditing(_ textField: UITextField) {
-            DispatchQueue.main.async {[weak self] in
-                self?.isEditing = false
+            DispatchQueue.main.async {
+                self.isEditing = false
             }
             
             
         }
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            textField.endEditing(false)
-            onCommit(textField.text ?? "")
+            DispatchQueue.main.async {
+                textField.endEditing(true)
+                self.onCommit(textField.text ?? "")
+            }
             return true
         }
     }

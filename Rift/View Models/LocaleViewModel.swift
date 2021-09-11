@@ -28,12 +28,15 @@ class LocaleViewModel: ObservableObject {
     
     func searchDistrict(for query: String) {
         if let stateSelection = stateSelection {
-            Locale.searchDistrict(for: query, state: stateSelection) {[weak self] result in
-                switch result {
-                case .success(let locales):
-                    self?.searchResults = locales
-                case .failure(let error):
-                    print(error.localizedDescription)
+            // TODO: make sure that this is async and doesn't impede typing
+            DispatchQueue.main.async {
+                Locale.searchDistrict(for: query, state: stateSelection) {[weak self] result in
+                    switch result {
+                    case .success(let locales):
+                        self?.searchResults = locales
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
