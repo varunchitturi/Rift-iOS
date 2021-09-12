@@ -34,6 +34,7 @@ struct CapsuleButton: View {
         }.padding()
         .font(.headline)
         .foregroundColor(self.style.foregroundColor)
+        .environment(\.colorScheme, .light)
         .background(
                 Capsule()
                     .fill(self.style.backgroundColor)

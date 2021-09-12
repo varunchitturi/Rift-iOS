@@ -49,6 +49,7 @@ struct CapsuleTextField: View {
                         textField.isSecureTextEntry = isSecureStyle
                     }
                     
+                    // TODO: make text field only allow 1 line
                     textField.textColor = UIColor(DrawingConstants.textColor)
                     configuration(textField)
                 })

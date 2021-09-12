@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension URL {
     mutating func insertPathComponent(after component: String, with path: String) {

@@ -54,7 +54,7 @@ struct CourseCard: View {
                                 .foregroundColor(DrawingConstants.circleForeground)
                                 .padding(9)
                         )
-                    Text((percentage?.description ?? "N/A") + "%")
+                    Text((percentage?.description.appending("%") ?? "N/A"))
                         .lineLimit(1)
                         .font(.caption)
                         .frame(width: 80)
@@ -74,7 +74,7 @@ struct CourseCard: View {
     private struct DrawingConstants {
         static let minCircleRadius: CGFloat = 30.0
         static let maxCircleRadius: CGFloat = 35.0
-        static let idealCirlceRadius = minCircleRadius / maxCircleRadius
+        static let idealCirlceRadius = (minCircleRadius + maxCircleRadius)/2
         static let foregroundColor = Color("Tertiary")
         static let backgroundColor = Color("Secondary")
         static let circleForeground = Color("Foreground")

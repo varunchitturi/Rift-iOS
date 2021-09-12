@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DistrictSearchView: View {
+    // TODO: handle bad or no network conditions
     @ObservedObject var localeViewModel: LocaleViewModel
     @State private var isSearching: Bool = true
     @State private var searchQuery: String = ""

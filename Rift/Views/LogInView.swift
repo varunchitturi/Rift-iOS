@@ -48,11 +48,18 @@ struct LogInView: View {
             CapsuleButton("Log In", style: .primary) {
                 print("log in")
             }
+            NavigationLink(
+                destination: HomeView(locale: logInViewModel.locale),
+                isActive: $logInViewModel.authenticationFinished
+            ) {
+                EmptyView()
+            }
+            .isDetailLink(false)
         }
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieJar: $logInViewModel.authCookies, cookieObserver: logInViewModel)
+            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel)
         }
     }
     

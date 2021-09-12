@@ -18,7 +18,7 @@
 		272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
 		272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */; };
 		272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */; };
-		272F790026E205C100CDA668 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */; };
+		272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */; };
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
 		274E623126C21FB400C855D4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* WelcomeView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -38,6 +38,12 @@
 		27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
 		27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
 		27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
+		27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343026EDBDFC0046942E /* CoursesViewModel.swift */; };
+		27DE343326EDBE050046942E /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343226EDBE050046942E /* Courses.swift */; };
+		27DE343526EDBE100046942E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343426EDBE100046942E /* HomeView.swift */; };
+		27DE343726EDBE190046942E /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343626EDBE190046942E /* CoursesView.swift */; };
+		27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344026EDEFDE0046942E /* PreviewObjects.swift */; };
+		27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344426EDFE4D0046942E /* DataUtils.swift */; };
 		27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
 		27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */; };
 		27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
@@ -56,7 +62,7 @@
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
-		272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
+		272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -77,6 +83,12 @@
 		27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldModularButton.swift; sourceTree = "<group>"; };
 		27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchView.swift; sourceTree = "<group>"; };
 		27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchResultCard.swift; sourceTree = "<group>"; };
+		27DE343026EDBDFC0046942E /* CoursesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesViewModel.swift; sourceTree = "<group>"; };
+		27DE343226EDBE050046942E /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
+		27DE343426EDBE100046942E /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		27DE343626EDBE190046942E /* CoursesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
+		27DE344026EDEFDE0046942E /* PreviewObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewObjects.swift; sourceTree = "<group>"; };
+		27DE344426EDFE4D0046942E /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		27FF50D226E067270001F8D6 /* DisabledStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledStyle.swift; sourceTree = "<group>"; };
 		27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarUtils.swift; sourceTree = "<group>"; };
 		27FF50D826E0725D0001F8D6 /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
@@ -123,7 +135,7 @@
 		272F78FE26E205AE00CDA668 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				272F78FF26E205C100CDA668 /* UITextFieldExtensions.swift */,
+				272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -163,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				274E623526C21FB500C855D4 /* Preview Assets.xcassets */,
+				27DE344026EDEFDE0046942E /* PreviewObjects.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -177,6 +190,8 @@
 				274E623026C21FB400C855D4 /* WelcomeView.swift */,
 				27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */,
 				27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */,
+				27DE343426EDBE100046942E /* HomeView.swift */,
+				27DE343626EDBE190046942E /* CoursesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +219,7 @@
 				27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */,
 				27074EC726EB310300A6ED72 /* URLUtils.swift */,
 				271B3ED326EBE64500DAB4D9 /* WebKitUtils.swift */,
+				27DE344426EDFE4D0046942E /* DataUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -213,6 +229,7 @@
 			children = (
 				27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */,
 				27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */,
+				27DE343026EDBDFC0046942E /* CoursesViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -222,6 +239,7 @@
 			children = (
 				27FF50D826E0725D0001F8D6 /* Locale.swift */,
 				27074EC526EAA7B300A6ED72 /* LogIn.swift */,
+				27DE343226EDBE050046942E /* Courses.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,14 +338,18 @@
 				27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */,
 				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
 				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
+				27DE343526EDBE100046942E /* HomeView.swift in Sources */,
 				27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */,
 				272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */,
 				27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
-				272F790026E205C100CDA668 /* UITextFieldExtensions.swift in Sources */,
+				272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
+				27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */,
+				27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */,
 				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
+				27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */,
 				27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */,
 				27074EC826EB310300A6ED72 /* URLUtils.swift in Sources */,
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
@@ -335,6 +357,7 @@
 				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
 				272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
+				27DE343326EDBE050046942E /* Courses.swift in Sources */,
 				27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */,
 				27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */,
 				27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */,
@@ -344,6 +367,7 @@
 				27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */,
 				27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */,
 				27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */,
+				27DE343726EDBE190046942E /* CoursesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

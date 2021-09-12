@@ -7,20 +7,16 @@
 
 import Foundation
 import WebKit
-import SwiftSoup
+import SwiftUI
 
 class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
+    @Published var authenticationFinished = false
     
-    var authCookies: HTTPCookieStorage {
-        get {
-            logIn.authCookies
-        }
-        set {
-            logIn.authCookies = newValue
-        }
+    var locale: Locale {
+        logIn.locale
     }
     
     var ssoURL: URL? {
@@ -38,21 +34,34 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
             switch result {
             case .success((let cookies, let ssoUrl)):
                 for cookie in cookies {
-                    self?.logIn.authCookies.setCookie(cookie)
+                    HTTPCookieStorage.shared.setCookie(cookie)
                 }
                 self?.logIn.ssoUrl = ssoUrl
             case .failure(let error):
+                // TODO: do bettter error handling here
                 print(error.localizedDescription)
             }
         }
     }
     
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        cookieStore.getAllCookies { cookies in
-            print(cookies)
+        cookieStore.getAllCookies {[weak self] cookies in
+            let cookies = cookies.filter {LogIn.authCookieNames.contains($0.name)}
+            if (cookies.map {$0.name}).sorted() == LogIn.authCookieNames.sorted() {
+                cookies.forEach {HTTPCookieStorage.shared.setCookie($0)}
+                self?.singleSignOnIsPresented = false
+                self?.authenticationFinished = true
+            }
         }
     }
     
     // MARK: - Intents
+    
+    func authenticate(with credentials: LogIn.Credentials) {
+        // TODO: implement this for normal sign in
+        
+    }
+    
+   
     
 }

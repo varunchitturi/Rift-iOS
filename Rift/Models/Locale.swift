@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Locale: Identifiable, Codable {
+    
     var id: Int
     var districtName: String
     var districtAppName: String
@@ -19,7 +21,7 @@ struct Locale: Identifiable, Codable {
     var parentLoginURL: URL
     
     enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case id
         case districtName = "district_name"
         case districtAppName = "district_app_name"
         case districtBaseURL = "district_baseurl"
@@ -30,30 +32,27 @@ struct Locale: Identifiable, Codable {
         case parentLoginURL = "parent_login_url"
     }
     
-    private static let ICDistrictQueryURLPrefix = "https://mobile.infinitecampus.com/mobile/searchDistrict?"
+    private static let baseURL: URLComponents = URLComponents(string: "https://mobile.infinitecampus.com/mobile/searchDistrict")!
     
     private static let minimumDistrictQueryLength = 3
     
-    private static func getDistrictQueryURL(query: String, state: String) -> URL? {
-        if let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let state = state.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            return URL(string: Locale.ICDistrictQueryURLPrefix + "query=\(query)&state=\(state)")
-        }
-        else {
-            return nil
-        }
+    private static func getDistrictQueryURL(query: String, state: USTerritory) -> URL? {
+        let query = URLQueryItem(name: "query", value: query)
+        let state = URLQueryItem(name: "state", value: state.rawValue)
+        var queryURL = baseURL
+        queryURL.queryItems = [query, state] 
+        return queryURL.url
     }
     
     static func searchDistrict(for query: String, state: USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
         if query.count >= minimumDistrictQueryLength {
-            guard let url = getDistrictQueryURL(query: query, state: state.rawValue) else {
+            guard let url = getDistrictQueryURL(query: query, state: state) else {
                 completion(.failure(SearchError.invalidDistrictURL))
                 return
             }
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
+                    completion(.failure(error))
                     return
                 }
                 DispatchQueue.main.async {

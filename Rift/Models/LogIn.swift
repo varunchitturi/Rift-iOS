@@ -11,10 +11,9 @@ import SwiftSoup
 struct LogIn {
     
     static let samlDOMID = "samlLoginLink"
+    static let authCookieNames = ["JSESSIONID", "XSRF-TOKEN", "sis-cookie", "appName", "portalApp"]
     
     let locale: Locale
-    // TODO: store http cookies in persistent data
-    var authCookies = HTTPCookieStorage()
     var ssoUrl: URL?
     var url: URL {
         locale.studentLoginURL
@@ -26,7 +25,6 @@ struct LogIn {
     
     init(locale: Locale) {
         self.locale = locale
-        authCookies.cookieAcceptPolicy = .always
     }
     
     func getLogInInfo(completion: @escaping (Result<([HTTPCookie], URL?), Error>)  -> Void)  {
@@ -36,8 +34,8 @@ struct LogIn {
                     if let error = error {
                         completion(.failure(error))
                     }
-                    else if let _ = data, let response = response as? HTTPURLResponse, let responseUrL = response.url {
-                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrL)
+                    else if let _ = data, let response = response as? HTTPURLResponse, let responseUrl = response.url {
+                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrl)
                         do {
                             let html = try String(contentsOf: url)
                             let htmlDOM = try SwiftSoup.parse(html)
@@ -52,6 +50,11 @@ struct LogIn {
                     }
                 }
             }.resume()
+    }
+    
+    struct Credentials {
+        let username: String
+        let password: String
     }
     
     enum LogInInfoError: Error {

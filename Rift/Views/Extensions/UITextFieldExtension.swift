@@ -1,6 +1,6 @@
 //
-//  UITextFieldExtensions.swift
-//  UITextFieldExtensions
+//  UITextFieldExtension.swift
+//  UITextFieldExtension
 //
 //  Created by Varun Chitturi on 9/3/21.
 //
