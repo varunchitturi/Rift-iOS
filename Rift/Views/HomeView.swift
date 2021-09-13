@@ -14,6 +14,7 @@ struct HomeView: View {
         VStack {
             switch tab {
             case .courses:
+                // Try to cache the json from network request or not have to create view each time
                 CoursesView(locale: locale)
             case .planner:
                 Text("Planner")
