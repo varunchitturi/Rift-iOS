@@ -40,10 +40,8 @@ struct CourseCard: View {
                     Circle()
                         .fill(DrawingConstants.circleBackground)
                         .frame(minWidth: DrawingConstants.minCircleRadius,
-                               idealWidth: DrawingConstants.idealCirlceRadius,
                                maxWidth: DrawingConstants.maxCircleRadius,
                                minHeight: DrawingConstants.maxCircleRadius,
-                               idealHeight: DrawingConstants.idealCirlceRadius,
                                maxHeight: DrawingConstants.maxCircleRadius,
                                alignment: .trailing)
                         .overlay(
@@ -74,7 +72,6 @@ struct CourseCard: View {
     private struct DrawingConstants {
         static let minCircleRadius: CGFloat = 30.0
         static let maxCircleRadius: CGFloat = 35.0
-        static let idealCirlceRadius = (minCircleRadius + maxCircleRadius)/2
         static let foregroundColor = Color("Tertiary")
         static let backgroundColor = Color("Secondary")
         static let circleForeground = Color("Foreground")
