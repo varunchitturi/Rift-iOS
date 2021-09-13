@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var tab: TabBar.Tab = .courses
+    // TODO: make data managed by the home view model
+    // TODO: display header in home view naviagtion such as name + assignment information
     let locale: Locale
     var body: some View {
         VStack {
