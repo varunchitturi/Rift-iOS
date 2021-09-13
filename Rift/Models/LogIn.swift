@@ -37,6 +37,7 @@ struct LogIn {
                     else if let _ = data, let response = response as? HTTPURLResponse, let responseUrl = response.url {
                         let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrl)
                         do {
+                            // TODO: make sure to clear cookies when prompting login. Sometimes the past user cookies are used to make requests
                             let html = try String(contentsOf: url)
                             let htmlDOM = try SwiftSoup.parse(html)
                             let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
