@@ -52,6 +52,7 @@ struct CourseCard: View {
                                 .foregroundColor(DrawingConstants.circleForeground)
                                 .padding(9)
                         )
+                    // TODO: change perent calculation to getting it from raw data instead of calculating based on points
                     Text((percentage?.description.appending("%") ?? "N/A"))
                         .lineLimit(1)
                         .font(.caption)
