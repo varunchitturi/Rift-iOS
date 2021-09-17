@@ -25,6 +25,7 @@ struct LogInView: View {
             ScrollView {
                 Spacer(minLength: DrawingConstants.formTopSpacing)
                 if logInViewModel.hasSSOLogin {
+                    // TODO: have a loading state for single sign on button
                     CapsuleButton("Single Sign-On", style: .secondary) {
                         DispatchQueue.main.async {
                             usernameIsEditing = false

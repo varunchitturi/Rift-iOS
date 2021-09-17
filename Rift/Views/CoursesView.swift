@@ -10,19 +10,24 @@ import SwiftUI
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
     
-    init(locale: Locale) {
-        coursesViewModel = CoursesViewModel(locale: locale)
+    init(viewModel: CoursesViewModel) {
+        coursesViewModel = viewModel
     }
     
     var body: some View {
         ScrollView {
             ForEach(coursesViewModel.courseList) {course in
                 if !course.isDropped {
-                    CourseCard(courseName: course.courseName, teacher: course.teacherName, pointsEarned: course.grades?[0].currentPoints, totalPoints: course.grades?[0].totalPoints, letterGrade: course.grades?[0].letterGrade)
+                    CourseCard(course: course)
+                        .padding(.horizontal, DrawingConstants.cardEdgePadding)
                 }
             }
             .padding(.top)
         }
+    }
+    
+    private struct DrawingConstants {
+        static let cardEdgePadding: CGFloat = 2
     }
 }
 

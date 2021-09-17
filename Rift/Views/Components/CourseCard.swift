@@ -9,26 +9,15 @@ import SwiftUI
 
 struct CourseCard: View {
     
-    init(courseName: String, teacher: String, pointsEarned: Double? = nil, totalPoints: Double? = nil, letterGrade: String? = nil) {
-        if let pointsEarned = pointsEarned, let totalPoints = totalPoints, totalPoints != 0 {
-            self.percentage = round((pointsEarned/totalPoints) * 10000) / 100
-        }
-       
-        self.courseName = courseName
-        self.teacher = teacher
-        self.letterGrade = letterGrade
-    }
-    var courseName: String
-    var teacher: String
-    var percentage: Double?
-    var letterGrade: String?
+    let course: Courses.Course
+
     var body: some View {
         Group {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(courseName)
+                    Text(course.courseName)
                         .lineLimit(1)
-                    Text(teacher)
+                    Text(course.teacherName ?? "")
                         .foregroundColor(DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
                         .font(.caption)
@@ -45,15 +34,14 @@ struct CourseCard: View {
                                maxHeight: DrawingConstants.maxCircleRadius,
                                alignment: .trailing)
                         .overlay(
-                            Text(letterGrade ?? "N/A")
+                            Text(course.gradeDisplay?.letterGrade ?? "N/A")
                                 .fontWeight(.semibold)
                                 .scaledToFill()
                                 .minimumScaleFactor(0.01)
                                 .foregroundColor(DrawingConstants.circleForeground)
                                 .padding(9)
                         )
-                    // TODO: change perent calculation to getting it from raw data instead of calculating based on points
-                    Text((percentage?.description.appending("%") ?? "N/A"))
+                    Text(course.gradeDisplay?.percentageString ?? "N/A")
                         .lineLimit(1)
                         .font(.caption)
                         .frame(width: 80)
@@ -83,11 +71,12 @@ struct CourseCard: View {
 }
 
 struct CourseCard_Previews: PreviewProvider {
+    static let course = Courses.Course(id: 1, courseName: "AP Computer Science", teacherName: "Mr. Brucker", grades: [Courses.Grade(letterGrade: "B+", percentage: 83.3, currentPoints: 31, totalPoints: 32, termName: "Q1", termType: .midTerm)], isDropped: false)
     static var previews: some View {
-        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", pointsEarned: 90, totalPoints: 101, letterGrade: "B+")
+        CourseCard(course: course)
             .padding()
             .previewLayout(.sizeThatFits) 
-        CourseCard(courseName: "AP Computer Science", teacher: "Mr. Brucker", pointsEarned: 90, totalPoints: 101, letterGrade: "B+")
+        CourseCard(course: course)
             .padding()
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)

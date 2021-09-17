@@ -80,9 +80,15 @@ struct Courses {
         
         let id: Int
         let courseName: String
-        let teacherName: String
+        let teacherName: String?
         let grades: [Grade]?
         let isDropped: Bool
+        
+        var gradeDisplay: Courses.Grade? {
+            // TODO: use the correct term by start and end date
+            grades?[0]
+        }
+        
         
         enum CodingKeys: String, CodingKey {
             case id = "_id"
@@ -112,6 +118,17 @@ struct Courses {
         let totalPoints: Double?
         let termName: String
         let termType: TermType
+        
+        var percentageString: String {
+            guard let percentage = percentage?.description else {
+                if let totalPoints = totalPoints, let currentPoints = currentPoints {
+                    return (((currentPoints / totalPoints) * 100).rounded() * 100).description.appending("%")
+                } else {
+                    return "N/A"
+                }
+            }
+            return percentage.appending("%")
+        }
         
         enum CodingKeys: String, CodingKey {
             case letterGrade = "progressScore"

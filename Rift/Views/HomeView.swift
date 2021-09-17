@@ -9,15 +9,21 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var tab: TabBar.Tab = .courses
-    // TODO: make data managed by the home view model
+    @ObservedObject var coursesViewModel: CoursesViewModel
     // TODO: display header in home view naviagtion such as name + assignment information
     let locale: Locale
+    
+    init(locale: Locale) {
+        self.locale = locale
+        coursesViewModel = CoursesViewModel(locale: locale)
+    }
+
     var body: some View {
         VStack {
             switch tab {
             case .courses:
                 // Try to cache the json from network request or not have to create view each time
-                CoursesView(locale: locale)
+                CoursesView(viewModel: coursesViewModel)
             case .planner:
                 Text("Planner")
             case .inbox:
@@ -26,7 +32,9 @@ struct HomeView: View {
             Spacer()
             TabBar(selected: $tab)
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
+    
 }
 
 struct HomeView_Previews: PreviewProvider {

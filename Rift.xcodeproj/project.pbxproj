@@ -38,6 +38,7 @@
 		27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
 		27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
 		27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
+		27DC59BE26F4FCDA007A57EF /* DoubleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC59BD26F4FCDA007A57EF /* DoubleUtils.swift */; };
 		27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343026EDBDFC0046942E /* CoursesViewModel.swift */; };
 		27DE343326EDBE050046942E /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343226EDBE050046942E /* Courses.swift */; };
 		27DE343526EDBE100046942E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343426EDBE100046942E /* HomeView.swift */; };
@@ -83,6 +84,7 @@
 		27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldModularButton.swift; sourceTree = "<group>"; };
 		27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchView.swift; sourceTree = "<group>"; };
 		27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchResultCard.swift; sourceTree = "<group>"; };
+		27DC59BD26F4FCDA007A57EF /* DoubleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleUtils.swift; sourceTree = "<group>"; };
 		27DE343026EDBDFC0046942E /* CoursesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesViewModel.swift; sourceTree = "<group>"; };
 		27DE343226EDBE050046942E /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
 		27DE343426EDBE100046942E /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				27074EC726EB310300A6ED72 /* URLUtils.swift */,
 				271B3ED326EBE64500DAB4D9 /* WebKitUtils.swift */,
 				27DE344426EDFE4D0046942E /* DataUtils.swift */,
+				27DC59BD26F4FCDA007A57EF /* DoubleUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
 				272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */,
+				27DC59BE26F4FCDA007A57EF /* DoubleUtils.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
 				27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */,
 				27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */,
