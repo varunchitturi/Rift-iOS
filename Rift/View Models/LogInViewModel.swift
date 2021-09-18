@@ -13,7 +13,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
-    @Published var authenticationFinished = false
+    @Binding var authenticationState: Bool
+    var isAuthenticated = false
     
     var locale: Locale {
         logIn.locale
@@ -27,8 +28,9 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         logIn.ssoUrl != nil
     }
     
-    init(locale: Locale) {
+    init(locale: Locale, authenticationState: Binding<Bool>) {
         logIn = LogIn(locale: locale)
+        self._authenticationState = authenticationState
         super.init()
         logIn.getLogInInfo {[weak self] result in
             switch result {
@@ -39,6 +41,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                 self?.logIn.ssoUrl = ssoUrl
             case .failure(let error):
                 // TODO: do bettter error handling here
+                print("Log in error")
                 print(error.localizedDescription)
             }
         }
@@ -50,7 +53,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
             if (cookies.map {$0.name}).sorted() == LogIn.authCookieNames.sorted() {
                 cookies.forEach {HTTPCookieStorage.shared.setCookie($0)}
                 self?.singleSignOnIsPresented = false
-                self?.authenticationFinished = true
+                self?.isAuthenticated = true
             }
         }
     }
@@ -60,6 +63,14 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     func authenticate(with credentials: LogIn.Credentials) {
         // TODO: implement this for normal sign in
         
+    }
+    
+    func authenticate() {
+        self.authenticationState = isAuthenticated
+    }
+
+    func promptSingleSignOn() {
+        singleSignOnIsPresented = true
     }
     
    

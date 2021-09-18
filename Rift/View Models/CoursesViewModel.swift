@@ -19,9 +19,10 @@ class CoursesViewModel: ObservableObject {
         courses.getCourses {result in
             switch result {
             case .success(let courseList):
-                self.courses.courseList.append(contentsOf: courseList)
+                self.courses.courseList = courseList
             case .failure(let error):
                 // TODO: do bettter error handling here
+                print("Courses error")
                 print(error.localizedDescription)
             }
         }

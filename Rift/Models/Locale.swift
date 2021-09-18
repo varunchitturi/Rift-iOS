@@ -32,14 +32,14 @@ struct Locale: Identifiable, Codable {
         case parentLoginURL = "parent_login_url"
     }
     
-    private static let baseURL: URLComponents = URLComponents(string: "https://mobile.infinitecampus.com/mobile/searchDistrict")!
+    private static let baseSearchURL: URLComponents = URLComponents(string: "https://mobile.infinitecampus.com/mobile/searchDistrict")!
     
     private static let minimumDistrictQueryLength = 3
     
     private static func getDistrictQueryURL(query: String, state: USTerritory) -> URL? {
         let query = URLQueryItem(name: "query", value: query)
         let state = URLQueryItem(name: "state", value: state.rawValue)
-        var queryURL = baseURL
+        var queryURL = baseSearchURL
         queryURL.queryItems = [query, state] 
         return queryURL.url
     }

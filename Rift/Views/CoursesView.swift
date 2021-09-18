@@ -15,19 +15,27 @@ struct CoursesView: View {
     }
     
     var body: some View {
-        ScrollView {
-            ForEach(coursesViewModel.courseList) {course in
-                if !course.isDropped {
-                    CourseCard(course: course)
-                        .padding(.horizontal, DrawingConstants.cardEdgePadding)
+        NavigationView {
+            ScrollView {
+                LazyVStack(spacing: DrawingConstants.cardSpacing) {
+                    ForEach(coursesViewModel.courseList) {course in
+                        if !course.isDropped {
+                            CourseCard(course: course)
+                        }
+                    }
                 }
+                .padding(.top)
+                .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             }
-            .padding(.top)
+            .navigationTitle(TabBar.Tab.courses.rawValue)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        
     }
     
     private struct DrawingConstants {
-        static let cardEdgePadding: CGFloat = 2
+        static let cardSpacing: CGFloat = 8
+        static let cardHorizontalPadding: CGFloat = 4
     }
 }
 

@@ -9,10 +9,11 @@ import SwiftUI
 
 struct DistrictSearchView: View {
     // TODO: handle bad or no network conditions
-    @ObservedObject var localeViewModel: LocaleViewModel
+    // TODO: create loading state animation
+    @EnvironmentObject var localeViewModel: LocaleViewModel
     @State private var isSearching: Bool = true
     @State private var searchQuery: String = ""
-    @Binding var districtSearchIsPresented: Bool
+    @Binding var isPresented: Bool
     var body: some View {
         VStack {
             HStack {
@@ -33,7 +34,7 @@ struct DistrictSearchView: View {
                         searchQuery = ""
                         localeViewModel.searchResults = []
                         isSearching = false
-                        districtSearchIsPresented = false
+                        isPresented = false
                     } label: {
                         Text("Cancel")
                             .foregroundColor(DrawingConstants.accentColor)
@@ -50,7 +51,7 @@ struct DistrictSearchView: View {
                     Button {
                         isSearching = false
                         localeViewModel.chosenLocale = searchResult
-                        districtSearchIsPresented = false
+                        isPresented = false
                     } label: {
                         VStack{
                             DistrictSearchResultCard(for: searchResult)
@@ -72,6 +73,7 @@ struct DistrictSearchView: View {
 struct DistrictSearchView_Previews: PreviewProvider {
     @StateObject static var localeViewModel = LocaleViewModel()
     static var previews: some View {
-        DistrictSearchView(localeViewModel: LocaleViewModel(), districtSearchIsPresented: .constant(true))
+        DistrictSearchView(isPresented: .constant(true))
+            .environmentObject(LocaleViewModel())
     }
 }

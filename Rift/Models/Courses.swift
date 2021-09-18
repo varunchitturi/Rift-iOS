@@ -19,14 +19,17 @@ struct Courses {
     
     func getCourses(completion: @escaping (Result<[Course], Error>) -> Void) {
         let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Courses.coursesPathURL.description))
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            print("fetching data")
+        // TODO: customize this (caching mechanism for cookies and responses)
+        let urlSessionConfiguration = URLSessionConfiguration.default
+        urlSessionConfiguration.urlCache = nil
+        // TODO: have a loading view for courses
+        // TODO: show an network error message if no data is able to be retrieved
+        URLSession(configuration: urlSessionConfiguration).dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             }
             else if let data = data {
                 DispatchQueue.main.async {
-                    print("data received")
                     do {
                         let decoder = JSONDecoder()
                         let gradesResponse = try decoder.decode([GradesResponse].self, from: data)
@@ -46,7 +49,6 @@ struct Courses {
                 }
             }
             else {
-                print("could not send request")
                 completion(.failure(CourseNetworkError.invalidData))
             }
         }.resume()

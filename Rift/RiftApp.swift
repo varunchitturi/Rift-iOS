@@ -12,11 +12,8 @@ struct RiftApp: App {
     
     var body: some Scene {
         // TODO: Change status bar color
-        
-        
         WindowGroup {
-            WelcomeView()
-            // WebView(request: URLRequest(url: URL(string: "https://www.google.com/")!))
+            ContentView()
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LocaleView.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 8/9/21.
@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct LocaleView: View {
     
-    @StateObject private var localeViewModel = LocaleViewModel()
+    
+    
+    @ObservedObject var localeViewModel: LocaleViewModel
+    
     @State private var districtSearchIsPresented: Bool = false {
         willSet {
             if districtSearchIsPresented != newValue {
@@ -18,12 +21,20 @@ struct WelcomeView: View {
         }
     }
     @State private var stateSelectionIsEditing: Bool = false
+    
+    @Binding var authenticationState: Bool
+    
     let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.description}
     
     private var navigationDisabled: Bool {
         localeViewModel.chosenLocale == nil
     }
    
+    init(viewModel: LocaleViewModel, authenticationState: Binding<Bool>) {
+        self._authenticationState = authenticationState
+        self.localeViewModel = viewModel
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -38,11 +49,11 @@ struct WelcomeView: View {
                     }
                         .disabled(localeViewModel.stateSelectionIndex == nil)
                         .sheet(isPresented: $districtSearchIsPresented) {
-                            DistrictSearchView(localeViewModel: localeViewModel, districtSearchIsPresented: $districtSearchIsPresented)
+                            DistrictSearchView(isPresented: $districtSearchIsPresented).environmentObject(localeViewModel)
                         }
                 }
                 if localeViewModel.chosenLocale != nil {
-                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!)) {
+                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!, authenticationState: $authenticationState)) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
                     .disabled(navigationDisabled)
@@ -69,11 +80,12 @@ struct WelcomeView: View {
 
 
 
-struct WelcomeView_Previews: PreviewProvider {
+struct LocaleView_Previews: PreviewProvider {
+    @StateObject private static var localeViewModel = LocaleViewModel()
     static var previews: some View {
-        WelcomeView()
+        LocaleView(viewModel: LocaleViewModel(), authenticationState: .constant(false))
             .previewDevice("iPod touch (7th generation)")
-        WelcomeView()
+        LocaleView(viewModel: LocaleViewModel(), authenticationState: .constant(false))
             .previewDevice("iPhone 11")
     }
 }

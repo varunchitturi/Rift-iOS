@@ -15,8 +15,8 @@ struct LogInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     
-    init(locale: Locale) {
-        logInViewModel = LogInViewModel(locale: locale)
+    init(locale: Locale, authenticationState: Binding<Bool>) {
+        logInViewModel = LogInViewModel(locale: locale, authenticationState: authenticationState)
     }
     
     var body: some View {
@@ -31,7 +31,8 @@ struct LogInView: View {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        logInViewModel.singleSignOnIsPresented = true
+                        
+                        logInViewModel.promptSingleSignOn()
                     }
                     
                     TextDivider("or")
@@ -49,19 +50,15 @@ struct LogInView: View {
             CapsuleButton("Log In", style: .primary) {
                 print("log in")
             }
-            NavigationLink(
-                destination: HomeView(locale: logInViewModel.locale),
-                isActive: $logInViewModel.authenticationFinished
-            ) {
-                EmptyView()
-            }
-            .isDetailLink(false)
         }
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
+            logInViewModel.authenticate()
+        } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel)
         }
+        
     }
     
     private struct DrawingConstants {
@@ -75,6 +72,6 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!))
+        LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!), authenticationState: .constant(false))
     }
 }
