@@ -24,6 +24,7 @@ struct PlannerView: View {
                             PlannerCard(assignment: assignment)
                         }
                     }
+                    .textCase(nil)
                     .foregroundColor(DrawingConstants.foregroundColor)
                 }
             }
