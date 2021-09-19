@@ -1,0 +1,60 @@
+//
+//  PlannerViewModel.swift
+//  Rift
+//
+//  Created by Varun Chitturi on 9/19/21.
+//
+
+import Foundation
+
+class PlannerViewModel: ObservableObject {
+    // TODO: edit this to support multiple filters
+    @Published private var planner: Planner
+    @Published var assignmentList = [Planner.Assignment]()
+    
+    var assignmentDateList: [Date?: [Planner.Assignment]] {
+        var assignmentDateList = [Date?: [Planner.Assignment]]()
+        for assignment in assignmentList {
+            let dueDate = assignment.dueDate
+            if !assignmentDateList.keys.contains(dueDate) {
+                assignmentDateList[dueDate] = []
+            }
+            assignmentDateList[dueDate]?.append(assignment)
+            
+        }
+        return assignmentDateList
+    }
+    
+    var dates: [Date?] {
+        assignmentDateList.keys.sorted { lhs, rhs in
+            if let lhs = lhs, let rhs = rhs {
+                return lhs > rhs
+            }
+            return lhs != nil ? false : true
+        }
+    }
+    
+    static let dateFormatter: DateFormatter = {
+       let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = .current
+        return dateFormatter
+    }()
+    
+    
+    
+    init(locale: Locale) {
+        planner = Planner(locale: locale)
+        
+        planner.getAssignmentList { result in
+            switch result {
+            case .success(let assignmentList):
+                self.assignmentList = assignmentList
+            case .failure(let error):
+                print(error.localizedDescription)
+                // TODO: do better error handling here
+            }
+        }
+    }
+}

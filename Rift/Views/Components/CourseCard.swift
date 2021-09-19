@@ -16,56 +16,37 @@ struct CourseCard: View {
             HStack {
                 VStack(alignment: .leading) {
                     Text(course.courseName)
-                        .lineLimit(1)
                     Text(course.teacherName ?? "")
                         .foregroundColor(DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
                         .font(.caption)
-                        .lineLimit(1)
                 }
-                .padding([.bottom], 0)
                 Spacer()
                 VStack {
-                    Circle()
-                        .fill(DrawingConstants.circleBackground)
-                        .frame(minWidth: DrawingConstants.minCircleRadius,
-                               maxWidth: DrawingConstants.maxCircleRadius,
-                               minHeight: DrawingConstants.maxCircleRadius,
-                               maxHeight: DrawingConstants.maxCircleRadius,
-                               alignment: .trailing)
-                        .overlay(
-                            Text(course.gradeDisplay?.letterGrade ?? "N/A")
-                                .fontWeight(.semibold)
-                                .scaledToFill()
-                                .minimumScaleFactor(0.01)
-                                .foregroundColor(DrawingConstants.circleForeground)
-                                .padding(9)
-                        )
-                    Text(course.gradeDisplay?.percentageString ?? "N/A")
-                        .lineLimit(1)
+                    CircleBadge(course.gradeDisplay?.letterGrade)
+                    Text(course.gradeDisplay?.percentageString ?? "-")
                         .font(.caption)
-                        .frame(width: 80)
+                        .frame(width: DrawingConstants.percentageDisplayWidth)
                     
                 }
             }
+            .lineLimit(1)
             .foregroundColor(DrawingConstants.foregroundColor)
             .padding()
         }
         .background(
-            RoundedRectangle(cornerRadius: 25)
+            RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
                 .fill(DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
-        static let minCircleRadius: CGFloat = 30.0
-        static let maxCircleRadius: CGFloat = 35.0
         static let foregroundColor = Color("Tertiary")
         static let backgroundColor = Color("Secondary")
-        static let circleForeground = Color("Foreground")
-        static let circleBackground = Color("Background")
         static let secondaryForegroundColor = Color("Quartenary")
+        static let backgroundCornerRadius: CGFloat = 25
+        static let percentageDisplayWidth: CGFloat = 80
     }
     
 }

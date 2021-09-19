@@ -10,12 +10,14 @@ import SwiftUI
 struct HomeView: View {
     @State private var tab: TabBar.Tab = .courses
     @ObservedObject var coursesViewModel: CoursesViewModel
+    @ObservedObject var plannerViewModel: PlannerViewModel
     // TODO: display header in home view naviagtion such as name + assignment information
     let locale: Locale
     
     init(locale: Locale) {
         self.locale = locale
         coursesViewModel = CoursesViewModel(locale: locale)
+        plannerViewModel = PlannerViewModel(locale: locale)
     }
 
     var body: some View {
@@ -25,7 +27,7 @@ struct HomeView: View {
                 // Try to cache the json from network request or not have to create view each time
                 CoursesView(viewModel: coursesViewModel)
             case .planner:
-                Text("Planner")
+                PlannerView(viewModel: plannerViewModel)
             case .inbox:
                 Text("Inbox")
             }

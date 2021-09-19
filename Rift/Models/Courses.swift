@@ -63,6 +63,7 @@ struct Courses {
             }
         }
     }
+    
     private struct GradesResponse: Codable {
         let terms: [Term]
     }
@@ -126,7 +127,7 @@ struct Courses {
                 if let totalPoints = totalPoints, let currentPoints = currentPoints {
                     return (((currentPoints / totalPoints) * 100).rounded() * 100).description.appending("%")
                 } else {
-                    return "N/A"
+                    return "-"
                 }
             }
             return percentage.appending("%")

@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBar: View {
     @Binding var selected: Tab
     var body: some View {
+        // TODO: move tab bar up slighly and make background transparent
         ZStack {
             Rectangle()
                 .cornerRadius(DrawingConstants.barCornerRadius, corners: [.topLeft, .topRight])

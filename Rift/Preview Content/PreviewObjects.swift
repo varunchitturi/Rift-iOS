@@ -5,10 +5,12 @@
 //  Created by Varun Chitturi on 9/12/21.
 //
 
+#if DEBUG
+
 import Foundation
 
 struct PreviewObjects {
-    static var locale = Locale(id: 1, districtName: "Fremont Unified School District", districtAppName: "fremont", districtBaseURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/")!, districtCode: "qjnmct", state: .CA, staffLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/fremont.jsp")!, studentLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/portal/students/fremont.jsp")!, parentLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/portal/parents/fremont.jsp")!)
+    static let locale = Locale(id: 1, districtName: "Fremont Unified School District", districtAppName: "fremont", districtBaseURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/")!, districtCode: "qjnmct", state: .CA, staffLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/fremont.jsp")!, studentLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/portal/students/fremont.jsp")!, parentLoginURL: URL(string: "https://fremontunifiedca.infinitecampus.org/campus/portal/parents/fremont.jsp")!)
     
     static var authCookies: HTTPCookieStorage {
         let cookies = HTTPCookieStorage()
@@ -33,6 +35,10 @@ struct PreviewObjects {
         return cookies
     }
     
+    static let assignment = Planner.Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100)
+    
    
     
 }
+
+#endif

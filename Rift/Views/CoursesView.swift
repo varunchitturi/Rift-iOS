@@ -28,14 +28,15 @@ struct CoursesView: View {
                 .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             }
             .navigationTitle(TabBar.Tab.courses.rawValue)
+            // TODO: change this value
         }
         .navigationViewStyle(StackNavigationViewStyle())
         
     }
     
     private struct DrawingConstants {
-        static let cardSpacing: CGFloat = 8
-        static let cardHorizontalPadding: CGFloat = 4
+        static let cardSpacing: CGFloat = 12
+        static let cardHorizontalPadding: CGFloat = 8
     }
 }
 
