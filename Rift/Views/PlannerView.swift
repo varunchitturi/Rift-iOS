@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PlannerView: View {
     @ObservedObject var plannerViewModel: PlannerViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
+    
     init(viewModel: PlannerViewModel) {
         plannerViewModel = viewModel
     }
@@ -19,7 +21,7 @@ struct PlannerView: View {
                 let dates = plannerViewModel.dates
                 let assignmentDateList = plannerViewModel.assignmentDateList
                 ForEach(dates, id: \.hashValue) {date in
-                    Section(header: SectionHeader (date != nil ? PlannerViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
+                    Section(header: Text(date != nil ? PlannerViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
                         ForEach(assignmentDateList[date]!) { assignment in
                             PlannerCard(assignment: assignment)
                         }
@@ -28,7 +30,12 @@ struct PlannerView: View {
                     .foregroundColor(DrawingConstants.foregroundColor)
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .navigationTitle(TabBar.Tab.planner.rawValue)
+            .toolbar {
+                UserPreferencesButton()
+                    .environmentObject(homeViewModel)
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

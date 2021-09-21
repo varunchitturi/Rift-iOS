@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
     
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
@@ -26,12 +27,18 @@ struct CoursesView: View {
                 }
                 .padding(.top)
                 .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
+
             }
-            .navigationTitle(TabBar.Tab.courses.rawValue)
             // TODO: change this value
+            .navigationTitle(TabBar.Tab.courses.rawValue)
+            .toolbar {
+                UserPreferencesButton()
+                    .environmentObject(homeViewModel)
+            }
+            
         }
-        .navigationViewStyle(StackNavigationViewStyle())
         
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private struct DrawingConstants {
@@ -40,3 +47,9 @@ struct CoursesView: View {
     }
 }
 
+struct CoursesView_Previews: PreviewProvider {
+    static var previews: some View {
+        CoursesView(viewModel: CoursesViewModel(locale: PreviewObjects.locale))
+            .environmentObject(HomeViewModel(locale: PreviewObjects.locale))
+    }
+}

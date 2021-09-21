@@ -12,8 +12,7 @@ struct TabBar: View {
     var body: some View {
         // TODO: move tab bar up slighly and make background transparent
         ZStack {
-            Rectangle()
-                .cornerRadius(DrawingConstants.barCornerRadius, corners: [.topLeft, .topRight])
+            RoundedRectangle(cornerRadius: .infinity)
                 .foregroundColor(DrawingConstants.foregroundColor)
                 .frame(minHeight: DrawingConstants.barMinHeight,
                        idealHeight: DrawingConstants.barIdealHeight,
@@ -50,10 +49,10 @@ struct TabBar: View {
         static let barMinHeight: CGFloat = 85
         static let barIdealHeight: CGFloat = 90
         static let barMaxHeight: CGFloat = 90
-        static let barShadowOpacity: Double = 0.1
-        static let barShadowRadius: CGFloat = 7
+        static let barShadowOpacity: Double = 0.2
+        static let barShadowRadius: CGFloat = 13
         static let barShadowXOffset: CGFloat = 0
-        static let barShadowYOffset: CGFloat = -5
+        static let barShadowYOffset: CGFloat = -2
         static let foregroundColor = Color("Secondary")
         static let accentColor = Color("Primary")
         static let backgroundColor = Color("Tertiary")

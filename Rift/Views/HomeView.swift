@@ -9,15 +9,16 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var tab: TabBar.Tab = .courses
+    @ObservedObject var homeViewModel: HomeViewModel
     @ObservedObject var coursesViewModel: CoursesViewModel
     @ObservedObject var plannerViewModel: PlannerViewModel
+    
     // TODO: display header in home view naviagtion such as name + assignment information
-    let locale: Locale
     
     init(locale: Locale) {
-        self.locale = locale
         coursesViewModel = CoursesViewModel(locale: locale)
         plannerViewModel = PlannerViewModel(locale: locale)
+        homeViewModel = HomeViewModel(locale: locale)
     }
 
     var body: some View {
@@ -26,15 +27,23 @@ struct HomeView: View {
             case .courses:
                 // Try to cache the json from network request or not have to create view each time
                 CoursesView(viewModel: coursesViewModel)
+                    .environmentObject(homeViewModel)
             case .planner:
                 PlannerView(viewModel: plannerViewModel)
+                    .environmentObject(homeViewModel)
             case .inbox:
                 Text("Inbox")
             }
-            Spacer()
-            TabBar(selected: $tab)
+            
         }
-        .edgesIgnoringSafeArea(.bottom)
+        .overlay(TabBar(selected: $tab)
+                    .edgesIgnoringSafeArea(.bottom)
+                    .padding(.horizontal),
+                 alignment: .bottom
+        )
+        .sheet(isPresented: $homeViewModel.settingsIsPresented) {
+            UserPreferencesView()
+        }
     }
     
 }
