@@ -5,7 +5,6 @@
 //  Created by Varun Chitturi on 9/12/21.
 //
 
-#if DEBUG
 
 import Foundation
 
@@ -40,5 +39,3 @@ struct PreviewObjects {
    
     
 }
-
-#endif

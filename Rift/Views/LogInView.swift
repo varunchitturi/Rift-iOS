@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LogInView: View {
+    
+    @EnvironmentObject var contentViewModel: ContentViewModel
     @ObservedObject private var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
@@ -15,8 +17,9 @@ struct LogInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     
-    init(locale: Locale, authenticationState: Binding<Bool>) {
-        logInViewModel = LogInViewModel(locale: locale, authenticationState: authenticationState)
+    init(locale: Locale) {
+        logInViewModel = LogInViewModel(locale: locale)
+        
     }
     
     var body: some View {
@@ -54,7 +57,7 @@ struct LogInView: View {
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            logInViewModel.authenticate()
+            logInViewModel.authenticate(for: $contentViewModel.isAuthenticated)
         } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel)
         }
@@ -72,6 +75,6 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!), authenticationState: .constant(false))
+        LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!))
     }
 }

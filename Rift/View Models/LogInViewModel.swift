@@ -13,7 +13,6 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
-    @Binding var authenticationState: Bool
     var isAuthenticated = false
     
     var locale: Locale {
@@ -28,9 +27,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         logIn.ssoUrl != nil
     }
     
-    init(locale: Locale, authenticationState: Binding<Bool>) {
+    init(locale: Locale) {
         logIn = LogIn(locale: locale)
-        self._authenticationState = authenticationState
         super.init()
         logIn.getLogInInfo {[weak self] result in
             switch result {
@@ -65,8 +63,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         
     }
     
-    func authenticate() {
-        self.authenticationState = isAuthenticated
+    func authenticate(for state: Binding<Bool>) {
+        state.wrappedValue = isAuthenticated
     }
 
     func promptSingleSignOn() {

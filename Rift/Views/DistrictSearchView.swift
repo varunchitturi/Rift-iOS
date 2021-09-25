@@ -41,8 +41,6 @@ struct DistrictSearchView: View {
                     }
                 }
             }
-            .transition(.opacity)
-            .animation(.default)
             .padding()
             
             Spacer()

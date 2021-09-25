@@ -10,39 +10,39 @@ import SwiftUI
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
-    
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack(spacing: DrawingConstants.cardSpacing) {
-                    ForEach(coursesViewModel.courseList) {course in
-                        if !course.isDropped {
-                            CourseCard(course: course)
-                        }
+            List {
+                ForEach(coursesViewModel.courseList) {course in
+                    if !course.isDropped {
+                        CourseCard(course: course)
+                            .listRowSeparator(.hidden)
+                            .padding(.vertical, DrawingConstants.cardSpacing)
                     }
                 }
-                .padding(.top)
-                .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
-
+                TabBar.Clearance()
             }
+            .listStyle(.plain)
+            .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             // TODO: change this value
-            .navigationTitle(TabBar.Tab.courses.rawValue)
+            .navigationTitle(TabBar.Tab.courses.label)
             .toolbar {
-                UserPreferencesButton()
-                    .environmentObject(homeViewModel)
+                ToolbarItem(id: UUID().uuidString) {
+                    UserPreferencesButton()
+                        .environmentObject(homeViewModel)
+                }
             }
             
         }
-        
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
     }
     
     private struct DrawingConstants {
-        static let cardSpacing: CGFloat = 12
+        static let cardSpacing: CGFloat = 8
         static let cardHorizontalPadding: CGFloat = 8
     }
 }

@@ -52,7 +52,7 @@ struct CourseCard: View {
 }
 
 struct CourseCard_Previews: PreviewProvider {
-    static let course = Courses.Course(id: 1, courseName: "AP Computer Science", teacherName: "Mr. Brucker", grades: [Courses.Grade(letterGrade: "B+", percentage: 83.3, currentPoints: 31, totalPoints: 32, termName: "Q1", termType: .midTerm)], isDropped: false)
+    static let course = Courses.Course(id: 1, courseName: "AP Computer Science", teacherName: "Mr. Brucker", grades: [Courses.Grade(letterGrade: "A+", percentage: 100.0, currentPoints: 32, totalPoints: 32, termName: "Q1", termType: .midTerm)], isDropped: false)
     static var previews: some View {
         CourseCard(course: course)
             .padding()

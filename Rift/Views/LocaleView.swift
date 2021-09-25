@@ -10,7 +10,7 @@ import SwiftUI
 struct LocaleView: View {
     
     
-    
+    @EnvironmentObject var contentViewModel: ContentViewModel
     @ObservedObject var localeViewModel: LocaleViewModel
     
     @State private var districtSearchIsPresented: Bool = false {
@@ -22,16 +22,13 @@ struct LocaleView: View {
     }
     @State private var stateSelectionIsEditing: Bool = false
     
-    @Binding var authenticationState: Bool
-    
     let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.description}
     
     private var navigationDisabled: Bool {
         localeViewModel.chosenLocale == nil
     }
    
-    init(viewModel: LocaleViewModel, authenticationState: Binding<Bool>) {
-        self._authenticationState = authenticationState
+    init(viewModel: LocaleViewModel) {
         self.localeViewModel = viewModel
     }
     
@@ -53,7 +50,7 @@ struct LocaleView: View {
                         }
                 }
                 if localeViewModel.chosenLocale != nil {
-                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!, authenticationState: $authenticationState)) {
+                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!).environmentObject(contentViewModel)) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
                     .disabled(navigationDisabled)
@@ -65,16 +62,14 @@ struct LocaleView: View {
                
                 
             }
-            .navigationTitle("Welcome")
             .padding()
+            .navigationTitle("Welcome")
         }
-        .navigationBarColor(backgroundColor: DrawingConstants.navigationColor)
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
     }
     
     private struct DrawingConstants {
         static let formTopSpacing: CGFloat = 70
-        static let navigationColor = Color("Primary")
     }
 }
 
@@ -83,9 +78,9 @@ struct LocaleView: View {
 struct LocaleView_Previews: PreviewProvider {
     @StateObject private static var localeViewModel = LocaleViewModel()
     static var previews: some View {
-        LocaleView(viewModel: LocaleViewModel(), authenticationState: .constant(false))
+        LocaleView(viewModel: LocaleViewModel())
             .previewDevice("iPod touch (7th generation)")
-        LocaleView(viewModel: LocaleViewModel(), authenticationState: .constant(false))
+        LocaleView(viewModel: LocaleViewModel())
             .previewDevice("iPhone 11")
     }
 }

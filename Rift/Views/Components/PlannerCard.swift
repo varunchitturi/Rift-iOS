@@ -28,12 +28,19 @@ struct PlannerCard: View {
             CircleBadge(assignment.totalPoints?.description)
         }
         .padding(.horizontal)
+        .background(
+            RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
+                .fill(DrawingConstants.backgroundColor)
+        )
+        
     }
     
     private struct DrawingConstants {
         static let foregroundColor = Color("Tertiary")
+        static let backgroundColor = Color("Secondary")
+        static let backgroundCornerRadius: CGFloat = 15
         static let secondaryForegroundColor = Color("Quartenary")
-        static let textPadding: CGFloat = 5
+        static let textPadding: CGFloat = 11
         static let textInsetPadding: CGFloat = 1.5
         
     }
@@ -41,6 +48,8 @@ struct PlannerCard: View {
 
 struct PlannerCard_Previews: PreviewProvider {
     static var previews: some View {
+        
         PlannerCard(assignment: PreviewObjects.assignment)
+            
     }
 }

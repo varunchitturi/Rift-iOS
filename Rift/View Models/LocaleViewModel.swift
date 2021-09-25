@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+// TODO: Switch everything to async/await
+
 class LocaleViewModel: ObservableObject {
     
     @Published var stateSelectionIndex: Int? {

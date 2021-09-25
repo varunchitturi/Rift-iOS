@@ -42,7 +42,7 @@ struct HomeView: View {
                  alignment: .bottom
         )
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
-            UserPreferencesView()
+            UserPreferenceView(preferences: UserPreference.shared)
         }
     }
     

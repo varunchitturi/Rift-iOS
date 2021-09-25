@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    // TODO: make all view models private
-    @State var isAuthenticated = false
+    @StateObject private var contentViewModel = ContentViewModel()
     @StateObject private var localeViewModel = LocaleViewModel()
     var body: some View {
-        if isAuthenticated && localeViewModel.chosenLocale != nil {
-            HomeView(locale: localeViewModel.chosenLocale!)
+        Group {
+            if contentViewModel.isAuthenticated && localeViewModel.chosenLocale != nil {
+                HomeView(locale: localeViewModel.chosenLocale!)
+                    .environmentObject(contentViewModel)
+            }
+            else {
+                LocaleView(viewModel: localeViewModel)
+                    .environmentObject(contentViewModel)
+            }
         }
-        else {
-            LocaleView(viewModel: localeViewModel, authenticationState: $isAuthenticated)
-        }
+        .navigationBarColor(backgroundColor: DrawingConstants.navigationColor)
+       
     }
 }
+
+private struct DrawingConstants {
+        static let navigationColor = Color("Primary")
+    }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

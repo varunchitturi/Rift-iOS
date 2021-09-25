@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2701CD4B26FD05E600D65B84 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4A26FD05E600D65B84 /* UserPreference.swift */; };
+		2701CD4D26FD05F200D65B84 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */; };
+		2701CD4F26FD0FC600D65B84 /* UserPreferenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */; };
+		2701CD5326FD26F400D65B84 /* UserPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */; };
+		2701CD5926FD2EB100D65B84 /* PreferenceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */; };
 		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
 		27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */; };
 		27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC526EAA7B300A6ED72 /* LogIn.swift */; };
@@ -21,7 +26,6 @@
 		272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */; };
 		273EA32326F9C25600D4FD20 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32226F9C25600D4FD20 /* HomeViewModel.swift */; };
 		273EA32726F9C5F800D4FD20 /* UserPreferencesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32626F9C5F800D4FD20 /* UserPreferencesButton.swift */; };
-		273EA32926F9C6E500D4FD20 /* UserPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32826F9C6E500D4FD20 /* UserPreferencesView.swift */; };
 		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
 		274E623126C21FB400C855D4 /* LocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* LocaleView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -40,12 +44,15 @@
 		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
 		27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27526DFFA15000022EF /* UIPickerField.swift */; };
 		27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */; };
-		27CB4DAC26F9E56B00CA1757 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB4DAB26F9E56B00CA1757 /* UserPreferences.swift */; };
 		27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */; };
 		27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
 		27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
 		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; };
 		27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
+		27DA637D26FE6C0500E90E91 /* PreferenceRowToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */; };
+		27DA638226FE793F00E90E91 /* PreferenceRowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */; };
+		27DA638426FE7A1A00E90E91 /* PreferenceRowLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */; };
+		27DA638626FE85FA00E90E91 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638526FE85FA00E90E91 /* ContentViewModel.swift */; };
 		27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
 		27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
 		27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
@@ -64,6 +71,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2701CD4A26FD05E600D65B84 /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
+		2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleUtils.swift; sourceTree = "<group>"; };
+		2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceUtils.swift; sourceTree = "<group>"; };
+		2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceView.swift; sourceTree = "<group>"; };
+		2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRow.swift; sourceTree = "<group>"; };
 		27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		27074EC526EAA7B300A6ED72 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		27074EC726EB310300A6ED72 /* URLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
@@ -77,7 +89,6 @@
 		272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		273EA32626F9C5F800D4FD20 /* UserPreferencesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesButton.swift; sourceTree = "<group>"; };
-		273EA32826F9C6E500D4FD20 /* UserPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesView.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* LocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleView.swift; sourceTree = "<group>"; };
@@ -98,11 +109,14 @@
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 		27CAE27526DFFA15000022EF /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
 		27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerFieldStyle.swift; sourceTree = "<group>"; };
-		27CB4DAB26F9E56B00CA1757 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewStyle.swift; sourceTree = "<group>"; };
 		27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		27D0F5B926DB2C530004F0A2 /* TextDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDivider.swift; sourceTree = "<group>"; };
 		27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
+		27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowToggle.swift; sourceTree = "<group>"; };
+		27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowButton.swift; sourceTree = "<group>"; };
+		27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowLink.swift; sourceTree = "<group>"; };
+		27DA638526FE85FA00E90E91 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldModularButton.swift; sourceTree = "<group>"; };
 		27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchView.swift; sourceTree = "<group>"; };
 		27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchResultCard.swift; sourceTree = "<group>"; };
@@ -133,6 +147,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2701CD5626FD2DC900D65B84 /* Capsule Field Components */ = {
+			isa = PBXGroup;
+			children = (
+				272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */,
+				27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */,
+			);
+			path = "Capsule Field Components";
+			sourceTree = "<group>";
+		};
 		270CE0E326D98A72009768A7 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +163,6 @@
 				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 				27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */,
 				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
-				273EA32826F9C6E500D4FD20 /* UserPreferencesView.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -208,9 +230,9 @@
 		274E624B26C2656300C855D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2721EEF126D6EF4500C5E906 /* Bridges */,
 				272F78FE26E205AE00CDA668 /* Extensions */,
 				274E624C26C2F45C00C855D4 /* Components */,
-				2721EEF126D6EF4500C5E906 /* Bridges */,
 				270CE0E326D98A72009768A7 /* Modifiers */,
 				274E623026C21FB400C855D4 /* LocaleView.swift */,
 				27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */,
@@ -219,6 +241,7 @@
 				27DE343626EDBE190046942E /* CoursesView.swift */,
 				27DC59BF26F5C9B9007A57EF /* ContentView.swift */,
 				27761BB026F73CE000601A37 /* PlannerView.swift */,
+				2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,7 +249,8 @@
 		274E624C26C2F45C00C855D4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				27FF50E426E0788A0001F8D6 /* Capsule Field Components */,
+				27DA637E26FE6C8C00E90E91 /* Preference Row Components */,
+				2701CD5626FD2DC900D65B84 /* Capsule Field Components */,
 				276F222926D4329F00588588 /* CapsuleTextField.swift */,
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
 				27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */,
@@ -239,6 +263,7 @@
 				27761BB826F7B9B200601A37 /* CircleBadge.swift */,
 				27761BBC26F7F39600601A37 /* SectionHeader.swift */,
 				273EA32626F9C5F800D4FD20 /* UserPreferencesButton.swift */,
+				2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -252,8 +277,20 @@
 				271B3ED326EBE64500DAB4D9 /* WebKitUtils.swift */,
 				27DE344426EDFE4D0046942E /* DataUtils.swift */,
 				27761BBA26F7CA0300601A37 /* DateUtils.swift */,
+				2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */,
+				2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		27DA637E26FE6C8C00E90E91 /* Preference Row Components */ = {
+			isa = PBXGroup;
+			children = (
+				27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */,
+				27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */,
+				27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */,
+			);
+			path = "Preference Row Components";
 			sourceTree = "<group>";
 		};
 		27FF50D626E072370001F8D6 /* View Models */ = {
@@ -264,6 +301,7 @@
 				27DE343026EDBDFC0046942E /* CoursesViewModel.swift */,
 				27761BB226F73CF500601A37 /* PlannerViewModel.swift */,
 				273EA32226F9C25600D4FD20 /* HomeViewModel.swift */,
+				27DA638526FE85FA00E90E91 /* ContentViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -275,18 +313,9 @@
 				27074EC526EAA7B300A6ED72 /* LogIn.swift */,
 				27DE343226EDBE050046942E /* Courses.swift */,
 				27761BB426F73D0000601A37 /* Planner.swift */,
-				27CB4DAB26F9E56B00CA1757 /* UserPreferences.swift */,
+				2701CD4A26FD05E600D65B84 /* UserPreference.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		27FF50E426E0788A0001F8D6 /* Capsule Field Components */ = {
-			isa = PBXGroup;
-			children = (
-				272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */,
-				27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */,
-			);
-			path = "Capsule Field Components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,30 +396,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */,
+				2701CD4D26FD05F200D65B84 /* LocaleUtils.swift in Sources */,
 				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
 				274E623126C21FB400C855D4 /* LocaleView.swift in Sources */,
 				271B3ED426EBE64500DAB4D9 /* WebKitUtils.swift in Sources */,
+				27DA637D26FE6C0500E90E91 /* PreferenceRowToggle.swift in Sources */,
 				27761BBD26F7F39600601A37 /* SectionHeader.swift in Sources */,
 				271B3ED226EBC9B200DAB4D9 /* WebView.swift in Sources */,
 				27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */,
+				27DA638426FE7A1A00E90E91 /* PreferenceRowLink.swift in Sources */,
 				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
 				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
 				27DE343526EDBE100046942E /* HomeView.swift in Sources */,
 				27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */,
 				272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */,
-				273EA32926F9C6E500D4FD20 /* UserPreferencesView.swift in Sources */,
 				27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */,
 				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
+				2701CD4F26FD0FC600D65B84 /* UserPreferenceUtils.swift in Sources */,
 				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
 				27761BB526F73D0000601A37 /* Planner.swift in Sources */,
 				272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */,
 				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
+				2701CD5926FD2EB100D65B84 /* PreferenceRow.swift in Sources */,
 				27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */,
 				273EA32726F9C5F800D4FD20 /* UserPreferencesButton.swift in Sources */,
 				27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */,
 				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
 				27761BB326F73CF500601A37 /* PlannerViewModel.swift in Sources */,
-				27CB4DAC26F9E56B00CA1757 /* UserPreferences.swift in Sources */,
 				27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */,
 				27761BBB26F7CA0300601A37 /* DateUtils.swift in Sources */,
 				27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */,
@@ -411,11 +443,15 @@
 				272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */,
 				27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */,
 				27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */,
+				2701CD4B26FD05E600D65B84 /* UserPreference.swift in Sources */,
 				273EA32326F9C25600D4FD20 /* HomeViewModel.swift in Sources */,
 				27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */,
 				27761BB926F7B9B200601A37 /* CircleBadge.swift in Sources */,
 				27761BB726F7B7A700601A37 /* PlannerCard.swift in Sources */,
 				27DE343726EDBE190046942E /* CoursesView.swift in Sources */,
+				2701CD5326FD26F400D65B84 /* UserPreferenceView.swift in Sources */,
+				27DA638626FE85FA00E90E91 /* ContentViewModel.swift in Sources */,
+				27DA638226FE793F00E90E91 /* PreferenceRowButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -528,7 +564,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -543,20 +579,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Rift/Preview Content\"";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.schoolscope.Rift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -565,20 +603,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Rift/Preview Content\"";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.schoolscope.Rift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct TabBar: View {
+    
+    struct Clearance: View {
+        var body: some View {
+            Spacer(minLength: DrawingConstants.barMaxHeight)
+                .listRowSeparator(.hidden)
+        }
+    }
+    
     @Binding var selected: Tab
     var body: some View {
         // TODO: move tab bar up slighly and make background transparent
