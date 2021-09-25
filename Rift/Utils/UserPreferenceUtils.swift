@@ -15,6 +15,7 @@ extension UserPreference {
                     label: "Log Out",
                     preferenceType: .button,
                     preferenceGroup: .user,
+                    prominence: .high,
                     action: { contentViewModel in
                         if let contentViewModel = contentViewModel as? ContentViewModel {
                             contentViewModel.isAuthenticated = false

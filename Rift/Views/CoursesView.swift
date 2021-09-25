@@ -20,7 +20,6 @@ struct CoursesView: View {
                 ForEach(coursesViewModel.courseList) {course in
                     if !course.isDropped {
                         CourseCard(course: course)
-                            .listRowSeparator(.hidden)
                             .padding(.vertical, DrawingConstants.cardSpacing)
                     }
                 }

@@ -9,11 +9,12 @@ import Foundation
 
 struct UserPreference: Identifiable {
     
-    init(label: String, preferenceType: UserPreference.PreferenceType, preferenceGroup: UserPreference.PreferenceGroup, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]? = nil) {
+    init(label: String, preferenceType: UserPreference.PreferenceType, preferenceGroup: UserPreference.PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]? = nil) {
         self.label = label
         self.preferenceType = preferenceType
         self.preferenceGroup = preferenceGroup
         self.icon = icon
+        self.prominence = prominence
         self.action = action
         self.linkedPreferences = linkedPreferences
     }
@@ -21,6 +22,7 @@ struct UserPreference: Identifiable {
     let label: String
     let preferenceType: PreferenceType
     let preferenceGroup: PreferenceGroup
+    let prominence: Prominence
     let icon: String?
     let action: (Any?) -> ()
     let linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]?
@@ -37,5 +39,9 @@ struct UserPreference: Identifiable {
             self.rawValue.hashValue
         }
         case user = "User", courses = "Courses", notifications = "Notifications"
+    }
+    
+    enum Prominence {
+        case high, low
     }
 }

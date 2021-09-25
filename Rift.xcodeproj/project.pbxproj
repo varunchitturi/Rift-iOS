@@ -63,6 +63,7 @@
 		27DE343726EDBE190046942E /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343626EDBE190046942E /* CoursesView.swift */; };
 		27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344026EDEFDE0046942E /* PreviewObjects.swift */; };
 		27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344426EDFE4D0046942E /* DataUtils.swift */; };
+		27FAB24126FF1AF6006C6643 /* TableViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */; };
 		27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
 		27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */; };
 		27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
@@ -127,6 +128,7 @@
 		27DE343626EDBE190046942E /* CoursesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
 		27DE344026EDEFDE0046942E /* PreviewObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewObjects.swift; sourceTree = "<group>"; };
 		27DE344426EDFE4D0046942E /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
+		27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewStyle.swift; sourceTree = "<group>"; };
 		27FF50D226E067270001F8D6 /* DisabledStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledStyle.swift; sourceTree = "<group>"; };
 		27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarUtils.swift; sourceTree = "<group>"; };
 		27FF50D826E0725D0001F8D6 /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 				27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */,
 				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
+				27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
 				27DC59C026F5C9B9007A57EF /* ContentView.swift in Sources */,
 				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
+				27FAB24126FF1AF6006C6643 /* TableViewStyle.swift in Sources */,
 				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
 				272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */,
 				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
@@ -509,7 +513,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -564,7 +568,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -578,15 +582,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Rift/Preview Content\"";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -609,7 +612,7 @@
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

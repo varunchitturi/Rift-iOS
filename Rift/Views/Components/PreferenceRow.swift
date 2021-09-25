@@ -14,14 +14,22 @@ struct PreferenceRow: View {
     
     let preference: UserPreference
     var body: some View {
-        switch preference.preferenceType {
-        case .toggle:
-            PreferenceRowToggle(preference)
-        case .button:
-            PreferenceRowButton(preference)
-        case .link:
-            PreferenceRowLink(preference)
+        Group {
+            switch preference.preferenceType {
+            case .toggle:
+                PreferenceRowToggle(preference)
+            case .button:
+                PreferenceRowButton(preference)
+            case .link:
+                PreferenceRowLink(preference)
+            }
         }
+        .foregroundColor(preference.prominence == .high ? DrawingConstants.prominentForeground : DrawingConstants.defaultForeground)
+    }
+    
+    private struct DrawingConstants {
+        static let prominentForeground = Color("Primary")
+        static let defaultForeground = Color("Tertiary")
     }
 }
 

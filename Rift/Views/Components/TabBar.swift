@@ -12,7 +12,6 @@ struct TabBar: View {
     struct Clearance: View {
         var body: some View {
             Spacer(minLength: DrawingConstants.barMaxHeight)
-                .listRowSeparator(.hidden)
         }
     }
     

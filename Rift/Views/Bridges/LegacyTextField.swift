@@ -8,7 +8,6 @@
 import SwiftUI
 
 
-// TODO: capture weak self for all async operations and make them sync for faster UI updates
 struct LegacyTextField: UIViewRepresentable {
     @Binding var isEditing: Bool
     @Binding var text: String

@@ -22,6 +22,7 @@ struct ContentView: View {
             }
         }
         .navigationBarColor(backgroundColor: DrawingConstants.navigationColor)
+        .usingCustomTableViewStyle()
        
     }
 }

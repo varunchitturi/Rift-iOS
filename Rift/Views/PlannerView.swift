@@ -25,7 +25,6 @@ struct PlannerView: View {
                         Section(header: Text(date != nil ? PlannerViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
                             ForEach(assignmentDateList[date]!) { assignment in
                                 PlannerCard(assignment: assignment)
-                                    .listRowSeparator(.hidden)
                             }
                             
                         }
