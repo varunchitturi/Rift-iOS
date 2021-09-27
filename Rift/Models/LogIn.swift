@@ -44,8 +44,8 @@ struct LogIn {
         self.locale = locale
     }
     
-    var authenticationCookiesExist: Bool {
-        if let cookies = HTTPCookieStorage.shared.cookies {
+    func authenticationCookiesExist(for cookies: [HTTPCookie]?) -> Bool {
+        if let cookies = cookies {
             let cookieNames = cookies.map {$0.name}
             if Set(LogIn.RequiredCookieName.allCases.map {$0.rawValue}).isSubset(of: Set(cookieNames)) {
                 return true
@@ -64,11 +64,13 @@ struct LogIn {
         do {
             urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
             LogIn.sharedURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
-                    completion(error)
-                }
-                else {
-                    completion(nil)
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(error)
+                    }
+                    else {
+                        completion(nil)
+                    }
                 }
             }
             .resume()

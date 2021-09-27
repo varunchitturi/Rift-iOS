@@ -13,7 +13,6 @@ struct LogInView: View {
     @ObservedObject private var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
-    @State private var persistenceAlertIsPresented = false
     @State private var username: String = ""
     @State private var password: String = ""
     
@@ -59,15 +58,9 @@ struct LogInView: View {
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            if logInViewModel.isAuthenticated {
-                persistenceAlertIsPresented = true
-            }
-            
-            print(HTTPCookieStorage.shared.cookies)
-        } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel, urlObserver: logInViewModel, initialCookies: HTTPCookieStorage.shared.cookies)
         }
-        .alert(isPresented: $persistenceAlertIsPresented) {
+        .alert(isPresented: $logInViewModel.persistenceAlertIsPresented) {
             Alert(title: Text("Stay Logged In"),
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
