@@ -7,7 +7,18 @@
 
 import Foundation
 
-extension Locale {
+extension Locale: NetworkSentinel, StorageManager {
+    
+    static var storageIdentifier = String(describing: Self.self)
+    
+    static let sharedURLSession: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadRevalidatingCacheData
+        configuration.httpCookieAcceptPolicy = .never
+        configuration.httpCookieStorage = .shared
+        return URLSession(configuration: configuration)
+    }()
+    
     enum USTerritory: String, CaseIterable, Comparable, Codable {
         static func < (lhs: USTerritory, rhs: USTerritory) -> Bool {
             lhs.rawValue < rhs.rawValue

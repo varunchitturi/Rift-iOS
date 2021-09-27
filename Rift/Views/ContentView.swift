@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var contentViewModel = ContentViewModel()
+    @StateObject private var applicationViewModel = ApplicationViewModel()
     @StateObject private var localeViewModel = LocaleViewModel()
     var body: some View {
         Group {
-            if contentViewModel.isAuthenticated && localeViewModel.chosenLocale != nil {
+            if applicationViewModel.isAuthenticated && localeViewModel.chosenLocale != nil {
                 HomeView(locale: localeViewModel.chosenLocale!)
-                    .environmentObject(contentViewModel)
+                    .environmentObject(applicationViewModel)
             }
             else {
                 LocaleView(viewModel: localeViewModel)
-                    .environmentObject(contentViewModel)
+                    .environmentObject(applicationViewModel)
             }
         }
         .navigationBarColor(backgroundColor: DrawingConstants.navigationColor)

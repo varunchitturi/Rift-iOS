@@ -7,67 +7,142 @@
 
 import Foundation
 import SwiftSoup
+import URLEncodedForm
+import KeychainAccess
 
 struct LogIn {
     
-    static let samlDOMID = "samlLoginLink"
-    static let authCookieNames = ["JSESSIONID", "XSRF-TOKEN", "sis-cookie", "appName", "portalApp"]
     
     let locale: Locale
-    var ssoUrl: URL?
-    var url: URL {
-        locale.studentLoginURL
+    
+    var ssoURL: URL?
+    var loginURL: URL {
+        switch Application.appType {
+        case .student:
+            return locale.studentLoginURL
+        case .parent:
+            return locale.parentLoginURL
+        case .staff:
+            return locale.staffLoginURL
+        }
+        
     }
     
-    var authUrl: URL {
-        locale.districtBaseURL.appendingPathComponent("verify.jsp")
+    var authURL: URL {
+        locale.districtBaseURL.appendingPathComponent(LogIn.authURLEndpoint)
+    }
+    
+    var provisionURL: URL {
+        locale.districtBaseURL.appendingPathComponent(LogIn.provisionEndpoint)
+    }
+    
+    var persistenceUpdateURL: URL {
+        locale.districtBaseURL.appendingPathComponent(LogIn.persistenceUpdateEndpoint)
     }
     
     init(locale: Locale) {
         self.locale = locale
     }
     
-    func getLogInInfo(completion: @escaping (Result<([HTTPCookie], URL?), Error>)  -> Void)  {
-        let url = locale.studentLoginURL
-            URLSession.shared.dataTask(with: url) { data, response, error in
+    var authenticationCookiesExist: Bool {
+        if let cookies = HTTPCookieStorage.shared.cookies {
+            let cookieNames = cookies.map {$0.name}
+            if Set(LogIn.RequiredCookieName.allCases.map {$0.rawValue}).isSubset(of: Set(cookieNames)) {
+                return true
+                
+            }
+        }
+        return false
+    }
+    
+    func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
+        let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
+        var urlRequest =  URLRequest(url: provisionURL)
+        urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+        urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+        let formEncoder = URLEncodedFormEncoder()
+        do {
+            urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
+            LogIn.sharedURLSession.dataTask(with: urlRequest) { data, response, error in
+                if let error = error {
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+            .resume()
+        }
+        catch {
+            completion(error)
+        }
+    }
+    
+    
+    func getLogInSSO(completion: @escaping (Result<URL?, Error>)  -> ())  {
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                let html = try String(contentsOf: loginURL)
+                let htmlDOM = try SwiftSoup.parse(html)
+                let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
                 DispatchQueue.main.async {
-                    if let error = error {
-                        completion(.failure(error))
-                    }
-                    else if let _ = data, let response = response as? HTTPURLResponse, let responseUrl = response.url {
-                        let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseUrl)
-                        do {
-                            // TODO: make sure to clear cookies when prompting login. Sometimes the past user cookies are used to make requests
-                            let html = try String(contentsOf: url)
-                            let htmlDOM = try SwiftSoup.parse(html)
-                            let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
-                            completion(.success((cookies, URL(string: samlURLString))))
-                        } catch {
-                            completion(.failure(LogInInfoError.errorHTMLRetrieval))
-                        }
+                    completion(.success(URL(string: samlURLString)))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func usePersistence(_ isPersistent: Bool) {
+        
+        var urlRequest =  URLRequest(url: persistenceUpdateURL)
+        urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+        urlRequest.setValue(URLRequest.ContentType.json.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+        let jsonEncoder = JSONEncoder()
+        let persistenceUpdateConfiguration = PersistenceUpdateConfiguration(keepMeLoggedIn: isPersistent)
+        
+        let persistenceFailed: () -> () = {
+            UserDefaults.standard.set(false, forKey: LogIn.persistencePreferenceKey)
+        }
+        let persistenceSuccess: () -> () = {
+            // TODO: remove this
+            UserDefaults.standard.set(isPersistent, forKey: LogIn.persistencePreferenceKey)
+        }
+        
+        do {
+            urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
+            let urlConfiguration = URLSessionConfiguration.ephemeral
+            urlConfiguration.httpShouldSetCookies = true
+            urlConfiguration.httpCookieStorage = .shared
+            URLSession(configuration: urlConfiguration).dataTask(with: urlRequest) { data, response, error in
+                if let response = response as? HTTPURLResponse, let responseURL = response.url {
+                    let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseURL)
+                    if let persistentCookieIndex = cookies.firstIndex(where: {$0.name == LogIn.persistentCookieName}),
+                       let cookieData = try? NSKeyedArchiver.archivedData(withRootObject: cookies[persistentCookieIndex], requiringSecureCoding: false) {
+                        let keychain = Keychain(service: LogIn.storageIdentifier).synchronizable(true)
+                        keychain[data: LogIn.persistentCookieName] = cookieData
+                        persistenceSuccess()
                     }
                     else {
-                        completion(.failure(LogInInfoError.invalidData))
+                        persistenceFailed()
                     }
                 }
-            }.resume()
+                else {
+                    persistenceFailed()
+                }
+            }
+            .resume()
+        }
+        catch {
+            persistenceFailed()
+        }
     }
     
     struct Credentials {
         let username: String
         let password: String
-    }
-    
-    enum LogInInfoError: Error {
-        case invalidData
-        case errorHTMLRetrieval
-        var errorDescription: String? {
-            switch self {
-            case .invalidData:
-                return "Invalid or no data returned from LogIn Info network request"
-            case .errorHTMLRetrieval:
-                return "Could not retreive HTML from SIS link"
-            }
-        }
     }
 }

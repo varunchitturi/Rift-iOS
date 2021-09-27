@@ -13,45 +13,76 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
-    var isAuthenticated = false
+    @Published var requestState: RequestState = .idle
+    
+    var isAuthenticated: Bool {
+        logIn.authenticationCookiesExist
+    }
     
     var locale: Locale {
         logIn.locale
     }
     
     var ssoURL: URL? {
-        logIn.ssoUrl
+        logIn.ssoURL
     }
     
     var hasSSOLogin: Bool {
-        logIn.ssoUrl != nil
+        logIn.ssoURL != nil
     }
     
     init(locale: Locale) {
         logIn = LogIn(locale: locale)
         super.init()
-        logIn.getLogInInfo {[weak self] result in
-            switch result {
-            case .success((let cookies, let ssoUrl)):
-                for cookie in cookies {
-                    HTTPCookieStorage.shared.setCookie(cookie)
+        requestState = .loading
+        logIn.getProvisionalCookies {[weak self] error in
+            if let error = error {
+                self?.requestState = .failure
+                print(error)
+            }
+            else {
+                self?.logIn.getLogInSSO { result in
+                    switch result {
+                    case .success(let ssoURL):
+                        self?.logIn.ssoURL = ssoURL
+                        self?.requestState = .idle
+                    case .failure(let error):
+                        // TODO: do bettter error handling here
+                        self?.requestState = .failure
+                        print("Log in error")
+                        print(error.localizedDescription)
+                    }
                 }
-                self?.logIn.ssoUrl = ssoUrl
-            case .failure(let error):
-                // TODO: do bettter error handling here
-                print("Log in error")
-                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
+        cookieStore.getAllCookies { cookies in
+            let cookies = cookies.filter {LogIn.RequiredCookieName.allCases.map {$0.rawValue}.contains($0.name)}
+            cookies.forEach {
+                if $0.name != LogIn.RequiredCookieName.jsession.rawValue {
+                    HTTPCookieStorage.shared.setCookie($0)
+                }
             }
         }
     }
     
-    func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        cookieStore.getAllCookies {[weak self] cookies in
-            let cookies = cookies.filter {LogIn.authCookieNames.contains($0.name)}
-            if (cookies.map {$0.name}).sorted() == LogIn.authCookieNames.sorted() {
-                cookies.forEach {HTTPCookieStorage.shared.setCookie($0)}
-                self?.singleSignOnIsPresented = false
-                self?.isAuthenticated = true
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let keyPath = keyPath {
+            switch keyPath {
+            case "URL":
+                if let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, let _ = url.host {
+                    if !LogIn.safeWebViewHosts.contains(where: {$0.host == url.host}) && logIn.ssoURL != url {
+                        self.singleSignOnIsPresented = false
+                    }
+                }
+                else {
+                    self.singleSignOnIsPresented = false
+                }
+            default:
+                return
             }
         }
     }
@@ -64,7 +95,11 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func authenticate(for state: Binding<Bool>) {
-        state.wrappedValue = isAuthenticated
+        state.wrappedValue = logIn.authenticationCookiesExist
+    }
+    
+    func setPersistence(_ persistence: Bool) {
+        logIn.usePersistence(persistence)
     }
 
     func promptSingleSignOn() {

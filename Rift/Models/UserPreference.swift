@@ -9,7 +9,8 @@ import Foundation
 
 struct UserPreference: Identifiable {
     
-    init(label: String, preferenceType: UserPreference.PreferenceType, preferenceGroup: UserPreference.PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]? = nil) {
+    init(label: String, preferenceType: UserPreference.PreferenceType, preferenceGroup: UserPreference.PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]? = nil, configuration: () -> () = {}) {
+        configuration()
         self.label = label
         self.preferenceType = preferenceType
         self.preferenceGroup = preferenceGroup
@@ -44,4 +45,5 @@ struct UserPreference: Identifiable {
     enum Prominence {
         case high, low
     }
+    
 }

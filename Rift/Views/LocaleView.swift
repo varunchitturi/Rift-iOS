@@ -10,7 +10,7 @@ import SwiftUI
 struct LocaleView: View {
     
     
-    @EnvironmentObject var contentViewModel: ContentViewModel
+    @EnvironmentObject var applicationViewModel: ApplicationViewModel
     @ObservedObject var localeViewModel: LocaleViewModel
     
     @State private var districtSearchIsPresented: Bool = false {
@@ -50,7 +50,7 @@ struct LocaleView: View {
                         }
                 }
                 if localeViewModel.chosenLocale != nil {
-                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!).environmentObject(contentViewModel)) {
+                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!).environmentObject(applicationViewModel)) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
                     .disabled(navigationDisabled)

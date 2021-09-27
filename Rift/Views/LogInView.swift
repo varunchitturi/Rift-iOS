@@ -9,15 +9,16 @@ import SwiftUI
 
 struct LogInView: View {
     
-    @EnvironmentObject var contentViewModel: ContentViewModel
+    @EnvironmentObject var applicationViewModel: ApplicationViewModel
     @ObservedObject private var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
-    
+    @State private var persistenceAlertIsPresented = false
     @State private var username: String = ""
     @State private var password: String = ""
     
     init(locale: Locale) {
+        // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to onlu intialize this once
         logInViewModel = LogInViewModel(locale: locale)
         
     }
@@ -51,17 +52,36 @@ struct LogInView: View {
             .foregroundColor(DrawingConstants.fieldForegroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
+                // TODO: implement here
                 print("log in")
             }
         }
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            logInViewModel.authenticate(for: $contentViewModel.isAuthenticated)
+            if logInViewModel.isAuthenticated {
+                persistenceAlertIsPresented = true
+            }
+            
+            print(HTTPCookieStorage.shared.cookies)
         } content: {
-            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel)
+            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel, urlObserver: logInViewModel, initialCookies: HTTPCookieStorage.shared.cookies)
         }
-        
+        .alert(isPresented: $persistenceAlertIsPresented) {
+            Alert(title: Text("Stay Logged In"),
+                  message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
+                  primaryButton: .default(Text("Not Now")) {
+                logInViewModel.setPersistence(false)
+                logInViewModel.authenticate(for: $applicationViewModel.isAuthenticated)
+                },
+                  secondaryButton: .default(Text("Ok")) {
+                logInViewModel.setPersistence(true)
+                logInViewModel.authenticate(for: $applicationViewModel.isAuthenticated)
+                
+                }
+            )
+                  
+        }
     }
     
     private struct DrawingConstants {
@@ -76,5 +96,6 @@ struct LogInView: View {
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
         LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLoginURL: URL(string: "https://")!, studentLoginURL: URL(string: "https://")!, parentLoginURL: URL(string: "https://")!))
+            .preferredColorScheme(.dark)
     }
 }

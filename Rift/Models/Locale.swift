@@ -50,7 +50,7 @@ struct Locale: Identifiable, Codable {
                 completion(.failure(SearchError.invalidDistrictURL))
                 return
             }
-            URLSession.shared.dataTask(with: url) { data, response, error in
+            Locale.sharedURLSession.dataTask(with: url) { data, response, error in
                 if let error = error {
                     completion(.failure(error))
                     return
