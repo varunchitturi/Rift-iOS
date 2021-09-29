@@ -38,6 +38,7 @@
 		27761BB926F7B9B200601A37 /* CircleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB826F7B9B200601A37 /* CircleBadge.swift */; };
 		27761BBB26F7CA0300601A37 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBA26F7CA0300601A37 /* DateUtils.swift */; };
 		27761BBD26F7F39600601A37 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBC26F7F39600601A37 /* SectionHeader.swift */; };
+		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
 		278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F272426D5E97F000FF26F /* CapsuleDropDown.swift */; };
 		278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
 		27A29CD227001C5D005E70D6 /* BundleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD127001C5D005E70D6 /* BundleUtils.swift */; };
@@ -46,7 +47,6 @@
 		27A29CDE2701782E005E70D6 /* NetworkSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CDD2701782E005E70D6 /* NetworkSentinel.swift */; };
 		27A29CED2701A706005E70D6 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27A29CEC2701A706005E70D6 /* KeychainAccess */; };
 		27A29CEF2701A916005E70D6 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CEE2701A916005E70D6 /* StorageManager.swift */; };
-		27A29CF22701A9A6005E70D6 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 27A29CF12701A9A6005E70D6 /* URLEncodedForm */; };
 		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
 		27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27526DFFA15000022EF /* UIPickerField.swift */; };
 		27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */; };
@@ -154,7 +154,7 @@
 				27A29CED2701A706005E70D6 /* KeychainAccess in Frameworks */,
 				27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */,
 				27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */,
-				27A29CF22701A9A6005E70D6 /* URLEncodedForm in Frameworks */,
+				277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +365,7 @@
 				27D0F5CD26DB7DF80004F0A2 /* Algorithms */,
 				27074EC126EAA2AC00A6ED72 /* SwiftSoup */,
 				27A29CEC2701A706005E70D6 /* KeychainAccess */,
-				27A29CF12701A9A6005E70D6 /* URLEncodedForm */,
+				277A1F082704504F005E9EB0 /* URLEncodedForm */,
 			);
 			productName = Rift;
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
@@ -398,7 +398,7 @@
 				27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				27A29CF02701A9A6005E70D6 /* XCRemoteSwiftPackageReference "url-encoded-form" */,
+				277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */,
 			);
 			productRefGroup = 274E622C26C21FB400C855D4 /* Products */;
 			projectDirPath = "";
@@ -689,20 +689,20 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/School-Scope/url-encoded-form";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
-			};
-		};
-		27A29CF02701A9A6005E70D6 /* XCRemoteSwiftPackageReference "url-encoded-form" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vapor/url-encoded-form.git";
-			requirement = {
-				branch = master;
-				kind = branch;
 			};
 		};
 		27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
@@ -721,15 +721,15 @@
 			package = 27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
 		};
+		277A1F082704504F005E9EB0 /* URLEncodedForm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */;
+			productName = URLEncodedForm;
+		};
 		27A29CEC2701A706005E70D6 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
-		};
-		27A29CF12701A9A6005E70D6 /* URLEncodedForm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A29CF02701A9A6005E70D6 /* XCRemoteSwiftPackageReference "url-encoded-form" */;
-			productName = URLEncodedForm;
 		};
 		27D0F5CD26DB7DF80004F0A2 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

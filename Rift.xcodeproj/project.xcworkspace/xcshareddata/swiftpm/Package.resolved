@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "Core",
-        "repositoryURL": "https://github.com/vapor/core.git",
+        "repositoryURL": "https://github.com/School-Scope/core.git",
         "state": {
           "branch": null,
-          "revision": "89c6989fd8b1e08acfd198afba1c38971bb814b2",
-          "version": "3.10.1"
+          "revision": "0bb5d7466d49528a096731184312f89ddf98443d",
+          "version": "3.10.2"
         }
       },
       {
@@ -30,20 +30,11 @@
       },
       {
         "package": "swift-nio",
-        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "repositoryURL": "https://github.com/School-Scope/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "546610d52b19be3e19935e0880bb06b9c03f5cef",
-          "version": "1.14.4"
-        }
-      },
-      {
-        "package": "swift-nio-zlib-support",
-        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
-        "state": {
-          "branch": null,
-          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
-          "version": "1.0.0"
+          "revision": "f74d289961c0068bee03ca18282ae7da4f6d5a10",
+          "version": "1.14.5"
         }
       },
       {
@@ -66,11 +57,11 @@
       },
       {
         "package": "URLEncodedForm",
-        "repositoryURL": "https://github.com/vapor/url-encoded-form.git",
+        "repositoryURL": "https://github.com/School-Scope/url-encoded-form",
         "state": {
-          "branch": "master",
-          "revision": "62b19009e6c3484f340db28828cc0f07f626a38e",
-          "version": null
+          "branch": null,
+          "revision": "4cf9bf5c6c374adaf6d86550746a968a957ec1ec",
+          "version": "1.1.1"
         }
       }
     ]
