@@ -26,6 +26,7 @@ struct WebView: UIViewRepresentable {
         
         let webView = WKWebView()
         webView.configuration.websiteDataStore = .nonPersistent()
+        webView.configuration.websiteDataStore.httpCookieStore.clearCookies()
         webView.configuration.websiteDataStore.httpCookieStore.setCookies(with: initialCookies)
         if let cookieObserver = cookieObserver {
             webView.configuration.websiteDataStore.httpCookieStore.add(cookieObserver)
