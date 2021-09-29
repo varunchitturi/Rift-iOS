@@ -13,7 +13,7 @@ extension UserPreference {
         .user: [
                 UserPreference(
                     label: "Stay Logged In",
-                    preferenceType: .toggle,
+                    initialState: UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey),
                     preferenceGroup: .user,
                     prominence: .low,
                     action: { toggleValue in

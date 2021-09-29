@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct PreferenceRowToggle: View {
-    init(_ preference: UserPreference) {
-        self.preference = preference
-    }
     
-  
-    let preference: UserPreference
     @State private var toggleState = false {
         willSet {
             preference.action(newValue)
         }
     }
+    let preference: UserPreference
+    
+    init(_ preference: UserPreference) {
+        self.preference = preference
+        self.toggleState = preference.initialState
+    }
+    
+  
+    
+    
     var body: some View {
         Toggle(preference.label, isOn: $toggleState)
     }

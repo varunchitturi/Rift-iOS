@@ -79,6 +79,7 @@ extension WKWebView {
     }
 }
 
+
 enum RequestState {
     case idle
     case loading

@@ -63,6 +63,7 @@ struct LogIn {
         let formEncoder = URLEncodedFormEncoder()
         do {
             urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
+            HTTPCookieStorage.shared.removeCookies(since: .distantPast)
             LogIn.sharedURLSession.dataTask(with: urlRequest) { data, response, error in
                 DispatchQueue.main.async {
                     if let error = error {

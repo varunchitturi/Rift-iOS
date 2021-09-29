@@ -14,13 +14,19 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
     @Published var requestState: RequestState = .idle
-    @Published var persistenceAlertIsPresented = false
     
     var webViewURL: URL? = nil
-    var authenticationCookiesExist = false
     
     var isAuthenticated: Bool {
-        webViewURL?.host == locale.districtBaseURL.host && webViewURL?.pathComponents[..<2] == locale.districtBaseURL.appendingPathComponent(LogIn.homeViewPath).pathComponents[..<2] && authenticationCookiesExist
+        guard let webViewURL = webViewURL else {
+            return false
+        }
+        let portalURL = locale.districtBaseURL.appendingPathComponent(LogIn.portalViewPath)
+
+        let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
+        let baseURLSearchingeRange = min(3,portalURL.pathComponents.count)
+        
+        return webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingeRange]
     }
 
     var locale: Locale {
@@ -33,6 +39,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var hasSSOLogin: Bool {
         logIn.ssoURL != nil
+    }
+    
+    var safeWebViewHostURLs: [URL] {
+        LogIn.safeSSOHostURLs + [locale.districtBaseURL]
     }
     
     init(locale: Locale) {
@@ -61,16 +71,15 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         }
         
     }
-    // TODO: create a cleaner or better way to get authentication state
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        cookieStore.getAllCookies {[weak self] cookies in
+        cookieStore.getAllCookies { cookies in
             let cookies = cookies.filter {LogIn.RequiredCookieName.allCases.map {$0.rawValue}.contains($0.name)}
             cookies.forEach {
+                // explain why we do this
                 if $0.name != LogIn.RequiredCookieName.jsession.rawValue {
                     HTTPCookieStorage.shared.setCookie($0)
                 }
             }
-            self?.authenticationCookiesExist = self?.logIn.authenticationCookiesExist(for: cookies) ?? false
         }
     }
     
@@ -78,18 +87,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         if let keyPath = keyPath {
             switch keyPath {
             case "URL":
-                if let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, let _ = url.host {
-                    webViewURL = url
-                    if !LogIn.safeWebViewHosts.contains(where: {$0.host == url.host}) && logIn.ssoURL != url {
-                        self.singleSignOnIsPresented = false
-                    }
-                }
-                else {
+                guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, let _ = url.host else {
                     self.singleSignOnIsPresented = false
+                    return
                 }
-                if isAuthenticated {
-                    persistenceAlertIsPresented = true
-                    print("authenticated")
+                webViewURL = url
+                if isAuthenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
+                    singleSignOnIsPresented = false
                 }
             default:
                 return
@@ -105,7 +109,6 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func authenticate(for state: Binding<Bool>) {
-        let isAuthenticated = isAuthenticated
         state.wrappedValue = isAuthenticated
     }
     

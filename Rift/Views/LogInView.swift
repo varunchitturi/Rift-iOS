@@ -15,11 +15,12 @@ struct LogInView: View {
     @State private var passwordIsEditing = false
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var persistenceAlertIsPresented = false
     
     init(locale: Locale) {
-        // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to onlu intialize this once
+        // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to only intialize this once
         logInViewModel = LogInViewModel(locale: locale)
-        
+        print("initialized")
     }
     
     var body: some View {
@@ -58,9 +59,18 @@ struct LogInView: View {
         .padding()
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            WebView(request: URLRequest(url: logInViewModel.ssoURL!), cookieObserver: logInViewModel, urlObserver: logInViewModel, initialCookies: HTTPCookieStorage.shared.cookies)
+            if logInViewModel.isAuthenticated {
+                persistenceAlertIsPresented = true
+            }
         }
-        .alert(isPresented: $logInViewModel.persistenceAlertIsPresented) {
+        content: {
+            WebView(request: URLRequest(url: logInViewModel.ssoURL!),
+                    cookieObserver: logInViewModel,
+                    urlObserver: logInViewModel,
+                    initialCookies: HTTPCookieStorage.shared.cookies
+            )
+        }
+        .alert(isPresented: $persistenceAlertIsPresented) {
             Alert(title: Text("Stay Logged In"),
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
@@ -70,10 +80,8 @@ struct LogInView: View {
                   secondaryButton: .default(Text("Ok")) {
                 logInViewModel.setPersistence(true)
                 logInViewModel.authenticate(for: $applicationViewModel.isAuthenticated)
-                
                 }
             )
-                  
         }
     }
     

@@ -14,7 +14,7 @@ extension LogIn: NetworkSentinel, StorageManager {
     
     static let storageIdentifier = String(describing: Self.self)
     
-    static let safeWebViewHosts = [
+    static let safeSSOHostURLs = [
         URL(string: "https://accounts.google.com/")!
     ]
     
@@ -22,7 +22,7 @@ extension LogIn: NetworkSentinel, StorageManager {
     static let authURLEndpoint = "verify.jsp"
     static let provisionEndpoint = "mobile/hybridAppUtil.jsp"
     static let persistenceUpdateEndpoint = "resources/portal/hybrid-device/update"
-    static let homeViewPath = "nav-wrapper"
+    static let portalViewPath = "nav-wrapper"
     
     static let persistentCookieName = "persistent-cookie"
     static let persistencePreferenceKey = "persistence"

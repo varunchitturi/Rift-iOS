@@ -9,6 +9,18 @@ import Foundation
 
 struct UserPreference: Identifiable {
     
+    init(label: String, initialState: Bool, preferenceGroup: UserPreference.PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
+        configuration()
+        self.label = label
+        self.preferenceType = .toggle
+        self.preferenceGroup = preferenceGroup
+        self.icon = icon
+        self.prominence = prominence
+        self.action = action
+        self.linkedPreferences = nil
+        self.initialState = initialState
+    }
+    
     init(label: String, preferenceType: UserPreference.PreferenceType, preferenceGroup: UserPreference.PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]? = nil, configuration: () -> () = {}) {
         configuration()
         self.label = label
@@ -18,13 +30,16 @@ struct UserPreference: Identifiable {
         self.prominence = prominence
         self.action = action
         self.linkedPreferences = linkedPreferences
+        self.initialState = false
     }
+
     
     let label: String
     let preferenceType: PreferenceType
     let preferenceGroup: PreferenceGroup
     let prominence: Prominence
     let icon: String?
+    let initialState: Bool
     let action: (Any?) -> ()
     let linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]?
     
