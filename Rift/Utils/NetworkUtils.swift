@@ -34,7 +34,7 @@ extension URL {
 }
 
 extension Array where Element: HTTPCookie {
-    func cookieHeader() -> String {
+    var cookieHeader: String {
         var header = ""
         self.forEach {header.append("\($0.name)=\($0.value); ")}
         return header
@@ -55,30 +55,29 @@ extension URLRequest {
         case cookie = "Cookie", contentType = "Content-Type", accept = "Accept"
     }
     
-    mutating func setCookieHeader(for cookies: [HTTPCookie]) {
-        self.setValue(cookies.cookieHeader(), forHTTPHeaderField: Header.cookie.rawValue)
+    mutating func setCookieHeader(for cookies: [HTTPCookie]?) {
+        if let cookies = cookies {
+            self.setValue(cookies.cookieHeader, forHTTPHeaderField: Header.cookie.rawValue)
+        }
     }
 }
 
-extension WKWebView {
-
-    func clearCookies(for dataStore: WKWebsiteDataStore, completion: @escaping () -> Void = {}) {
-        dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                dataStore.removeData(ofTypes: record.dataTypes, for: [record], completionHandler: completion)
+extension WKHTTPCookieStore {
+    
+    func setCookies(with cookies: [HTTPCookie]) {
+        DispatchQueue.main.async {
+            let waitGroup = DispatchGroup()
+            
+            cookies.forEach { cookie in
+                waitGroup.enter()
+                self.setCookie(cookie) {
+                    waitGroup.leave()
+                }
             }
         }
     }
     
-    func setCookies(for dataStore: WKWebsiteDataStore, with cookies: [HTTPCookie]) {
-        clearCookies(for: dataStore) {
-            for cookie in cookies {
-                dataStore.httpCookieStore.setCookie(cookie)
-            }
-        }
-    }
 }
-
 
 enum RequestState {
     case idle

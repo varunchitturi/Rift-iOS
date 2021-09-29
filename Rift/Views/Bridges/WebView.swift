@@ -9,7 +9,7 @@ import SwiftUI
 import WebKit
 
 struct WebView: UIViewRepresentable {
-    let request: URLRequest
+    var request: URLRequest
     var cookieObserver: WKHTTPCookieStoreObserver?
     var urlObserver: NSObject?
     let initialCookies: [HTTPCookie]
@@ -19,19 +19,21 @@ struct WebView: UIViewRepresentable {
         self.cookieObserver = cookieObserver
         self.urlObserver = urlObserver
         self.initialCookies = initialCookies ?? []
+        
     }
         
     func makeUIView(context: Context) -> WKWebView  {
         
         let webView = WKWebView()
         webView.configuration.websiteDataStore = .nonPersistent()
+        webView.configuration.websiteDataStore.httpCookieStore.setCookies(with: initialCookies)
         if let cookieObserver = cookieObserver {
             webView.configuration.websiteDataStore.httpCookieStore.add(cookieObserver)
         }
         if let urlObserver = urlObserver {
             webView.addObserver(urlObserver, forKeyPath: "URL", options: .new, context: nil)
         }
-        webView.setCookies(for: webView.configuration.websiteDataStore, with: initialCookies)
+        
         return webView
     }
     
