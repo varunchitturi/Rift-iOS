@@ -66,6 +66,10 @@ struct LocaleView: View {
             .navigationTitle("Welcome")
         }
         .navigationViewStyle(.stack)
+        .onAppear {
+            // explain why we do this
+            localeViewModel.resetQueries()
+        }
     }
     
     private struct DrawingConstants {

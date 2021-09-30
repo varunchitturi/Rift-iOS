@@ -13,8 +13,10 @@ struct ContentView: View {
     var body: some View {
         Group {
             if applicationViewModel.isAuthenticated && localeViewModel.chosenLocale != nil {
+                
                 HomeView(locale: localeViewModel.chosenLocale!)
                     .environmentObject(applicationViewModel)
+                    
             }
             else {
                 LocaleView(viewModel: localeViewModel)

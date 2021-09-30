@@ -24,7 +24,7 @@ extension LogIn: NetworkSentinel, StorageManager {
     static let persistenceUpdateEndpoint = "resources/portal/hybrid-device/update"
     static let portalViewPath = "nav-wrapper"
     
-    static let persistentCookieName = "persistent-cookie"
+    static let persistentCookieName = "persistent_cookie"
     static let persistencePreferenceKey = "persistence"
     
     static let sharedURLSession: URLSession = {

@@ -42,6 +42,12 @@ class LocaleViewModel: ObservableObject {
         }
     }
     
+    func resetQueries() {
+        searchResults = []
+        chosenLocale = nil
+        stateSelectionIndex = nil
+    }
+    
     
     
 }
