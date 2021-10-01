@@ -56,6 +56,7 @@ struct LogIn {
     }
     
     func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
+        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
         let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
         var urlRequest =  URLRequest(url: provisionURL)
         urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
@@ -63,7 +64,6 @@ struct LogIn {
         let formEncoder = URLEncodedFormEncoder()
         do {
             urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
-            HTTPCookieStorage.shared.removeCookies(since: .distantPast)
             LogIn.sharedURLSession.dataTask(with: urlRequest) { data, response, error in
                 DispatchQueue.main.async {
                     if let error = error {

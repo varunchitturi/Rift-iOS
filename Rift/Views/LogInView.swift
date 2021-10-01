@@ -58,6 +58,9 @@ struct LogInView: View {
         }
         .padding()
         .navigationTitle("Log In")
+        .onAppear {
+            logInViewModel.provisionLogInView()
+        }
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
             if logInViewModel.isAuthenticated {
                 persistenceAlertIsPresented = true

@@ -27,7 +27,7 @@ extension LogIn: NetworkSentinel, StorageManager {
     static let persistentCookieName = "persistent_cookie"
     static let persistencePreferenceKey = "persistence"
     
-    static let sharedURLSession: URLSession = {
+    static var sharedURLSession: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         configuration.httpCookieAcceptPolicy = .always
@@ -51,7 +51,7 @@ extension LogIn: NetworkSentinel, StorageManager {
         
         static let bootstrappedCode = "1"
         static let registrationToken = UUID().uuidString
-        static let deviceID = UUID().uuidString
+        static let deviceID = UIDevice.currentDeviceID
         
         let bootstrapped = ProvisionalCookieConfiguration.bootstrappedCode
         let registrationToken = ProvisionalCookieConfiguration.registrationToken

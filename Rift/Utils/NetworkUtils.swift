@@ -65,25 +65,32 @@ extension URLRequest {
 extension WKHTTPCookieStore {
     
     func clearCookies(completion: @escaping () -> () = {}) {
-        DispatchQueue.main.async {[weak self] in
-            if let self = self {
-                self.getAllCookies { cookies in
-                    cookies.forEach {self.delete($0)}
+        
+        self.getAllCookies { cookies in
+            let waitGroup = DispatchGroup()
+            cookies.forEach {
+                waitGroup.enter()
+                self.delete($0) {
+                    waitGroup.leave()
                 }
+            }
+            waitGroup.notify(queue: .main) {
                 completion()
             }
         }
     }
     
-    func useOnlyCookies(for cookies: [HTTPCookie]) {
+    func useOnlyCookies(from cookies: [HTTPCookie], completion: @escaping () -> () = {}) {
         clearCookies {
             let waitGroup = DispatchGroup()
-            
             cookies.forEach { cookie in
                 waitGroup.enter()
                 self.setCookie(cookie) {
                     waitGroup.leave()
                 }
+            }
+            waitGroup.notify(queue: .main) {
+                completion()
             }
         }
     }

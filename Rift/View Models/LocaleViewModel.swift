@@ -35,6 +35,7 @@ class LocaleViewModel: ObservableObject {
                     case .success(let locales):
                         self?.searchResults = locales
                     case .failure(let error):
+                        // TODO: better error handling here
                         print(error.localizedDescription)
                     }
                 }

@@ -20,14 +20,15 @@ struct DistrictSearchView: View {
                 CapsuleTextField(text: $searchQuery,
                                  isEditing: $isSearching,
                                  icon: "magnifyingglass",
-                                 onEditingChanged: {query in
+                                 onEditingChanged: { query in
                                     localeViewModel.searchDistrict(for: query)
                                 },
-                                configuration:  {textField in
+                                configuration: { textField in
                                     textField.keyboardType = .webSearch
                                     textField.autocorrectionType = .no
                                     textField.autocapitalizationType = .words
-                                })
+                                }
+                )
                 
                 if isSearching {
                     Button {
@@ -45,7 +46,7 @@ struct DistrictSearchView: View {
             
             Spacer()
             ScrollView {
-                ForEach(localeViewModel.searchResults) {searchResult in
+                ForEach(localeViewModel.searchResults) { searchResult in
                     Button {
                         isSearching = false
                         localeViewModel.chosenLocale = searchResult

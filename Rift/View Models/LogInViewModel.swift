@@ -48,29 +48,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     init(locale: Locale) {
         logIn = LogIn(locale: locale)
         super.init()
-        requestState = .loading
-        logIn.getProvisionalCookies {[weak self] error in
-            if let error = error {
-                self?.requestState = .failure
-                print(error)
-            }
-            else {
-                self?.logIn.getLogInSSO { result in
-                    switch result {
-                    case .success(let ssoURL):
-                        self?.logIn.ssoURL = ssoURL
-                        self?.requestState = .idle
-                    case .failure(let error):
-                        // TODO: do bettter error handling here
-                        self?.requestState = .failure
-                        print("Log in error")
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-        }
-        
     }
+    
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies { cookies in
             let cookies = cookies.filter {LogIn.RequiredCookieName.allCases.map {$0.rawValue}.contains($0.name)}
@@ -97,6 +76,30 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                 }
             default:
                 return
+            }
+        }
+    }
+    
+    func provisionLogInView() {
+        requestState = .loading
+        logIn.getProvisionalCookies {[weak self] error in
+            if let error = error {
+                self?.requestState = .failure
+                print(error)
+            }
+            else {
+                self?.logIn.getLogInSSO { result in
+                    switch result {
+                    case .success(let ssoURL):
+                        self?.logIn.ssoURL = ssoURL
+                        self?.requestState = .idle
+                    case .failure(let error):
+                        // TODO: do bettter error handling here
+                        self?.requestState = .failure
+                        print("Log in error")
+                        print(error.localizedDescription)
+                    }
+                }
             }
         }
     }
