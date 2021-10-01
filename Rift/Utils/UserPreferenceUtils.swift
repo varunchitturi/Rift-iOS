@@ -13,7 +13,10 @@ extension UserPreference {
         .user: [
                 UserPreference(
                     label: "Stay Logged In",
-                    initialState: UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey),
+                    getInitialState: {
+                        print(UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey))
+                        return UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey)
+                    },
                     preferenceGroup: .user,
                     prominence: .low,
                     action: { toggleValue in
@@ -28,7 +31,6 @@ extension UserPreference {
                 ),
                 UserPreference(
                     label: "Log Out",
-                    preferenceType: .button,
                     preferenceGroup: .user,
                     prominence: .high,
                     action: { applicationViewModel in
