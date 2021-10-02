@@ -36,16 +36,24 @@ extension UserPreference {
                         if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
                             let applicationViewModel = viewModels.0
                             let homeViewModel = viewModels.1
-                            let urlRequest = URLRequest(url: homeViewModel.locale.districtBaseURL
-                                                            .appendingPathComponent(LogIn.API.logOutEndpoint)
-                            )
+                            let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
+                            guard let url = homeViewModel.locale.districtBaseURL
+                                .appendingPathComponent(LogIn.API.logOutEndpoint)
+                                .appendingQueryItem(query)
+                            else {
+                                HTTPCookieStorage.shared.clearCookies()
+                                applicationViewModel.isAuthenticated = false
+                                return
+                            }
+                            let urlRequest = URLRequest(url: url)
+                            
                             URLSession.shared.dataTask(with: urlRequest) { _, _, error in
                                 if let error = error {
                                     print(error)
                                     // TODO: better error handling here
                                 }
                                 else {
-                                    HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+                                    HTTPCookieStorage.shared.clearCookies()
                                     DispatchQueue.main.async {
                                         applicationViewModel.isAuthenticated = false
                                     }

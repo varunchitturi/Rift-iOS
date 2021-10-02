@@ -58,7 +58,7 @@ struct LogIn {
     
     func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
         LogIn.sharedURLSession.invalidateAndCancel()
-        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+        HTTPCookieStorage.shared.clearCookies()
         LogIn.sharedURLSession = URLSession(configuration: .authentication)
         let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
         var urlRequest =  URLRequest(url: provisionURL)
@@ -121,22 +121,10 @@ struct LogIn {
         }
         
         do {
-            
             urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
-            // explain why we are creating a new session here
-            URLSession(configuration: .secure).dataTask(with: urlRequest) { data, response, error in
-                if let response = response as? HTTPURLResponse, let responseURL = response.url {
-                    let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseURL)
-                    print(cookies)
-                    if let persistentCookieIndex = cookies.firstIndex(where: {$0.name == LogIn.persistentCookieName}),
-                       let cookieData = try? NSKeyedArchiver.archivedData(withRootObject: cookies[persistentCookieIndex], requiringSecureCoding: false) {
-                        let keychain = Keychain(service: LogIn.storageIdentifier).synchronizable(true)
-                        keychain[data: LogIn.persistentCookieName] = cookieData
-                        persistenceSuccess()
-                    }
-                    else {
-                        persistenceFailed()
-                    }
+            LogIn.sharedURLSession.dataTask(with: urlRequest) { data, response, error in
+                if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == LogIn.persistentCookieName}) == true {
+                    persistenceSuccess()
                 }
                 else {
                     persistenceFailed()

@@ -29,7 +29,17 @@ extension URL {
                 self.appendPathComponent($0)
             }
         }
-       
+    }
+    
+    func appendingQueryItem(_ query: URLQueryItem) -> URL? {
+        
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        
+        var queryItems = components.queryItems ?? []
+        queryItems.append(query)
+        components.queryItems = queryItems
+        
+        return components.url
     }
 }
 
@@ -123,4 +133,19 @@ extension URLSessionConfiguration {
         configuration.requestCachePolicy = .reloadRevalidatingCacheData
         return configuration
     }()
+}
+
+extension HTTPCookieStorage {
+    func removeSessionCookies() {
+        if let cookies = self.cookies {
+            cookies.forEach { cookie in
+                if cookie.isSessionOnly {
+                   deleteCookie(cookie)
+                }
+            }
+        }
+    }
+    func clearCookies() {
+        self.removeCookies(since: .distantPast)
+    }
 }
