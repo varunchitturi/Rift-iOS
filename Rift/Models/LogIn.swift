@@ -12,6 +12,7 @@ import KeychainAccess
 
 struct LogIn {
     // TODO: change cookies and cache deletion calls to the URLSession reset method
+    // TODO: if the screen on the webview goes to an infinite campus website, that shows an error, handle it cleanly
     
     let locale: Locale
     
