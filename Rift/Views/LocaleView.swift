@@ -50,7 +50,10 @@ struct LocaleView: View {
                         }
                 }
                 if localeViewModel.chosenLocale != nil {
-                    NavigationLink(destination: LogInView(locale: localeViewModel.chosenLocale!).environmentObject(applicationViewModel)) {
+                    NavigationLink(
+                        destination: LogInView(locale: localeViewModel.chosenLocale!)
+                                    .environmentObject(applicationViewModel)
+                    ) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
                     .disabled(navigationDisabled)

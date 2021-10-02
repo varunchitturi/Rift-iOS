@@ -39,7 +39,7 @@ extension UserPreference {
                             let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
                             guard let url = homeViewModel.locale.districtBaseURL
                                 .appendingPathComponent(LogIn.API.logOutEndpoint)
-                                .appendingQueryItem(query)
+                                .appendingQueryItems([query])
                             else {
                                 HTTPCookieStorage.shared.clearCookies()
                                 applicationViewModel.isAuthenticated = false

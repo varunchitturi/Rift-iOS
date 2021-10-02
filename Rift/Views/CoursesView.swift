@@ -41,7 +41,7 @@ struct CoursesView: View {
     }
     
     private struct DrawingConstants {
-        static let cardSpacing: CGFloat = 8
+        static let cardSpacing: CGFloat = 4
         static let cardHorizontalPadding: CGFloat = 8
     }
 }

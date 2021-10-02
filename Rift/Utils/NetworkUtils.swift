@@ -31,12 +31,14 @@ extension URL {
         }
     }
     
-    func appendingQueryItem(_ query: URLQueryItem) -> URL? {
+    func appendingQueryItems(_ queries: [URLQueryItem]) -> URL? {
         
         guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
         
         var queryItems = components.queryItems ?? []
-        queryItems.append(query)
+        for query in queries {
+            queryItems.append(query)
+        }
         components.queryItems = queryItems
         
         return components.url
@@ -139,7 +141,7 @@ extension HTTPCookieStorage {
     func removeSessionCookies() {
         if let cookies = self.cookies {
             cookies.forEach { cookie in
-                if cookie.isSessionOnly {
+                if cookie.name != LogIn.persistentCookieName {
                    deleteCookie(cookie)
                 }
             }

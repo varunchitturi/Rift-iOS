@@ -16,6 +16,7 @@ struct RiftApp: App {
         // TODO: Change status bar color
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }
     

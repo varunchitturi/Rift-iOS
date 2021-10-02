@@ -16,9 +16,9 @@ struct Locale: Identifiable, Codable {
     var districtBaseURL: URL
     var districtCode: String
     var state: USTerritory
-    var staffLoginURL: URL
-    var studentLoginURL: URL
-    var parentLoginURL: URL
+    var staffLogInURL: URL
+    var studentLogInURL: URL
+    var parentLogInURL: URL
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -27,21 +27,24 @@ struct Locale: Identifiable, Codable {
         case districtBaseURL = "district_baseurl"
         case districtCode = "district_code"
         case state = "state_code"
-        case staffLoginURL = "staff_login_url"
-        case studentLoginURL = "student_login_url"
-        case parentLoginURL = "parent_login_url"
+        case staffLogInURL = "staff_login_url"
+        case studentLogInURL = "student_login_url"
+        case parentLogInURL = "parent_login_url"
     }
     
-    private static let baseSearchURL: URLComponents = URLComponents(string: "https://mobile.infinitecampus.com/mobile/searchDistrict")!
+    private struct API {
+        static let searchDistrictEndpoint = "searchDistrict"
+    }
+    
+    private static let baseSearchURL: URL = URL(string: "https://mobile.infinitecampus.com/mobile/")!
+    
     
     private static let minimumDistrictQueryLength = 3
     
     private static func getDistrictQueryURL(query: String, state: USTerritory) -> URL? {
-        let query = URLQueryItem(name: "query", value: query)
+        let districtQuery = URLQueryItem(name: "query", value: query)
         let state = URLQueryItem(name: "state", value: state.rawValue)
-        var queryURL = baseSearchURL
-        queryURL.queryItems = [query, state] 
-        return queryURL.url
+        return baseSearchURL.appendingPathComponent(API.searchDistrictEndpoint).appendingQueryItems([districtQuery,state])
     }
     
     static func searchDistrict(for query: String, state: USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
@@ -63,8 +66,8 @@ struct Locale: Identifiable, Codable {
                             
                             if var locales = localesData["data"] {
                                 for index in locales.indices {
-                                    locales[index].studentLoginURL.insertPathComponent(after: "portal", with: "students")
-                                    locales[index].parentLoginURL.insertPathComponent(after: "portal", with: "parents")
+                                    locales[index].studentLogInURL.insertPathComponent(after: "portal", with: "students")
+                                    locales[index].parentLogInURL.insertPathComponent(after: "portal", with: "parents")
                                 }
                                 completion(.success(locales))
                             }
@@ -91,6 +94,7 @@ struct Locale: Identifiable, Codable {
         }
         
     }
+    
     
     enum SearchError: Error, LocalizedError {
         case invalidDistrictURL

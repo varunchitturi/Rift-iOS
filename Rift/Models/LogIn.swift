@@ -8,7 +8,6 @@
 import Foundation
 import SwiftSoup
 import URLEncodedForm
-import KeychainAccess
 
 struct LogIn {
     // TODO: change cookies and cache deletion calls to the URLSession reset method
@@ -20,11 +19,11 @@ struct LogIn {
     var loginURL: URL {
         switch Application.appType {
         case .student:
-            return locale.studentLoginURL
+            return locale.studentLogInURL
         case .parent:
-            return locale.parentLoginURL
+            return locale.parentLogInURL
         case .staff:
-            return locale.staffLoginURL
+            return locale.staffLogInURL
         }
         
     }

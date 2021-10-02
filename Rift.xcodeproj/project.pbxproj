@@ -7,77 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2701CD4B26FD05E600D65B84 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4A26FD05E600D65B84 /* UserPreference.swift */; };
-		2701CD4D26FD05F200D65B84 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */; };
-		2701CD4F26FD0FC600D65B84 /* UserPreferenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */; };
-		2701CD5326FD26F400D65B84 /* UserPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */; };
-		2701CD5926FD2EB100D65B84 /* PreferenceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */; };
 		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
-		27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */; };
-		27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC526EAA7B300A6ED72 /* LogIn.swift */; };
-		27074EC826EB310300A6ED72 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC726EB310300A6ED72 /* NetworkUtils.swift */; };
-		270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */; };
-		271B3ED226EBC9B200DAB4D9 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B3ED126EBC9B200DAB4D9 /* WebView.swift */; };
-		2721EEF626D743A900C5E906 /* PickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF526D743A900C5E906 /* PickerField.swift */; };
-		272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
-		272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */; };
-		272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */; };
-		272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */; };
-		273EA32326F9C25600D4FD20 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32226F9C25600D4FD20 /* HomeViewModel.swift */; };
-		273EA32726F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */; };
-		274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
-		274E623126C21FB400C855D4 /* LocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* LocaleView.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
-		276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F222926D4329F00588588 /* CapsuleTextField.swift */; };
-		2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771159C26D8297C00EBBB99 /* CourseCard.swift */; };
-		27761BB126F73CE000601A37 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB026F73CE000601A37 /* PlannerView.swift */; };
-		27761BB326F73CF500601A37 /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB226F73CF500601A37 /* PlannerViewModel.swift */; };
-		27761BB526F73D0000601A37 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB426F73D0000601A37 /* Planner.swift */; };
-		27761BB726F7B7A700601A37 /* PlannerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB626F7B7A700601A37 /* PlannerCard.swift */; };
-		27761BB926F7B9B200601A37 /* CircleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB826F7B9B200601A37 /* CircleBadge.swift */; };
-		27761BBB26F7CA0300601A37 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBA26F7CA0300601A37 /* DateUtils.swift */; };
-		27761BBD26F7F39600601A37 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBC26F7F39600601A37 /* SectionHeader.swift */; };
 		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
-		278E9BEF27078883009CA8D7 /* UIDeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */; };
-		278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F272426D5E97F000FF26F /* CapsuleDropDown.swift */; };
-		278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
-		27A29CD227001C5D005E70D6 /* BundleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD127001C5D005E70D6 /* BundleUtils.swift */; };
-		27A29CD4270056CD005E70D6 /* LogInUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD3270056CD005E70D6 /* LogInUtils.swift */; };
-		27A29CD627013011005E70D6 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD527013011005E70D6 /* Application.swift */; };
-		27A29CDE2701782E005E70D6 /* NetworkSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CDD2701782E005E70D6 /* NetworkSentinel.swift */; };
-		27A29CED2701A706005E70D6 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 27A29CEC2701A706005E70D6 /* KeychainAccess */; };
-		27A29CEF2701A916005E70D6 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CEE2701A916005E70D6 /* StorageManager.swift */; };
-		27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
-		27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27526DFFA15000022EF /* UIPickerField.swift */; };
-		27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */; };
-		27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */; };
-		27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
-		27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
-		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; };
-		27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
-		27DA637D26FE6C0500E90E91 /* PreferenceRowToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */; };
-		27DA638226FE793F00E90E91 /* PreferenceRowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */; };
-		27DA638426FE7A1A00E90E91 /* PreferenceRowLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */; };
-		27DA638626FE85FA00E90E91 /* ApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638526FE85FA00E90E91 /* ApplicationViewModel.swift */; };
-		27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
-		27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
-		27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
-		27DC59C026F5C9B9007A57EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC59BF26F5C9B9007A57EF /* ContentView.swift */; };
-		27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343026EDBDFC0046942E /* CoursesViewModel.swift */; };
-		27DE343326EDBE050046942E /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343226EDBE050046942E /* Courses.swift */; };
-		27DE343526EDBE100046942E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343426EDBE100046942E /* HomeView.swift */; };
-		27DE343726EDBE190046942E /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343626EDBE190046942E /* CoursesView.swift */; };
-		27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344026EDEFDE0046942E /* PreviewObjects.swift */; };
-		27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344426EDFE4D0046942E /* DataUtils.swift */; };
-		27FAB24126FF1AF6006C6643 /* TableViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */; };
-		27FC850027084A2E0050068B /* CoursesUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC84FF27084A2E0050068B /* CoursesUtils.swift */; };
-		27FC850227084A3A0050068B /* PlannerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC850127084A3A0050068B /* PlannerUtils.swift */; };
-		27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
-		27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */; };
-		27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
-		27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */; };
-		27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */; };
+		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; settings = {ATTRIBUTES = (Required, ); }; };
+		27D4E6D62709152F0063CB65 /* NetworkSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CDD2701782E005E70D6 /* NetworkSentinel.swift */; };
+		27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CEE2701A916005E70D6 /* StorageManager.swift */; };
+		27D4E6D82709152F0063CB65 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
+		27D4E6D92709152F0063CB65 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC526EAA7B300A6ED72 /* LogIn.swift */; };
+		27D4E6DA2709152F0063CB65 /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343226EDBE050046942E /* Courses.swift */; };
+		27D4E6DB2709152F0063CB65 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB426F73D0000601A37 /* Planner.swift */; };
+		27D4E6DC2709152F0063CB65 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4A26FD05E600D65B84 /* UserPreference.swift */; };
+		27D4E6DD2709152F0063CB65 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD527013011005E70D6 /* Application.swift */; };
+		27D4E6DE2709152F0063CB65 /* LocaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */; };
+		27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */; };
+		27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343026EDBDFC0046942E /* CoursesViewModel.swift */; };
+		27D4E6E12709152F0063CB65 /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB226F73CF500601A37 /* PlannerViewModel.swift */; };
+		27D4E6E22709152F0063CB65 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32226F9C25600D4FD20 /* HomeViewModel.swift */; };
+		27D4E6E32709152F0063CB65 /* ApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638526FE85FA00E90E91 /* ApplicationViewModel.swift */; };
+		27D4E6E42709152F0063CB65 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */; };
+		27D4E6E52709152F0063CB65 /* StatusBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */; };
+		27D4E6E62709152F0063CB65 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC726EB310300A6ED72 /* NetworkUtils.swift */; };
+		27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344426EDFE4D0046942E /* DataUtils.swift */; };
+		27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBA26F7CA0300601A37 /* DateUtils.swift */; };
+		27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */; };
+		27D4E6EA2709152F0063CB65 /* UserPreferenceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */; };
+		27D4E6EB2709152F0063CB65 /* BundleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD127001C5D005E70D6 /* BundleUtils.swift */; };
+		27D4E6EC2709152F0063CB65 /* LogInUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD3270056CD005E70D6 /* LogInUtils.swift */; };
+		27D4E6ED2709152F0063CB65 /* UIDeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */; };
+		27D4E6EE2709152F0063CB65 /* CoursesUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC84FF27084A2E0050068B /* CoursesUtils.swift */; };
+		27D4E6EF2709152F0063CB65 /* PlannerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC850127084A3A0050068B /* PlannerUtils.swift */; };
+		27D4E6F02709152F0063CB65 /* CoreDataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E3F1822708F82E005B485F /* CoreDataUtils.swift */; };
+		27D4E6F12709152F0063CB65 /* PickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721EEF526D743A900C5E906 /* PickerField.swift */; };
+		27D4E6F22709152F0063CB65 /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27526DFFA15000022EF /* UIPickerField.swift */; };
+		27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
+		27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */; };
+		27D4E6F52709152F0063CB65 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B3ED126EBC9B200DAB4D9 /* WebView.swift */; };
+		27D4E6F62709152F0063CB65 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */; };
+		27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */; };
+		27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */; };
+		27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */; };
+		27D4E6FA2709152F0063CB65 /* CapsuleFieldBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */; };
+		27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */; };
+		27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F222926D4329F00588588 /* CapsuleTextField.swift */; };
+		27D4E6FD2709152F0063CB65 /* CapsuleDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278F272426D5E97F000FF26F /* CapsuleDropDown.swift */; };
+		27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
+		27D4E6FF2709152F0063CB65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
+		27D4E7002709152F0063CB65 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771159C26D8297C00EBBB99 /* CourseCard.swift */; };
+		27D4E7012709152F0063CB65 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
+		27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
+		27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
+		27D4E7042709152F0063CB65 /* PlannerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB626F7B7A700601A37 /* PlannerCard.swift */; };
+		27D4E7052709152F0063CB65 /* CircleBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB826F7B9B200601A37 /* CircleBadge.swift */; };
+		27D4E7062709152F0063CB65 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BBC26F7F39600601A37 /* SectionHeader.swift */; };
+		27D4E7072709152F0063CB65 /* UserPreferencesSheetToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */; };
+		27D4E7082709152F0063CB65 /* PreferenceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */; };
+		27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */; };
+		27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */; };
+		27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */; };
+		27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
+		27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */; };
+		27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* LocaleView.swift */; };
+		27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
+		27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
+		27D4E7112709152F0063CB65 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343426EDBE100046942E /* HomeView.swift */; };
+		27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343626EDBE190046942E /* CoursesView.swift */; };
+		27D4E7132709152F0063CB65 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC59BF26F5C9B9007A57EF /* ContentView.swift */; };
+		27D4E7142709152F0063CB65 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB026F73CE000601A37 /* PlannerView.swift */; };
+		27D4E7152709152F0063CB65 /* UserPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */; };
+		27D4E7182709152F0063CB65 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
+		27D4E7192709152F0063CB65 /* PreviewObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344026EDEFDE0046942E /* PreviewObjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +142,7 @@
 		27DE343626EDBE190046942E /* CoursesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
 		27DE344026EDEFDE0046942E /* PreviewObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewObjects.swift; sourceTree = "<group>"; };
 		27DE344426EDFE4D0046942E /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
+		27E3F1822708F82E005B485F /* CoreDataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUtils.swift; sourceTree = "<group>"; };
 		27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewStyle.swift; sourceTree = "<group>"; };
 		27FC84FF27084A2E0050068B /* CoursesUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesUtils.swift; sourceTree = "<group>"; };
 		27FC850127084A3A0050068B /* PlannerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerUtils.swift; sourceTree = "<group>"; };
@@ -157,7 +158,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27A29CED2701A706005E70D6 /* KeychainAccess in Frameworks */,
 				27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */,
 				27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */,
 				277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */,
@@ -314,6 +314,7 @@
 				278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */,
 				27FC84FF27084A2E0050068B /* CoursesUtils.swift */,
 				27FC850127084A3A0050068B /* PlannerUtils.swift */,
+				27E3F1822708F82E005B485F /* CoreDataUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -361,9 +362,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 274E623A26C21FB500C855D4 /* Build configuration list for PBXNativeTarget "Rift" */;
 			buildPhases = (
-				274E622726C21FB400C855D4 /* Sources */,
 				274E622826C21FB400C855D4 /* Frameworks */,
 				274E622926C21FB400C855D4 /* Resources */,
+				27D4E6D5270915130063CB65 /* Sources */,
 			);
 			buildRules = (
 			);
@@ -373,7 +374,6 @@
 			packageProductDependencies = (
 				27D0F5CD26DB7DF80004F0A2 /* Algorithms */,
 				27074EC126EAA2AC00A6ED72 /* SwiftSoup */,
-				27A29CEC2701A706005E70D6 /* KeychainAccess */,
 				277A1F082704504F005E9EB0 /* URLEncodedForm */,
 			);
 			productName = Rift;
@@ -406,7 +406,6 @@
 			packageReferences = (
 				27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */,
 			);
 			productRefGroup = 274E622C26C21FB400C855D4 /* Products */;
@@ -431,75 +430,76 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		274E622726C21FB400C855D4 /* Sources */ = {
+		27D4E6D5270915130063CB65 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27074EC426EAA5AC00A6ED72 /* LogInViewModel.swift in Sources */,
-				2701CD4D26FD05F200D65B84 /* LocaleUtils.swift in Sources */,
-				27A29CD627013011005E70D6 /* Application.swift in Sources */,
-				27A29CEF2701A916005E70D6 /* StorageManager.swift in Sources */,
-				278F272526D5E97F000FF26F /* CapsuleDropDown.swift in Sources */,
-				274E623126C21FB400C855D4 /* LocaleView.swift in Sources */,
-				27DA637D26FE6C0500E90E91 /* PreferenceRowToggle.swift in Sources */,
-				27761BBD26F7F39600601A37 /* SectionHeader.swift in Sources */,
-				271B3ED226EBC9B200DAB4D9 /* WebView.swift in Sources */,
-				27FF50E626E078B20001F8D6 /* CapsuleFieldLabel.swift in Sources */,
-				27DA638426FE7A1A00E90E91 /* PreferenceRowLink.swift in Sources */,
-				27D0F5B126DAFC300004F0A2 /* NavigationViewStyle.swift in Sources */,
-				278FD66226D89FAA00C85BCD /* TabBar.swift in Sources */,
-				27A29CD227001C5D005E70D6 /* BundleUtils.swift in Sources */,
-				27DE343526EDBE100046942E /* HomeView.swift in Sources */,
-				27CAE27826E01FEA000022EF /* PickerFieldStyle.swift in Sources */,
-				27FC850227084A3A0050068B /* PlannerUtils.swift in Sources */,
-				272F78FB26E04FFB00CDA668 /* UILegacyTextField.swift in Sources */,
-				27FF50D326E067270001F8D6 /* DisabledStyle.swift in Sources */,
-				274E622F26C21FB400C855D4 /* RiftApp.swift in Sources */,
-				2701CD4F26FD0FC600D65B84 /* UserPreferenceUtils.swift in Sources */,
-				27D0F5D626DD9A5A0004F0A2 /* ColorUtils.swift in Sources */,
-				27761BB526F73D0000601A37 /* Planner.swift in Sources */,
-				272F790026E205C100CDA668 /* UITextFieldExtension.swift in Sources */,
-				27B4AA3226D225D10080BF65 /* CapsuleButton.swift in Sources */,
-				2701CD5926FD2EB100D65B84 /* PreferenceRow.swift in Sources */,
-				27DE344126EDEFDE0046942E /* PreviewObjects.swift in Sources */,
-				27A29CDE2701782E005E70D6 /* NetworkSentinel.swift in Sources */,
-				273EA32726F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift in Sources */,
-				27DE343126EDBDFC0046942E /* CoursesViewModel.swift in Sources */,
-				27FF50D926E0725D0001F8D6 /* Locale.swift in Sources */,
-				27761BB326F73CF500601A37 /* PlannerViewModel.swift in Sources */,
-				27DE344526EDFE4D0046942E /* DataUtils.swift in Sources */,
-				27761BBB26F7CA0300601A37 /* DateUtils.swift in Sources */,
-				278E9BEF27078883009CA8D7 /* UIDeviceUtils.swift in Sources */,
-				27FC850027084A2E0050068B /* CoursesUtils.swift in Sources */,
-				27DA823326E8542B00CB3A95 /* DistrictSearchResultCard.swift in Sources */,
-				27074EC826EB310300A6ED72 /* NetworkUtils.swift in Sources */,
-				2721EEF626D743A900C5E906 /* PickerField.swift in Sources */,
-				27DC59C026F5C9B9007A57EF /* ContentView.swift in Sources */,
-				2771159D26D8297D00EBBB99 /* CourseCard.swift in Sources */,
-				27FAB24126FF1AF6006C6643 /* TableViewStyle.swift in Sources */,
-				270CE0E526D98A93009768A7 /* RectangleCornerStyle.swift in Sources */,
-				272F78F726E03FD400CDA668 /* LegacyTextField.swift in Sources */,
-				276F222A26D4329F00588588 /* CapsuleTextField.swift in Sources */,
-				27DE343326EDBE050046942E /* Courses.swift in Sources */,
-				27FF50DB26E072E50001F8D6 /* LocaleViewModel.swift in Sources */,
-				27DA822D26E809DC00CB3A95 /* CapsuleFieldModularButton.swift in Sources */,
-				27761BB126F73CE000601A37 /* PlannerView.swift in Sources */,
-				27074EC626EAA7B300A6ED72 /* LogIn.swift in Sources */,
-				27CAE27626DFFA15000022EF /* UIPickerField.swift in Sources */,
-				27D0F5BA26DB2C530004F0A2 /* TextDivider.swift in Sources */,
-				272F78F926E0494100CDA668 /* CapsuleFieldBackground.swift in Sources */,
-				27FF50D526E06D970001F8D6 /* StatusBarUtils.swift in Sources */,
-				27D0F5B826DB2AFA0004F0A2 /* LogInView.swift in Sources */,
-				2701CD4B26FD05E600D65B84 /* UserPreference.swift in Sources */,
-				273EA32326F9C25600D4FD20 /* HomeViewModel.swift in Sources */,
-				27DA822F26E8115B00CB3A95 /* DistrictSearchView.swift in Sources */,
-				27761BB926F7B9B200601A37 /* CircleBadge.swift in Sources */,
-				27761BB726F7B7A700601A37 /* PlannerCard.swift in Sources */,
-				27DE343726EDBE190046942E /* CoursesView.swift in Sources */,
-				2701CD5326FD26F400D65B84 /* UserPreferenceView.swift in Sources */,
-				27A29CD4270056CD005E70D6 /* LogInUtils.swift in Sources */,
-				27DA638626FE85FA00E90E91 /* ApplicationViewModel.swift in Sources */,
-				27DA638226FE793F00E90E91 /* PreferenceRowButton.swift in Sources */,
+				27D4E6D62709152F0063CB65 /* NetworkSentinel.swift in Sources */,
+				27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */,
+				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
+				27D4E6D92709152F0063CB65 /* LogIn.swift in Sources */,
+				27D4E6DA2709152F0063CB65 /* Courses.swift in Sources */,
+				27D4E6DB2709152F0063CB65 /* Planner.swift in Sources */,
+				27D4E6DC2709152F0063CB65 /* UserPreference.swift in Sources */,
+				27D4E6DD2709152F0063CB65 /* Application.swift in Sources */,
+				27D4E6DE2709152F0063CB65 /* LocaleViewModel.swift in Sources */,
+				27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */,
+				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
+				27D4E6E12709152F0063CB65 /* PlannerViewModel.swift in Sources */,
+				27D4E6E22709152F0063CB65 /* HomeViewModel.swift in Sources */,
+				27D4E6E32709152F0063CB65 /* ApplicationViewModel.swift in Sources */,
+				27D4E6E42709152F0063CB65 /* ColorUtils.swift in Sources */,
+				27D4E6E52709152F0063CB65 /* StatusBarUtils.swift in Sources */,
+				27D4E6E62709152F0063CB65 /* NetworkUtils.swift in Sources */,
+				27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */,
+				27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */,
+				27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */,
+				27D4E6EA2709152F0063CB65 /* UserPreferenceUtils.swift in Sources */,
+				27D4E6EB2709152F0063CB65 /* BundleUtils.swift in Sources */,
+				27D4E6EC2709152F0063CB65 /* LogInUtils.swift in Sources */,
+				27D4E6ED2709152F0063CB65 /* UIDeviceUtils.swift in Sources */,
+				27D4E6EE2709152F0063CB65 /* CoursesUtils.swift in Sources */,
+				27D4E6EF2709152F0063CB65 /* PlannerUtils.swift in Sources */,
+				27D4E6F02709152F0063CB65 /* CoreDataUtils.swift in Sources */,
+				27D4E6F12709152F0063CB65 /* PickerField.swift in Sources */,
+				27D4E6F22709152F0063CB65 /* UIPickerField.swift in Sources */,
+				27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */,
+				27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */,
+				27D4E6F52709152F0063CB65 /* WebView.swift in Sources */,
+				27D4E6F62709152F0063CB65 /* UITextFieldExtension.swift in Sources */,
+				27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */,
+				27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */,
+				27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */,
+				27D4E6FA2709152F0063CB65 /* CapsuleFieldBackground.swift in Sources */,
+				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,
+				27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */,
+				27D4E6FD2709152F0063CB65 /* CapsuleDropDown.swift in Sources */,
+				27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */,
+				27D4E6FF2709152F0063CB65 /* CapsuleButton.swift in Sources */,
+				27D4E7002709152F0063CB65 /* CourseCard.swift in Sources */,
+				27D4E7012709152F0063CB65 /* TabBar.swift in Sources */,
+				27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */,
+				27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */,
+				27D4E7042709152F0063CB65 /* PlannerCard.swift in Sources */,
+				27D4E7052709152F0063CB65 /* CircleBadge.swift in Sources */,
+				27D4E7062709152F0063CB65 /* SectionHeader.swift in Sources */,
+				27D4E7072709152F0063CB65 /* UserPreferencesSheetToggle.swift in Sources */,
+				27D4E7082709152F0063CB65 /* PreferenceRow.swift in Sources */,
+				27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */,
+				27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */,
+				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
+				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,
+				27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */,
+				27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */,
+				27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */,
+				27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */,
+				27D4E7112709152F0063CB65 /* HomeView.swift in Sources */,
+				27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */,
+				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
+				27D4E7142709152F0063CB65 /* PlannerView.swift in Sources */,
+				27D4E7152709152F0063CB65 /* UserPreferenceView.swift in Sources */,
+				27D4E7182709152F0063CB65 /* RiftApp.swift in Sources */,
+				27D4E7192709152F0063CB65 /* PreviewObjects.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,14 +709,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -737,11 +729,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */;
 			productName = URLEncodedForm;
-		};
-		27A29CEC2701A706005E70D6 /* KeychainAccess */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 27A29CEB2701A706005E70D6 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
-			productName = KeychainAccess;
 		};
 		27D0F5CD26DB7DF80004F0A2 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
