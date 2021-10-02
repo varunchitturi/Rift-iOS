@@ -43,6 +43,7 @@ struct HomeView: View {
         )
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
             UserPreferenceView(preferences: UserPreference.shared)
+                .environmentObject(homeViewModel)
         }
     }
     

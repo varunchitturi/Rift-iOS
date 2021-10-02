@@ -22,7 +22,6 @@ extension UserPreference {
                     action: { toggleValue in
                         if let toggleValue = toggleValue as? Bool {
                             UserDefaults.standard.set(toggleValue, forKey: LogIn.persistencePreferenceKey)
-                            // TODO: if toggle value is true make a network request
                         }
                     },
                     configuration: {
@@ -33,11 +32,25 @@ extension UserPreference {
                     label: "Log Out",
                     preferenceGroup: .user,
                     prominence: .high,
-                    action: { applicationViewModel in
-                        if let applicationViewModel = applicationViewModel as? ApplicationViewModel {
-                            // TODO: invalidate jsession here
-                            HTTPCookieStorage.shared.removeCookies(since: .distantPast)
-                            applicationViewModel.isAuthenticated = false
+                    action: { viewModels in
+                        if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
+                            let applicationViewModel = viewModels.0
+                            let homeViewModel = viewModels.1
+                            let urlRequest = URLRequest(url: homeViewModel.locale.districtBaseURL
+                                                            .appendingPathComponent(LogIn.API.logOutEndpoint)
+                            )
+                            URLSession.shared.dataTask(with: urlRequest) { _, _, error in
+                                if let error = error {
+                                    print(error)
+                                    // TODO: better error handling here
+                                }
+                                else {
+                                    HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+                                    DispatchQueue.main.async {
+                                        applicationViewModel.isAuthenticated = false
+                                    }
+                                }
+                            }.resume()
                         }
                     }
                 )

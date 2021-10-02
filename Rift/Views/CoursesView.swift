@@ -31,7 +31,7 @@ struct CoursesView: View {
             .navigationTitle(TabBar.Tab.courses.label)
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
-                    UserPreferencesButton()
+                    UserPreferencesSheetToggle()
                         .environmentObject(homeViewModel)
                 }
             }

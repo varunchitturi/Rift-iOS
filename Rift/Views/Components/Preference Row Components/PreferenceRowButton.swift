@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PreferenceRowButton: View {
     @EnvironmentObject var applicationViewModel: ApplicationViewModel
-    
+    @EnvironmentObject var homeViewModel: HomeViewModel
     init(_ preference: UserPreference) {
         self.preference = preference
     }
@@ -17,7 +17,7 @@ struct PreferenceRowButton: View {
     let preference: UserPreference
     var body: some View {
         Button {
-            preference.action(applicationViewModel)
+            preference.action((applicationViewModel, homeViewModel))
         } label: {
             VStack(alignment: .center) {
                 Text(preference.label)

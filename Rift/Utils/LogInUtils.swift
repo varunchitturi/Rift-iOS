@@ -18,11 +18,13 @@ extension LogIn: NetworkSentinel, StorageManager {
         URL(string: "https://accounts.google.com/")!
     ]
     
-    // TODO: change the following values to enum
-    static let authURLEndpoint = "verify.jsp"
-    static let provisionEndpoint = "mobile/hybridAppUtil.jsp"
-    static let persistenceUpdateEndpoint = "resources/portal/hybrid-device/update"
-    static let portalViewPath = "nav-wrapper"
+    struct API {
+        static let authURLEndpoint = "verify.jsp"
+        static let provisionEndpoint = "mobile/hybridAppUtil.jsp"
+        static let persistenceUpdateEndpoint = "resources/portal/hybrid-device/update"
+        static let portalViewPath = "nav-wrapper"
+        static let logOutEndpoint = "logoff.jsp"
+    }
     
     static let persistentCookieName = "persistent_cookie"
     static let persistencePreferenceKey = "persistence"

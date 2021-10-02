@@ -11,14 +11,13 @@ import Foundation
 struct Courses {
     var courseList = [Course]()
     let locale: Locale
-    static let coursesPathURL: URLComponents = URLComponents(string: "resources/portal/grades")!
     
     init(locale: Locale) {
         self.locale = locale
     }
     
     func getCourses(completion: @escaping (Result<[Course], Error>) -> Void) {
-        let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Courses.coursesPathURL.description))
+        let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Courses.API.coursesEndpoint))
         // TODO: customize this (caching mechanism for cookies and responses)
         // TODO: have a loading view for courses
         // TODO: show an network error message if no data is able to be retrieved

@@ -21,7 +21,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         guard let webViewURL = webViewURL else {
             return false
         }
-        let portalURL = locale.districtBaseURL.appendingPathComponent(LogIn.portalViewPath)
+        let portalURL = locale.districtBaseURL.appendingPathComponent(LogIn.API.portalViewPath)
 
         let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
         let baseURLSearchingeRange = min(3,portalURL.pathComponents.count)

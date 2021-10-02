@@ -30,15 +30,15 @@ struct LogIn {
     }
     
     var authURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.authURLEndpoint)
+        locale.districtBaseURL.appendingPathComponent(LogIn.API.authURLEndpoint)
     }
     
     var provisionURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.provisionEndpoint)
+        locale.districtBaseURL.appendingPathComponent(LogIn.API.provisionEndpoint)
     }
     
     var persistenceUpdateURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.persistenceUpdateEndpoint)
+        locale.districtBaseURL.appendingPathComponent(LogIn.API.persistenceUpdateEndpoint)
     }
     
     init(locale: Locale) {
@@ -58,6 +58,7 @@ struct LogIn {
     
     func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
         LogIn.sharedURLSession.invalidateAndCancel()
+        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
         LogIn.sharedURLSession = URLSession(configuration: .authentication)
         let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
         var urlRequest =  URLRequest(url: provisionURL)

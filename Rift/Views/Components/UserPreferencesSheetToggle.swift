@@ -1,5 +1,5 @@
 //
-//  UserPreferencesButton.swift
+//  UserPreferencesSheetToggle.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 9/21/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserPreferencesButton: View {
+struct UserPreferencesSheetToggle: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     var body: some View {
         Button {
@@ -18,9 +18,9 @@ struct UserPreferencesButton: View {
     }
 }
 
-struct UserPreferencesButton_Previews: PreviewProvider {
+struct UserPreferencesSheetToggle_Previews: PreviewProvider {
     static var previews: some View {
-        UserPreferencesButton()
+        UserPreferencesSheetToggle()
             .environmentObject(HomeViewModel(locale: PreviewObjects.locale))
     }
 }

@@ -14,10 +14,10 @@ struct Planner {
     }
     
     let locale: Locale
-    static let assignmentPathURL: URLComponents = URLComponents(string: "api/portal/assignment/listView")!
+    
     
     func getAssignmentList(completion: @escaping (Result<[Assignment], Error>) -> ()) {
-        let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Planner.assignmentPathURL.description))
+        let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Planner.API.assignmentEndpoint))
         // TODO: customize this (caching mechanism for cookies and responses)
         // TODO: have a loading view for planner
         // TODO: show an network error message if no data is able to be retrieved

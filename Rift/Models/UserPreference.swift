@@ -11,6 +11,7 @@ struct UserPreference: Identifiable {
     
     // TODO: switch to protocol based inheritance
     // TODO: label this the toggle initializer
+    // TODO: describe API for User Preference
     init(label: String, getInitialState: @escaping () -> Bool, preferenceGroup: PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
         configuration()
         self.label = label
@@ -76,7 +77,7 @@ struct UserPreference: Identifiable {
         var id: Int {
             self.rawValue.hashValue
         }
-        case user = "User", courses = "Courses", notifications = "Notifications"
+        case user = "User", courses = "Courses", assignments = "Assignments", notifications = "Notifications"
     }
     
     enum Prominence {

@@ -40,7 +40,7 @@ struct PlannerView: View {
                 .navigationTitle(TabBar.Tab.planner.label)
                 .toolbar {
                     ToolbarItem(id: UUID().uuidString) {
-                        UserPreferencesButton()
+                        UserPreferencesSheetToggle()
                             .environmentObject(homeViewModel)
                     }
                 }
