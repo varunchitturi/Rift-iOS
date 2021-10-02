@@ -102,3 +102,25 @@ enum RequestState {
     case loading
     case failure
 }
+
+extension URLSessionConfiguration {
+    static let authentication: URLSessionConfiguration = {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        configuration.httpCookieAcceptPolicy = .always
+        return configuration
+    }()
+    
+    static let secure: URLSessionConfiguration = {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.httpShouldSetCookies = true
+        configuration.httpCookieStorage = .shared
+        return configuration
+    }()
+    
+    static let dataLoad: URLSessionConfiguration = {
+        let configuration = URLSessionConfiguration.default
+        configuration.requestCachePolicy = .reloadRevalidatingCacheData
+        return configuration
+    }()
+}

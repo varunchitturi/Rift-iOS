@@ -11,7 +11,7 @@ import URLEncodedForm
 import KeychainAccess
 
 struct LogIn {
-    
+    // TODO: change cookies and cache deletion calls to the URLSession reset method
     
     let locale: Locale
     
@@ -56,7 +56,8 @@ struct LogIn {
     }
     
     func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
-        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+        LogIn.sharedURLSession.invalidateAndCancel()
+        LogIn.sharedURLSession = URLSession(configuration: .authentication)
         let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
         var urlRequest =  URLRequest(url: provisionURL)
         urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
@@ -79,6 +80,8 @@ struct LogIn {
         catch {
             completion(error)
         }
+    
+
     }
     
     
@@ -116,12 +119,10 @@ struct LogIn {
         }
         
         do {
-            // explain why we are creating a new session here
+            
             urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
-            let urlConfiguration = URLSessionConfiguration.ephemeral
-            urlConfiguration.httpShouldSetCookies = true
-            urlConfiguration.httpCookieStorage = .shared
-            URLSession(configuration: urlConfiguration).dataTask(with: urlRequest) { data, response, error in
+            // explain why we are creating a new session here
+            URLSession(configuration: .secure).dataTask(with: urlRequest) { data, response, error in
                 if let response = response as? HTTPURLResponse, let responseURL = response.url {
                     let cookies = HTTPCookie.cookies(withResponseHeaderFields: response.allHeaderFields as! [String : String], for: responseURL)
                     print(cookies)

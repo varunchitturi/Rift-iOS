@@ -19,11 +19,10 @@ struct Planner {
     func getAssignmentList(completion: @escaping (Result<[Assignment], Error>) -> ()) {
         let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Planner.assignmentPathURL.description))
         // TODO: customize this (caching mechanism for cookies and responses)
-        let urlSessionConfiguration = URLSessionConfiguration.default
-        urlSessionConfiguration.urlCache = nil
         // TODO: have a loading view for planner
         // TODO: show an network error message if no data is able to be retrieved
-        URLSession(configuration: urlSessionConfiguration).dataTask(with: urlRequest) { data, response, error in
+        // TODO: create a shared session
+        URLSession(configuration: .dataLoad).dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             }
