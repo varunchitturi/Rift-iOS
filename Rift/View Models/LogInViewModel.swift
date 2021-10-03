@@ -8,6 +8,7 @@
 import Foundation
 import WebKit
 import SwiftUI
+import CoreData
 
 class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
@@ -17,16 +18,22 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var webViewURL: URL? = nil
     
-    var isAuthenticated: Bool {
+    var authenticationState: Application.AuthenticationState {
         guard let webViewURL = webViewURL else {
-            return false
+            return .unauthenticated
         }
         let portalURL = locale.districtBaseURL.appendingPathComponent(LogIn.API.portalViewPath)
 
         let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
         let baseURLSearchingeRange = min(3,portalURL.pathComponents.count)
         
-        return webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingeRange]
+        if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingeRange] {
+            if let _ = try? PersistentLocale.saveLocale(locale: locale) {
+                return .authenticated
+            }
+            
+        }
+        return .unauthenticated
     }
 
     var locale: Locale {
@@ -71,7 +78,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                     return
                 }
                 webViewURL = url
-                if isAuthenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
+                if authenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
                     singleSignOnIsPresented = false
                 }
             default:
@@ -111,8 +118,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         
     }
     
-    func authenticate(for state: Binding<Bool>) {
-        state.wrappedValue = isAuthenticated
+    func authenticate(for state: Binding<Application.AuthenticationState>) {
+        state.wrappedValue = authenticationState
     }
     
     func setPersistence(_ persistence: Bool) {

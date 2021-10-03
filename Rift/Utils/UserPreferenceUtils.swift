@@ -9,23 +9,27 @@ import Foundation
 import SwiftUI
 
 extension UserPreference {
+    
+    
+    // TODO: implement a style guide
+    static let persistencePreferenceKey = "persistence"
+    
     static let shared: [UserPreference.PreferenceGroup: [UserPreference]] = [
         .user: [
                 UserPreference(
                     label: "Stay Logged In",
                     getInitialState: {
-                        print(UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey))
-                        return UserDefaults.standard.bool(forKey: LogIn.persistencePreferenceKey)
+                        return UserDefaults.standard.bool(forKey: UserPreference.persistencePreferenceKey)
                     },
                     preferenceGroup: .user,
                     prominence: .low,
                     action: { toggleValue in
                         if let toggleValue = toggleValue as? Bool {
-                            UserDefaults.standard.set(toggleValue, forKey: LogIn.persistencePreferenceKey)
+                            UserDefaults.standard.set(toggleValue, forKey: UserPreference.persistencePreferenceKey)
                         }
                     },
                     configuration: {
-                        UserDefaults.standard.register(defaults: [LogIn.persistencePreferenceKey : false])
+                        UserDefaults.standard.register(defaults: [UserPreference.persistencePreferenceKey : false])
                     }
                 ),
                 UserPreference(
@@ -42,7 +46,7 @@ extension UserPreference {
                                 .appendingQueryItems([query])
                             else {
                                 HTTPCookieStorage.shared.clearCookies()
-                                applicationViewModel.isAuthenticated = false
+                                applicationViewModel.authenticationState = .unauthenticated
                                 return
                             }
                             let urlRequest = URLRequest(url: url)
@@ -53,9 +57,8 @@ extension UserPreference {
                                     // TODO: better error handling here
                                 }
                                 else {
-                                    HTTPCookieStorage.shared.clearCookies()
                                     DispatchQueue.main.async {
-                                        applicationViewModel.isAuthenticated = false
+                                        applicationViewModel.resetApplicationState()
                                     }
                                 }
                             }.resume()

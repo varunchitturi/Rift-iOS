@@ -78,6 +78,10 @@
 		27D4E7152709152F0063CB65 /* UserPreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */; };
 		27D4E7182709152F0063CB65 /* RiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E622E26C21FB400C855D4 /* RiftApp.swift */; };
 		27D4E7192709152F0063CB65 /* PreviewObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE344026EDEFDE0046942E /* PreviewObjects.swift */; };
+		27D4E71D270915EE0063CB65 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E71B270915EE0063CB65 /* Model.xcdatamodeld */; };
+		27D4E724270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */; };
+		27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */; };
+		27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E7272709727C0063CB65 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +132,10 @@
 		27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		27D0F5B926DB2C530004F0A2 /* TextDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDivider.swift; sourceTree = "<group>"; };
 		27D0F5D526DD9A5A0004F0A2 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
+		27D4E71C270915EE0063CB65 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentLocale+CoreDataClass.swift"; sourceTree = "<group>"; };
+		27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentLocale+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		27D4E7272709727C0063CB65 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowToggle.swift; sourceTree = "<group>"; };
 		27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowButton.swift; sourceTree = "<group>"; };
 		27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowLink.swift; sourceTree = "<group>"; };
@@ -232,10 +240,12 @@
 				27FF50D626E072370001F8D6 /* View Models */,
 				27D0F5CB26DB7BBF0004F0A2 /* Utils */,
 				274E624B26C2656300C855D4 /* Views */,
+				27D4E726270917720063CB65 /* Core Data */,
 				274E622E26C21FB400C855D4 /* RiftApp.swift */,
 				274E623226C21FB500C855D4 /* Assets.xcassets */,
 				274E623726C21FB500C855D4 /* Info.plist */,
 				274E623426C21FB500C855D4 /* Preview Content */,
+				27D4E71B270915EE0063CB65 /* Model.xcdatamodeld */,
 			);
 			path = Rift;
 			sourceTree = "<group>";
@@ -286,6 +296,7 @@
 				27761BBC26F7F39600601A37 /* SectionHeader.swift */,
 				273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */,
 				2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */,
+				27D4E7272709727C0063CB65 /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -317,6 +328,15 @@
 				27E3F1822708F82E005B485F /* CoreDataUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		27D4E726270917720063CB65 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */,
+				27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		27DA637E26FE6C8C00E90E91 /* Preference Row Components */ = {
@@ -467,9 +487,11 @@
 				27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */,
 				27D4E6F52709152F0063CB65 /* WebView.swift in Sources */,
 				27D4E6F62709152F0063CB65 /* UITextFieldExtension.swift in Sources */,
+				27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */,
 				27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */,
 				27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */,
 				27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */,
+				27D4E724270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift in Sources */,
 				27D4E6FA2709152F0063CB65 /* CapsuleFieldBackground.swift in Sources */,
 				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,
 				27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */,
@@ -480,6 +502,7 @@
 				27D4E7012709152F0063CB65 /* TabBar.swift in Sources */,
 				27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */,
 				27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */,
+				27D4E71D270915EE0063CB65 /* Model.xcdatamodeld in Sources */,
 				27D4E7042709152F0063CB65 /* PlannerCard.swift in Sources */,
 				27D4E7052709152F0063CB65 /* CircleBadge.swift in Sources */,
 				27D4E7062709152F0063CB65 /* SectionHeader.swift in Sources */,
@@ -490,6 +513,7 @@
 				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
 				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,
 				27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */,
+				27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */,
 				27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */,
 				27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */,
 				27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */,
@@ -736,6 +760,19 @@
 			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		27D4E71B270915EE0063CB65 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				27D4E71C270915EE0063CB65 /* Model.xcdatamodel */,
+			);
+			currentVersion = 27D4E71C270915EE0063CB65 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 274E622326C21FB400C855D4 /* Project object */;
 }

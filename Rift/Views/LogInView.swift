@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct LogInView: View {
     
@@ -62,7 +63,7 @@ struct LogInView: View {
             logInViewModel.provisionLogInView()
         }
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            if logInViewModel.isAuthenticated {
+            if logInViewModel.authenticationState == .authenticated {
                 persistenceAlertIsPresented = true
             }
         }
@@ -78,11 +79,11 @@ struct LogInView: View {
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
                 logInViewModel.setPersistence(false)
-                logInViewModel.authenticate(for: $applicationViewModel.isAuthenticated)
+                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
                 },
                   secondaryButton: .default(Text("Ok")) {
                 logInViewModel.setPersistence(true)
-                logInViewModel.authenticate(for: $applicationViewModel.isAuthenticated)
+                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
                 }
             )
         }

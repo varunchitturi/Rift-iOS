@@ -12,14 +12,15 @@ struct ContentView: View {
     @StateObject private var localeViewModel = LocaleViewModel()
     var body: some View {
         Group {
-            if applicationViewModel.isAuthenticated && localeViewModel.chosenLocale != nil {
-                
-                HomeView(locale: localeViewModel.chosenLocale!)
+            let locale = PersistentLocale.getLocale()
+            switch applicationViewModel.authenticationState {
+            case .loading:
+                LoadingView()
+            case .authenticated where locale != nil:
+                HomeView(locale: locale!)
                     .environmentObject(applicationViewModel)
-                    
-            }
-            else {
-                LocaleView(viewModel: localeViewModel)
+            default:
+                LocaleView()
                     .environmentObject(applicationViewModel)
             }
         }
@@ -30,8 +31,8 @@ struct ContentView: View {
 }
 
 private struct DrawingConstants {
-        static let navigationColor = Color("Primary")
-    }
+    static let navigationColor = Color("Primary")
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

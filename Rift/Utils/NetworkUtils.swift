@@ -74,6 +74,34 @@ extension URLRequest {
     }
 }
 
+extension HTTPURLResponse {
+    enum Status {
+        case information
+        case success
+        case redirect
+        case clientError
+        case serverError
+        case unknown
+    }
+    
+    var status: Status {
+        switch statusCode {
+        case 100..<200:
+            return .information
+        case 200..<300:
+            return .success
+        case 300..<400:
+            return .redirect
+        case 400..<500:
+            return .clientError
+        case 500..<600:
+            return .serverError
+        default:
+            return .unknown
+        }
+    }
+}
+
 extension WKHTTPCookieStore {
     
     func clearCookies(completion: @escaping () -> () = {}) {

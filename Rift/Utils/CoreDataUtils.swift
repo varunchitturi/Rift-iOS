@@ -13,7 +13,7 @@ struct PersistenceController {
     
     let container: NSPersistentContainer
     
-    private static let persistentContainerName = "App"
+    private static let persistentContainerName = "Model"
     
     init(inMemory: Bool = false) {
         

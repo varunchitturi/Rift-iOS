@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+
+// TODO: give difference between this and Persistent Core Data. (maybe implement this better)
 struct Locale: Identifiable, Codable {
     
     var id: Int

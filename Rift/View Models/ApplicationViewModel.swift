@@ -6,11 +6,31 @@
 //
 
 import SwiftUI
+import URLEncodedForm
 
 class ApplicationViewModel: ObservableObject {
-    @Published private var application = Application(authenticationState: false)
+    @Published private var application = Application()
     
-    var isAuthenticated: Bool {
+    init() {
+        let usePersistence = UserDefaults.standard.bool(forKey: UserPreference.persistencePreferenceKey)
+        if usePersistence {
+            application.attemptAuthentication { authenticationState in
+                DispatchQueue.main.async {
+                    self.application.authenticationState = authenticationState
+                }
+            }
+        }
+        else {
+            application.authenticationState = .unauthenticated
+        }
+    }
+    
+    func resetApplicationState() {
+        application.reset()
+        authenticationState = .unauthenticated
+    }
+    
+    var authenticationState: Application.AuthenticationState {
         get {
             application.authenticationState
         }

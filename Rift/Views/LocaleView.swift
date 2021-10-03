@@ -11,7 +11,7 @@ struct LocaleView: View {
     
     
     @EnvironmentObject var applicationViewModel: ApplicationViewModel
-    @ObservedObject var localeViewModel: LocaleViewModel
+    @StateObject var localeViewModel = LocaleViewModel()
     
     @State private var districtSearchIsPresented: Bool = false {
         willSet {
@@ -26,10 +26,6 @@ struct LocaleView: View {
     
     private var navigationDisabled: Bool {
         localeViewModel.chosenLocale == nil
-    }
-   
-    init(viewModel: LocaleViewModel) {
-        self.localeViewModel = viewModel
     }
     
     var body: some View {
@@ -85,9 +81,9 @@ struct LocaleView: View {
 struct LocaleView_Previews: PreviewProvider {
     @StateObject private static var localeViewModel = LocaleViewModel()
     static var previews: some View {
-        LocaleView(viewModel: LocaleViewModel())
+        LocaleView()
             .previewDevice("iPod touch (7th generation)")
-        LocaleView(viewModel: LocaleViewModel())
+        LocaleView()
             .previewDevice("iPhone 11")
     }
 }

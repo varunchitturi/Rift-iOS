@@ -27,7 +27,6 @@ extension LogIn: NetworkSentinel, StorageManager {
     }
     
     static let persistentCookieName = "persistent_cookie"
-    static let persistencePreferenceKey = "persistence"
     
     static var sharedURLSession: URLSession = {
         let configuration = URLSessionConfiguration.default

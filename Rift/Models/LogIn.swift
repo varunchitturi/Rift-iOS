@@ -8,6 +8,7 @@
 import Foundation
 import SwiftSoup
 import URLEncodedForm
+import CoreData
 
 struct LogIn {
     // TODO: change cookies and cache deletion calls to the URLSession reset method
@@ -112,11 +113,12 @@ struct LogIn {
         let persistenceUpdateConfiguration = PersistenceUpdateConfiguration(keepMeLoggedIn: isPersistent)
         
         let persistenceFailed: () -> () = {
-            UserDefaults.standard.set(false, forKey: LogIn.persistencePreferenceKey)
+            UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
         }
         let persistenceSuccess: () -> () = {
             // TODO: remove this
-            UserDefaults.standard.set(isPersistent, forKey: LogIn.persistencePreferenceKey)
+            UserDefaults.standard.set(isPersistent, forKey: UserPreference.persistencePreferenceKey)
+            
         }
         
         do {
