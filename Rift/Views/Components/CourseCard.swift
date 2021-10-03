@@ -12,33 +12,38 @@ struct CourseCard: View {
     let course: Courses.Course
 
     var body: some View {
-        Group {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(course.courseName)
-                    Text(course.teacherName ?? "")
+        NavigationLink(destination: CourseDetailView(course: course)) {
+            Group {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(course.courseName)
+                        Text(course.teacherName ?? "")
+                            .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                            .fontWeight(.semibold)
+                            .font(.caption)
+                    }
+                    Spacer()
+                    VStack {
+                        CircleBadge(course.gradeDisplay?.letterGrade)
+                        Text(course.gradeDisplay?.percentageString ?? "-")
+                            .font(.caption)
+                            .frame(width: DrawingConstants.percentageDisplayWidth)
+                        
+                    }
+                    Image(systemName: "chevron.right")
                         .foregroundColor(DrawingConstants.secondaryForegroundColor)
-                        .fontWeight(.semibold)
-                        .font(.caption)
+                        .font(.callout.bold())
                 }
-                Spacer()
-                VStack {
-                    CircleBadge(course.gradeDisplay?.letterGrade)
-                    Text(course.gradeDisplay?.percentageString ?? "-")
-                        .font(.caption)
-                        .frame(width: DrawingConstants.percentageDisplayWidth)
-                    
-                }
+                .lineLimit(1)
+                .foregroundColor(DrawingConstants.foregroundColor)
+                .padding()
             }
-            .lineLimit(1)
-            .foregroundColor(DrawingConstants.foregroundColor)
-            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
+                    .fill(DrawingConstants.backgroundColor)
+            )
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .background(
-            RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                .fill(DrawingConstants.backgroundColor)
-        )
-        .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
@@ -52,15 +57,23 @@ struct CourseCard: View {
 }
 
 struct CourseCard_Previews: PreviewProvider {
-    static let course = Courses.Course(id: 1, courseName: "AP Computer Science", teacherName: "Mr. Brucker", grades: [Courses.Grade(letterGrade: "A+", percentage: 100.0, currentPoints: 32, totalPoints: 32, termName: "Q1", termType: .midTerm)], isDropped: false)
+    
     static var previews: some View {
-        CourseCard(course: course)
-            .padding()
-            .previewLayout(.sizeThatFits) 
-        CourseCard(course: course)
-            .padding()
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+        NavigationView {
+            ScrollView {
+                ForEach(0..<5) { _ in
+                    CourseCard(course: PreviewObjects.course)
+                        .padding()
+                }
+            }
+        }
+        .previewLayout(.sizeThatFits)
+        NavigationView {
+            CourseCard(course: PreviewObjects.course)
+                .padding()
+                .previewLayout(.sizeThatFits)
+                .preferredColorScheme(.dark)
+        }
             
     }
 }

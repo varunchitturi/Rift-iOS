@@ -37,6 +37,6 @@ struct PreviewObjects {
     
     static let assignment = Planner.Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100)
     
-   
+    static let course = Courses.Course(id: 112, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: nil, isDropped: false)
     
 }

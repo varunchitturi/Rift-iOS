@@ -16,7 +16,8 @@ struct CoursesView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            ScrollView(showsIndicators: false) {
+                Spacer(minLength: DrawingConstants.scrollViewTopInsetPadding)
                 ForEach(coursesViewModel.courseList) {course in
                     if !course.isDropped {
                         CourseCard(course: course)
@@ -25,15 +26,16 @@ struct CoursesView: View {
                 }
                 TabBar.Clearance()
             }
-            .listStyle(.plain)
             .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             // TODO: change this value
             .navigationTitle(TabBar.Tab.courses.label)
             .toolbar {
-                ToolbarItem(id: UUID().uuidString) {
-                    UserPreferencesSheetToggle()
-                        .environmentObject(homeViewModel)
-                }
+                UserPreferencesSheetToggle()
+                    .environmentObject(homeViewModel)
+            }
+            .onAppear {
+                // TODO: explain this
+                coursesViewModel.rebuildView()
             }
             
         }
@@ -41,8 +43,9 @@ struct CoursesView: View {
     }
     
     private struct DrawingConstants {
-        static let cardSpacing: CGFloat = 4
-        static let cardHorizontalPadding: CGFloat = 8
+        static let cardSpacing: CGFloat = 3
+        static let cardHorizontalPadding: CGFloat = 14
+        static let scrollViewTopInsetPadding: CGFloat = 12
     }
 }
 

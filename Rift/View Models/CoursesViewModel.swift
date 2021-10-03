@@ -27,4 +27,8 @@ class CoursesViewModel: ObservableObject {
             }
         }
     }
+    
+    func rebuildView() {
+        objectWillChange.send()
+    }
 }

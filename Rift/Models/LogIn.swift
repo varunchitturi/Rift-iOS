@@ -57,9 +57,8 @@ struct LogIn {
     }
     
     func getProvisionalCookies(completion: @escaping (Error?) -> ()) {
-        LogIn.sharedURLSession.invalidateAndCancel()
+        LogIn.sharedURLSession = URLSession.reset(from: LogIn.sharedURLSession)
         HTTPCookieStorage.shared.clearCookies()
-        LogIn.sharedURLSession = URLSession(configuration: .authentication)
         let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
         var urlRequest =  URLRequest(url: provisionURL)
         urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue

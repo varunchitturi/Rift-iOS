@@ -12,6 +12,7 @@ struct TableViewStyle: ViewModifier {
     
     init() {
         UITableView.appearance().separatorColor = .clear
+        UITableView.appearance().showsVerticalScrollIndicator = false
     }
     
     func body(content: Content) -> some View {
