@@ -71,7 +71,7 @@ extension LogIn: NetworkSentinel, StorageManager {
         let deviceModel = UIDevice.current.model
         let appVersion = Bundle.main.version
         let systemVersion = UIDevice.current.systemVersion
-        let keepMeLoggedIn: Bool
+        let keepMeLoggedIn = true
         let deviceID = ProvisionalCookieConfiguration.deviceID
     }
 }

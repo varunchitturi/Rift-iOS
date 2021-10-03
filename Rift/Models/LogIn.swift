@@ -110,7 +110,7 @@ struct LogIn {
         urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
         urlRequest.setValue(URLRequest.ContentType.json.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
         let jsonEncoder = JSONEncoder()
-        let persistenceUpdateConfiguration = PersistenceUpdateConfiguration(keepMeLoggedIn: isPersistent)
+        let persistenceUpdateConfiguration = PersistenceUpdateConfiguration()
         
         let persistenceFailed: () -> () = {
             UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
