@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var settingsIsPresented: Bool
@@ -15,4 +16,5 @@ class HomeViewModel: ObservableObject {
         self.locale = locale
         self.settingsIsPresented = false
     }
+    
 }

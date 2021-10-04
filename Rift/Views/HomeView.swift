@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var tab: TabBar.Tab = .courses
     @ObservedObject var homeViewModel: HomeViewModel
     @ObservedObject var coursesViewModel: CoursesViewModel
     @ObservedObject var plannerViewModel: PlannerViewModel
@@ -22,29 +21,30 @@ struct HomeView: View {
     }
 
     var body: some View {
-        VStack {
-            switch tab {
-            case .courses:
-                // Try to cache the json from network request or not have to create view each time
-                CoursesView(viewModel: coursesViewModel)
-                    .environmentObject(homeViewModel)
-            case .planner:
-                PlannerView(viewModel: plannerViewModel)
-                    .environmentObject(homeViewModel)
-            case .inbox:
-                Text("Inbox")
-            }
+        TabView {
+            CoursesView(viewModel: coursesViewModel)
+                .environmentObject(homeViewModel)
+                .tabItem {
+                    Home.Tab.courses
+                }
             
+            PlannerView(viewModel: plannerViewModel)
+                .environmentObject(homeViewModel)
+                .tabItem {
+                    Home.Tab.planner
+                }
+            
+            Text("Inbox")
+                .tabItem {
+                    Home.Tab.inbox
+                }
         }
-        .overlay(TabBar(selected: $tab)
-                    .edgesIgnoringSafeArea(.bottom)
-                    .padding(.horizontal),
-                 alignment: .bottom
-        )
+        .tabViewStyle(backgroundColor: Color(UIColor.systemBackground), unselectedColor: Color("Quartenary"))
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
             UserPreferenceView(preferences: UserPreference.shared)
                 .environmentObject(homeViewModel)
         }
+        
     }
     
 }

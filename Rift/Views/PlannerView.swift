@@ -31,13 +31,10 @@ struct PlannerView: View {
                         .textCase(nil)
                         .foregroundColor(DrawingConstants.foregroundColor)
                     }
-                    
-                    TabBar.Clearance()
-                    
                 }
                 .listStyle(.plain)
                
-                .navigationTitle(TabBar.Tab.planner.label)
+                .navigationTitle(Home.Tab.planner.label)
                 .toolbar {
                     ToolbarItem(id: UUID().uuidString) {
                         UserPreferencesSheetToggle()

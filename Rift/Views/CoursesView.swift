@@ -24,14 +24,15 @@ struct CoursesView: View {
                             .padding(.vertical, DrawingConstants.cardSpacing)
                     }
                 }
-                TabBar.Clearance()
             }
             .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             // TODO: change this value
-            .navigationTitle(TabBar.Tab.courses.label)
+            .navigationTitle(Home.Tab.courses.label)
             .toolbar {
-                UserPreferencesSheetToggle()
-                    .environmentObject(homeViewModel)
+                ToolbarItem(id: UUID().uuidString) {
+                    UserPreferencesSheetToggle()
+                        .environmentObject(homeViewModel)
+                }
             }
             .onAppear {
                 // TODO: explain this

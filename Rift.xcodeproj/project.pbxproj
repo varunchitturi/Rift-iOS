@@ -11,6 +11,8 @@
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
 		274F432C270A3998001D5D4A /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F432B270A3998001D5D4A /* CourseDetailView.swift */; };
+		274F4330270A8934001D5D4A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F432F270A8934001D5D4A /* Home.swift */; };
+		274F4332270A924A001D5D4A /* TabViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4331270A924A001D5D4A /* TabViewStyle.swift */; };
 		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
 		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; settings = {ATTRIBUTES = (Required, ); }; };
 		27D4E6D62709152F0063CB65 /* NetworkSentinel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CDD2701782E005E70D6 /* NetworkSentinel.swift */; };
@@ -56,7 +58,6 @@
 		27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */; };
 		27D4E6FF2709152F0063CB65 /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B4AA3126D225D10080BF65 /* CapsuleButton.swift */; };
 		27D4E7002709152F0063CB65 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771159C26D8297C00EBBB99 /* CourseCard.swift */; };
-		27D4E7012709152F0063CB65 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FD66126D89FAA00C85BCD /* TabBar.swift */; };
 		27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B926DB2C530004F0A2 /* TextDivider.swift */; };
 		27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */; };
 		27D4E7042709152F0063CB65 /* PlannerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB626F7B7A700601A37 /* PlannerCard.swift */; };
@@ -110,6 +111,8 @@
 		274E623526C21FB500C855D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		274E623726C21FB500C855D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		274F432B270A3998001D5D4A /* CourseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
+		274F432F270A8934001D5D4A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		274F4331270A924A001D5D4A /* TabViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewStyle.swift; sourceTree = "<group>"; };
 		276F222926D4329F00588588 /* CapsuleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleTextField.swift; sourceTree = "<group>"; };
 		2771159C26D8297C00EBBB99 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
 		27761BB026F73CE000601A37 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
@@ -121,7 +124,6 @@
 		27761BBC26F7F39600601A37 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
-		278FD66126D89FAA00C85BCD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		27A29CD127001C5D005E70D6 /* BundleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtils.swift; sourceTree = "<group>"; };
 		27A29CD3270056CD005E70D6 /* LogInUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInUtils.swift; sourceTree = "<group>"; };
 		27A29CD527013011005E70D6 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */,
 				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
 				27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */,
+				274F4331270A924A001D5D4A /* TabViewStyle.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -291,7 +294,6 @@
 				27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */,
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
-				278FD66126D89FAA00C85BCD /* TabBar.swift */,
 				27D0F5B926DB2C530004F0A2 /* TextDivider.swift */,
 				27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */,
 				27761BB626F7B7A700601A37 /* PlannerCard.swift */,
@@ -374,6 +376,7 @@
 				27761BB426F73D0000601A37 /* Planner.swift */,
 				2701CD4A26FD05E600D65B84 /* UserPreference.swift */,
 				27A29CD527013011005E70D6 /* Application.swift */,
+				274F432F270A8934001D5D4A /* Home.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */,
 				27D4E6EA2709152F0063CB65 /* UserPreferenceUtils.swift in Sources */,
 				27D4E6EB2709152F0063CB65 /* BundleUtils.swift in Sources */,
+				274F4330270A8934001D5D4A /* Home.swift in Sources */,
 				27D4E6EC2709152F0063CB65 /* LogInUtils.swift in Sources */,
 				27D4E6ED2709152F0063CB65 /* UIDeviceUtils.swift in Sources */,
 				27D4E6EE2709152F0063CB65 /* CoursesUtils.swift in Sources */,
@@ -502,7 +506,6 @@
 				27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */,
 				27D4E6FF2709152F0063CB65 /* CapsuleButton.swift in Sources */,
 				27D4E7002709152F0063CB65 /* CourseCard.swift in Sources */,
-				27D4E7012709152F0063CB65 /* TabBar.swift in Sources */,
 				27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */,
 				27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */,
 				27D4E71D270915EE0063CB65 /* Model.xcdatamodeld in Sources */,
@@ -521,6 +524,7 @@
 				27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */,
 				27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */,
 				27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */,
+				274F4332270A924A001D5D4A /* TabViewStyle.swift in Sources */,
 				27D4E7112709152F0063CB65 /* HomeView.swift in Sources */,
 				27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */,
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
