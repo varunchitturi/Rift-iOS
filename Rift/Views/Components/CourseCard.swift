@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CourseCard: View {
     
-    let course: Courses.Course
+    let course: Course
 
     var body: some View {
         NavigationLink(destination: CourseDetailView(course: course)) {

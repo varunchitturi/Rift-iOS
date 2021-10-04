@@ -10,10 +10,8 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var settingsIsPresented: Bool
-    @Published var locale: Locale
     
-    init(locale: Locale) {
-        self.locale = locale
+    init() {
         self.settingsIsPresented = false
     }
     

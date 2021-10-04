@@ -52,7 +52,7 @@ struct CoursesView: View {
 
 struct CoursesView_Previews: PreviewProvider {
     static var previews: some View {
-        CoursesView(viewModel: CoursesViewModel(locale: PreviewObjects.locale))
-            .environmentObject(HomeViewModel(locale: PreviewObjects.locale))
+        CoursesView(viewModel: CoursesViewModel())
+            .environmentObject(HomeViewModel())
     }
 }

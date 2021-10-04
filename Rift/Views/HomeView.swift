@@ -8,17 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel: HomeViewModel
-    @ObservedObject var coursesViewModel: CoursesViewModel
-    @ObservedObject var plannerViewModel: PlannerViewModel
+    @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
+    @StateObject var coursesViewModel: CoursesViewModel = CoursesViewModel()
+    @StateObject var plannerViewModel: PlannerViewModel = PlannerViewModel()
     
     // TODO: display header in home view naviagtion such as name + assignment information
-    
-    init(locale: Locale) {
-        coursesViewModel = CoursesViewModel(locale: locale)
-        plannerViewModel = PlannerViewModel(locale: locale)
-        homeViewModel = HomeViewModel(locale: locale)
-    }
 
     var body: some View {
         TabView {
@@ -51,6 +45,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(locale: PreviewObjects.locale)
+        HomeView()
     }
 }

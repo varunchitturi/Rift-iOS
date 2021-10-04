@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension Planner {
-    struct API {
-        static let assignmentEndpoint = "api/portal/assignment/listView"
-    }
+extension Planner: NetworkSentinel {
+    
+    static let sharedURLSession = URLSession(configuration: .dataLoad)
+    
 }

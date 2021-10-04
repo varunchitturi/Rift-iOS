@@ -14,6 +14,8 @@ struct LogIn {
     // TODO: change cookies and cache deletion calls to the URLSession reset method
     // TODO: if the screen on the webview goes to an infinite campus website, that shows an error, handle it cleanly
     
+    typealias Endpoint = API.Endpoint
+    
     let locale: Locale
     
     var ssoURL: URL?
@@ -30,15 +32,15 @@ struct LogIn {
     }
     
     var authURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.API.authURLEndpoint)
+        locale.districtBaseURL.appendingPathComponent(Endpoint.authorization.endpointPath)
     }
     
     var provisionURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.API.provisionEndpoint)
+        locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies.endpointPath)
     }
     
     var persistenceUpdateURL: URL {
-        locale.districtBaseURL.appendingPathComponent(LogIn.API.persistenceUpdateEndpoint)
+        locale.districtBaseURL.appendingPathComponent(Endpoint.persistenceUpdate.endpointPath)
     }
     
     init(locale: Locale) {

@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension Courses {
-    struct API {
-        static let coursesEndpoint = "resources/portal/grades"
-    }
+extension Courses: NetworkSentinel {
+    
+    static let sharedURLSession = URLSession(configuration: .dataLoad)
+    
 }

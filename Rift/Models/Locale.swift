@@ -10,6 +10,7 @@ import SwiftUI
 
 
 // TODO: give difference between this and Persistent Core Data. (maybe implement this better)
+// TODO: explain why this is not included in API
 struct Locale: Identifiable, Codable {
     
     var id: Int
@@ -34,23 +35,17 @@ struct Locale: Identifiable, Codable {
         case parentLogInURL = "parent_login_url"
     }
     
-    private struct API {
-        static let searchDistrictEndpoint = "searchDistrict"
-    }
-    
     private static let baseSearchURL: URL = URL(string: "https://mobile.infinitecampus.com/mobile/")!
-    
-    
     private static let minimumDistrictQueryLength = 3
     
     private static func getDistrictQueryURL(query: String, state: USTerritory) -> URL? {
         let districtQuery = URLQueryItem(name: "query", value: query)
         let state = URLQueryItem(name: "state", value: state.rawValue)
-        return baseSearchURL.appendingPathComponent(API.searchDistrictEndpoint).appendingQueryItems([districtQuery,state])
+        return Locale.baseSearchURL.appendingPathComponent(API.Endpoint.districtSearch.endpointPath).appendingQueryItems([districtQuery,state])
     }
     
     static func searchDistrict(for query: String, state: USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
-        if query.count >= minimumDistrictQueryLength {
+        if query.count >= Locale.minimumDistrictQueryLength {
             guard let url = getDistrictQueryURL(query: query, state: state) else {
                 completion(.failure(SearchError.invalidDistrictURL))
                 return

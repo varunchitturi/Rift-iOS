@@ -37,11 +37,11 @@ extension UserPreference {
                     preferenceGroup: .user,
                     prominence: .high,
                     action: { viewModels in
-                        if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
+                        if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel), let locale = PersistentLocale.getLocale() {
                             let applicationViewModel = viewModels.0
                             let homeViewModel = viewModels.1
                             let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
-                            guard let url = homeViewModel.locale.districtBaseURL
+                            guard let url = locale.districtBaseURL
                                 .appendingPathComponent(LogIn.API.logOutEndpoint)
                                 .appendingQueryItems([query])
                             else {

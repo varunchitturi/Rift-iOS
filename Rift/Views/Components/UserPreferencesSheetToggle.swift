@@ -21,6 +21,6 @@ struct UserPreferencesSheetToggle: View {
 struct UserPreferencesSheetToggle_Previews: PreviewProvider {
     static var previews: some View {
         UserPreferencesSheetToggle()
-            .environmentObject(HomeViewModel(locale: PreviewObjects.locale))
+            .environmentObject(HomeViewModel())
     }
 }

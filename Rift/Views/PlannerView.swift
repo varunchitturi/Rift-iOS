@@ -53,7 +53,7 @@ struct PlannerView: View {
 
 struct PlannerView_Previews: PreviewProvider {
     static var previews: some View {
-        PlannerView(viewModel: PlannerViewModel(locale: PreviewObjects.locale))
-            .environmentObject(HomeViewModel(locale: PreviewObjects.locale))
+        PlannerView(viewModel: PlannerViewModel())
+            .environmentObject(HomeViewModel())
     }
 }

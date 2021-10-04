@@ -17,7 +17,7 @@ struct ContentView: View {
             case .loading:
                 LoadingView()
             case .authenticated where locale != nil:
-                HomeView(locale: locale!)
+                HomeView()
                     .environmentObject(applicationViewModel)
             default:
                 LocaleView()

@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 
 class CoursesViewModel: ObservableObject {
-    @Published private var courses: Courses
-    var courseList: [Courses.Course] {
+    @Published private var courses: Courses = Courses()
+    var courseList: [Course] {
         courses.courseList
     }
     
-    init(locale: Locale) {
-        courses = Courses(locale: locale)
+    init() {
         courses.getCourses {result in
             switch result {
             case .success(let courseList):

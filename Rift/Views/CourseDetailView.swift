@@ -9,7 +9,12 @@ import SwiftUI
 
 struct CourseDetailView: View {
     
-    let course: Courses.Course
+    @ObservedObject var courseDetailViewModel: CourseDetailViewModel
+    
+    init(course: Course) {
+        self.courseDetailViewModel = CourseDetailViewModel(course: course)
+    }
+    
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

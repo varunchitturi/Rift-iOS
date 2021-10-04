@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlannerCard: View {
-    let assignment: Planner.Assignment
+    let assignment: Assignment
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
