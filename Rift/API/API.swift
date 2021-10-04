@@ -8,5 +8,10 @@
 import Foundation
 
 struct API {
-
+    
+    static let defaultURLSession = URLSession(configuration: .dataLoad)
+    
+    enum APIError: Error {
+        case invalidData
+    }
 }

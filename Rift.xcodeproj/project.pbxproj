@@ -19,7 +19,6 @@
 		274F4342270AD886001D5D4A /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4341270AD886001D5D4A /* Grade.swift */; };
 		274F4345270AD9C7001D5D4A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4344270AD9C7001D5D4A /* Course.swift */; };
 		274F4347270ADB02001D5D4A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4346270ADB02001D5D4A /* API.swift */; };
-		274F4352270AE0BA001D5D4A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4351270AE0BA001D5D4A /* Endpoint.swift */; };
 		274F4354270AE0D5001D5D4A /* AssignmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4353270AE0D5001D5D4A /* AssignmentList.swift */; };
 		274F4360270AE867001D5D4A /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F435F270AE867001D5D4A /* Authentication.swift */; };
 		274F4362270AE94C001D5D4A /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4361270AE94C001D5D4A /* Grades.swift */; };
@@ -130,7 +129,6 @@
 		274F4341270AD886001D5D4A /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		274F4344270AD9C7001D5D4A /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		274F4346270ADB02001D5D4A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		274F4351270AE0BA001D5D4A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		274F4353270AE0D5001D5D4A /* AssignmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentList.swift; sourceTree = "<group>"; };
 		274F435F270AE867001D5D4A /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		274F4361270AE94C001D5D4A /* Grades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
@@ -332,9 +330,12 @@
 		274F4343270AD979001D5D4A /* API */ = {
 			isa = PBXGroup;
 			children = (
-				274F4350270AE0AC001D5D4A /* Response */,
-				274F434F270ADBF4001D5D4A /* Models */,
 				274F4346270ADB02001D5D4A /* API.swift */,
+				274F4353270AE0D5001D5D4A /* AssignmentList.swift */,
+				274F435F270AE867001D5D4A /* Authentication.swift */,
+				274F4361270AE94C001D5D4A /* Grades.swift */,
+				274F4363270AE9FC001D5D4A /* DistrictSearch.swift */,
+				274F434F270ADBF4001D5D4A /* Models */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -347,18 +348,6 @@
 				274F4344270AD9C7001D5D4A /* Course.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		274F4350270AE0AC001D5D4A /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				274F4351270AE0BA001D5D4A /* Endpoint.swift */,
-				274F4353270AE0D5001D5D4A /* AssignmentList.swift */,
-				274F435F270AE867001D5D4A /* Authentication.swift */,
-				274F4361270AE94C001D5D4A /* Grades.swift */,
-				274F4363270AE9FC001D5D4A /* DistrictSearch.swift */,
-			);
-			path = Response;
 			sourceTree = "<group>";
 		};
 		27A29CDC2701780F005E70D6 /* Protocols */ = {
@@ -518,7 +507,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				274F4345270AD9C7001D5D4A /* Course.swift in Sources */,
-				274F4352270AE0BA001D5D4A /* Endpoint.swift in Sources */,
 				27D4E6D62709152F0063CB65 /* NetworkSentinel.swift in Sources */,
 				27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
