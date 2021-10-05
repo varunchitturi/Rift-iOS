@@ -24,6 +24,7 @@ extension PersistentLocale {
         guard let fetchedPersistentLocales = try? viewContext.fetch(PersistentLocale.fetchRequest()),
               let persistentLocale = fetchedPersistentLocales.first
         else { return nil }
+        print(fetchedPersistentLocales)
         return persistentLocale.locale
     }
     

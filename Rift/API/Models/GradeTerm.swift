@@ -54,7 +54,6 @@ struct GradeTerm: Codable, Identifiable {
         }
         guard let endDate = endDate else {
             throw DecodingError.dateDecodingError(for: [CodingKeys.endDate])
-            
         }
         
         self.init(id: id, startDate: startDate, endDate: endDate, termName: termName, termScheduleName: termScheduleName, courses: courses)
