@@ -13,6 +13,7 @@ extension API {
         
         private enum Endpoint {
             static let termGrades = "resources/portal/grades"
+            static let termDetails = termGrades + "/detail"
         }
         
         static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[Term], Error>) -> Void) {
@@ -28,7 +29,9 @@ extension API {
                 }
                 else if let data = data {
                     struct Response: Codable {
-                       let terms: [Term]
+                        // TODO: use custom term here
+                        let terms: [Term]
+                        
                    }
                     DispatchQueue.main.async {
                         do {
@@ -46,9 +49,9 @@ extension API {
                 }
             }.resume()
         }
-        
-        
     }
+    
+    static func getGradeDetails(locale: Locale? = nil, completion @escaping (Result<>))
     
     
     

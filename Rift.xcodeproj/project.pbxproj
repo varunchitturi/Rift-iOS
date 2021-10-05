@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
+		274165CF270C2C9400F9EFCF /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165CE270C2C9400F9EFCF /* Category.swift */; };
+		274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165D2270C2F1A00F9EFCF /* GradeDetail.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
 		274F432C270A3998001D5D4A /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F432B270A3998001D5D4A /* CourseDetailView.swift */; };
@@ -111,6 +113,8 @@
 		272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesSheetToggle.swift; sourceTree = "<group>"; };
+		274165CE270C2C9400F9EFCF /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		274165D2270C2F1A00F9EFCF /* GradeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeDetail.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* LocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleView.swift; sourceTree = "<group>"; };
@@ -342,6 +346,8 @@
 				274F4344270AD9C7001D5D4A /* Course.swift */,
 				277AD63E270B7CE000AF441E /* Term.swift */,
 				27FF50D826E0725D0001F8D6 /* Locale.swift */,
+				274165CE270C2C9400F9EFCF /* Category.swift */,
+				274165D2270C2F1A00F9EFCF /* GradeDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				274F433A270ABD0E001D5D4A /* CourseDetailViewModel.swift in Sources */,
 				274F4330270A8934001D5D4A /* Home.swift in Sources */,
 				27D4E6ED2709152F0063CB65 /* UIDeviceUtils.swift in Sources */,
+				274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */,
 				27D4E6F02709152F0063CB65 /* CoreDataUtils.swift in Sources */,
 				27D4E6F12709152F0063CB65 /* PickerField.swift in Sources */,
 				27D4E6F22709152F0063CB65 /* UIPickerField.swift in Sources */,
@@ -568,6 +575,7 @@
 				274F4347270ADB02001D5D4A /* API.swift in Sources */,
 				27D4E7112709152F0063CB65 /* HomeView.swift in Sources */,
 				27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */,
+				274165CF270C2C9400F9EFCF /* Category.swift in Sources */,
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
 				274F433C270ABD27001D5D4A /* CourseDetail.swift in Sources */,
 				27D4E7142709152F0063CB65 /* PlannerView.swift in Sources */,

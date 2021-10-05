@@ -8,5 +8,6 @@
 import Foundation
 
 struct Term: Codable {
+    // TODO: change this to actual grades
     let courses: [Course]
 }
