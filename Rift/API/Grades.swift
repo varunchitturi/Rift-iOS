@@ -27,16 +27,14 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    
                     struct Response: Codable {
                        let terms: [Term]
                    }
-                    
                     DispatchQueue.main.async {
                         do {
                             let decoder = JSONDecoder()
-                            let responseBody = try decoder.decode(Response.self, from: data)
-                            completion(.success(responseBody.terms))
+                            let responseBody = try decoder.decode([Response].self, from: data)
+                            !responseBody.isEmpty ? completion(.success(responseBody[0].terms)) : completion(.failure(APIError.invalidData))
                         }
                         catch {
                             completion(.failure(error))

@@ -128,7 +128,14 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func setPersistence(_ persistence: Bool) {
-        API.Authentication.usePersistence(locale: locale, persistence)
+        API.Authentication.usePersistence(locale: locale, persistence) { error in
+            if let _ = error {
+                UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
+            }
+            else {
+                UserDefaults.standard.set(persistence, forKey: UserPreference.persistencePreferenceKey)
+            }
+        }
     }
 
     func promptSingleSignOn() {

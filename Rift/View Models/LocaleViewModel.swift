@@ -29,8 +29,8 @@ class LocaleViewModel: ObservableObject {
     
     func searchDistrict(for query: String) {
         if let stateSelection = stateSelection {
-            DispatchQueue.main.async {
-                API.DistrictSearch.searchDistrict(for: query, state: stateSelection) {[weak self] result in
+            API.DistrictSearch.searchDistrict(for: query, state: stateSelection) {[weak self] result in
+                DispatchQueue.main.async {
                     switch result {
                     case .success(let locales):
                         self?.searchResults = locales

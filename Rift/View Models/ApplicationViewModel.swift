@@ -14,6 +14,7 @@ class ApplicationViewModel: ObservableObject {
     init() {
         let usePersistence = UserDefaults.standard.bool(forKey: UserPreference.persistencePreferenceKey)
         if usePersistence {
+            print("yes")
             API.Authentication.attemptAuthentication { authenticationState in
                 DispatchQueue.main.async {
                     self.application.authenticationState = authenticationState

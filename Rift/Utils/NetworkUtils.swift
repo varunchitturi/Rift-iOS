@@ -78,22 +78,40 @@ extension HTTPURLResponse {
     enum Status {
         case information
         case success
-        case redirect
-        case clientError
+        case notModified
+        case noResponse
+        case unauthorized
+        case forbidden
+        case notFound
+        case found
         case serverError
         case unknown
+        case badRequest
+        case moved
     }
     
     var status: Status {
         switch statusCode {
         case 100..<200:
             return .information
-        case 200..<300:
+        case 200:
             return .success
-        case 300..<400:
-            return .redirect
-        case 400..<500:
-            return .clientError
+        case 204:
+            return .noResponse
+        case 301:
+            return .moved
+        case 302:
+            return .found
+        case 304:
+            return .notModified
+        case 400:
+            return .badRequest
+        case 401:
+            return .unauthorized
+        case 403:
+            return .forbidden
+        case 404:
+            return .notFound
         case 500..<600:
             return .serverError
         default:

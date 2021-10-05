@@ -32,7 +32,7 @@ extension API {
                 case .sis:
                     return "sis-cookie"
                 case .persistent:
-                    return "persistent-cookie"
+                    return "persistent_cookie"
                 case .portalApp:
                     return "portalApp"
                 }
@@ -61,6 +61,10 @@ extension API {
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
             static let logOut = "logoff.jsp"
             static let authorization = "verify.jsp"
+        }
+        
+        enum AuthenticationError: Error {
+            case failure
         }
         
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
@@ -120,45 +124,42 @@ extension API {
             }
         }
         
-        static func usePersistence(locale: Locale? = nil, _ isPersistent: Bool) {
+        static func usePersistence(locale: Locale? = nil, _ isPersistent: Bool, completion: @escaping (Error?) -> ()) {
             
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+            guard let locale = locale ?? PersistentLocale.getLocale() else {
+                completion(APIError.invalidLocale)
+                return
+                
+            }
             
             let persistenceUpdateURL = locale.districtBaseURL.appendingPathComponent(Endpoint.persistenceUpdate)
             
             var urlRequest =  URLRequest(url: persistenceUpdateURL)
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
             urlRequest.setValue(URLRequest.ContentType.json.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
-            let jsonEncoder = JSONEncoder()
+            
             let persistenceUpdateConfiguration = PersistenceUpdateConfiguration()
             
-            let persistenceFailed: () -> () = {
-                UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
-            }
-            let persistenceSuccess: () -> () = {
-                // TODO: remove this
-                UserDefaults.standard.set(isPersistent, forKey: UserPreference.persistencePreferenceKey)
-                
-            }
-            
             do {
+                let jsonEncoder = JSONEncoder()
                 urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
                 Authentication.urlSession.dataTask(with: urlRequest) { data, response, error in
                     if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
-                        persistenceSuccess()
+                        completion(nil)
                     }
                     else {
-                        persistenceFailed()
+                        completion(Authentication.AuthenticationError.failure)
                     }
                 }
                 .resume()
             }
             catch {
-                persistenceFailed()
+                completion(error)
             }
         }
         
         static func attemptAuthentication(completion: @escaping (Application.AuthenticationState) -> ()) {
+            // TODO: fix context accessed for persistent container Model with no stores loaded CoreData: warning:  View context accessed for persistent container Model with no stores loaded
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
             let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
