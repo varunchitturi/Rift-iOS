@@ -40,7 +40,9 @@ extension UserPreference {
                         if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
                             let applicationViewModel = viewModels.0
                             API.Authentication.logOut { _ in
-                                applicationViewModel.resetApplicationState()
+                                DispatchQueue.main.async {
+                                    applicationViewModel.resetApplicationState()
+                                }
                             }
                         }
                     }

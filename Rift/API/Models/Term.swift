@@ -9,5 +9,11 @@ import Foundation
 
 struct Term: Codable {
     // TODO: change this to actual grades
-    let courses: [Course]
+    
+    let id: Int
+    let termName: String
+    let termScheduleName: String
+    let startDate: Date
+    let endDate: Date
+    
 }

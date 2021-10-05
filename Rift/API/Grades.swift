@@ -13,11 +13,14 @@ extension API {
         
         private enum Endpoint {
             static let termGrades = "resources/portal/grades"
-            static let termDetails = termGrades + "/detail"
+            static let termGradeDetails = termGrades + "/detail"
         }
         
-        static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[Term], Error>) -> Void) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+        static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[GradeTerm], Error>) -> Void) {
+            guard let locale = locale ?? PersistentLocale.getLocale() else {
+                completion(.failure(APIError.invalidLocale))
+                return
+            }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGrades))
             // TODO: customize this (caching mechanism for cookies and responses)
             // TODO: have a loading view for courses
@@ -30,18 +33,19 @@ extension API {
                 else if let data = data {
                     struct Response: Codable {
                         // TODO: use custom term here
-                        let terms: [Term]
+                        let gradeTerms: [GradeTerm]
                         
+                        enum CodingKeys: String, CodingKey {
+                            case gradeTerms = "terms"
+                        }
                    }
-                    DispatchQueue.main.async {
-                        do {
-                            let decoder = JSONDecoder()
-                            let responseBody = try decoder.decode([Response].self, from: data)
-                            !responseBody.isEmpty ? completion(.success(responseBody[0].terms)) : completion(.failure(APIError.invalidData))
-                        }
-                        catch {
-                            completion(.failure(error))
-                        }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseBody = try decoder.decode([Response].self, from: data)
+                        !responseBody.isEmpty ? completion(.success(responseBody[0].gradeTerms)) : completion(.failure(APIError.invalidData))
+                    }
+                    catch {
+                        completion(.failure(error))
                     }
                 }
                 else {
@@ -49,11 +53,41 @@ extension API {
                 }
             }.resume()
         }
+        
+        static func getGradeDetails(locale: Locale? = nil, completion: @escaping (Result<([Term],[GradeDetail]), Error>) -> ()) {
+            
+            guard let locale = locale ?? PersistentLocale.getLocale() else {
+                completion(.failure(APIError.invalidLocale))
+                return
+            }
+            
+            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGradeDetails))
+            
+            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                }
+                else if let data = data {
+                    struct Response: Codable {
+                        let terms: [Term]
+                        let gradeDetails: [GradeDetail]
+                    }
+                    
+                    do {
+                        let decoder = JSONDecoder()
+                        let response = try decoder.decode(Response.self, from: data)
+                        completion(.success((response.terms, response.gradeDetails)))
+                    }
+                    catch {
+                        completion(.failure(error))
+                    }
+                }
+                else {
+                    completion(.failure(APIError.invalidData))
+                }
+            }
+            
+        }
+        
     }
-    
-    static func getGradeDetails(locale: Locale? = nil, completion @escaping (Result<>))
-    
-    
-    
-    
 }

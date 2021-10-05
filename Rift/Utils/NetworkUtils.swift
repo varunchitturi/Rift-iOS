@@ -155,7 +155,7 @@ extension WKHTTPCookieStore {
     
 }
 
-enum RequestState {
+enum ResponseState {
     case idle
     case loading
     case failure

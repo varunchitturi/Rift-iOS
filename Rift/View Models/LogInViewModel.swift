@@ -14,7 +14,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logIn: LogIn
     @Published var singleSignOnIsPresented = false
-    @Published var requestState: RequestState = .idle
+    @Published var responseState: ResponseState = .idle
     
     
     private static let safeSSOURLS = [
@@ -93,10 +93,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func provisionLogInView() {
-        requestState = .loading
+        responseState = .loading
         API.Authentication.getProvisionalCookies(for: locale) {[weak self] error in
             if let error = error {
-                self?.requestState = .failure
+                self?.responseState = .failure
                 print(error)
             }
             else if let self = self {
@@ -104,10 +104,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                     switch result {
                     case .success(let ssoURL):
                         self.logIn.ssoURL = ssoURL
-                        self.requestState = .idle
+                        self.responseState = .idle
                     case .failure(let error):
                         // TODO: do bettter error handling here
-                        self.requestState = .failure
+                        self.responseState = .failure
                         print("Log in error")
                         print(error.localizedDescription)
                     }

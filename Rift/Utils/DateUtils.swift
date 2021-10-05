@@ -15,4 +15,20 @@ extension DateFormatter {
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter
     }
+    
+    static var yearMonthDayDashed: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "yyyy-MM-dd"
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        return formatter
+    }
+}
+
+extension DecodingError {
+    static func dateDecodingError(for codingPath: [CodingKey]) -> DecodingError {
+        return DecodingError.valueNotFound(Date.self, DecodingError.Context(codingPath: codingPath,
+                                                                            debugDescription: "Invalid date found")
+        )
+    }
 }
