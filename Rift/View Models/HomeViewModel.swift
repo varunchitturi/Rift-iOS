@@ -9,10 +9,6 @@ import Foundation
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var settingsIsPresented: Bool
-    
-    init() {
-        self.settingsIsPresented = false
-    }
+    @Published var settingsIsPresented: Bool = false
     
 }

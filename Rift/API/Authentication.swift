@@ -13,20 +13,61 @@ import SwiftSoup
 extension API {
     struct Authentication {
         
-        
         private static var urlSession = URLSession(configuration: .authentication)
         
-        private static let provisionCookiesEndpoint = "mobile/hybridAppUtil.jsp"
-        private static let persistenceUpdateEndpoint = "resources/portal/hybrid-device/update"
-        private static let logOutEndpoint = "logoff.jsp"
-        private static let authorizationEndpoint = "verify.jsp"
-        private static let authenticationSuccessEndpoint = "nav-wrapper"
         
-        func getProvisionalCookies(locale: Locale, completion: @escaping (Error?) -> ()) {
+        enum Cookie: CaseIterable {
+            case jsession
+            case sis
+            case appName
+            case portalApp
+            case persistent
+            
+            var name: String {
+                switch self {
+                case .jsession:
+                    return "JSESSION"
+                case .appName:
+                    return "appName"
+                case .sis:
+                    return "sis-cookie"
+                case .persistent:
+                    return "persistent-cookie"
+                case .portalApp:
+                    return "portalApp"
+                }
+            }
+            
+            var isRequired: Bool {
+                switch self {
+                case .jsession:
+                    return true
+                case .appName:
+                    return true
+                case .sis:
+                    return true
+                case .persistent:
+                    return false
+                case .portalApp:
+                    return true
+                }
+            }
+        }
+        
+        static let successPath = "nav-wrapper"
+
+        private enum Endpoint {
+            static let provisionCookies = "mobile/hybridAppUtil.jsp"
+            static let persistenceUpdate = "resources/portal/hybrid-device/update"
+            static let logOut = "logoff.jsp"
+            static let authorization = "verify.jsp"
+        }
+        
+        static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
             Authentication.urlSession = URLSession.reset(from: Authentication.urlSession)
             HTTPCookieStorage.shared.clearCookies()
             let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Authentication.provisionCookiesEndpoint))
+            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
             urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
             let formEncoder = URLEncodedFormEncoder()
@@ -49,7 +90,7 @@ extension API {
             }
         }
         
-        func getLogInSSO(locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
+        static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
             
             var loginURL: URL {
                 switch Application.appType {
@@ -67,7 +108,7 @@ extension API {
                 do {
                     let html = try String(contentsOf: loginURL)
                     let htmlDOM = try SwiftSoup.parse(html)
-                    let samlURLString: String = (try? htmlDOM.getElementById(LogIn.samlDOMID)?.attr("href")) ?? ""
+                    let samlURLString: String = (try? htmlDOM.getElementById("samlLoginLink")?.attr("href")) ?? ""
                     DispatchQueue.main.async {
                         completion(.success(URL(string: samlURLString)))
                     }
@@ -79,9 +120,11 @@ extension API {
             }
         }
         
-        func usePersistence(locale: Locale, _ isPersistent: Bool) {
+        static func usePersistence(locale: Locale? = nil, _ isPersistent: Bool) {
             
-            let persistenceUpdateURL = locale.districtBaseURL.appendingPathComponent(Authentication.persistenceUpdateEndpoint)
+            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+            
+            let persistenceUpdateURL = locale.districtBaseURL.appendingPathComponent(Endpoint.persistenceUpdate)
             
             var urlRequest =  URLRequest(url: persistenceUpdateURL)
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
@@ -101,7 +144,7 @@ extension API {
             do {
                 urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
                 Authentication.urlSession.dataTask(with: urlRequest) { data, response, error in
-                    if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == LogIn.persistentCookieName}) == true {
+                    if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
                         persistenceSuccess()
                     }
                     else {
@@ -113,6 +156,51 @@ extension API {
             catch {
                 persistenceFailed()
             }
+        }
+        
+        static func attemptAuthentication(completion: @escaping (Application.AuthenticationState) -> ()) {
+            if let locale = PersistentLocale.getLocale(),
+               HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
+            let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
+                var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
+                urlRequest.httpBody = requestBody
+                urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+                URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
+                    if let response = response as? HTTPURLResponse, response.status == .success {
+                        completion(.authenticated)
+                    }
+                    else  {
+                        completion(.unauthenticated)
+                    }
+                }.resume()
+            }
+            else {
+                completion(.unauthenticated)
+            }
+        }
+        
+        static func logOut(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
+            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+            let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
+            guard let url = locale.districtBaseURL
+                    .appendingPathComponent(Endpoint.logOut)
+                .appendingQueryItems([query])
+            else {
+                completion(APIError.invalidLocale)
+                return
+            }
+            let urlRequest = URLRequest(url: url)
+            // TODO: explain why we use shared here
+            URLSession.shared.dataTask(with: urlRequest) { _, _, error in
+                if let error = error {
+                    completion(error)
+                    return
+                    // TODO: better error handling here
+                }
+                else {
+                    completion(nil)
+                }
+            }.resume()
         }
         
         private struct ProvisionalCookieConfiguration: Encodable {

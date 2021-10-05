@@ -10,11 +10,10 @@ import Foundation
 class PlannerViewModel: ObservableObject {
     // TODO: edit this to support multiple filters
     @Published private var planner = Planner()
-    @Published var assignmentList = [Assignment]()
     
     var assignmentDateList: [Date?: [Assignment]] {
         var assignmentDateList = [Date?: [Assignment]]()
-        for assignment in assignmentList {
+        for assignment in planner.assignmentList {
             let dueDate = assignment.dueDate
             if !assignmentDateList.keys.contains(dueDate) {
                 assignmentDateList[dueDate] = []
@@ -45,10 +44,11 @@ class PlannerViewModel: ObservableObject {
     
     
     init() {
-        planner.getAssignmentList { result in
+        guard let locale = planner.locale else { return }
+        API.Assignments.getList(locale: locale){[weak self] result in
             switch result {
             case .success(let assignmentList):
-                self.assignmentList = assignmentList
+                self?.planner.assignmentList = assignmentList
             case .failure(let error):
                 print(error.localizedDescription)
                 // TODO: do better error handling here

@@ -10,3 +10,9 @@ import Foundation
 protocol StorageManager {
     static var storageIdentifier: String { get }
 }
+
+extension StorageManager {
+    static var storageIdentifier: String {
+        return String(describing: Self.self)
+    }
+}

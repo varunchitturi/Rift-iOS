@@ -169,7 +169,7 @@ extension HTTPCookieStorage {
     func removeSessionCookies() {
         if let cookies = self.cookies {
             cookies.forEach { cookie in
-                if cookie.name != LogIn.persistentCookieName {
+                if cookie.name != API.Authentication.Cookie.persistent.name {
                    deleteCookie(cookie)
                 }
             }

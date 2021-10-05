@@ -16,13 +16,18 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     @Published var singleSignOnIsPresented = false
     @Published var requestState: RequestState = .idle
     
+    
+    private static let safeSSOURLS = [
+        URL(string: "https://accounts.google.com/")!
+    ]
+    
     var webViewURL: URL? = nil
     
     var authenticationState: Application.AuthenticationState {
         guard let webViewURL = webViewURL else {
             return .unauthenticated
         }
-        let portalURL = locale.districtBaseURL.appendingPathComponent(LogIn.API.portalViewPath)
+        let portalURL = locale.districtBaseURL.appendingPathComponent(API.Authentication.successPath)
 
         let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
         let baseURLSearchingeRange = min(3,portalURL.pathComponents.count)
@@ -49,7 +54,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     var safeWebViewHostURLs: [URL] {
-        LogIn.safeSSOHostURLs + [locale.districtBaseURL]
+        LogInViewModel.safeSSOURLS + [locale.districtBaseURL]
     }
     
     init(locale: Locale) {
@@ -59,10 +64,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies { cookies in
-            let cookies = cookies.filter {LogIn.RequiredCookieName.allCases.map {$0.rawValue}.contains($0.name)}
+            let cookies = cookies.filter {API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
             cookies.forEach {
                 // explain why we do this
-                if $0.name != LogIn.RequiredCookieName.jsession.rawValue {
+                if $0.name != API.Authentication.Cookie.jsession.name {
                     HTTPCookieStorage.shared.setCookie($0)
                 }
             }
@@ -89,20 +94,20 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func provisionLogInView() {
         requestState = .loading
-        logIn.getProvisionalCookies {[weak self] error in
+        API.Authentication.getProvisionalCookies(for: locale) {[weak self] error in
             if let error = error {
                 self?.requestState = .failure
                 print(error)
             }
-            else {
-                self?.logIn.getLogInSSO { result in
+            else if let self = self {
+                API.Authentication.getLogInSSO(for: self.locale) { result in
                     switch result {
                     case .success(let ssoURL):
-                        self?.logIn.ssoURL = ssoURL
-                        self?.requestState = .idle
+                        self.logIn.ssoURL = ssoURL
+                        self.requestState = .idle
                     case .failure(let error):
                         // TODO: do bettter error handling here
-                        self?.requestState = .failure
+                        self.requestState = .failure
                         print("Log in error")
                         print(error.localizedDescription)
                     }
@@ -123,7 +128,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func setPersistence(_ persistence: Bool) {
-        logIn.usePersistence(persistence)
+        API.Authentication.usePersistence(locale: locale, persistence)
     }
 
     func promptSingleSignOn() {

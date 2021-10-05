@@ -15,10 +15,11 @@ class CoursesViewModel: ObservableObject {
     }
     
     init() {
-        courses.getCourses {result in
+        guard let locale = courses.locale else { return }
+        API.Grades.getTermGrades(locale: locale) {result in
             switch result {
-            case .success(let courseList):
-                self.courses.courseList = courseList
+            case .success(let terms):
+                self.courses.courseList = terms.isEmpty ? terms[0].courses : []
             case .failure(let error):
                 // TODO: do bettter error handling here
                 print("Courses error")

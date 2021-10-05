@@ -37,31 +37,11 @@ extension UserPreference {
                     preferenceGroup: .user,
                     prominence: .high,
                     action: { viewModels in
-                        if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel), let locale = PersistentLocale.getLocale() {
+                        if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
                             let applicationViewModel = viewModels.0
-                            let homeViewModel = viewModels.1
-                            let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
-                            guard let url = locale.districtBaseURL
-                                .appendingPathComponent(LogIn.API.logOutEndpoint)
-                                .appendingQueryItems([query])
-                            else {
-                                HTTPCookieStorage.shared.clearCookies()
-                                applicationViewModel.authenticationState = .unauthenticated
-                                return
+                            API.Authentication.logOut { _ in
+                                applicationViewModel.resetApplicationState()
                             }
-                            let urlRequest = URLRequest(url: url)
-                            
-                            URLSession.shared.dataTask(with: urlRequest) { _, _, error in
-                                if let error = error {
-                                    print(error)
-                                    // TODO: better error handling here
-                                }
-                                else {
-                                    DispatchQueue.main.async {
-                                        applicationViewModel.resetApplicationState()
-                                    }
-                                }
-                            }.resume()
                         }
                     }
                 )

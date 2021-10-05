@@ -12,6 +12,9 @@ struct API {
     static let defaultURLSession = URLSession(configuration: .dataLoad)
     
     enum APIError: Error {
+        // TODO: add localized descriptions
         case invalidData
+        case invalidRequest
+        case invalidLocale
     }
 }

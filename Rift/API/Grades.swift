@@ -10,10 +10,14 @@ import Foundation
 extension API {
     
     struct Grades {
-        private static let gradesEndpoint = "resources/portal/grades"
         
-        func getCourses(locale: Locale, completion: @escaping (Result<[Course], Error>) -> Void) {
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Grades.gradesEndpoint))
+        private enum Endpoint {
+            static let termGrades = "resources/portal/grades"
+        }
+        
+        static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[Term], Error>) -> Void) {
+            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGrades))
             // TODO: customize this (caching mechanism for cookies and responses)
             // TODO: have a loading view for courses
             // TODO: show an network error message if no data is able to be retrieved
@@ -23,39 +27,29 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
+                    
+                    struct Response: Codable {
+                       let terms: [Term]
+                   }
+                    
                     DispatchQueue.main.async {
                         do {
                             let decoder = JSONDecoder()
-                            let gradesResponse = try decoder.decode([Grades.GradesResponse].self, from: data)
-                            if !gradesResponse.isEmpty && gradesResponse.first!.terms.count > 0 {
-                                // TODO: choose terms based on start and end date
-                                completion(.success(gradesResponse.first!.terms[0].courses))
-                            }
-                            else {
-                                completion(.failure(APIError.invalidData))
-                            }
-                            
+                            let responseBody = try decoder.decode(Response.self, from: data)
+                            completion(.success(responseBody.terms))
                         }
                         catch {
-                            print(error.localizedDescription)
                             completion(.failure(error))
                         }
                     }
                 }
                 else {
-                    completion(.failure(APIError.invalidData))
+                    completion(.success([]))
                 }
             }.resume()
         }
         
-        private struct GradesResponse: Codable {
-            let terms: [Term]
-            
-            struct Term: Codable {
-                let courses: [API.Course]
-            }
-            
-        }
+        
     }
     
     

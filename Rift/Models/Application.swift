@@ -17,28 +17,8 @@ struct Application {
     
     var authenticationState: AuthenticationState = .loading
     
-    func attemptAuthentication(completion: @escaping (Application.AuthenticationState) -> ()) {
-        if let locale = PersistentLocale.getLocale(),
-        HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == LogIn.persistentCookieName}) == true,
-        let requestBody = try? URLEncodedFormEncoder().encode(LogIn.ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
-            var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(LogIn.API.provisionEndpoint))
-            urlRequest.httpBody = requestBody
-            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
-            URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
-                if let response = response as? HTTPURLResponse, response.status == .success {
-                    completion(.authenticated)
-                }
-                else  {
-                    completion(.unauthenticated)
-                }
-            }.resume()
-        }
-        else {
-            completion(.unauthenticated)
-        }
-    }
     
-    func reset() {
+    func resetUserState() {
         HTTPCookieStorage.shared.clearCookies()
         _ = try? PersistentLocale.clearLocale()
         UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
