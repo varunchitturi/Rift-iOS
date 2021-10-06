@@ -36,7 +36,7 @@
 		27D4E6DB2709152F0063CB65 /* Planner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB426F73D0000601A37 /* Planner.swift */; };
 		27D4E6DC2709152F0063CB65 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2701CD4A26FD05E600D65B84 /* UserPreference.swift */; };
 		27D4E6DD2709152F0063CB65 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CD527013011005E70D6 /* Application.swift */; };
-		27D4E6DE2709152F0063CB65 /* LocaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */; };
+		27D4E6DE2709152F0063CB65 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50DA26E072E50001F8D6 /* WelcomeViewModel.swift */; };
 		27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */; };
 		27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343026EDBDFC0046942E /* CoursesViewModel.swift */; };
 		27D4E6E12709152F0063CB65 /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27761BB226F73CF500601A37 /* PlannerViewModel.swift */; };
@@ -80,7 +80,7 @@
 		27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */; };
 		27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D226E067270001F8D6 /* DisabledStyle.swift */; };
 		27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */; };
-		27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* LocaleView.swift */; };
+		27D4E70E2709152F0063CB65 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E623026C21FB400C855D4 /* WelcomeView.swift */; };
 		27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */; };
 		27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */; };
 		27D4E7112709152F0063CB65 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE343426EDBE100046942E /* HomeView.swift */; };
@@ -94,6 +94,7 @@
 		27D4E724270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */; };
 		27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */; };
 		27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E7272709727C0063CB65 /* LoadingView.swift */; };
+		27EFC7BC270E2A1200B90FCA /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* Welcome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,7 +119,7 @@
 		274165D2270C2F1A00F9EFCF /* GradeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeDetail.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
-		274E623026C21FB400C855D4 /* LocaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleView.swift; sourceTree = "<group>"; };
+		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		274E623226C21FB500C855D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		274E623526C21FB500C855D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		274E623726C21FB500C855D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,11 +178,12 @@
 		27DE344026EDEFDE0046942E /* PreviewObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewObjects.swift; sourceTree = "<group>"; };
 		27DE344426EDFE4D0046942E /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		27E3F1822708F82E005B485F /* CoreDataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUtils.swift; sourceTree = "<group>"; };
+		27EFC7BB270E2A1200B90FCA /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewStyle.swift; sourceTree = "<group>"; };
 		27FF50D226E067270001F8D6 /* DisabledStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledStyle.swift; sourceTree = "<group>"; };
 		27FF50D426E06D970001F8D6 /* StatusBarUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarUtils.swift; sourceTree = "<group>"; };
 		27FF50D826E0725D0001F8D6 /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
-		27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleViewModel.swift; sourceTree = "<group>"; };
+		27FF50DA26E072E50001F8D6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -292,7 +294,7 @@
 				272F78FE26E205AE00CDA668 /* Extensions */,
 				274E624C26C2F45C00C855D4 /* Components */,
 				270CE0E326D98A72009768A7 /* Modifiers */,
-				274E623026C21FB400C855D4 /* LocaleView.swift */,
+				274E623026C21FB400C855D4 /* WelcomeView.swift */,
 				27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */,
 				27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */,
 				27DE343626EDBE190046942E /* CoursesView.swift */,
@@ -402,7 +404,7 @@
 		27FF50D626E072370001F8D6 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				27FF50DA26E072E50001F8D6 /* LocaleViewModel.swift */,
+				27FF50DA26E072E50001F8D6 /* WelcomeViewModel.swift */,
 				27074EC326EAA5AC00A6ED72 /* LogInViewModel.swift */,
 				27DE343026EDBDFC0046942E /* CoursesViewModel.swift */,
 				27761BB226F73CF500601A37 /* PlannerViewModel.swift */,
@@ -423,6 +425,7 @@
 				27A29CD527013011005E70D6 /* Application.swift */,
 				274F432F270A8934001D5D4A /* Home.swift */,
 				274F433B270ABD27001D5D4A /* CourseDetail.swift */,
+				27EFC7BB270E2A1200B90FCA /* Welcome.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -517,7 +520,7 @@
 				27D4E6DC2709152F0063CB65 /* UserPreference.swift in Sources */,
 				274F4340270AC8A5001D5D4A /* Assignment.swift in Sources */,
 				27D4E6DD2709152F0063CB65 /* Application.swift in Sources */,
-				27D4E6DE2709152F0063CB65 /* LocaleViewModel.swift in Sources */,
+				27D4E6DE2709152F0063CB65 /* WelcomeViewModel.swift in Sources */,
 				27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */,
 				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
 				27D4E6E12709152F0063CB65 /* PlannerViewModel.swift in Sources */,
@@ -572,12 +575,13 @@
 				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,
 				27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */,
 				27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */,
-				27D4E70E2709152F0063CB65 /* LocaleView.swift in Sources */,
+				27D4E70E2709152F0063CB65 /* WelcomeView.swift in Sources */,
 				27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */,
 				27D4E7102709152F0063CB65 /* DistrictSearchView.swift in Sources */,
 				274F4332270A924A001D5D4A /* TabViewStyle.swift in Sources */,
 				274F4347270ADB02001D5D4A /* API.swift in Sources */,
 				27D4E7112709152F0063CB65 /* HomeView.swift in Sources */,
+				27EFC7BC270E2A1200B90FCA /* Welcome.swift in Sources */,
 				27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */,
 				274165CF270C2C9400F9EFCF /* Category.swift in Sources */,
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,

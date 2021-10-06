@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var applicationViewModel = ApplicationViewModel()
-    @StateObject private var localeViewModel = LocaleViewModel()
+    @StateObject private var welcomeViewModel = WelcomeViewModel()
     var body: some View {
         Group {
             let locale = PersistentLocale.getLocale()
@@ -20,7 +20,7 @@ struct ContentView: View {
                 HomeView()
                     .environmentObject(applicationViewModel)
             default:
-                LocaleView()
+                WelcomeView()
                     .environmentObject(applicationViewModel)
             }
         }

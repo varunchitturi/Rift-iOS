@@ -10,7 +10,7 @@ import SwiftUI
 struct DistrictSearchView: View {
     // TODO: handle bad or no network conditions
     // TODO: create loading state animation
-    @EnvironmentObject var localeViewModel: LocaleViewModel
+    @EnvironmentObject var welcomeViewModel: WelcomeViewModel
     @State private var isSearching: Bool = true
     @State private var searchQuery: String = ""
     @Binding var isPresented: Bool
@@ -21,7 +21,7 @@ struct DistrictSearchView: View {
                                  isEditing: $isSearching,
                                  icon: "magnifyingglass",
                                  onEditingChanged: { query in
-                                    localeViewModel.searchDistrict(for: query)
+                    welcomeViewModel.searchDistrict(for: query)
                                 },
                                 configuration: { textField in
                                     textField.keyboardType = .webSearch
@@ -33,7 +33,7 @@ struct DistrictSearchView: View {
                 if isSearching {
                     Button {
                         searchQuery = ""
-                        localeViewModel.searchResults = []
+                        welcomeViewModel.districtSearchResults = []
                         isSearching = false
                         isPresented = false
                     } label: {
@@ -46,10 +46,10 @@ struct DistrictSearchView: View {
             
             Spacer()
             ScrollView {
-                ForEach(localeViewModel.searchResults) { searchResult in
+                ForEach(welcomeViewModel.districtSearchResults) { searchResult in
                     Button {
                         isSearching = false
-                        localeViewModel.chosenLocale = searchResult
+                        welcomeViewModel.chosenLocale = searchResult
                         isPresented = false
                     } label: {
                         VStack{
@@ -70,9 +70,9 @@ struct DistrictSearchView: View {
 }
 
 struct DistrictSearchView_Previews: PreviewProvider {
-    @StateObject static var localeViewModel = LocaleViewModel()
+    @StateObject static var welcomeViewModel = WelcomeViewModel()
     static var previews: some View {
         DistrictSearchView(isPresented: .constant(true))
-            .environmentObject(LocaleViewModel())
+            .environmentObject(WelcomeViewModel())
     }
 }

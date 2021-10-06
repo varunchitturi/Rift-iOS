@@ -12,9 +12,8 @@ struct CourseDetail {
     
     let course: Course
     
-    struct CategoryProgress: Codable {
-        let name: String
-        let assignments: [Assignment]?
-    }
+    let assignments: [Assignment]
+    
+    let detail: GradeDetail
     
 }

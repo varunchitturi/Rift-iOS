@@ -9,15 +9,15 @@ import SwiftUI
 
 struct CourseDetailView: View {
     
-    @ObservedObject var courseDetailViewModel: CourseDetailViewModel
+    //@ObservedObject var courseDetailViewModel: CourseDetailViewModel
     
     init(course: Course) {
-        self.courseDetailViewModel = CourseDetailViewModel(course: course)
+        //self.courseDetailViewModel = CourseDetailViewModel(course: course)
     }
     
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Hello, World!")
     }
 }
 

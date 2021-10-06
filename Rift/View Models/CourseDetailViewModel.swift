@@ -10,10 +10,10 @@ import SwiftUI
 
 class CourseDetailViewModel: ObservableObject {
 
-    @Published private var courseDetail: CourseDetail
+    //@//Published private var courseDetail: CourseDetail
     
-    init(course: Course) {
-        self.courseDetail = CourseDetail(course: course)
-    }
+//    init(course: Course) {
+//        //self.courseDetail = CourseDetail(course: course)
+//    }
   
 }

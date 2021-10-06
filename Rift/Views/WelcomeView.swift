@@ -1,5 +1,5 @@
 //
-//  LocaleView.swift
+//  WelcomeView.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 8/9/21.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct LocaleView: View {
+struct WelcomeView: View {
     
     
     @EnvironmentObject var applicationViewModel: ApplicationViewModel
-    @StateObject var localeViewModel = LocaleViewModel()
+    @StateObject var welcomeViewModel = WelcomeViewModel()
     
     @State private var districtSearchIsPresented: Bool = false {
         willSet {
@@ -24,39 +24,36 @@ struct LocaleView: View {
     
     let stateOptions = Locale.USTerritory.allCases.sorted().map {$0.description}
     
-    private var navigationDisabled: Bool {
-        localeViewModel.chosenLocale == nil
-    }
     
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
                     Spacer(minLength: DrawingConstants.formTopSpacing)
-                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $localeViewModel.stateSelectionIndex, isEditing: $stateSelectionIsEditing)
+                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $welcomeViewModel.stateSelectionIndex, isEditing: $stateSelectionIsEditing)
                         .padding(.bottom)
 
-                    CapsuleFieldModularButton("District", description: "Choose District", text: .constant(localeViewModel.chosenLocale?.districtName), icon: "chevron.down") {
-                        localeViewModel.searchResults = []
+                    CapsuleFieldModularButton("District", description: "Choose District", text: .constant(welcomeViewModel.chosenLocale?.districtName), icon: "chevron.down") {
+                        welcomeViewModel.districtSearchResults = []
                         districtSearchIsPresented = true
                     }
-                        .disabled(localeViewModel.stateSelectionIndex == nil)
+                        .disabled(welcomeViewModel.stateSelectionIndex == nil)
                         .sheet(isPresented: $districtSearchIsPresented) {
-                            DistrictSearchView(isPresented: $districtSearchIsPresented).environmentObject(localeViewModel)
+                            DistrictSearchView(isPresented: $districtSearchIsPresented).environmentObject(welcomeViewModel)
                         }
                 }
-                if localeViewModel.chosenLocale != nil {
+                if welcomeViewModel.chosenLocale != nil {
                     NavigationLink(
-                        destination: LogInView(locale: localeViewModel.chosenLocale!)
+                        destination: LogInView(locale: welcomeViewModel.chosenLocale!)
                                     .environmentObject(applicationViewModel)
                     ) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
-                    .disabled(navigationDisabled)
+                    .disabled(welcomeViewModel.navigationIsDisabled)
                 }
                 else {
                     CapsuleButton("Next", icon: "arrow.right", style: .primary)
-                        .disabled(navigationDisabled)
+                        .disabled(welcomeViewModel.navigationIsDisabled)
                 }
                
                 
@@ -67,7 +64,7 @@ struct LocaleView: View {
         .navigationViewStyle(.stack)
         .onAppear {
             // explain why we do this
-            localeViewModel.resetQueries()
+            welcomeViewModel.reset()
         }
     }
     
@@ -78,12 +75,12 @@ struct LocaleView: View {
 
 
 
-struct LocaleView_Previews: PreviewProvider {
-    @StateObject private static var localeViewModel = LocaleViewModel()
+struct WelcomeView_Previews: PreviewProvider {
+    @StateObject private static var welcomeViewModel = WelcomeViewModel()
     static var previews: some View {
-        LocaleView()
+        WelcomeView()
             .previewDevice("iPod touch (7th generation)")
-        LocaleView()
+        WelcomeView()
             .previewDevice("iPhone 11")
     }
 }
