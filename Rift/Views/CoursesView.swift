@@ -27,7 +27,7 @@ struct CoursesView: View {
             }
             .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             // TODO: change this value
-            .navigationTitle(Home.Tab.courses.label)
+            .navigationTitle(HomeModel.Tab.courses.label)
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
                     UserPreferencesSheetToggle()

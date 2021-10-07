@@ -1,5 +1,5 @@
 //
-//  Assignments.swift
+//  AssignmentsAPI.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/4/21.

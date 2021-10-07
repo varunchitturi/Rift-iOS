@@ -12,7 +12,7 @@ import CoreData
 
 class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
-    @Published private var logIn: LogIn
+    @Published private var logInModel: LogInModel
     @Published var singleSignOnIsPresented = false
     @Published var responseState: ResponseState = .idle
     
@@ -23,7 +23,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var webViewURL: URL? = nil
     
-    var authenticationState: Application.AuthenticationState {
+    var authenticationState: ApplicationModel.AuthenticationState {
         guard let webViewURL = webViewURL else {
             return .unauthenticated
         }
@@ -42,15 +42,15 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
 
     var locale: Locale {
-        logIn.locale
+        logInModel.locale
     }
     
     var ssoURL: URL? {
-        logIn.ssoURL
+        logInModel.ssoURL
     }
     
     var hasSSOLogin: Bool {
-        logIn.ssoURL != nil
+        logInModel.ssoURL != nil
     }
     
     var safeWebViewHostURLs: [URL] {
@@ -58,7 +58,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     init(locale: Locale) {
-        logIn = LogIn(locale: locale)
+        logInModel = LogInModel(locale: locale)
         super.init()
     }
     
@@ -103,7 +103,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                 API.Authentication.getLogInSSO(for: self.locale) { result in
                     switch result {
                     case .success(let ssoURL):
-                        self.logIn.ssoURL = ssoURL
+                        self.logInModel.ssoURL = ssoURL
                         self.responseState = .idle
                     case .failure(let error):
                         // TODO: do bettter error handling here
@@ -118,22 +118,22 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     // MARK: - Intents
     
-    func authenticate(with credentials: LogIn.Credentials) {
+    func authenticate(with credentials: LogInModel.Credentials) {
         // TODO: implement this for normal sign in
         
     }
     
-    func authenticate(for state: Binding<Application.AuthenticationState>) {
+    func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
         state.wrappedValue = authenticationState
     }
     
     func setPersistence(_ persistence: Bool) {
         API.Authentication.usePersistence(locale: locale, persistence) { error in
             if let _ = error {
-                UserDefaults.standard.set(false, forKey: UserPreference.persistencePreferenceKey)
+                UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
             }
             else {
-                UserDefaults.standard.set(persistence, forKey: UserPreference.persistencePreferenceKey)
+                UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
             }
         }
     }

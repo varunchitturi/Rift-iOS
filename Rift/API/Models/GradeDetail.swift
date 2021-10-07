@@ -10,7 +10,7 @@ import Foundation
 struct GradeDetail: Codable {
     
     let grade: Grade
-    let categories: [GradingCategory]
+    var categories: [GradingCategory]
     
     enum CodingKeys: String, CodingKey {
         case grade = "task"

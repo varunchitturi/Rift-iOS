@@ -1,18 +1,18 @@
 //
-//  UserPreference.swift
-//  UserPreference
+//  UserPreferenceModel.swift
+//  UserPreferenceModel
 //
 //  Created by Varun Chitturi on 9/23/21.
 //
 
 import Foundation
 
-struct UserPreference: Identifiable {
+struct UserPreferenceModel: Identifiable {
     
     // TODO: switch to protocol based inheritance
     // TODO: label this the toggle initializer
     // TODO: describe API for User Preference
-    init(label: String, getInitialState: @escaping () -> Bool, preferenceGroup: PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
+    init(label: String, getInitialState: @escaping () -> Bool, preferenceGroup: PreferenceGroup, prominence: UserPreferenceModel.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
         configuration()
         self.label = label
         self.preferenceType = .toggle
@@ -25,7 +25,7 @@ struct UserPreference: Identifiable {
     }
     
     // TODO: label this the button initializer
-    init(label: String, preferenceGroup: PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
+    init(label: String, preferenceGroup: PreferenceGroup, prominence: UserPreferenceModel.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), configuration: () -> () = {}) {
         configuration()
         self.label = label
         self.preferenceType = .button
@@ -39,7 +39,7 @@ struct UserPreference: Identifiable {
 
     // TODO: label this the link initializer
     
-    init(label: String, preferenceGroup: PreferenceGroup, prominence: UserPreference.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]], configuration: () -> () = {}) {
+    init(label: String, preferenceGroup: PreferenceGroup, prominence: UserPreferenceModel.Prominence = .low, icon: String? = nil, action: @escaping (Any?) -> (), linkedPreferences: [UserPreferenceModel.PreferenceGroup: [UserPreferenceModel]], configuration: () -> () = {}) {
         configuration()
         self.label = label
         self.preferenceType = .link
@@ -58,7 +58,7 @@ struct UserPreference: Identifiable {
     let prominence: Prominence
     let icon: String?
     let action: (Any?) -> ()
-    let linkedPreferences: [UserPreference.PreferenceGroup: [UserPreference]]?
+    let linkedPreferences: [UserPreferenceModel.PreferenceGroup: [UserPreferenceModel]]?
     
     private let getInitialState: (() -> Bool)?
     

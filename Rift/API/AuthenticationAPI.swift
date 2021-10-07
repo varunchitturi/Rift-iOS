@@ -1,5 +1,5 @@
 //
-//  Authentication.swift
+//  AuthenticationAPI.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/4/21.
@@ -97,7 +97,7 @@ extension API {
         static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
             
             var loginURL: URL {
-                switch Application.appType {
+                switch ApplicationModel.appType {
                 case .student:
                     return locale.studentLogInURL
                 case .parent:
@@ -158,7 +158,7 @@ extension API {
             }
         }
         
-        static func attemptAuthentication(completion: @escaping (Application.AuthenticationState) -> ()) {
+        static func attemptAuthentication(completion: @escaping (ApplicationModel.AuthenticationState) -> ()) {
             // TODO: fix context accessed for persistent container Model with no stores loaded CoreData: warning:  View context accessed for persistent container Model with no stores loaded
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
@@ -182,7 +182,7 @@ extension API {
         
         static func logOut(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
-            let query = URLQueryItem(name: "app", value: Application.appType.rawValue)
+            let query = URLQueryItem(name: "app", value: ApplicationModel.appType.rawValue)
             guard let url = locale.districtBaseURL
                     .appendingPathComponent(Endpoint.logOut)
                 .appendingQueryItems([query])
@@ -219,7 +219,7 @@ extension API {
             let deviceID = ProvisionalCookieConfiguration.deviceID
             let deviceModel = UIDevice.current.model
             let deviceType = UIDevice.current.systemVersion
-            let appType = Application.appType.description
+            let appType = ApplicationModel.appType.description
             let appVersion = Bundle.main.version
             let systemVersion = UIDevice.current.systemVersion
             let appName: String

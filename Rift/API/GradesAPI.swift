@@ -1,5 +1,5 @@
 //
-//  Grades.swift
+//  GradesAPI.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/4/21.
@@ -69,12 +69,18 @@ extension API {
                 else if let data = data {
                     struct Response: Codable {
                         let terms: [Term]
-                        let gradeDetails: [GradeDetail]
+                        var gradeDetails: [GradeDetail]
+                        
+                        enum CodingKeys: String, CodingKey {
+                            case terms
+                            case gradeDetails = "details"
+                        }
                     }
                     
                     do {
                         let decoder = JSONDecoder()
-                        let response = try decoder.decode(Response.self, from: data)
+                        var response = try decoder.decode(Response.self, from: data)
+                        API.setCategoriesForAssignments(gradeDetails: &response.gradeDetails)
                         completion(.success((response.terms, response.gradeDetails)))
                     }
                     catch {
@@ -84,9 +90,21 @@ extension API {
                 else {
                     completion(.failure(APIError.invalidData))
                 }
-            }
+            }.resume()
             
         }
         
+    }
+    
+    private static func setCategoriesForAssignments(gradeDetails: inout [GradeDetail]) {
+        for (detailIndex, detail) in gradeDetails.enumerated() {
+            for (categoryIndex, category) in detail.categories.enumerated() {
+                for assignmentIndex in category.assignments.indices {
+                    gradeDetails[detailIndex]
+                        .categories[categoryIndex]
+                        .assignments[assignmentIndex].categoryName = category.name
+                }
+            }
+        }
     }
 }

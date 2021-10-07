@@ -1,6 +1,6 @@
 //
-//  LogIn.swift
-//  LogIn
+//  LogInModel.swift
+//  LogInModel
 //
 //  Created by Varun Chitturi on 9/9/21.
 //
@@ -10,7 +10,7 @@ import SwiftSoup
 import URLEncodedForm
 import CoreData
 
-struct LogIn {
+struct LogInModel {
     // TODO: change cookies and cache deletion calls to the URLSession reset method
     // TODO: if the screen on the webview goes to an infinite campus website, that shows an error, handle it cleanly
     

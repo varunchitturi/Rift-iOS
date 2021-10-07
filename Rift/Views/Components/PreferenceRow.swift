@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct PreferenceRow: View {
-    init(_ preference: UserPreference) {
+    init(_ preference: UserPreferenceModel) {
         self.preference = preference
     }
     
-    let preference: UserPreference
+    let preference: UserPreferenceModel
     var body: some View {
         Group {
             switch preference.preferenceType {
@@ -35,6 +35,6 @@ struct PreferenceRow: View {
 
 struct PreferenceRow_Previews: PreviewProvider {
     static var previews: some View {
-        PreferenceRow(UserPreference.shared[.user]![0])
+        PreferenceRow(UserPreferenceModel.shared[.user]![0])
     }
 }

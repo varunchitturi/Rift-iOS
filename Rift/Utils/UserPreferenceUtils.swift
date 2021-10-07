@@ -8,31 +8,31 @@
 import Foundation
 import SwiftUI
 
-extension UserPreference {
+extension UserPreferenceModel {
     
     
     // TODO: implement a style guide
     static let persistencePreferenceKey = "persistence"
     
-    static let shared: [UserPreference.PreferenceGroup: [UserPreference]] = [
+    static let shared: [UserPreferenceModel.PreferenceGroup: [UserPreferenceModel]] = [
         .user: [
-                UserPreference(
+                UserPreferenceModel(
                     label: "Stay Logged In",
                     getInitialState: {
-                        return UserDefaults.standard.bool(forKey: UserPreference.persistencePreferenceKey)
+                        return UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
                     },
                     preferenceGroup: .user,
                     prominence: .low,
                     action: { toggleValue in
                         if let toggleValue = toggleValue as? Bool {
-                            UserDefaults.standard.set(toggleValue, forKey: UserPreference.persistencePreferenceKey)
+                            UserDefaults.standard.set(toggleValue, forKey: UserPreferenceModel.persistencePreferenceKey)
                         }
                     },
                     configuration: {
-                        UserDefaults.standard.register(defaults: [UserPreference.persistencePreferenceKey : false])
+                        UserDefaults.standard.register(defaults: [UserPreferenceModel.persistencePreferenceKey : false])
                     }
                 ),
-                UserPreference(
+                UserPreferenceModel(
                     label: "Log Out",
                     preferenceGroup: .user,
                     prominence: .high,

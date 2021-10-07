@@ -18,8 +18,9 @@ struct Assignment: Codable, Identifiable {
     let totalPoints: Int?
     let comments: String?
     let feedback: String?
+    var categoryName: String?
     
-    init(id: Int, assignmentName: String, dueDate: Date?, assignedDate: Date?, courseName: String, totalPoints: Int?, comments: String?, feedback: String?) {
+    init(id: Int, assignmentName: String, dueDate: Date?, assignedDate: Date?, courseName: String, totalPoints: Int?, comments: String?, feedback: String?, categoryName: String? = nil) {
         self.id = id
         self.assignmentName = assignmentName
         self.dueDate = dueDate
@@ -28,12 +29,14 @@ struct Assignment: Codable, Identifiable {
         self.totalPoints = totalPoints
         self.comments = comments
         self.feedback = feedback
+        self.categoryName = categoryName
     }
     
     
     enum CodingKeys: String, CodingKey {
         case id = "objectSectionID"
         case assignmentName, courseName, totalPoints, dueDate, assignedDate, comments, feedback
+        case categoryName
     }
     
     init(from decoder: Decoder) throws {
@@ -51,7 +54,7 @@ struct Assignment: Codable, Identifiable {
         
         let dueDate = dueDateString != nil ? DateFormatter.iso180601Full.date(from: dueDateString!) : nil
         let assignedDate = assignedDateString != nil ? DateFormatter.iso180601Full.date(from: assignedDateString!) : nil
-        self.init(id: id, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, comments: comments, feedback: feedback)
+        self.init(id: id, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, comments: comments, feedback: feedback, categoryName: nil)
     }
 }
     

@@ -11,7 +11,7 @@ import SwiftUI
 
 class WelcomeViewModel: ObservableObject {
     
-    @Published private var welcome = Welcome()
+    @Published private var welcome = WelcomeModel()
     
     @Published var stateSelectionIndex: Int? {
         willSet {

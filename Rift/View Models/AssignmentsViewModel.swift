@@ -1,5 +1,5 @@
 //
-//  PlannerViewModel.swift
+//  AssignmentsViewModel.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 9/19/21.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-class PlannerViewModel: ObservableObject {
+class AssignmentsViewModel: ObservableObject {
     // TODO: edit this to support multiple filters
-    @Published private var planner = Planner()
+    @Published private var assignmentsModel = AssignmentsModel()
     
     var assignmentDateList: [Date?: [Assignment]] {
         var assignmentDateList = [Date?: [Assignment]]()
-        for assignment in planner.assignmentList {
+        for assignment in assignmentsModel.assignmentList {
             let dueDate = assignment.dueDate
             if !assignmentDateList.keys.contains(dueDate) {
                 assignmentDateList[dueDate] = []
@@ -44,11 +44,10 @@ class PlannerViewModel: ObservableObject {
     
     
     init() {
-        guard let locale = planner.locale else { return }
-        API.Assignments.getList(locale: locale){[weak self] result in
+        API.Assignments.getList {[weak self] result in
             switch result {
             case .success(let assignmentList):
-                self?.planner.assignmentList = assignmentList
+                self?.assignmentsModel.assignmentList = assignmentList
             case .failure(let error):
                 print(error.localizedDescription)
                 // TODO: do better error handling here

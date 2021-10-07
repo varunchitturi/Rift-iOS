@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct UserPreferenceView: View {
-    init(preferences: [UserPreference.PreferenceGroup : [UserPreference]]) {
+    init(preferences: [UserPreferenceModel.PreferenceGroup : [UserPreferenceModel]]) {
         self.preferences = preferences
     }
     
-    let preferences: [UserPreference.PreferenceGroup: [UserPreference]]
+    let preferences: [UserPreferenceModel.PreferenceGroup: [UserPreferenceModel]]
     
 
     
@@ -21,7 +21,7 @@ struct UserPreferenceView: View {
         
         NavigationView {
             List {
-                ForEach(UserPreference.PreferenceGroup.allCases) { group in
+                ForEach(UserPreferenceModel.PreferenceGroup.allCases) { group in
                     if let preferences = preferences[group] {
                         Section(header: Text(group.rawValue)) {
                             ForEach(preferences) { preference in
@@ -47,6 +47,6 @@ struct UserPreferenceView: View {
 
 struct UserPreferenceView_Previews: PreviewProvider {
     static var previews: some View {
-        UserPreferenceView(preferences: UserPreference.shared)
+        UserPreferenceView(preferences: UserPreferenceModel.shared)
     }
 }

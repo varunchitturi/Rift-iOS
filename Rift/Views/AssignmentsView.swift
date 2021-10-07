@@ -1,5 +1,5 @@
 //
-//  PlannerView.swift
+//  AssignmentsView.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 9/19/21.
@@ -7,24 +7,24 @@
 
 import SwiftUI
 
-struct PlannerView: View {
-    @ObservedObject var plannerViewModel: PlannerViewModel
+struct AssignmentsView: View {
+    @ObservedObject var assignmentsViewModel: AssignmentsViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
     // TODO: add more space for scroll so tab bar doesn't hide certain assignments
     // TODO: change colors to match courses
-    init(viewModel: PlannerViewModel) {
-        plannerViewModel = viewModel
+    init(viewModel: AssignmentsViewModel) {
+        assignmentsViewModel = viewModel
     }
     
     var body: some View {
         NavigationView {
                 List {
-                    let dates = plannerViewModel.dates
-                    let assignmentDateList = plannerViewModel.assignmentDateList
+                    let dates = assignmentsViewModel.dates
+                    let assignmentDateList = assignmentsViewModel.assignmentDateList
                     ForEach(dates, id: \.hashValue) {date in
-                        Section(header: Text(date != nil ? PlannerViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
+                        Section(header: Text(date != nil ? AssignmentsViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
                             ForEach(assignmentDateList[date]!) { assignment in
-                                PlannerCard(assignment: assignment)
+                                AssignmentCard(assignment: assignment)
                             }
                             
                         }
@@ -34,7 +34,7 @@ struct PlannerView: View {
                 }
                 .listStyle(.plain)
                
-                .navigationTitle(Home.Tab.planner.label)
+                .navigationTitle(HomeModel.Tab.assignments.label)
                 .toolbar {
                     ToolbarItem(id: UUID().uuidString) {
                         UserPreferencesSheetToggle()
@@ -51,9 +51,9 @@ struct PlannerView: View {
     }
 }
 
-struct PlannerView_Previews: PreviewProvider {
+struct AssignmentsView_Previews: PreviewProvider {
     static var previews: some View {
-        PlannerView(viewModel: PlannerViewModel())
+        AssignmentsView(viewModel: AssignmentsViewModel())
             .environmentObject(HomeViewModel())
     }
 }

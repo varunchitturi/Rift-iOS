@@ -35,7 +35,8 @@ struct PreviewObjects {
         return cookies
     }
     
-    static let assignment = Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, comments: nil, feedback: nil)
+    
+    static let assignment = Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, comments: nil, feedback: nil, categoryName: "Unit Test")
     
     static let course = Course(id: 112, sectionID: 1234, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: nil, isDropped: false)
     

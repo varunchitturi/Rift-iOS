@@ -1,5 +1,5 @@
 //
-//  Category.swift
+//  GradingCategory.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/4/21.
@@ -11,7 +11,7 @@ struct GradingCategory: Identifiable, Codable {
     let id: Int
     let name: String
     let isWeighted: Bool
-    let assignments: [Assignment]
+    var assignments: [Assignment]
     
     enum CodingKeys: String, CodingKey {
         case id = "groupID"

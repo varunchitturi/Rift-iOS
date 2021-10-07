@@ -1,5 +1,5 @@
 //
-//  PlannerCard.swift
+//  AssignmentCard.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 9/19/21.
@@ -7,20 +7,24 @@
 
 import SwiftUI
 
-struct PlannerCard: View {
+struct AssignmentCard: View {
     let assignment: Assignment
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Group {
-                    Text(assignment.assignmentName)
-                        .foregroundColor(DrawingConstants.foregroundColor)
-                    Text(assignment.courseName)
-                        .fontWeight(.semibold)
-                        .font(.caption)
-                        .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                
+                Text(assignment.assignmentName)
+                    .foregroundColor(DrawingConstants.foregroundColor)
+                if assignment.categoryName != nil {
+                    TextTag(assignment.categoryName!)
+                        .padding(.top, 0.5)
                 }
-                .padding([.vertical], DrawingConstants.textInsetPadding)
+                
+                Text(assignment.courseName)
+                    .fontWeight(.semibold)
+                    .font(.caption)
+                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .padding([.vertical], DrawingConstants.textInsetPadding)
             }
             .lineLimit(1)
             .padding(DrawingConstants.textPadding)
@@ -42,14 +46,13 @@ struct PlannerCard: View {
         static let secondaryForegroundColor = Color("Quartenary")
         static let textPadding: CGFloat = 11
         static let textInsetPadding: CGFloat = 1.5
-        
     }
 }
 
-struct PlannerCard_Previews: PreviewProvider {
+struct AssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
         
-        PlannerCard(assignment: PreviewObjects.assignment)
+        AssignmentCard(assignment: PreviewObjects.assignment)
             
     }
 }

@@ -10,11 +10,11 @@ import SwiftUI
 struct PreferenceRowButton: View {
     @EnvironmentObject var applicationViewModel: ApplicationViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
-    init(_ preference: UserPreference) {
+    init(_ preference: UserPreferenceModel) {
         self.preference = preference
     }
     
-    let preference: UserPreference
+    let preference: UserPreferenceModel
     var body: some View {
         Button {
             preference.action((applicationViewModel, homeViewModel))
@@ -28,6 +28,6 @@ struct PreferenceRowButton: View {
 
 struct PreferenceRowButton_Previews: PreviewProvider {
     static var previews: some View {
-        PreferenceRowButton(UserPreference.shared[.user]![0])
+        PreferenceRowButton(UserPreferenceModel.shared[.user]![0])
     }
 }

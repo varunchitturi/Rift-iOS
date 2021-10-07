@@ -10,10 +10,44 @@ import SwiftUI
 
 class CourseDetailViewModel: ObservableObject {
 
-    //@//Published private var courseDetail: CourseDetail
+    @Published private var courseDetailModel: CourseDetailModel
     
-//    init(course: Course) {
-//        //self.courseDetail = CourseDetail(course: course)
-//    }
+    var assignments: [Assignment] {
+        var assignments: [Assignment] = []
+        courseDetailModel.gradeDetail?.categories.forEach { category in
+            assignments += category.assignments
+        
+        }
+        assignments.sort { lhs, rhs in
+            if let lhs = lhs.dueDate, let rhs = rhs.dueDate {
+                return lhs > rhs
+            }
+            return lhs.dueDate != nil ? false : true
+        }
+        return assignments
+    }
+    
+    var courseName: String {
+        courseDetailModel.course.courseName
+    }
+    
+    init(course: Course) {
+        self.courseDetailModel = CourseDetailModel(course: course)
+        API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
+            switch result {
+            case .success(( _ , let gradeDetails)):
+                if !gradeDetails.isEmpty {
+                    self?.courseDetailModel.gradeDetail = gradeDetails[0]
+                }
+                else {
+                    print("no grade details found")
+                }
+            case .failure(let error):
+                // TODO: better error handling here
+                print(error)
+            }
+        }
+        
+    }
   
 }

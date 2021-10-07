@@ -1,5 +1,5 @@
 //
-//  Home.swift
+//  HomeModel.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/3/21.
@@ -8,16 +8,16 @@
 import Foundation
 import SwiftUI
 
-struct Home {
+struct HomeModel {
     
     enum Tab: String, CaseIterable, View {
-        case courses = "Courses", planner = "Assignments", inbox = "Inbox"
+        case courses = "Courses", assignments = "Assignments", inbox = "Inbox"
         
         private var iconName: String {
             switch self {
             case .courses:
                 return "graduationcap.fill"
-            case .planner:
+            case .assignments:
                 return "doc.text.fill"
             case .inbox:
                 return "tray.fill"

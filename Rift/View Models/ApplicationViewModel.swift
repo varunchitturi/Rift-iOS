@@ -9,34 +9,34 @@ import SwiftUI
 import URLEncodedForm
 
 class ApplicationViewModel: ObservableObject {
-    @Published private var application = Application()
+    @Published private var applicationModel = ApplicationModel()
     
     init() {
-        let usePersistence = UserDefaults.standard.bool(forKey: UserPreference.persistencePreferenceKey)
+        let usePersistence = UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
         if usePersistence {
             print("yes")
             API.Authentication.attemptAuthentication { authenticationState in
                 DispatchQueue.main.async {
-                    self.application.authenticationState = authenticationState
+                    self.applicationModel.authenticationState = authenticationState
                 }
             }
         }
         else {
-            application.authenticationState = .unauthenticated
+            applicationModel.authenticationState = .unauthenticated
         }
     }
     
     func resetApplicationState() {
-        application.resetUserState()
+        applicationModel.resetUserState()
         authenticationState = .unauthenticated
     }
     
-    var authenticationState: Application.AuthenticationState {
+    var authenticationState: ApplicationModel.AuthenticationState {
         get {
-            application.authenticationState
+            applicationModel.authenticationState
         }
         set {
-            application.authenticationState = newValue
+            applicationModel.authenticationState = newValue
         }
         
     }

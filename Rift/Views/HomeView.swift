@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var homeViewModel: HomeViewModel = HomeViewModel()
     @StateObject var coursesViewModel: CoursesViewModel = CoursesViewModel()
-    @StateObject var plannerViewModel: PlannerViewModel = PlannerViewModel()
+    @StateObject var assignmentsViewModel: AssignmentsViewModel = AssignmentsViewModel()
     
     // TODO: display header in home view naviagtion such as name + assignment information
 
@@ -19,23 +19,23 @@ struct HomeView: View {
             CoursesView(viewModel: coursesViewModel)
                 .environmentObject(homeViewModel)
                 .tabItem {
-                    Home.Tab.courses
+                    HomeModel.Tab.courses
                 }
             
-            PlannerView(viewModel: plannerViewModel)
+            AssignmentsView(viewModel: assignmentsViewModel)
                 .environmentObject(homeViewModel)
                 .tabItem {
-                    Home.Tab.planner
+                    HomeModel.Tab.assignments
                 }
             
             Text("Inbox")
                 .tabItem {
-                    Home.Tab.inbox
+                    HomeModel.Tab.inbox
                 }
         }
         .tabViewStyle(backgroundColor: Color(UIColor.systemBackground), unselectedColor: Color("Quartenary"))
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
-            UserPreferenceView(preferences: UserPreference.shared)
+            UserPreferenceView(preferences: UserPreferenceModel.shared)
                 .environmentObject(homeViewModel)
         }
         

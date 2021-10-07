@@ -9,15 +9,36 @@ import SwiftUI
 
 struct CourseDetailView: View {
     
-    //@ObservedObject var courseDetailViewModel: CourseDetailViewModel
+    @ObservedObject var courseDetailViewModel: CourseDetailViewModel
     
     init(course: Course) {
-        //self.courseDetailViewModel = CourseDetailViewModel(course: course)
+        self.courseDetailViewModel = CourseDetailViewModel(course: course)
     }
     
     
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            ForEach (courseDetailViewModel.assignments) { assignment in
+                AssignmentCard(assignment: assignment)
+                    .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
+                    .padding(.vertical, DrawingConstants.cardSpacing)
+            }
+        }
+        .toolbar {
+            ToolbarItem(id: UUID().uuidString) {
+                Button {
+                    print("add assignment")
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .navigationTitle(courseDetailViewModel.courseName)
+    }
+    
+    private struct DrawingConstants {
+        static let cardHorizontalPadding: CGFloat = 14
+        static let cardSpacing: CGFloat = 5
     }
 }
 

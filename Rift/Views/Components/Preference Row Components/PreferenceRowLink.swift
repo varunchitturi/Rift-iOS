@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct PreferenceRowLink: View {
-    init(_ preference: UserPreference) {
+    init(_ preference: UserPreferenceModel) {
         self.preference = preference
     }
     
-    let preference: UserPreference
+    let preference: UserPreferenceModel
     var body: some View {
         if let preferences = preference.linkedPreferences {
             NavigationLink(destination: UserPreferenceView(preferences: preferences)) {
@@ -26,6 +26,6 @@ struct PreferenceRowLink: View {
 
 struct PreferenceRowLink_Previews: PreviewProvider {
     static var previews: some View {
-        PreferenceRowLink(UserPreference.shared[.user]![0])
+        PreferenceRowLink(UserPreferenceModel.shared[.user]![0])
     }
 }
