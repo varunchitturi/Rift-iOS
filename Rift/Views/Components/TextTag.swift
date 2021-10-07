@@ -16,20 +16,22 @@ struct TextTag: View {
     let text: String
     
     var body: some View {
-        Text("  \(text)  ")
-            .font(.caption2)
-            .fontWeight(.bold)
-            .lineLimit(1)
-            .foregroundColor(DrawingConstants.foregroundColor)
-            .background (
-                RoundedRectangle(cornerRadius: DrawingConstants.tagCornerRadius)
-                        .foregroundColor(
-                            DrawingConstants.backgroundColor
-                        )
-            )
-            
-            .frame(maxWidth: DrawingConstants.maxTagWidth)
-            .fixedSize()
+        GeometryReader { geometry in
+            Text("  \(text)  ")
+                .font(.caption2)
+                .fontWeight(.bold)
+                .lineLimit(1)
+                .foregroundColor(DrawingConstants.foregroundColor)
+                .background (
+                    RoundedRectangle(cornerRadius: DrawingConstants.tagCornerRadius)
+                            .foregroundColor(
+                                DrawingConstants.backgroundColor
+                            )
+                )
+                .frame(maxWidth: geometry.size.width)
+                .fixedSize()
+        }
+        
     }
     
     private struct DrawingConstants {
@@ -37,7 +39,6 @@ struct TextTag: View {
         static let backgroundColor = Color("Background")
         static let foregroundColor = Color("Foreground")
         static let tagCornerRadius: CGFloat = 3
-        static let maxTagWidth: CGFloat = 100
     }
 }
 

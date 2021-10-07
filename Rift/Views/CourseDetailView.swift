@@ -19,7 +19,7 @@ struct CourseDetailView: View {
     var body: some View {
         ScrollView {
             ForEach (courseDetailViewModel.assignments) { assignment in
-                AssignmentCard(assignment: assignment)
+                CourseAssignmentCard(assignment: assignment)
                     .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
                     .padding(.vertical, DrawingConstants.cardSpacing)
             }

@@ -1,13 +1,13 @@
 //
-//  AssignmentCard.swift
+//  CourseAssignmentCard.swift
 //  Rift
 //
-//  Created by Varun Chitturi on 9/19/21.
+//  Created by Varun Chitturi on 10/6/21.
 //
 
 import SwiftUI
 
-struct AssignmentCard: View {
+struct CourseAssignmentCard: View {
     let assignment: Assignment
     var body: some View {
         HStack {
@@ -15,15 +15,14 @@ struct AssignmentCard: View {
                 
                 Text(assignment.assignmentName)
                     .foregroundColor(DrawingConstants.foregroundColor)
-                
-                Text(assignment.courseName)
-                    .fontWeight(.semibold)
-                    .font(.caption)
-                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
-                    .padding([.vertical], DrawingConstants.textInsetPadding)
+                if assignment.categoryName != nil {
+                    TextTag(assignment.categoryName!)
+                        .padding(.top, DrawingConstants.textInsetPadding)
+                }
             }
             .lineLimit(1)
-            .padding(DrawingConstants.textPadding)
+            .padding(.horizontal, DrawingConstants.textHorizontalPadding)
+            .padding(.vertical, DrawingConstants.textVerticalPadding)
             Spacer()
             CircleBadge(assignment.totalPoints?.description)
         }
@@ -33,22 +32,21 @@ struct AssignmentCard: View {
                 .fill(DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
+        
     }
     
     private struct DrawingConstants {
         static let foregroundColor = Color("Tertiary")
         static let backgroundColor = Color("Secondary")
         static let backgroundCornerRadius: CGFloat = 15
-        static let secondaryForegroundColor = Color("Quartenary")
-        static let textPadding: CGFloat = 11
-        static let textInsetPadding: CGFloat = 1.5
+        static let textHorizontalPadding: CGFloat = 11
+        static let textVerticalPadding: CGFloat = 16
+        static let textInsetPadding: CGFloat = 5
     }
 }
 
-struct AssignmentCard_Previews: PreviewProvider {
+struct CourseAssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
-        
-        AssignmentCard(assignment: PreviewObjects.assignment)
-            
+        CourseAssignmentCard(assignment: PreviewObjects.assignment)
     }
 }
