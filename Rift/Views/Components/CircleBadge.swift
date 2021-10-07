@@ -26,14 +26,16 @@ struct CircleBadge: View {
                     .fontWeight(.semibold)
                     .frame(maxWidth: DrawingConstants.maxCircleDiameter)
                     .scaledToFill()
-                    .minimumScaleFactor(0.01)
+                    .minimumScaleFactor(DrawingConstants.fontMinimumScale)
                     .foregroundColor(DrawingConstants.circleForeground)
-                    .padding(9)
+                    .padding(DrawingConstants.textPadding)
                     
             )
     }
     
     private struct DrawingConstants {
+        static let textPadding: CGFloat = 9
+        static let fontMinimumScale: CGFloat = 0.01
         static let minCircleDiameter: CGFloat = 30.0
         static let maxCircleDiameter: CGFloat = 35.0
         static let circleForeground = Color("Foreground")
