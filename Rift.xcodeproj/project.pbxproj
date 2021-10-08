@@ -29,6 +29,8 @@
 		277AD63F270B7CE000AF441E /*  Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /*  Term.swift */; };
 		277E6348270CD16400CA056E /* GradeTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E6347270CD16400CA056E /* GradeTerm.swift */; };
 		279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */; };
+		27C335FD270FDF9E002A8D52 /* CourseDetailStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */; };
+		27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33600270FF40E002A8D52 /* NumberUtils.swift */; };
 		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; settings = {ATTRIBUTES = (Required, ); }; };
 		27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A29CEE2701A916005E70D6 /* StorageManager.swift */; };
 		27D4E6D82709152F0063CB65 /* Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FF50D826E0725D0001F8D6 /* Locale.swift */; };
@@ -156,6 +158,8 @@
 		27A29CD527013011005E70D6 /* ApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
 		27A29CEE2701A916005E70D6 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
+		27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStats.swift; sourceTree = "<group>"; };
+		27C33600270FF40E002A8D52 /* NumberUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberUtils.swift; sourceTree = "<group>"; };
 		27CAE27526DFFA15000022EF /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
 		27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerFieldStyle.swift; sourceTree = "<group>"; };
 		27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewStyle.swift; sourceTree = "<group>"; };
@@ -331,6 +335,7 @@
 				2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */,
 				27D4E7272709727C0063CB65 /* LoadingView.swift */,
 				27EFC7BF270E851900B90FCA /* TextTag.swift */,
+				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				27A29CD127001C5D005E70D6 /* BundleUtils.swift */,
 				278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */,
 				27E3F1822708F82E005B485F /* CoreDataUtils.swift */,
+				27C33600270FF40E002A8D52 /* NumberUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -519,6 +525,7 @@
 				27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
 				27D4E6D92709152F0063CB65 /* LogInModel.swift in Sources */,
+				27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */,
 				27D4E6DA2709152F0063CB65 /* CoursesModel.swift in Sources */,
 				277E6348270CD16400CA056E /* GradeTerm.swift in Sources */,
 				274F4360270AE867001D5D4A /* AuthenticationAPI.swift in Sources */,
@@ -558,6 +565,7 @@
 				27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */,
 				27D4E724270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift in Sources */,
 				274F4364270AE9FC001D5D4A /* DistrictSearchAPI.swift in Sources */,
+				27C335FD270FDF9E002A8D52 /* CourseDetailStats.swift in Sources */,
 				274F4362270AE94C001D5D4A /* GradesAPI.swift in Sources */,
 				27D4E6FA2709152F0063CB65 /* CapsuleFieldBackground.swift in Sources */,
 				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,

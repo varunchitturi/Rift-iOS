@@ -25,7 +25,7 @@ struct Course: Codable, Identifiable {
     let grades: [Grade]?
     let isDropped: Bool
     
-    var gradeDisplay: Grade? {
+    var currentGrade: Grade? {
         // TODO: use the correct term by start and end date
         grades?[0]
     }
@@ -43,7 +43,7 @@ struct Course: Codable, Identifiable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let idString = try container.decode(String.self, forKey: .id)
-        let id = Int(idString)!
+        let id = Int(idString) ?? UUID().hashValue
         let courseName = try container.decode(String.self, forKey: .courseName)
         let isDropped =  try container.decode(Bool.self, forKey: .isDropped)
         let grades = try container.decode([Grade]?.self, forKey: .grades)

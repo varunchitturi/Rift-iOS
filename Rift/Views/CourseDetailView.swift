@@ -17,11 +17,18 @@ struct CourseDetailView: View {
     
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            ForEach (courseDetailViewModel.assignments) { assignment in
-                CourseAssignmentCard(assignment: assignment)
-                    .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
-                    .padding(.vertical, DrawingConstants.cardSpacing)
+        VStack {
+            if courseDetailViewModel.gradeDetail != nil {
+                CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!)
+                    .padding(.top)
+            }
+           
+            ScrollView(showsIndicators: false) {
+                ForEach (courseDetailViewModel.assignments) { assignment in
+                    CourseAssignmentCard(assignment: assignment)
+                        .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
+                        .padding(.vertical, DrawingConstants.cardSpacing)
+                }
             }
         }
         .toolbar {
@@ -33,7 +40,8 @@ struct CourseDetailView: View {
                 }
             }
         }
-        .navigationTitle(courseDetailViewModel.courseName)
+    .navigationTitle(courseDetailViewModel.courseName)
+        
     }
     
     private struct DrawingConstants {

@@ -14,4 +14,11 @@ struct CourseDetailModel {
     
     var gradeDetail: GradeDetail?
     
+    
+}
+
+extension GradingCategory {
+    var percentageDisplay: String {
+        percentage?.description.appending("%") ?? "-"
+    }
 }

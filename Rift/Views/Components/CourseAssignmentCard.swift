@@ -24,7 +24,7 @@ struct CourseAssignmentCard: View {
             .padding(.horizontal, DrawingConstants.textHorizontalPadding)
             .padding(.vertical, DrawingConstants.textVerticalPadding)
             Spacer()
-            CircleBadge(assignment.totalPoints?.description)
+            CircleBadge(assignment.totalPointsDisplay)
         }
         .padding(.horizontal)
         .background(

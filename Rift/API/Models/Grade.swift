@@ -20,10 +20,11 @@ struct Grade: Codable {
     var percentageString: String {
         guard let percentage = percentage?.description else {
             if let totalPoints = totalPoints, let currentPoints = currentPoints {
-                return (((currentPoints / totalPoints) * 100).rounded() * 100).description.appending("%")
+                return (((currentPoints / totalPoints) * 100).rounded(2)).description.appending("%")
             } else {
                 return "-"
             }
+            
         }
         return percentage.appending("%")
     }
@@ -38,6 +39,7 @@ struct Grade: Codable {
     }
     
 }
+
 
 
 

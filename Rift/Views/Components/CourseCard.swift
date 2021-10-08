@@ -24,8 +24,8 @@ struct CourseCard: View {
                     }
                     Spacer()
                     VStack {
-                        CircleBadge(course.gradeDisplay?.letterGrade)
-                        Text(course.gradeDisplay?.percentageString ?? "-")
+                        CircleBadge(course.gradeDisplay)
+                        Text(course.percentageDisplay)
                             .font(.caption)
                             .frame(width: DrawingConstants.percentageDisplayWidth)
                         

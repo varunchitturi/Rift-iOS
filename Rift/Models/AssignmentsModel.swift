@@ -12,3 +12,9 @@ struct AssignmentsModel {
     var assignmentList = [Assignment]()
     
 }
+
+extension Assignment {
+    var totalPointsDisplay: String {
+        self.totalPoints?.description ?? "-"
+    }
+}

@@ -35,9 +35,15 @@ struct PreviewObjects {
         return cookies
     }
     
+    static let grade = Grade(letterGrade: "A", percentage: 90, currentPoints: 90, totalPoints: 100, termName: "Q1", termType: "Quarter")
+    static let assignment = Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, scorePoints: 90, comments: nil, feedback: nil, categoryName: "Unit Test")
     
-    static let assignment = Assignment(id: 1, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, comments: nil, feedback: nil, categoryName: "Unit Test")
+    static let course = Course(id: 112, sectionID: 1234, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: [grade], isDropped: false)
     
-    static let course = Course(id: 112, sectionID: 1234, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: nil, isDropped: false)
+    static let gradeDetail = GradeDetail(grade: grade, categories: [gradingCategory])
+    
+    static let gradingCategory = GradingCategory(id: 1, name: "Judgement", isWeighted: true, assignments: [assignment])
+        
+    
     
 }

@@ -31,6 +31,14 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.courseName
     }
     
+    var gradeDetail: GradeDetail? {
+        courseDetailModel.gradeDetail
+    }
+    
+    var courseGradeDisplay: String {
+        courseDetailModel.course.gradeDisplay
+    }
+    
     init(course: Course) {
         self.courseDetailModel = CourseDetailModel(course: course)
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in

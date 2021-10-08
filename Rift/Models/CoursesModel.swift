@@ -14,3 +14,12 @@ struct CoursesModel {
     
 }
 
+extension Course {
+    var gradeDisplay: String {
+        currentGrade?.letterGrade ?? "-"
+    }
+    
+    var percentageDisplay: String {
+        currentGrade?.percentageString ?? "-"
+    }
+}
