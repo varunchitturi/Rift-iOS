@@ -40,7 +40,7 @@ struct CourseDetailView: View {
                 }
             }
         }
-    .navigationTitle(courseDetailViewModel.courseName)
+        .navigationTitle(courseDetailViewModel.courseName)
         
     }
     

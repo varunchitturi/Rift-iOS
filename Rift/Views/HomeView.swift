@@ -33,7 +33,7 @@ struct HomeView: View {
                     HomeModel.Tab.inbox
                 }
         }
-        .tabViewStyle(backgroundColor: Color(UIColor.systemBackground), unselectedColor: Color("Quartenary"))
+        .tabViewStyle(backgroundColor: DrawingConstants.tabBackgroundColor, unselectedColor: DrawingConstants.tabUnselectedColor)
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
             UserPreferenceView(preferences: UserPreferenceModel.shared)
                 .environmentObject(homeViewModel)
@@ -41,6 +41,10 @@ struct HomeView: View {
         
     }
     
+    private struct DrawingConstants {
+        static let tabBackgroundColor = Color(UIColor.systemBackground)
+        static let tabUnselectedColor = Color("Quartenary")
+    }
 }
 
 struct HomeView_Previews: PreviewProvider {

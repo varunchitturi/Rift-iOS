@@ -18,10 +18,12 @@ struct CoursesView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 Spacer(minLength: DrawingConstants.scrollViewTopInsetPadding)
-                ForEach(coursesViewModel.courseList) {course in
+                ForEach(coursesViewModel.courseList) { course in
                     if !course.isDropped {
-                        CourseCard(course: course)
-                            .padding(.vertical, DrawingConstants.cardSpacing)
+                        NavigationLink(destination: CourseDetailView(course: course)) {
+                            CourseCard(course: course)
+                                .padding(.vertical, DrawingConstants.cardSpacing)
+                        }
                     }
                 }
             }
@@ -34,13 +36,8 @@ struct CoursesView: View {
                         .environmentObject(homeViewModel)
                 }
             }
-            .onAppear {
-                // TODO: explain this
-                coursesViewModel.rebuildView()
-            }
             
         }
-        .navigationViewStyle(.stack)
     }
     
     private struct DrawingConstants {

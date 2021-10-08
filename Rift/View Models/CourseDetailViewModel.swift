@@ -42,17 +42,19 @@ class CourseDetailViewModel: ObservableObject {
     init(course: Course) {
         self.courseDetailModel = CourseDetailModel(course: course)
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
-            switch result {
-            case .success(( _ , let gradeDetails)):
-                if !gradeDetails.isEmpty {
-                    self?.courseDetailModel.gradeDetail = gradeDetails[0]
+            DispatchQueue.main.async {
+                switch result {
+                case .success(( _ , let gradeDetails)):
+                    if !gradeDetails.isEmpty {
+                        self?.courseDetailModel.gradeDetail = gradeDetails[0]
+                    }
+                    else {
+                        print("no grade details found")
+                    }
+                case .failure(let error):
+                    // TODO: better error handling here
+                    print(error)
                 }
-                else {
-                    print("no grade details found")
-                }
-            case .failure(let error):
-                // TODO: better error handling here
-                print(error)
             }
         }
         

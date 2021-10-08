@@ -12,38 +12,37 @@ struct CourseCard: View {
     let course: Course
 
     var body: some View {
-        NavigationLink(destination: CourseDetailView(course: course)) {
-            Group {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(course.courseName)
-                        Text(course.teacherName ?? "")
-                            .foregroundColor(DrawingConstants.secondaryForegroundColor)
-                            .fontWeight(.semibold)
-                            .font(.caption)
-                    }
-                    Spacer()
-                    VStack {
-                        CircleBadge(course.gradeDisplay)
-                        Text(course.percentageDisplay)
-                            .font(.caption)
-                            .frame(width: DrawingConstants.percentageDisplayWidth)
-                        
-                    }
-                    Image(systemName: "chevron.right")
+        Group {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(course.courseName)
+                    Text(course.teacherName ?? "")
                         .foregroundColor(DrawingConstants.secondaryForegroundColor)
-                        .font(.callout.bold())
+                        .fontWeight(.semibold)
+                        .font(.caption)
                 }
-                .lineLimit(1)
-                .foregroundColor(DrawingConstants.foregroundColor)
-                .padding()
+                Spacer()
+                VStack {
+                    CircleBadge(course.gradeDisplay)
+                    Text(course.percentageDisplay)
+                        .font(.caption)
+                        .frame(width: DrawingConstants.percentageDisplayWidth)
+                    
+                }
+                Image(systemName: "chevron.right")
+                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .font(.callout.bold())
             }
-            .background(
-                RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                    .fill(DrawingConstants.backgroundColor)
-            )
-            .fixedSize(horizontal: false, vertical: true)
+            .lineLimit(1)
+            .foregroundColor(DrawingConstants.foregroundColor)
+            .padding()
         }
+        .background(
+            RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
+                .fill(DrawingConstants.backgroundColor)
+        )
+        .fixedSize(horizontal: false, vertical: true)
+        
     }
     
     private struct DrawingConstants {
