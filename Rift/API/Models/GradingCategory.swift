@@ -11,6 +11,7 @@ struct GradingCategory: Identifiable, Codable {
     let id: Int
     let name: String
     let isWeighted: Bool
+    var weight: Double?
     var assignments: [Assignment]
     
     var totalPoints: Double? {
@@ -26,7 +27,7 @@ struct GradingCategory: Identifiable, Codable {
         for assignment in assignments {
             currentPoints += assignment.scorePoints ?? 0
         }
-        return assignments.allSatisfy {$0.scorePoints != nil} ? currentPoints : nil
+        return assignments.allSatisfy {$0.scorePoints == nil} ? nil : currentPoints
     }
     
     var percentage: Double? {
@@ -43,6 +44,7 @@ struct GradingCategory: Identifiable, Codable {
         case name
         case isWeighted
         case assignments
+        case weight
     }
     
 }
