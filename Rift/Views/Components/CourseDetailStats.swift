@@ -15,62 +15,59 @@ struct CourseDetailStats: View {
     var body: some View {
         
         HStack {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     
                     Text("Grade")
-                        .frame(width: DrawingConstants.tableFrameSize)
+                        .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
+                        .offset(x: DrawingConstants.gradeXAdjustment)
                         
                     Text("Category")
-                        .frame(width: DrawingConstants.tableFrameSize)
-                    
-                        .offset(x: UIScreen.main.bounds.width*DrawingConstants.categoryColumnAdjustmentMultiplier)
-                    
-                    
+                        .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
+                        
                     Spacer()
+                    
                     Group {
                         Text("Real")
                         Text("Calculated")
                         
                     }
-                    .frame(width: DrawingConstants.tableFrameSize)
+                    .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
                 }
                 .foregroundColor(DrawingConstants.headerForegroundColor)
                 .font(.caption.bold())
                 HStack {
                     VStack {
                         CircleBadge(courseGradeDisplay, size: .large)
-                            .frame(width: DrawingConstants.tableFrameSize)
+                            .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
+                        
                     }
-                    VStack(spacing: DrawingConstants.rowSpacing) {
+                    VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
                         ForEach(gradeDetail.categories){ gradingCategory in
                             HStack {
                                 TextTag(gradingCategory.name)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .offset(x: UIScreen.main.bounds.width*DrawingConstants.categoryColumnAdjustmentMultiplier)
+                                
+                                Spacer()
+                                
                                 Group {
                                     Text(gradingCategory.percentageDisplay)
                                     Text(gradingCategory.percentageDisplay)
                                 }
-                                .frame(width: DrawingConstants.tableFrameSize)
+                                .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
                             }
-                            
                         }
                     }
                 }
                 .foregroundColor(DrawingConstants.foregroundColor)
             }
-            
-            
         }
         .font(.caption)
-        .padding(.trailing)
     }
 
     private struct DrawingConstants {
         static let tableFrameSize: CGFloat = 70
         static let rowSpacing: CGFloat = 10
-        static let categoryColumnAdjustmentMultiplier = 0.03
+        static let gradeXAdjustment = 0.01 * UIScreen.main.bounds.width
         static let headerForegroundColor = Color("Primary")
         static let foregroundColor = Color("Tertiary")
     }

@@ -67,7 +67,10 @@ struct CircleBadge: View {
 
 struct CircleBadge_Previews: PreviewProvider {
     static var previews: some View {
-        CircleBadge("100", size: .large)
-        CircleBadge("100")
+        VStack {
+            CircleBadge("100", size: .large)
+            CircleBadge("100")
+        }
+        
     }
 }

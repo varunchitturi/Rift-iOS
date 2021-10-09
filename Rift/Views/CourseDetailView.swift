@@ -21,6 +21,7 @@ struct CourseDetailView: View {
             if courseDetailViewModel.gradeDetail != nil {
                 CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!)
                     .padding(.top)
+                    .padding(.horizontal)
             }
            
             ScrollView(showsIndicators: false) {
