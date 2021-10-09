@@ -16,6 +16,7 @@ struct Grade: Codable {
     let totalPoints: Double?
     let termName: String
     let termType: String?
+    let groupWeighted: Bool
     
     var percentageString: String {
         guard let percentage = percentage?.description else {
@@ -36,6 +37,7 @@ struct Grade: Codable {
         case totalPoints = "progressTotalPoints"
         case termName
         case termType = "taskName"
+        case groupWeighted
     }
     
 }

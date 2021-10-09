@@ -13,4 +13,9 @@ extension Double {
         let multiplier = pow(10, Double(places))
         return (self * multiplier).rounded() / multiplier
     }
+    
+    func truncated(_ places: Int) -> Double {
+        let multiplier = pow(10, Double(places))
+        return floor(self * multiplier) / multiplier
+    }
 }

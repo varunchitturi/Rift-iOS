@@ -11,23 +11,30 @@ struct GradingCategory: Identifiable, Codable {
     let id: Int
     let name: String
     let isWeighted: Bool
-    var weight: Double?
+    let weight: Double
+    let isExcluded: Bool
     var assignments: [Assignment]
     
     var totalPoints: Double? {
         var totalPoints = 0.0
         for assignment in assignments {
-            totalPoints += assignment.totalPoints ?? 0
+            if assignment.scorePoints != nil {
+                totalPoints += assignment.totalPoints ?? 0
+            }
         }
         return totalPoints != 0 ? totalPoints : nil
     }
     
     var currentPoints: Double? {
+        
+        if assignments.allSatisfy ({ $0.scorePoints == nil }){
+            return nil
+        }
         var currentPoints = 0.0
         for assignment in assignments {
             currentPoints += assignment.scorePoints ?? 0
         }
-        return assignments.allSatisfy {$0.scorePoints == nil} ? nil : currentPoints
+        return currentPoints
     }
     
     var percentage: Double? {
@@ -35,14 +42,14 @@ struct GradingCategory: Identifiable, Codable {
             return nil
         }
         
-        return ((currentPoints / totalPoints) * 100).rounded(2)
+        return (currentPoints / totalPoints) * 100
 
     }
     
     enum CodingKeys: String, CodingKey {
         case id = "groupID"
         case name
-        case isWeighted
+        case isWeighted, isExcluded
         case assignments
         case weight
     }

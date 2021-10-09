@@ -19,6 +19,12 @@ struct CourseDetailModel {
 
 extension GradingCategory {
     var percentageDisplay: String {
-        percentage?.description.appending("%") ?? "-"
+        percentage?.truncated(2).description.appending("%") ?? "-"
+    }
+}
+
+extension GradeDetail {
+    var totalPercentageDisplay: String {
+        totalPercentage?.truncated(2).description.appending("%") ?? "-"
     }
 }

@@ -17,14 +17,13 @@ struct CourseDetailStats: View {
         HStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
+                    Group {
+                        Text("Grade")
+                            .offset(x: DrawingConstants.gradeXAdjustment)
+                        Text("Category")
+                    }
+                    .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
                     
-                    Text("Grade")
-                        .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
-                        .offset(x: DrawingConstants.gradeXAdjustment)
-                        
-                    Text("Category")
-                        .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
-                        
                     Spacer()
                     
                     Group {
@@ -32,30 +31,22 @@ struct CourseDetailStats: View {
                         Text("Calculated")
                         
                     }
-                    .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
+                    .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
                 }
                 .foregroundColor(DrawingConstants.headerForegroundColor)
                 .font(.caption.bold())
                 HStack {
                     VStack {
                         CircleBadge(courseGradeDisplay, size: .large)
-                            .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
+                            .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
                         
                     }
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
                         ForEach(gradeDetail.categories){ gradingCategory in
-                            HStack {
-                                TextTag(gradingCategory.name)
-                                
-                                Spacer()
-                                
-                                Group {
-                                    Text(gradingCategory.percentageDisplay)
-                                    Text(gradingCategory.percentageDisplay)
-                                }
-                                .frame(width: DrawingConstants.tableFrameSize, alignment: .leading)
-                            }
+                            CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
                         }
+                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  gradeDetail.totalPercentageDisplay)
+                        
                     }
                 }
                 .foregroundColor(DrawingConstants.foregroundColor)
@@ -65,7 +56,7 @@ struct CourseDetailStats: View {
     }
 
     private struct DrawingConstants {
-        static let tableFrameSize: CGFloat = 70
+        static let tableCellWidth: CGFloat = 70
         static let rowSpacing: CGFloat = 10
         static let gradeXAdjustment = 0.01 * UIScreen.main.bounds.width
         static let headerForegroundColor = Color("Primary")

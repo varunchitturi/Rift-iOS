@@ -29,6 +29,7 @@
 		277AD63F270B7CE000AF441E /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /* Term.swift */; };
 		277E6348270CD16400CA056E /* GradeTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E6347270CD16400CA056E /* GradeTerm.swift */; };
 		279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */; };
+		27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */; };
 		27C335FD270FDF9E002A8D52 /* CourseDetailStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */; };
 		27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C33600270FF40E002A8D52 /* NumberUtils.swift */; };
 		27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 27D0F5CD26DB7DF80004F0A2 /* Algorithms */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -158,6 +159,7 @@
 		27A29CD527013011005E70D6 /* ApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
 		27A29CEE2701A916005E70D6 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		27B4AA3126D225D10080BF65 /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
+		27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStatsRow.swift; sourceTree = "<group>"; };
 		27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStats.swift; sourceTree = "<group>"; };
 		27C33600270FF40E002A8D52 /* NumberUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberUtils.swift; sourceTree = "<group>"; };
 		27CAE27526DFFA15000022EF /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
@@ -320,21 +322,22 @@
 			children = (
 				27DA637E26FE6C8C00E90E91 /* Preference Row Components */,
 				2701CD5626FD2DC900D65B84 /* Capsule Field Components */,
+				27D4E7272709727C0063CB65 /* LoadingView.swift */,
 				276F222926D4329F00588588 /* CapsuleTextField.swift */,
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
 				27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */,
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
-				27D0F5B926DB2C530004F0A2 /* TextDivider.swift */,
-				27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */,
-				27761BB626F7B7A700601A37 /* AssignmentCard.swift */,
 				279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */,
+				27761BB626F7B7A700601A37 /* AssignmentCard.swift */,
+				27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */,
+				27D0F5B926DB2C530004F0A2 /* TextDivider.swift */,
 				27761BB826F7B9B200601A37 /* CircleBadge.swift */,
+				27EFC7BF270E851900B90FCA /* TextTag.swift */,
 				27761BBC26F7F39600601A37 /* SectionHeader.swift */,
 				273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */,
 				2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */,
-				27D4E7272709727C0063CB65 /* LoadingView.swift */,
-				27EFC7BF270E851900B90FCA /* TextTag.swift */,
+				27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */,
 				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
 			);
 			path = Components;
@@ -537,6 +540,7 @@
 				27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */,
 				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
 				27D4E6E12709152F0063CB65 /* AssignmentsViewModel.swift in Sources */,
+				27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */,
 				27D4E6E22709152F0063CB65 /* HomeViewModel.swift in Sources */,
 				27D4E6E32709152F0063CB65 /* ApplicationViewModel.swift in Sources */,
 				27D4E6E42709152F0063CB65 /* ColorUtils.swift in Sources */,
