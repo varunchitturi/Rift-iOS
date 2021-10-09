@@ -23,11 +23,14 @@ struct CourseDetailStatsRow: View {
                 Text(realGrade)
             }
             .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
+            .foregroundColor(DrawingConstants.foregroundColor)
+            .font(.caption)
         }
     }
     
     private struct DrawingConstants {
         static let tableCellWidth: CGFloat = 70
+        static let foregroundColor = Color("Tertiary")
     }
 }
 

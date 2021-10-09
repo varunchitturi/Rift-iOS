@@ -9,13 +9,16 @@ import SwiftUI
 
 struct CourseDetailStats: View {
     // TODO: make sure that the preview objects file doesn't compile on release
+    // TODO: check if percentages are rounded or truncated
     var courseGradeDisplay: String
     let gradeDetail: GradeDetail
+    @Binding var isCollapsed: Bool
     
     var body: some View {
         
         HStack {
             VStack(alignment: .leading) {
+               
                 HStack(alignment: .top) {
                     Group {
                         Text("Grade")
@@ -23,18 +26,18 @@ struct CourseDetailStats: View {
                         Text("Category")
                     }
                     .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
-                    
+                
                     Spacer()
                     
                     Group {
                         Text("Real")
                         Text("Calculated")
-                        
                     }
                     .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
                 }
                 .foregroundColor(DrawingConstants.headerForegroundColor)
                 .font(.caption.bold())
+                
                 HStack {
                     VStack {
                         CircleBadge(courseGradeDisplay, size: .large)
@@ -42,17 +45,17 @@ struct CourseDetailStats: View {
                         
                     }
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
-                        ForEach(gradeDetail.categories){ gradingCategory in
-                            CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
+                        if !isCollapsed {
+                            ForEach(gradeDetail.categories){ gradingCategory in
+                                CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
+                            }
                         }
-                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  gradeDetail.totalPercentageDisplay)
                         
+                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  gradeDetail.totalPercentageDisplay)
                     }
                 }
-                .foregroundColor(DrawingConstants.foregroundColor)
             }
         }
-        .font(.caption)
     }
 
     private struct DrawingConstants {
@@ -66,8 +69,8 @@ struct CourseDetailStats: View {
 
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, isCollapsed: .constant(false))
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, isCollapsed: .constant(true))
             .previewDevice("iPhone 13 Pro Max")
     }
 }
