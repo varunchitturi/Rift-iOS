@@ -21,6 +21,7 @@ struct ApplicationModel {
     
     func resetUserState() {
         HTTPCookieStorage.shared.clearCookies()
+        URLCache.shared.removeAllCachedResponses()
         _ = try? PersistentLocale.clearLocale()
         UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
     }

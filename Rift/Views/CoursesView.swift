@@ -36,7 +36,6 @@ struct CoursesView: View {
                         .environmentObject(homeViewModel)
                 }
             }
-            
         }
     }
     

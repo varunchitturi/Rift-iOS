@@ -11,6 +11,7 @@ import Foundation
 struct Assignment: Codable, Identifiable {
     
     let id: Int
+    let isActive: Bool
     let assignmentName: String
     let dueDate: Date?
     let assignedDate: Date?
@@ -28,6 +29,8 @@ struct Assignment: Codable, Identifiable {
         case assignmentName, courseName, dueDate, assignedDate, comments, feedback, categoryName
         
         case scorePoints, totalPoints
+        
+        case isActive = "active"
     }
     
 }
@@ -37,6 +40,7 @@ extension Assignment {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(Int.self, forKey: .id)
         let assignmentName = try container.decode(String.self, forKey: .assignmentName)
+        let isActive = try container.decode(Bool.self, forKey: .isActive)
         let courseName = try container.decode(String.self, forKey: .courseName)
         let totalPoints = try container.decode(Double?.self, forKey: .totalPoints)
         let dueDateString = try (container.decode(String?.self, forKey: .dueDate))
@@ -52,7 +56,7 @@ extension Assignment {
         let dueDate = dueDateString != nil ? DateFormatter.iso180601Full.date(from: dueDateString!) : nil
         let assignedDate = assignedDateString != nil ? DateFormatter.iso180601Full.date(from: assignedDateString!) : nil
         
-        self.init(id: id, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, feedback: feedback, categoryName: nil)
+        self.init(id: id, isActive: isActive, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, feedback: feedback, categoryName: nil)
         
     }
 }

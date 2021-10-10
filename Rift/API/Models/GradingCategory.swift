@@ -18,7 +18,7 @@ struct GradingCategory: Identifiable, Codable {
     var totalPoints: Double? {
         var totalPoints = 0.0
         for assignment in assignments {
-            if assignment.scorePoints != nil {
+            if assignment.scorePoints != nil && assignment.isActive {
                 totalPoints += assignment.totalPoints ?? 0
             }
         }
@@ -32,7 +32,9 @@ struct GradingCategory: Identifiable, Codable {
         }
         var currentPoints = 0.0
         for assignment in assignments {
-            currentPoints += assignment.scorePoints ?? 0
+            if assignment.isActive {
+                currentPoints += assignment.scorePoints ?? 0
+            }
         }
         return currentPoints
     }
