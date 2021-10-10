@@ -15,6 +15,8 @@ struct GradingCategory: Identifiable, Codable {
     let isExcluded: Bool
     var assignments: [Assignment]
     
+    // TODO: change computed properties to stored properties with a will set to improve performance
+    
     var totalPoints: Double? {
         var totalPoints = 0.0
         for assignment in assignments {
