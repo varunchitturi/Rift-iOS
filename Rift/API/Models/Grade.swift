@@ -18,18 +18,7 @@ struct Grade: Codable {
     let termType: String?
     let groupWeighted: Bool
     
-    var percentageString: String {
-        guard let percentage = percentage?.description else {
-            if let totalPoints = totalPoints, let currentPoints = currentPoints {
-                return (((currentPoints / totalPoints) * 100).rounded(2)).description.appending("%")
-            } else {
-                return "-"
-            }
-            
-        }
-        return percentage.appending("%")
-    }
-    
+
     enum CodingKeys: String, CodingKey {
         case letterGrade = "progressScore"
         case percentage = "progressPercent"

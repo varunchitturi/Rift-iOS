@@ -43,10 +43,10 @@ struct Term: Codable {
         let endDateString = try container.decode(String.self, forKey: .endDate)
 
         let dateDecoder = JSONDecoder()
-        dateDecoder.dateDecodingStrategy = .formatted(DateFormatter.yearMonthDayDashed)
+        dateDecoder.dateDecodingStrategy = .formatted(DateFormatter.yearMonthDayDashedUTC)
 
-        let startDate = DateFormatter.yearMonthDayDashed.date(from: startDateString)
-        let endDate = DateFormatter.yearMonthDayDashed.date(from: endDateString)
+        let startDate = DateFormatter.yearMonthDayDashedUTC.date(from: startDateString)
+        let endDate = DateFormatter.yearMonthDayDashedUTC.date(from: endDateString)
 
         guard let startDate = startDate else {
             throw DecodingError.dateDecodingError(for: [CodingKeys.startDate])

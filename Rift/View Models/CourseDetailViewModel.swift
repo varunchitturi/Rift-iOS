@@ -61,3 +61,15 @@ class CourseDetailViewModel: ObservableObject {
     }
   
 }
+
+extension GradingCategory {
+    var percentageDisplay: String {
+        percentage?.truncated(2).description.appending("%") ?? "-"
+    }
+}
+
+extension GradeDetail {
+    var totalPercentageDisplay: String {
+        totalPercentage?.truncated(2).description.appending("%") ?? "-"
+    }
+}

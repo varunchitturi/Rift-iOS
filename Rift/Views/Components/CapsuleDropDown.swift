@@ -45,7 +45,7 @@ struct CapsuleDropDown: View {
                 Spacer()
                 dropDownIcon
             }
-            .disabledStyle()
+            .disableable()
             .padding()
             .background(
                 CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)

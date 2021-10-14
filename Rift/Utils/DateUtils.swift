@@ -16,11 +16,17 @@ extension DateFormatter {
         return formatter
     }
     
-    static var yearMonthDayDashed: DateFormatter {
+    static var yearMonthDayDashedUTC: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat =  "yyyy-MM-dd"
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.timeZone = TimeZone(abbreviation: "UTC")
+        return formatter
+    }
+    
+    static var simpleDate: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "MM-dd-yyyy"
         return formatter
     }
 }

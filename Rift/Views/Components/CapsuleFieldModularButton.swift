@@ -38,7 +38,8 @@ struct CapsuleFieldModularButton: View {
                         .padding(.trailing)
                 }
             }
-            .disabledStyle()
+            // TODO: check if all this disableable modifier is needed
+            .disableable()
             .padding()
             .background(
                 CapsuleFieldBackground(accentColor: DrawingConstants.foregroundColor, isEditing: .constant(false))
@@ -53,11 +54,11 @@ struct CapsuleFieldModularButton: View {
             } label: {
                 labelView
             }
-            .disabledStyle()
+            .disableable()
         }
         else {
             labelView
-                .disabledStyle()
+                .disableable()
         }
     }
     

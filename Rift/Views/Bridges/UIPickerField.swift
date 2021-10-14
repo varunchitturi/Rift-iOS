@@ -21,6 +21,7 @@ class UIPickerField: UITextField {
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.finishEditing))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
+        self.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         toolBar.setItems([spacer, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         self.inputAccessoryView = toolBar

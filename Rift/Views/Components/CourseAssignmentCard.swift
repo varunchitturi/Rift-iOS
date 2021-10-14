@@ -25,6 +25,9 @@ struct CourseAssignmentCard: View {
             .padding(.vertical, DrawingConstants.textVerticalPadding)
             Spacer()
             CircleBadge(assignment.totalPointsDisplay)
+            Image(systemName: "chevron.right")
+                .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                .font(.callout.bold())
         }
         .padding(.horizontal)
         .background(
@@ -37,6 +40,7 @@ struct CourseAssignmentCard: View {
     
     private struct DrawingConstants {
         static let foregroundColor = Color("Tertiary")
+        static let secondaryForegroundColor = Color("Quartenary")
         static let backgroundColor = Color("Secondary")
         static let backgroundCornerRadius: CGFloat = 15
         static let textHorizontalPadding: CGFloat = 11

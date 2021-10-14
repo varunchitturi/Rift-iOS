@@ -10,7 +10,6 @@ import SwiftUI
 struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
-    @State private var statsAreCollapsed = false
     
     init(course: Course) {
         self.courseDetailViewModel = CourseDetailViewModel(course: course)
@@ -18,39 +17,26 @@ struct CourseDetailView: View {
     
     
     var body: some View {
-       
-        VStack {
+        ScrollView(showsIndicators: false) {
             if courseDetailViewModel.gradeDetail != nil {
-              
-                CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, isCollapsed: $statsAreCollapsed)
+                CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!)
                     .padding(.top)
                     .padding(.horizontal)
             }
-            
-            ScrollView(showsIndicators: false) {
-                ForEach (courseDetailViewModel.assignments) { assignment in
+            ForEach (courseDetailViewModel.assignments) { assignment in
+                NavigationLink(
+                    destination: AssignmentDetailView(
+                        assignment: assignment,
+                        gradingCategories: courseDetailViewModel.gradeDetail?.categories ?? []
+                    )
+                ) {
                     CourseAssignmentCard(assignment: assignment)
                         .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
                         .padding(.vertical, DrawingConstants.cardSpacing)
                 }
-                .overlay(
-                    GeometryReader { geometry in
-                        let offset = geometry.frame(in: .named(String(describing: Self.self))).minY
-                        Color.clear
-                            .preference(key: ScrollOffsetPreferenceKey.self, value: offset)
-                    }
-                )
             }
-            .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
-                withAnimation {
-                    statsAreCollapsed = offset < DrawingConstants.statBarCollapseOffset
-                }
-            }
-            
-            .coordinateSpace(name: String(describing: Self.self))
+            .navigationTitle(courseDetailViewModel.courseName)
         }
-        
-        
         .toolbar {
             ToolbarItem(id: UUID().uuidString) {
                 Button {
@@ -60,7 +46,10 @@ struct CourseDetailView: View {
                 }
             }
         }
-        .navigationTitle(courseDetailViewModel.courseName)
+       
+        .onAppear {
+            print(courseDetailViewModel.courseName)
+        }
     }
     
     private struct DrawingConstants {

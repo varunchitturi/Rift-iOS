@@ -12,7 +12,6 @@ struct CourseDetailStats: View {
     // TODO: check if percentages are rounded or truncated
     var courseGradeDisplay: String
     let gradeDetail: GradeDetail
-    @Binding var isCollapsed: Bool
     
     var body: some View {
         
@@ -45,12 +44,9 @@ struct CourseDetailStats: View {
                         
                     }
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
-                        if !isCollapsed {
-                            ForEach(gradeDetail.categories){ gradingCategory in
-                                CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
-                            }
+                        ForEach(gradeDetail.categories){ gradingCategory in
+                            CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
                         }
-                        
                         CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  gradeDetail.totalPercentageDisplay)
                     }
                 }
@@ -69,8 +65,8 @@ struct CourseDetailStats: View {
 
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, isCollapsed: .constant(false))
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, isCollapsed: .constant(true))
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
             .previewDevice("iPhone 13 Pro Max")
     }
 }

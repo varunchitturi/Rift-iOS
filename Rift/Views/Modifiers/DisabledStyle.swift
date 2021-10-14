@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct DisabledStyle: ViewModifier {
+struct Disableable: ViewModifier {
     @Environment(\.isEnabled) var isEnabled
     func body(content: Content) -> some View {
         if isEnabled {
@@ -23,7 +23,7 @@ struct DisabledStyle: ViewModifier {
 }
 
 extension View {
-    func disabledStyle() -> some View {
-        modifier(DisabledStyle())
+    func disableable() -> some View {
+        modifier(Disableable())
     }
 }

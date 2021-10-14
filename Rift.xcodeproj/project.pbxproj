@@ -29,6 +29,10 @@
 		277AD63F270B7CE000AF441E /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /* Term.swift */; };
 		277E6348270CD16400CA056E /* GradeTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E6347270CD16400CA056E /* GradeTerm.swift */; };
 		279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */; };
+		2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10627174E6000136C23 /* AssignmentDetailStats.swift */; };
+		2799A10927175E0200136C23 /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10827175E0200136C23 /* TextUtils.swift */; };
+		2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */; };
+		2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */; };
 		279E7DA327161D630039D283 /* AssignmentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E7DA227161D630039D283 /* AssignmentDetailView.swift */; };
 		27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */; };
 		27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B57D2527119B1F00F9F06D /* ScrollViewUtils.swift */; };
@@ -63,7 +67,6 @@
 		27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78F626E03FD400CDA668 /* LegacyTextField.swift */; };
 		27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */; };
 		27D4E6F52709152F0063CB65 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B3ED126EBC9B200DAB4D9 /* WebView.swift */; };
-		27D4E6F62709152F0063CB65 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */; };
 		27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */; };
 		27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */; };
 		27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */; };
@@ -119,7 +122,6 @@
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
-		272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesSheetToggle.swift; sourceTree = "<group>"; };
 		274165CE270C2C9400F9EFCF /* GradingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradingCategory.swift; sourceTree = "<group>"; };
@@ -157,6 +159,10 @@
 		278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAssignmentCard.swift; sourceTree = "<group>"; };
+		2799A10627174E6000136C23 /* AssignmentDetailStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailStats.swift; sourceTree = "<group>"; };
+		2799A10827175E0200136C23 /* TextUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
+		2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailViewModel.swift; sourceTree = "<group>"; };
+		2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailModel.swift; sourceTree = "<group>"; };
 		279E7DA227161D630039D283 /* AssignmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailView.swift; sourceTree = "<group>"; };
 		27A29CD127001C5D005E70D6 /* BundleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtils.swift; sourceTree = "<group>"; };
 		27A29CD527013011005E70D6 /* ApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
@@ -249,14 +255,6 @@
 			path = Bridges;
 			sourceTree = "<group>";
 		};
-		272F78FE26E205AE00CDA668 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				272F78FF26E205C100CDA668 /* UITextFieldExtension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		274E622226C21FB400C855D4 = {
 			isa = PBXGroup;
 			children = (
@@ -305,7 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				2721EEF126D6EF4500C5E906 /* Bridges */,
-				272F78FE26E205AE00CDA668 /* Extensions */,
 				274E624C26C2F45C00C855D4 /* Components */,
 				270CE0E326D98A72009768A7 /* Modifiers */,
 				274E623026C21FB400C855D4 /* WelcomeView.swift */,
@@ -344,6 +341,7 @@
 				2701CD5826FD2EB100D65B84 /* PreferenceRow.swift */,
 				27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */,
 				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
+				2799A10627174E6000136C23 /* AssignmentDetailStats.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -399,6 +397,7 @@
 				27E3F1822708F82E005B485F /* CoreDataUtils.swift */,
 				27C33600270FF40E002A8D52 /* NumberUtils.swift */,
 				27B57D2527119B1F00F9F06D /* ScrollViewUtils.swift */,
+				2799A10827175E0200136C23 /* TextUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -432,6 +431,7 @@
 				273EA32226F9C25600D4FD20 /* HomeViewModel.swift */,
 				27DA638526FE85FA00E90E91 /* ApplicationViewModel.swift */,
 				274F4339270ABD0E001D5D4A /* CourseDetailViewModel.swift */,
+				2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -446,6 +446,7 @@
 				27A29CD527013011005E70D6 /* ApplicationModel.swift */,
 				274F432F270A8934001D5D4A /* HomeModel.swift */,
 				274F433B270ABD27001D5D4A /* CourseDetailModel.swift */,
+				2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */,
 				27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */,
 			);
 			path = Models;
@@ -554,7 +555,9 @@
 				27D4E6E52709152F0063CB65 /* StatusBarUtils.swift in Sources */,
 				27D4E6E62709152F0063CB65 /* NetworkUtils.swift in Sources */,
 				27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */,
+				2799A10927175E0200136C23 /* TextUtils.swift in Sources */,
 				27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */,
+				2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */,
 				27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */,
 				27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */,
 				274F4354270AE0D5001D5D4A /* AssignmentsAPI.swift in Sources */,
@@ -570,7 +573,6 @@
 				27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */,
 				27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */,
 				27D4E6F52709152F0063CB65 /* WebView.swift in Sources */,
-				27D4E6F62709152F0063CB65 /* UITextFieldExtension.swift in Sources */,
 				27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */,
 				27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */,
 				27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */,
@@ -595,6 +597,7 @@
 				27D4E7072709152F0063CB65 /* UserPreferencesSheetToggle.swift in Sources */,
 				27D4E7082709152F0063CB65 /* PreferenceRow.swift in Sources */,
 				274F432C270A3998001D5D4A /* CourseDetailView.swift in Sources */,
+				2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */,
 				27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */,
 				27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */,
 				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
@@ -613,6 +616,7 @@
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
 				274F433C270ABD27001D5D4A /* CourseDetailModel.swift in Sources */,
 				27D4E7142709152F0063CB65 /* AssignmentsView.swift in Sources */,
+				2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */,
 				27D4E7152709152F0063CB65 /* UserPreferenceView.swift in Sources */,
 				277AD63F270B7CE000AF441E /* Term.swift in Sources */,
 				274F4342270AD886001D5D4A /* Grade.swift in Sources */,
@@ -758,7 +762,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.schoolscope.Rift;
+				PRODUCT_BUNDLE_IDENTIFIER = org.schoolscope.rift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -782,7 +786,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.schoolscope.rift;
+				PRODUCT_BUNDLE_IDENTIFIER = org.schoolscope.rift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

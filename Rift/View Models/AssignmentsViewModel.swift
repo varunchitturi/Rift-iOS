@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AssignmentsViewModel: ObservableObject {
     // TODO: edit this to support multiple filters
@@ -53,5 +54,11 @@ class AssignmentsViewModel: ObservableObject {
                 // TODO: do better error handling here
             }
         }
+    }
+}
+
+extension Assignment {
+    var totalPointsDisplay: String {
+        self.totalPoints?.description ?? Text.nilStringText
     }
 }

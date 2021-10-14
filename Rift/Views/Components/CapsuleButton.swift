@@ -48,11 +48,11 @@ struct CapsuleButton: View {
             } label: {
                 labelView
             }
-            .disabledStyle()
+            .disableable()
         }
         else {
             labelView
-                .disabledStyle()
+                .disableable()
         }
     }
     

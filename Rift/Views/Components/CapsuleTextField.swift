@@ -55,7 +55,7 @@ struct CapsuleTextField: View {
                 })
                 
             }
-            .disabledStyle()
+            .disableable()
             .padding()
             .background(
                 CapsuleFieldBackground(accentColor: accentColor, isEditing: $isEditing)

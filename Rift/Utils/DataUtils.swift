@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: make this file only available in debug builds
 extension Data {
     var JSONString: NSString? {
         guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
