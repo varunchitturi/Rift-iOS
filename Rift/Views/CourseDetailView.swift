@@ -35,7 +35,6 @@ struct CourseDetailView: View {
                         .padding(.vertical, DrawingConstants.cardSpacing)
                 }
             }
-            .navigationTitle(courseDetailViewModel.courseName)
         }
         .toolbar {
             ToolbarItem(id: UUID().uuidString) {
@@ -46,10 +45,7 @@ struct CourseDetailView: View {
                 }
             }
         }
-       
-        .onAppear {
-            print(courseDetailViewModel.courseName)
-        }
+        .navigationTitle(courseDetailViewModel.courseName)
     }
     
     private struct DrawingConstants {

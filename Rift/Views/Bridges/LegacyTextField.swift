@@ -16,15 +16,24 @@ struct LegacyTextField: UIViewRepresentable {
     private let configuration: (UITextField) -> ()
     private let onEditingChanged: (String) -> ()
     private let onCommit: (String) -> ()
+    private let inputType: InputType
     
-    // TODO: make a better API for this
-    init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]> = .constant([]), onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> (), configuration: @escaping (UITextField) -> () = {_ in}) {
+    // TODO: make the organization of these UIKit bridges the same way. The structure of this should be same as picker field
+    // TODO: make a better API for this. Shouldn't have options
+    init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]> = .constant([]), inputType: InputType = .default, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> (), configuration: @escaping (UITextField) -> () = {_ in}) {
         self._isEditing = isEditing
         self._text = text
         self.configuration = configuration
         self.onEditingChanged = onEditingChanged
         self.onCommit = onCommit
         self._options = options
+        self.inputType = inputType
+    }
+    
+    enum InputType {
+        case `default`
+        case number
+        case decimal
     }
     
     func makeUIView(context: Context) -> UITextField {
@@ -33,6 +42,23 @@ struct LegacyTextField: UIViewRepresentable {
         textField.delegate = context.coordinator
         textField.textColor = UIColor(textColor)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        switch inputType {
+        case .number, .decimal:
+            textField.inputAccessoryView = UIToolbarDismiss(editingState: $isEditing)
+        default:
+            textField.inputAccessoryView = nil
+        }
+        
+        switch inputType {
+        case .`default`:
+            textField.keyboardType = .default
+        case .number:
+            textField.keyboardType = .numberPad
+        case .decimal:
+            textField.keyboardType = .decimalPad
+        }
+        
         return textField
     }
     func updateUIView(_ uiView: UITextField, context: Context) {
@@ -56,7 +82,7 @@ struct LegacyTextField: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text, isEditing: $isEditing, options: $options, textColor: UIColor(textColor), onEditingChanged: onEditingChanged, onCommit: onCommit)
+        Coordinator(text: $text, isEditing: $isEditing, options: $options, inputType: inputType, textColor: UIColor(textColor), onEditingChanged: onEditingChanged, onCommit: onCommit)
     }
     
     private struct DrawingConstants {
@@ -69,27 +95,42 @@ struct LegacyTextField: UIViewRepresentable {
         @Binding var options: [String]
         private let onEditingChanged: (String) -> ()
         private let onCommit: (String) -> ()
+        private let inputType: InputType
         var textColor: UIColor
         
-        init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]>, textColor: UIColor, onEditingChanged: @escaping (String) -> (), onCommit: @escaping (String) -> ()) {
+        init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]>, inputType: InputType, textColor: UIColor, onEditingChanged: @escaping (String) -> (), onCommit: @escaping (String) -> ()) {
             self._isEditing = isEditing
             self._text = text
             self._options = options
+            self.inputType = inputType
             self.textColor = textColor
             self.onEditingChanged = onEditingChanged
             self.onCommit = onCommit
             
         }
-
         
-        
-        @objc func textViewDidChange(_ textField: UITextField) {
+        @objc
+        func textViewDidChange(_ textField: UITextField) {
             let textFieldText = textField.text ?? ""
             self.text = textFieldText
             DispatchQueue.main.async {
                 self.onEditingChanged(textFieldText)
             }
           
+        }
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            switch inputType {
+            case .default:
+                return true
+            case .number, .decimal:
+                if textField.text != "" || string != "" {
+                    let newValue = (textField.text ?? "") + string
+                    return inputType == .number ? Int(newValue) != nil : Double(newValue) != nil
+                }
+                return true
+            }
+           
         }
         
         func textFieldDidBeginEditing(_ textField: UITextField) {

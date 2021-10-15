@@ -20,10 +20,12 @@ struct CapsuleTextField: View {
     private let configuration: (UITextField) -> ()
     private let onEditingChanged: (String) -> ()
     private let onCommit: (String) -> ()
+    private let inputType: LegacyTextField.InputType
  
-    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, accentColor: Color = DrawingConstants.accentColor, isSecureStyle: Bool = false, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> () = {_ in}, configuration: @escaping (UITextField) -> () = {_ in}) {
+    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, inputType: LegacyTextField.InputType = .default, accentColor: Color = DrawingConstants.accentColor, isSecureStyle: Bool = false, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> () = {_ in}, configuration: @escaping (UITextField) -> () = {_ in}) {
         self.label = label
         self.icon = icon
+        self.inputType = inputType
         self.accentColor = accentColor
         self._text = text
         self._isEditing = isEditing
@@ -44,11 +46,8 @@ struct CapsuleTextField: View {
                         .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
                 }
                 
-                LegacyTextField(text: $text, isEditing: $isEditing, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
-                    DispatchQueue.main.async {
-                        textField.isSecureTextEntry = isSecureStyle
-                    }
-                    
+                LegacyTextField(text: $text, isEditing: $isEditing, inputType: inputType, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
+                    textField.isSecureTextEntry = isSecureStyle
                     // TODO: make text field only allow 1 line
                     textField.textColor = UIColor(DrawingConstants.textColor)
                     configuration(textField)

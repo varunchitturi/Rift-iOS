@@ -9,12 +9,13 @@ import SwiftUI
 
 struct PickerField : UIViewRepresentable {
     
+    // TODO: make sure the editing state and is editing convention is same everywhere
     init(options: [String], placeholder: String, selectionIndex: Binding<Int?>, isEditing: Binding<Bool>) {
         self.options = options
         self.placeholder = placeholder
         self._selectionIndex = selectionIndex
         self._isEditing = isEditing
-        self.pickerField = UIPickerField(isEditing: isEditing)
+        self.pickerField = UIPickerField(editingState: isEditing)
     }
     
 

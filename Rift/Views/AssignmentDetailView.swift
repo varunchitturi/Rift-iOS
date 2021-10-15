@@ -18,6 +18,8 @@ struct AssignmentDetailView: View {
     
     // TODO: make capsule textfield more configurable. Accent color should be defaulted to Color("AccentColor")
     
+    // TODO: add last modified date
+    
     init(assignment: Assignment, gradingCategories: [GradingCategory]) {
         self.assignmentDetailViewModel = AssignmentDetailViewModel(assignment: assignment, gradingCategories: gradingCategories)
     }
@@ -36,9 +38,9 @@ struct AssignmentDetailView: View {
                 CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $selectionIndex, isEditing: $categoryIsEditing)
                     .padding(.bottom)
                 HStack {
-                    CapsuleTextField("Score", text: $score, isEditing: $scoreIsEditing, accentColor: DrawingConstants.accentColor, onEditingChanged: {_ in}, onCommit: {_ in}, configuration: {_ in})
+                    CapsuleTextField("Score", text: $score, isEditing: $scoreIsEditing, inputType: .decimal, accentColor: DrawingConstants.accentColor, onEditingChanged: {_ in}, onCommit: {_ in}, configuration: {_ in})
                     
-                    CapsuleTextField("Total points", text: $points, isEditing: $pointsIsEditing, accentColor: DrawingConstants.accentColor, onEditingChanged: {_ in}, onCommit: {_ in}, configuration: {_ in})
+                    CapsuleTextField("Total points", text: $points, isEditing: $pointsIsEditing, inputType: .decimal, accentColor: DrawingConstants.accentColor, onEditingChanged: {_ in}, onCommit: {_ in}, configuration: {_ in})
                 }
                 .padding(.bottom)
                 let remarks = assignmentDetailViewModel.remarks

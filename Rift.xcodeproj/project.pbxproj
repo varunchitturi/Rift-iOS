@@ -11,6 +11,7 @@
 		273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */; };
 		273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FF27190FE0006D936A /* AssignmentDetail.swift */; };
 		273DB90327194356006D936A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 273DB90227194356006D936A /* OrderedCollections */; };
+		273DB909271961F2006D936A /* UIToolbarDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB908271961F2006D936A /* UIToolbarDismiss.swift */; };
 		274165CF270C2C9400F9EFCF /* GradingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165CE270C2C9400F9EFCF /* GradingCategory.swift */; };
 		274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165D2270C2F1A00F9EFCF /* GradeDetail.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
 		273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailSection.swift; sourceTree = "<group>"; };
 		273DB8FF27190FE0006D936A /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
+		273DB908271961F2006D936A /* UIToolbarDismiss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIToolbarDismiss.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesSheetToggle.swift; sourceTree = "<group>"; };
 		274165CE270C2C9400F9EFCF /* GradingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradingCategory.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				27CAE27526DFFA15000022EF /* UIPickerField.swift */,
 				272F78F626E03FD400CDA668 /* LegacyTextField.swift */,
 				272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */,
+				273DB908271961F2006D936A /* UIToolbarDismiss.swift */,
 				271B3ED126EBC9B200DAB4D9 /* WebView.swift */,
 			);
 			path = Bridges;
@@ -635,6 +638,7 @@
 				27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */,
 				27D4E7182709152F0063CB65 /* RiftApp.swift in Sources */,
 				27D4E7192709152F0063CB65 /* PreviewObjects.swift in Sources */,
+				273DB909271961F2006D936A /* UIToolbarDismiss.swift in Sources */,
 				279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
