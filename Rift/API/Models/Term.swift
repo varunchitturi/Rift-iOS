@@ -42,8 +42,6 @@ struct Term: Codable {
         let startDateString = try container.decode(String.self, forKey: .startDate)
         let endDateString = try container.decode(String.self, forKey: .endDate)
 
-        let dateDecoder = JSONDecoder()
-        dateDecoder.dateDecodingStrategy = .formatted(DateFormatter.yearMonthDayDashedUTC)
 
         let startDate = DateFormatter.yearMonthDayDashedUTC.date(from: startDateString)
         let endDate = DateFormatter.yearMonthDayDashedUTC.date(from: endDateString)

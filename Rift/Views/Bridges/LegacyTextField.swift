@@ -17,6 +17,7 @@ struct LegacyTextField: UIViewRepresentable {
     private let onEditingChanged: (String) -> ()
     private let onCommit: (String) -> ()
     
+    // TODO: make a better API for this
     init(text: Binding<String>, isEditing: Binding<Bool>, options: Binding<[String]> = .constant([]), onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> (), configuration: @escaping (UITextField) -> () = {_ in}) {
         self._isEditing = isEditing
         self._text = text

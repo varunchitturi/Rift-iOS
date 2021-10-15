@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
+		273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */; };
+		273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FF27190FE0006D936A /* AssignmentDetail.swift */; };
+		273DB90327194356006D936A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 273DB90227194356006D936A /* OrderedCollections */; };
 		274165CF270C2C9400F9EFCF /* GradingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165CE270C2C9400F9EFCF /* GradingCategory.swift */; };
 		274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165D2270C2F1A00F9EFCF /* GradeDetail.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
@@ -122,6 +125,8 @@
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
+		273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailSection.swift; sourceTree = "<group>"; };
+		273DB8FF27190FE0006D936A /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesSheetToggle.swift; sourceTree = "<group>"; };
 		274165CE270C2C9400F9EFCF /* GradingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradingCategory.swift; sourceTree = "<group>"; };
@@ -214,6 +219,7 @@
 			files = (
 				27D0F5CE26DB7DF80004F0A2 /* Algorithms in Frameworks */,
 				27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */,
+				273DB90327194356006D936A /* OrderedCollections in Frameworks */,
 				277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,6 +348,7 @@
 				27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */,
 				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
 				2799A10627174E6000136C23 /* AssignmentDetailStats.swift */,
+				273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -370,6 +377,7 @@
 				274165CE270C2C9400F9EFCF /* GradingCategory.swift */,
 				274165D2270C2F1A00F9EFCF /* GradeDetail.swift */,
 				277E6347270CD16400CA056E /* GradeTerm.swift */,
+				273DB8FF27190FE0006D936A /* AssignmentDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,6 +480,7 @@
 				27D0F5CD26DB7DF80004F0A2 /* Algorithms */,
 				27074EC126EAA2AC00A6ED72 /* SwiftSoup */,
 				277A1F082704504F005E9EB0 /* URLEncodedForm */,
+				273DB90227194356006D936A /* OrderedCollections */,
 			);
 			productName = Rift;
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
@@ -504,6 +513,7 @@
 				27D0F5CC26DB7DF80004F0A2 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */,
+				273DB90127194356006D936A /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 274E622C26C21FB400C855D4 /* Products */;
 			projectDirPath = "";
@@ -534,6 +544,7 @@
 				274F4345270AD9C7001D5D4A /* Course.swift in Sources */,
 				27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
+				273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */,
 				27D4E6D92709152F0063CB65 /* LogInModel.swift in Sources */,
 				27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */,
 				27D4E6DA2709152F0063CB65 /* CoursesModel.swift in Sources */,
@@ -549,6 +560,7 @@
 				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
 				27D4E6E12709152F0063CB65 /* AssignmentsViewModel.swift in Sources */,
 				27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */,
+				273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */,
 				27D4E6E22709152F0063CB65 /* HomeViewModel.swift in Sources */,
 				27D4E6E32709152F0063CB65 /* ApplicationViewModel.swift in Sources */,
 				27D4E6E42709152F0063CB65 /* ColorUtils.swift in Sources */,
@@ -826,6 +838,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		273DB90127194356006D936A /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		277A1F072704504F005E9EB0 /* XCRemoteSwiftPackageReference "url-encoded-form" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/School-Scope/url-encoded-form";
@@ -849,6 +869,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27074EC026EAA2AC00A6ED72 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		273DB90227194356006D936A /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 273DB90127194356006D936A /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 		277A1F082704504F005E9EB0 /* URLEncodedForm */ = {
 			isa = XCSwiftPackageProductDependency;

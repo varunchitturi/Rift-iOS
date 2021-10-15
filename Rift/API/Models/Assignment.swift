@@ -19,14 +19,13 @@ struct Assignment: Codable, Identifiable {
     let totalPoints: Double?
     let scorePoints: Double?
     let comments: String?
-    let feedback: String?
     var categoryName: String?
   
     
     enum CodingKeys: String, CodingKey {
         case id = "objectSectionID"
         
-        case assignmentName, courseName, dueDate, assignedDate, comments, feedback, categoryName
+        case assignmentName, courseName, dueDate, assignedDate, comments, categoryName
         
         case scorePoints, totalPoints
         
@@ -46,17 +45,13 @@ extension Assignment {
         let dueDateString = try (container.decode(String?.self, forKey: .dueDate))
         let assignedDateString = try container.decode(String?.self, forKey: .assignedDate)
         let comments = try container.decode(String?.self, forKey: .comments)
-        let feedback = try container.decode(String?.self, forKey: .feedback)
         let scorePointsString = try container.decode(String?.self, forKey: .scorePoints)
         let scorePoints = Double(scorePointsString ?? "")
-        
-        let dateDecoder = JSONDecoder()
-        dateDecoder.dateDecodingStrategy = .formatted(DateFormatter.iso180601Full)
         
         let dueDate = dueDateString != nil ? DateFormatter.iso180601Full.date(from: dueDateString!) : nil
         let assignedDate = assignedDateString != nil ? DateFormatter.iso180601Full.date(from: assignedDateString!) : nil
         
-        self.init(id: id, isActive: isActive, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, feedback: feedback, categoryName: nil)
+        self.init(id: id, isActive: isActive, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, categoryName: nil)
         
     }
 }

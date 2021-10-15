@@ -41,50 +41,14 @@ struct AssignmentDetailView: View {
                     CapsuleTextField("Total points", text: $points, isEditing: $pointsIsEditing, accentColor: DrawingConstants.accentColor, onEditingChanged: {_ in}, onCommit: {_ in}, configuration: {_ in})
                 }
                 .padding(.bottom)
-                
-                VStack(alignment: .leading) {
-                    Text("Summary")
-                        .font(.caption.bold())
-                    ZStack(alignment: .topLeading) {
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("Secondary"))
-                        Text("You have been marked absent")
-                            .font(.callout)
-                            .foregroundColor(Color("Tertiary"))
-                            .padding()
-                        
-                    }
-                        .foregroundColor(Color("Secondary"))
+                let remarks = assignmentDetailViewModel.remarks
+                ForEach(remarks.keys, id: \.hashValue) { key in
+                    let header = key.description
+                    let text = remarks[key]!
                     
-                }
-                VStack(alignment: .leading) {
-                    Text("Feedback")
-                        .font(.caption.bold())
-                    ZStack(alignment: .topLeading) {
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("Secondary"))
-                        Text("You are really bad at math")
-                            .font(.callout)
-                            .foregroundColor(Color("Tertiary"))
-                            .padding()
-                        
+                    if text != nil {
+                        AssignmentDetailSection(header: header, text!)
                     }
-                        .foregroundColor(Color("Secondary"))
-                    
-                }
-                VStack(alignment: .leading) {
-                    Text("Comments")
-                        .font(.caption.bold())
-                    ZStack(alignment: .topLeading) {
-                        RoundedRectangle(cornerRadius: 15)
-                            .foregroundColor(Color("Secondary"))
-                        Text("I suggest you drop this class as quickly as possible for your own benefit")
-                            .font(.callout)
-                            .foregroundColor(Color("Tertiary"))
-                            .padding()
-                        
-                    }
-                        .foregroundColor(Color("Secondary"))
                     
                 }
             }
@@ -92,6 +56,9 @@ struct AssignmentDetailView: View {
             .foregroundColor(DrawingConstants.foregroundColor)
         }
         .navigationTitle("Assignment")
+        .onAppear {
+            assignmentDetailViewModel.getDetail()
+        }
     }
     
     private struct DrawingConstants {

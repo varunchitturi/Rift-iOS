@@ -8,6 +8,7 @@
 import Foundation
 
 struct AssignmentDetailModel {
-    let assignment: Assignment
+    var assignment: Assignment
     let gradingCategories: [GradingCategory]
+    var assignmentDetail: AssignmentDetail?
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OrderedCollections
 import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
@@ -37,6 +38,17 @@ class AssignmentDetailViewModel: ObservableObject {
         return Text.nilStringText
     }
     
+    var remarks: OrderedDictionary<String, String?> {
+        let assignment = assignmentDetailModel.assignment
+        let assignmentDetail = assignmentDetailModel.assignmentDetail
+        let remarks: OrderedDictionary<String, String?> =  [
+            "Summary": assignmentDetail?.description.summary,
+            "Comments": assignment.comments,
+        ]
+        
+        return remarks
+    }
+    
     var assignmentName: String {
         assignmentDetailModel.assignment.assignmentName
     }
@@ -62,6 +74,21 @@ class AssignmentDetailViewModel: ObservableObject {
 
     init(assignment: Assignment, gradingCategories: [GradingCategory]) {
         self.assignmentDetailModel = AssignmentDetailModel(assignment: assignment, gradingCategories: gradingCategories)
+    }
+    
+    // MARK: - Intents
+    
+    func getDetail() {
+        let id = assignmentDetailModel.assignment.id
+        API.Assignments.getAssignmentDetail(for: id) { [weak self] result in
+            switch result {
+            case .success(let detail):
+                self?.assignmentDetailModel.assignmentDetail = detail
+            case .failure(let error):
+                // TODO: better error handling here
+                print(error)
+            }
+        }
     }
     
 }
