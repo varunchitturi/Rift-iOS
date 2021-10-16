@@ -11,17 +11,19 @@ import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
+    @Binding var editingAssignment: Assignment
     
     // TODO: remove all extensions and make them computed vars in view model
-    var percentageDisplay: String {
-        let assignment = assignmentDetailModel.assignment
-        if let totalPoints = assignment.totalPoints, let scorePoints = assignment.scorePoints {
-            return ((scorePoints/totalPoints) * 100).truncated(2).description.appending("%")
-        }
-        return Text.nilStringText
+    
+    private var assignment: Assignment {
+        assignmentDetailModel.assignment
     }
+
+    var assignmentName: String {
+        return assignmentDetailModel.assignment.assignmentName
+    }
+    
     var assignedDateDisplay: String {
-        let assignment = assignmentDetailModel.assignment
         if let assignedDate = assignment.assignedDate {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: assignedDate)
@@ -30,7 +32,6 @@ class AssignmentDetailViewModel: ObservableObject {
         
     }
     var dueDateDisplay: String {
-        let assignment = assignmentDetailModel.assignment
         if let dueDate = assignment.assignedDate {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: dueDate)
@@ -39,7 +40,6 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     
     var remarks: OrderedDictionary<String, String?> {
-        let assignment = assignmentDetailModel.assignment
         let assignmentDetail = assignmentDetailModel.assignmentDetail
         let remarks: OrderedDictionary<String, String?> =  [
             "Summary": assignmentDetail?.description.summary,
@@ -49,37 +49,61 @@ class AssignmentDetailViewModel: ObservableObject {
         return remarks
     }
     
-    var assignmentName: String {
-        assignmentDetailModel.assignment.assignmentName
-    }
     
     var gradingCategories: [GradingCategory] {
         assignmentDetailModel.gradingCategories
     }
     
+    
     struct StatsDisplay {
         let header: String
-        let stat: String
+        let text: String
     }
     
     var statsDisplays: [StatsDisplay] {
         return [
-            StatsDisplay(header: "Due", stat: dueDateDisplay),
-            StatsDisplay(header: "Assigned", stat: assignedDateDisplay),
-            StatsDisplay(header: "Real", stat: percentageDisplay),
-            StatsDisplay(header: "Calculated", stat: percentageDisplay),
+            // TODO: have anything to do with displays such as percentage display functions in view models
+            StatsDisplay(header: "Due", text: dueDateDisplay),
+            StatsDisplay(header: "Assigned", text: assignedDateDisplay),
+            StatsDisplay(header: "Real", text: percentageDisplay(for: assignment)),
+            StatsDisplay(header: "Calculated", text: percentageDisplay(for: editingAssignment)),
         ]
         
     }
+    
+    
+    var totalPointsText: String {
+        willSet {
+            editingAssignment.totalPoints = Double(newValue)
+        }
+    }
+    var scorePointsText: String {
+        willSet {
+            editingAssignment.scorePoints = Double(newValue)
+        }
+    }
 
-    init(assignment: Assignment, gradingCategories: [GradingCategory]) {
-        self.assignmentDetailModel = AssignmentDetailModel(assignment: assignment, gradingCategories: gradingCategories)
+    init(originalAssignment: Assignment, editingAssignment: Binding<Assignment>, gradingCategories: [GradingCategory]) {
+        self.assignmentDetailModel = AssignmentDetailModel(assignment: originalAssignment, gradingCategories: gradingCategories)
+        self._editingAssignment = editingAssignment
+        totalPointsText = originalAssignment.totalPoints != nil ? originalAssignment.totalPoints!.description :  ""
+        scorePointsText = originalAssignment.scorePoints != nil ? originalAssignment.scorePoints!.description :  ""
+        print("init")
+    }
+    
+    // TODO: organize structure of files
+    
+    private func percentageDisplay(for assignment: Assignment) -> String {
+        if let totalPoints = assignment.totalPoints, let scorePoints = assignment.scorePoints {
+            return ((scorePoints/totalPoints) * 100).truncated(2).description.appending("%")
+        }
+        return Text.nilStringText
     }
     
     // MARK: - Intents
     
     func getDetail() {
-        let id = assignmentDetailModel.assignment.id
+        let id = assignment.id
         API.Assignments.getAssignmentDetail(for: id) { [weak self] result in
             switch result {
             case .success(let detail):

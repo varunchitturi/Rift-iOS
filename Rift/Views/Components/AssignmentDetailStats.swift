@@ -19,7 +19,7 @@ struct AssignmentDetailStats: View {
                         .font(.caption2.bold())
                         .foregroundColor(DrawingConstants.headerColor)
                         .padding(.bottom, DrawingConstants.headerPadding)
-                    Text(statsDisplays[index].stat)
+                    Text(statsDisplays[index].text)
                         .font(.caption2)
                 }
                 let endIndex = statsDisplays.endIndex
@@ -40,6 +40,6 @@ struct AssignmentDetailStats: View {
 struct AssignmentDetailStats_Previews: PreviewProvider {
     static var previews: some View {
         AssignmentDetailStats()
-            .environmentObject(AssignmentDetailViewModel(assignment: PreviewObjects.assignment, gradingCategories: [PreviewObjects.gradingCategory]))
+            .environmentObject(AssignmentDetailViewModel(originalAssignment: PreviewObjects.assignment, editingAssignment: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory]))
     }
 }

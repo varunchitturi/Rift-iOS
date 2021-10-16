@@ -16,16 +16,17 @@ struct Assignment: Codable, Identifiable {
     let dueDate: Date?
     let assignedDate: Date?
     let courseName: String
-    let totalPoints: Double?
-    let scorePoints: Double?
+    var totalPoints: Double?
+    var scorePoints: Double?
     let comments: String?
     var categoryName: String?
+    var categoryID: Int?
   
     
     enum CodingKeys: String, CodingKey {
         case id = "objectSectionID"
         
-        case assignmentName, courseName, dueDate, assignedDate, comments, categoryName
+        case assignmentName, courseName, dueDate, assignedDate, comments, categoryName, categoryID
         
         case scorePoints, totalPoints
         
@@ -51,7 +52,7 @@ extension Assignment {
         let dueDate = dueDateString != nil ? DateFormatter.iso180601Full.date(from: dueDateString!) : nil
         let assignedDate = assignedDateString != nil ? DateFormatter.iso180601Full.date(from: assignedDateString!) : nil
         
-        self.init(id: id, isActive: isActive, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, categoryName: nil)
+        self.init(id: id, isActive: isActive, assignmentName: assignmentName, dueDate: dueDate, assignedDate: assignedDate, courseName: courseName, totalPoints: totalPoints, scorePoints: scorePoints, comments: comments, categoryName: nil, categoryID: nil)
         
     }
 }

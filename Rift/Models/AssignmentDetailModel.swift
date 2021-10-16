@@ -8,7 +8,15 @@
 import Foundation
 
 struct AssignmentDetailModel {
-    var assignment: Assignment
+    
+    init(assignment: Assignment, gradingCategories: [GradingCategory], assignmentDetail: AssignmentDetail? = nil) {
+        self.gradingCategories = gradingCategories
+        self.assignmentDetail = assignmentDetail
+        self.assignment = assignment
+    }
+    
     let gradingCategories: [GradingCategory]
     var assignmentDetail: AssignmentDetail?
+    var assignment: Assignment
+
 }

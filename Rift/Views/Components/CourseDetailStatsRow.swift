@@ -19,8 +19,8 @@ struct CourseDetailStatsRow: View {
             Spacer()
             
             Group {
-                Text(calculatedGrade)
                 Text(realGrade)
+                Text(calculatedGrade)
             }
             .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
             .foregroundColor(DrawingConstants.foregroundColor)

@@ -12,6 +12,7 @@ struct CourseDetailStats: View {
     // TODO: check if percentages are rounded or truncated
     var courseGradeDisplay: String
     let gradeDetail: GradeDetail
+    let editingGradeDetail: GradeDetail
     
     var body: some View {
         
@@ -44,10 +45,12 @@ struct CourseDetailStats: View {
                         
                     }
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
-                        ForEach(gradeDetail.categories){ gradingCategory in
-                            CourseDetailStatsRow(category: gradingCategory.name, realGrade: gradingCategory.percentageDisplay, calculatedGrade:  gradingCategory.percentageDisplay)
+                        let categories = gradeDetail.categories
+                        let editingCategories = editingGradeDetail.categories
+                        ForEach(gradeDetail.categories.indices){ index in
+                            CourseDetailStatsRow(category: categories[index].name, realGrade: categories[index].percentageDisplay, calculatedGrade:  editingCategories[index].percentageDisplay)
                         }
-                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  gradeDetail.totalPercentageDisplay)
+                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  editingGradeDetail.totalPercentageDisplay)
                     }
                 }
             }
@@ -65,8 +68,8 @@ struct CourseDetailStats: View {
 
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
             .previewDevice("iPhone 13 Pro Max")
     }
 }

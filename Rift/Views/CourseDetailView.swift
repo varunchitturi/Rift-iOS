@@ -17,24 +17,27 @@ struct CourseDetailView: View {
     
     
     var body: some View {
+        // TODO: change background color if assignment edited
         ScrollView(showsIndicators: false) {
             if courseDetailViewModel.gradeDetail != nil {
-                CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!)
+                CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                     .padding(.top)
                     .padding(.horizontal)
-            }
-            ForEach (courseDetailViewModel.assignments) { assignment in
-                NavigationLink(
-                    destination: AssignmentDetailView(
-                        assignment: assignment,
-                        gradingCategories: courseDetailViewModel.gradeDetail?.categories ?? []
-                    )
-                ) {
-                    CourseAssignmentCard(assignment: assignment)
-                        .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
-                        .padding(.vertical, DrawingConstants.cardSpacing)
+                ForEach ($courseDetailViewModel.editingGradeDetail.unwrap()!.assignments) { `assignment` in
+                    NavigationLink(
+                        destination: AssignmentDetailView(
+                            editingAssignment: `assignment`,
+                            gradingCategories: courseDetailViewModel.editingGradeDetail?.categories ?? []
+                        )
+                    ) {
+                        CourseAssignmentCard(assignment: `assignment`.wrappedValue)
+                            .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
+                            .padding(.vertical, DrawingConstants.cardSpacing)
+                    }
+                   
                 }
             }
+            
         }
         .toolbar {
             ToolbarItem(id: UUID().uuidString) {

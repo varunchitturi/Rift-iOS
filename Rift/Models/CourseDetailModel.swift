@@ -13,6 +13,6 @@ struct CourseDetailModel {
     let course: Course
     
     var gradeDetail: GradeDetail?
-    
+    var editingGradeDetail: GradeDetail?
     
 }

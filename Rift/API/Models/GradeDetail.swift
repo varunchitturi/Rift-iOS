@@ -6,11 +6,41 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct GradeDetail: Codable {
     
     let grade: Grade
     var categories: [GradingCategory]
+    
+    var assignments: [Assignment] {
+        get {
+            var assignments: [Assignment] = []
+            categories.forEach { category in
+                assignments += category.assignments
+            
+            }
+            assignments.sort { lhs, rhs in
+                if let lhs = lhs.dueDate, let rhs = rhs.dueDate {
+                    return lhs > rhs
+                }
+                return lhs.dueDate != nil ? false : true
+            }
+            return assignments
+        }
+        set {
+            for categoryIndex in categories.indices {
+                var newAssignments = [Assignment]()
+                for assignmentIndex in newValue.indices {
+                    if let categoryID = newValue[assignmentIndex].categoryID, categoryID == categories[categoryIndex].id {
+                        newAssignments.append(newValue[assignmentIndex])
+                    }
+                }
+                categories[categoryIndex].assignments = newAssignments
+            }
+        }
+    }
+    
     
     var totalPercentage: Double? {
         

@@ -103,6 +103,9 @@ extension API {
                     gradeDetails[detailIndex]
                         .categories[categoryIndex]
                         .assignments[assignmentIndex].categoryName = category.name
+                    gradeDetails[detailIndex]
+                        .categories[categoryIndex]
+                        .assignments[assignmentIndex].categoryID = category.id
                 }
             }
         }
