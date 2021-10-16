@@ -41,7 +41,8 @@ extension API {
             }.resume()
         }
         
-        static func getAssignmentDetail(locale: Locale? = nil, for id: Int, completion: @escaping (Result<AssignmentDetail, Error>) -> ()) {
+        static func getAssignmentDetail(locale: Locale? = nil, for assignment: Assignment, completion: @escaping (Result<AssignmentDetail, Error>) -> ()) {
+            let id = assignment.id
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentDetail.appending(id.description)))
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in

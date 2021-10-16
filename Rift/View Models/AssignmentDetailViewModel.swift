@@ -11,20 +11,33 @@ import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
-    @Binding var editingAssignment: Assignment
+    @Binding var assignmentToEdit: Assignment
+    
     
     // TODO: remove all extensions and make them computed vars in view model
     
-    private var assignment: Assignment {
-        assignmentDetailModel.assignment
+    private var originalAssignment: Assignment {
+        assignmentDetailModel.originalAssignment
+    }
+    var modifiedAssignment: Assignment {
+        get {
+            assignmentDetailModel.modifiedAssignment
+        }
+        set {
+            assignmentDetailModel.modifiedAssignment  = newValue
+        }
     }
 
+    var hasModifications: Bool {
+        originalAssignment != modifiedAssignment
+    }
+    
     var assignmentName: String {
-        return assignmentDetailModel.assignment.assignmentName
+        return originalAssignment.assignmentName
     }
     
     var assignedDateDisplay: String {
-        if let assignedDate = assignment.assignedDate {
+        if let assignedDate = originalAssignment.assignedDate {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: assignedDate)
         }
@@ -32,7 +45,7 @@ class AssignmentDetailViewModel: ObservableObject {
         
     }
     var dueDateDisplay: String {
-        if let dueDate = assignment.assignedDate {
+        if let dueDate = originalAssignment.assignedDate {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: dueDate)
         }
@@ -43,7 +56,7 @@ class AssignmentDetailViewModel: ObservableObject {
         let assignmentDetail = assignmentDetailModel.assignmentDetail
         let remarks: OrderedDictionary<String, String?> =  [
             "Summary": assignmentDetail?.description.summary,
-            "Comments": assignment.comments,
+            "Comments": originalAssignment.comments,
         ]
         
         return remarks
@@ -65,29 +78,28 @@ class AssignmentDetailViewModel: ObservableObject {
             // TODO: have anything to do with displays such as percentage display functions in view models
             StatsDisplay(header: "Due", text: dueDateDisplay),
             StatsDisplay(header: "Assigned", text: assignedDateDisplay),
-            StatsDisplay(header: "Real", text: percentageDisplay(for: assignment)),
-            StatsDisplay(header: "Calculated", text: percentageDisplay(for: editingAssignment)),
+            StatsDisplay(header: "Real", text: percentageDisplay(for: originalAssignment)),
+            StatsDisplay(header: "Calculated", text: percentageDisplay(for: modifiedAssignment)),
         ]
         
     }
     
     
-    var totalPointsText: String {
+    var totalPointsText: String = "" {
         willSet {
-            editingAssignment.totalPoints = Double(newValue)
+            modifiedAssignment.totalPoints = Double(newValue)
         }
     }
-    var scorePointsText: String {
+    var scorePointsText: String = "" {
         willSet {
-            editingAssignment.scorePoints = Double(newValue)
+            modifiedAssignment.scorePoints = Double(newValue)
         }
     }
 
-    init(originalAssignment: Assignment, editingAssignment: Binding<Assignment>, gradingCategories: [GradingCategory]) {
-        self.assignmentDetailModel = AssignmentDetailModel(assignment: originalAssignment, gradingCategories: gradingCategories)
-        self._editingAssignment = editingAssignment
-        totalPointsText = originalAssignment.totalPoints != nil ? originalAssignment.totalPoints!.description :  ""
-        scorePointsText = originalAssignment.scorePoints != nil ? originalAssignment.scorePoints!.description :  ""
+    init(originalAssignment: Assignment, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
+        self.assignmentDetailModel = AssignmentDetailModel(originalAssignment: originalAssignment, modifiedAssignment: assignmentToEdit.wrappedValue, gradingCategories: gradingCategories)
+        self._assignmentToEdit = assignmentToEdit
+        setPointText()
         print("init")
     }
     
@@ -100,11 +112,15 @@ class AssignmentDetailViewModel: ObservableObject {
         return Text.nilStringText
     }
     
+    private func setPointText() {
+        totalPointsText = assignmentToEdit.totalPoints?.description ?? ""
+        scorePointsText = assignmentToEdit.scorePoints != nil ? assignmentToEdit.scorePoints!.description :  ""
+    }
+    
     // MARK: - Intents
     
     func getDetail() {
-        let id = assignment.id
-        API.Assignments.getAssignmentDetail(for: id) { [weak self] result in
+        API.Assignments.getAssignmentDetail(for: originalAssignment) { [weak self] result in
             switch result {
             case .success(let detail):
                 self?.assignmentDetailModel.assignmentDetail = detail
@@ -113,6 +129,15 @@ class AssignmentDetailViewModel: ObservableObject {
                 print(error)
             }
         }
+    }
+    
+    func commitChanges() {
+        assignmentToEdit = modifiedAssignment
+    }
+    // TODO: stop useing totalPointsText and scorePointsText. Source of truth for text field should be from the assignment itself, not a seperate binding. Create a capsuleNumberfield component to accomplish this. Make sure to abide by DRY principles.
+    func resetChanges() {
+        modifiedAssignment = originalAssignment
+        setPointText()
     }
     
 }

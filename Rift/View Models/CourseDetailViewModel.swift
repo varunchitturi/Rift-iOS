@@ -28,6 +28,10 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.gradeDisplay
     }
     
+    var hasModifications: Bool {
+        gradeDetail != editingGradeDetail
+    }
+    
     init(course: Course) {
         self.courseDetailModel = CourseDetailModel(course: course)
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
@@ -47,6 +51,33 @@ class CourseDetailViewModel: ObservableObject {
     
     // MARK: - Intents
     
+    func getOriginalAssignment(for assignment: Assignment) -> Assignment {
+        for originalAssignment in gradeDetail?.assignments ?? [] {
+            if originalAssignment.id == assignment.id {
+                return originalAssignment
+            }
+        }
+        return Assignment(id: assignment.id,
+                          isActive: true,
+                          assignmentName: assignment.assignmentName,
+                          dueDate: nil,
+                          assignedDate: nil,
+                          courseName: assignment.courseName,
+                          totalPoints: nil,
+                          scorePoints: nil,
+                          comments: nil,
+                          categoryName: assignment.categoryName,
+                          categoryID: assignment.categoryID
+        )
+    }
+    // TODO: consolidate between the word changes and modifications. Both should not be used.
+    func resetChanges() {
+        editingGradeDetail = gradeDetail
+    }
+    
+    func refreshView() {
+        objectWillChange.send()
+    }
   
 }
 

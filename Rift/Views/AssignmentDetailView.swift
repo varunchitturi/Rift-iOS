@@ -18,8 +18,8 @@ struct AssignmentDetailView: View {
     
     // TODO: add last modified date
     
-    init(editingAssignment: Binding<Assignment>, gradingCategories: [GradingCategory]) {
-        self.assignmentDetailViewModel = AssignmentDetailViewModel(originalAssignment: editingAssignment.wrappedValue, editingAssignment: editingAssignment, gradingCategories: gradingCategories)
+    init(originalAssignment: Assignment, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
+        self.assignmentDetailViewModel = AssignmentDetailViewModel(originalAssignment: originalAssignment, assignmentToEdit: assignmentToEdit, gradingCategories: gradingCategories)
     }
     var body: some View {
         ScrollView {
@@ -36,9 +36,9 @@ struct AssignmentDetailView: View {
                 CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $selectionIndex, isEditing: $categoryIsEditing)
                     .padding(.bottom)
                 HStack {
-                    CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal, accentColor: DrawingConstants.accentColor)
+                    CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
                     
-                    CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $pointsIsEditing, inputType: .decimal, accentColor: DrawingConstants.accentColor)
+                    CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $pointsIsEditing, inputType: .decimal)
                 }
                 .padding(.bottom)
                 
@@ -50,7 +50,6 @@ struct AssignmentDetailView: View {
                     if text != nil {
                         AssignmentDetailSection(header: header, text!)
                     }
-                    
                 }
             }
             .padding(.horizontal)
@@ -60,16 +59,31 @@ struct AssignmentDetailView: View {
         .onAppear {
             assignmentDetailViewModel.getDetail()
         }
+        .onDisappear {
+            assignmentDetailViewModel.commitChanges()
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                HStack {
+                    if assignmentDetailViewModel.hasModifications {
+                        Button {
+                            assignmentDetailViewModel.resetChanges()
+                        } label: {
+                            Image(systemName: "arrow.counterclockwise")
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private struct DrawingConstants {
         static let foregroundColor = Color("Tertiary")
-        static let accentColor = Color("Primary")
     }
 }
 
 struct AssignmentDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentDetailView(editingAssignment: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory])
+        AssignmentDetailView(originalAssignment: PreviewObjects.assignment, assignmentToEdit: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory])
     }
 }

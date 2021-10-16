@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct GradeDetail: Codable {
+struct GradeDetail: Codable, Equatable {
     
     let grade: Grade
     var categories: [GradingCategory]

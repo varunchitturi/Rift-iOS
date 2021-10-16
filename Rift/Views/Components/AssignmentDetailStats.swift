@@ -40,6 +40,6 @@ struct AssignmentDetailStats: View {
 struct AssignmentDetailStats_Previews: PreviewProvider {
     static var previews: some View {
         AssignmentDetailStats()
-            .environmentObject(AssignmentDetailViewModel(originalAssignment: PreviewObjects.assignment, editingAssignment: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory]))
+            .environmentObject(AssignmentDetailViewModel(originalAssignment: PreviewObjects.assignment, assignmentToEdit: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory]))
     }
 }

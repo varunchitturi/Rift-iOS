@@ -9,14 +9,16 @@ import Foundation
 
 struct AssignmentDetailModel {
     
-    init(assignment: Assignment, gradingCategories: [GradingCategory], assignmentDetail: AssignmentDetail? = nil) {
+    
+    init(originalAssignment: Assignment, modifiedAssignment: Assignment, gradingCategories: [GradingCategory], assignmentDetail: AssignmentDetail? = nil) {
         self.gradingCategories = gradingCategories
         self.assignmentDetail = assignmentDetail
-        self.assignment = assignment
+        self.originalAssignment = originalAssignment
+        self.modifiedAssignment = modifiedAssignment
     }
     
     let gradingCategories: [GradingCategory]
     var assignmentDetail: AssignmentDetail?
-    var assignment: Assignment
-
+    var originalAssignment: Assignment
+    var modifiedAssignment: Assignment
 }

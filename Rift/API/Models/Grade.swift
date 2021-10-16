@@ -9,7 +9,7 @@ import Foundation
 
 
 
-struct Grade: Codable {
+struct Grade: Codable, Equatable {
     let letterGrade: String?
     let percentage: Double?
     let currentPoints: Double?

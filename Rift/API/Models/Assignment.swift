@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Assignment: Codable, Identifiable {
+struct Assignment: Codable, Identifiable, Equatable {
     
     let id: Int
     let isActive: Bool

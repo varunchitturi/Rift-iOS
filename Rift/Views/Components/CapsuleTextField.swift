@@ -48,7 +48,6 @@ struct CapsuleTextField: View {
                 
                 LegacyTextField(text: $text, isEditing: $isEditing, inputType: inputType, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
                     textField.isSecureTextEntry = isSecureStyle
-                    // TODO: make text field only allow 1 line
                     textField.textColor = UIColor(DrawingConstants.textColor)
                     configuration(textField)
                 })

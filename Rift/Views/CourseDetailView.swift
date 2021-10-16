@@ -17,7 +17,7 @@ struct CourseDetailView: View {
     
     
     var body: some View {
-        // TODO: change background color if assignment edited
+        // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
             if courseDetailViewModel.gradeDetail != nil {
                 CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
@@ -26,8 +26,10 @@ struct CourseDetailView: View {
                 ForEach ($courseDetailViewModel.editingGradeDetail.unwrap()!.assignments) { `assignment` in
                     NavigationLink(
                         destination: AssignmentDetailView(
-                            editingAssignment: `assignment`,
-                            gradingCategories: courseDetailViewModel.editingGradeDetail?.categories ?? []
+                            // TODO: make this more effecient. Calculate get orignal assignment only after navigation
+                            originalAssignment: courseDetailViewModel.getOriginalAssignment(for: `assignment`.wrappedValue),
+                            assignmentToEdit: `assignment`,
+                            gradingCategories: courseDetailViewModel.editingGradeDetail!.categories
                         )
                     ) {
                         CourseAssignmentCard(assignment: `assignment`.wrappedValue)
@@ -40,13 +42,27 @@ struct CourseDetailView: View {
             
         }
         .toolbar {
-            ToolbarItem(id: UUID().uuidString) {
-                Button {
-                    print("add assignment")
-                } label: {
-                    Image(systemName: "plus")
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                HStack {
+                    Button {
+                        print("add assignment")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    if courseDetailViewModel.hasModifications {
+                        Button {
+                            courseDetailViewModel.resetChanges()
+                        } label: {
+                            Image(systemName: "arrow.counterclockwise")
+                        }
+                    }
                 }
+                .transition(.opacity)
+                .animation(.easeInOut, value: courseDetailViewModel.hasModifications)
             }
+        }
+        .onAppear {
+            courseDetailViewModel.refreshView()
         }
         .navigationTitle(courseDetailViewModel.courseName)
     }
@@ -54,9 +70,6 @@ struct CourseDetailView: View {
     private struct DrawingConstants {
         static let cardHorizontalPadding: CGFloat = 14
         static let cardSpacing: CGFloat = 5
-        // TODO: change this offset to card height * 2
-        // TODO: fix buggy animations
-        static let statBarCollapseOffset: CGFloat = -150
     }
 }
 
