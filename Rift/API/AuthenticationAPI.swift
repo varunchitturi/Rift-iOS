@@ -13,7 +13,7 @@ import SwiftSoup
 extension API {
     struct Authentication {
         
-        private static var urlSession = URLSession(configuration: .authentication)
+        private static var defaultURLSession = URLSession(configuration: .authentication)
         
         
         enum Cookie: CaseIterable {
@@ -68,7 +68,7 @@ extension API {
         }
         
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            Authentication.urlSession = URLSession.reset(from: Authentication.urlSession)
+            Authentication.defaultURLSession = URLSession.reset(from: Authentication.defaultURLSession)
             HTTPCookieStorage.shared.clearCookies()
             let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
             var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
@@ -77,7 +77,7 @@ extension API {
             let formEncoder = URLEncodedFormEncoder()
             do {
                 urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
-                Authentication.urlSession.dataTask(with: urlRequest) { data, response, error in
+                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
                     DispatchQueue.main.async {
                         if let error = error {
                             completion(error)
@@ -143,7 +143,7 @@ extension API {
             do {
                 let jsonEncoder = JSONEncoder()
                 urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
-                Authentication.urlSession.dataTask(with: urlRequest) { data, response, error in
+                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
                     if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
                         completion(nil)
                     }

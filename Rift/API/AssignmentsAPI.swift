@@ -15,7 +15,7 @@ extension API {
             static let assignmentDetail = "api/instruction/curriculum/sectionContent/"
         }
         
-        
+        // TODO: make all dispatch queue .main.async calls from the view model only. API should not have access to the main thread.
         static func getList(locale: Locale? = nil, completion: @escaping (Result<[Assignment], Error>) -> ()) {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentList))

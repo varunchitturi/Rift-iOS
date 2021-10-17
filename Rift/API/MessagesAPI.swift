@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import SwiftSoup
+import URLEncodedForm
 
 extension API {
     
     struct Messages {
         
         enum Endpoint {
-            static let messageList = "api/portal/process-message"
+            static let messageList = "api/portal/process-message/"
+            static let deleteMessage = "execute/"
         }
         
-        static func getMessages(locale: Locale? = nil, completion: @escaping (Result<[GradeTerm], Error>) -> Void) {
+        static func getMessageList(locale: Locale? = nil, completion: @escaping (Result<[Message], Error>) -> Void) {
             guard let locale = locale ?? PersistentLocale.getLocale() else {
                 completion(.failure(APIError.invalidLocale))
                 return
@@ -26,18 +29,10 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    struct Response: Codable {
-                        // TODO: use custom term here
-                        let gradeTerms: [GradeTerm]
-                        
-                        enum CodingKeys: String, CodingKey {
-                            case gradeTerms = "terms"
-                        }
-                   }
                     do {
                         let decoder = JSONDecoder()
-                        let responseBody = try decoder.decode([Response].self, from: data)
-                        !responseBody.isEmpty ? completion(.success(responseBody[0].gradeTerms)) : completion(.failure(APIError.invalidData))
+                        let messages = try decoder.decode([Message].self, from: data)
+                        completion(.success(messages))
                     }
                     catch {
                         completion(.failure(error))
@@ -49,5 +44,60 @@ extension API {
             }.resume()
             
         }
+        
+        static func getMessageBody(locale: Locale? = nil, message: Message, completion: @escaping (Result<String, Error>) -> Void) {
+            guard let locale = locale ?? PersistentLocale.getLocale() else {
+                completion(.failure(APIError.invalidLocale))
+                return
+            }
+            
+            let endpoint = message.endpoint
+            let url = locale.districtBaseURL.appendingPathComponent(endpoint)
+            
+            do {
+                let messageHTML = try String(contentsOf: url)
+                let doc = try SwiftSoup.parse(messageHTML)
+                completion(.success(try doc.text()))
+                
+            }
+            catch {
+                completion(.failure(error))
+            }
+        }
+        
+        static func deleteMessage(locale: Locale? = nil, message: Message, completion: @escaping (Error?) -> Void) {
+            guard let locale = locale ?? PersistentLocale.getLocale() else {
+                completion(APIError.invalidLocale)
+                return
+            }
+            
+            var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.deleteMessage))
+            // TODO: convert these network enum from cases to static let in order to avoid raw value
+            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+            urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+            
+            let formEncoder = URLEncodedFormEncoder()
+            
+            do {
+                urlRequest.httpBody = try formEncoder.encode(DeleteMessageBody(processMessageID: message.id))
+                API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                    if let error = error {
+                        completion(error)
+                    }
+                    else {
+                        completion(nil)
+                    }
+                }
+            }
+            catch {
+                completion(error)
+            }
+        }
+        
+        private struct DeleteMessageBody: Encodable {
+            let x = "messenger.MessengerEngine-deleteMessageRecipientView"
+            let processMessageID: Int
+        }
+        
     }
 }
