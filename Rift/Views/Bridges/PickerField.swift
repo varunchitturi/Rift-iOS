@@ -35,7 +35,7 @@ struct PickerField : UIViewRepresentable {
     @Binding var isEditing: Bool
 
     var selection: String? {
-        selectionIndex != nil ? options[selectionIndex!] : nil
+        selectionIndex != nil && options.indices.contains(selectionIndex!) ? options[selectionIndex!] : nil
     }
 
     private let pickerField: UIPickerField
