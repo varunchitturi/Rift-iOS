@@ -31,6 +31,10 @@ class CourseDetailViewModel: ObservableObject {
         gradeDetail != editingGradeDetail
     }
     
+    var hasGradeDetail: Bool {
+        gradeDetail != nil
+    }
+    
     init(course: Course) {
         self.courseDetailModel = CourseDetailModel(course: course)
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in

@@ -111,6 +111,8 @@
 		27D98980271C0C0000311973 /* AddAssignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D9897F271C0C0000311973 /* AddAssignmentView.swift */; };
 		27D98982271C0C5300311973 /* AddAssignmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */; };
 		27D98984271C0C6400311973 /* AddAssignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98983271C0C6400311973 /* AddAssignmentModel.swift */; };
+		27D98986271C2CBC00311973 /* MessagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98985271C2CBC00311973 /* MessagesAPI.swift */; };
+		27D98988271C34AA00311973 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98987271C34AA00311973 /* Message.swift */; };
 		27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */; };
 		27EFC7BC270E2A1200B90FCA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */; };
 		27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BF270E851900B90FCA /* TextTag.swift */; };
@@ -198,6 +200,8 @@
 		27D9897F271C0C0000311973 /* AddAssignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentView.swift; sourceTree = "<group>"; };
 		27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewModel.swift; sourceTree = "<group>"; };
 		27D98983271C0C6400311973 /* AddAssignmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentModel.swift; sourceTree = "<group>"; };
+		27D98985271C2CBC00311973 /* MessagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesAPI.swift; sourceTree = "<group>"; };
+		27D98987271C34AA00311973 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowToggle.swift; sourceTree = "<group>"; };
 		27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowButton.swift; sourceTree = "<group>"; };
 		27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowLink.swift; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 				274F435F270AE867001D5D4A /* AuthenticationAPI.swift */,
 				274F4361270AE94C001D5D4A /* GradesAPI.swift */,
 				274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */,
+				27D98985271C2CBC00311973 /* MessagesAPI.swift */,
 				274F434F270ADBF4001D5D4A /* Models */,
 			);
 			path = API;
@@ -393,6 +398,7 @@
 				274165D2270C2F1A00F9EFCF /* GradeDetail.swift */,
 				277E6347270CD16400CA056E /* GradeTerm.swift */,
 				273DB8FF27190FE0006D936A /* AssignmentDetail.swift */,
+				27D98987271C34AA00311973 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -563,6 +569,7 @@
 				27D4E6D72709152F0063CB65 /* StorageManager.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
 				273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */,
+				27D98986271C2CBC00311973 /* MessagesAPI.swift in Sources */,
 				27D4E6D92709152F0063CB65 /* LogInModel.swift in Sources */,
 				27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */,
 				27D4E6DA2709152F0063CB65 /* CoursesModel.swift in Sources */,
@@ -635,6 +642,7 @@
 				27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */,
 				27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */,
 				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
+				27D98988271C34AA00311973 /* Message.swift in Sources */,
 				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,
 				27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */,
 				27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */,
