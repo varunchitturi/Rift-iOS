@@ -13,35 +13,34 @@ struct AssignmentDetailView: View {
     @State private var scoreIsEditing = false
     @State private var pointsIsEditing = false
     @ObservedObject var assignmentDetailViewModel: AssignmentDetailViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var courseDetailViewModel: CourseDetailViewModel
     
     // TODO: make capsule textfield more configurable. Accent color should be defaulted to Color("AccentColor")
     
     // TODO: add last modified date
+    // TODO: allow editing of categories
     
     init(originalAssignment: Assignment, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
         self.assignmentDetailViewModel = AssignmentDetailViewModel(originalAssignment: originalAssignment, assignmentToEdit: assignmentToEdit, gradingCategories: gradingCategories)
     }
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: DrawingConstants.spacing) {
                 HStack {
                     Text(assignmentDetailViewModel.assignmentName)
-                        .font(.title3)
+                        .font(.title2)
                     Spacer()
                 }
-                .padding(.vertical)
+                .padding(.top)
                 AssignmentDetailStats()
                     .environmentObject(assignmentDetailViewModel)
-                    .padding(.bottom)
                 CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $selectionIndex, isEditing: $categoryIsEditing)
-                    .padding(.bottom)
                 HStack {
                     CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
                     
                     CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $pointsIsEditing, inputType: .decimal)
                 }
-                .padding(.bottom)
-                
                 let remarks = assignmentDetailViewModel.remarks
                 ForEach(remarks.keys, id: \.hashValue) { key in
                     let header = key.description
@@ -50,6 +49,11 @@ struct AssignmentDetailView: View {
                     if text != nil {
                         AssignmentDetailSection(header: header, text!)
                     }
+                }
+                DestructiveButton("Delete Assignment") {
+                    assignmentDetailViewModel.assignmentDeleted = true
+                    courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .padding(.horizontal)
@@ -60,7 +64,9 @@ struct AssignmentDetailView: View {
             assignmentDetailViewModel.getDetail()
         }
         .onDisappear {
-            assignmentDetailViewModel.commitChanges()
+            if !assignmentDetailViewModel.assignmentDeleted {
+                assignmentDetailViewModel.commitChanges()
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -79,6 +85,7 @@ struct AssignmentDetailView: View {
     
     private struct DrawingConstants {
         static let foregroundColor = Color("Tertiary")
+        static let spacing: CGFloat = 15
     }
 }
 

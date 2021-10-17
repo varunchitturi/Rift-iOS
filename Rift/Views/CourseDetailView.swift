@@ -30,13 +30,13 @@ struct CourseDetailView: View {
                             originalAssignment: courseDetailViewModel.getOriginalAssignment(for: `assignment`.wrappedValue),
                             assignmentToEdit: `assignment`,
                             gradingCategories: courseDetailViewModel.editingGradeDetail!.categories
-                        )
+                            )
+                            .environmentObject(courseDetailViewModel)
                     ) {
                         CourseAssignmentCard(assignment: `assignment`.wrappedValue)
-                            .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
-                            .padding(.vertical, DrawingConstants.cardSpacing)
                     }
-                   
+                    .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
+                    .padding(.vertical, DrawingConstants.cardSpacing)
                 }
             }
             

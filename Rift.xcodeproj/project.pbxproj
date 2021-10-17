@@ -107,6 +107,7 @@
 		27D4E724270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */; };
 		27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */; };
 		27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E7272709727C0063CB65 /* LoadingView.swift */; };
+		27D9897E271BA01100311973 /* DestructiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D9897D271BA01100311973 /* DestructiveButton.swift */; };
 		27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */; };
 		27EFC7BC270E2A1200B90FCA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */; };
 		27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BF270E851900B90FCA /* TextTag.swift */; };
@@ -190,6 +191,7 @@
 		27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentLocale+CoreDataClass.swift"; sourceTree = "<group>"; };
 		27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentLocale+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		27D4E7272709727C0063CB65 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		27D9897D271BA01100311973 /* DestructiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestructiveButton.swift; sourceTree = "<group>"; };
 		27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowToggle.swift; sourceTree = "<group>"; };
 		27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowButton.swift; sourceTree = "<group>"; };
 		27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowLink.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				278F272426D5E97F000FF26F /* CapsuleDropDown.swift */,
 				27DA822C26E809DC00CB3A95 /* CapsuleFieldModularButton.swift */,
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
+				27D9897D271BA01100311973 /* DestructiveButton.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
 				279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */,
 				27761BB626F7B7A700601A37 /* AssignmentCard.swift */,
@@ -579,6 +582,7 @@
 				27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */,
 				27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */,
 				274F4354270AE0D5001D5D4A /* AssignmentsAPI.swift in Sources */,
+				27D9897E271BA01100311973 /* DestructiveButton.swift in Sources */,
 				27D4E6EA2709152F0063CB65 /* UserPreferenceUtils.swift in Sources */,
 				27D4E6EB2709152F0063CB65 /* BundleUtils.swift in Sources */,
 				274F433A270ABD0E001D5D4A /* CourseDetailViewModel.swift in Sources */,

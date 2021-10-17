@@ -13,7 +13,6 @@ class CourseDetailViewModel: ObservableObject {
     @Published private var courseDetailModel: CourseDetailModel
     @Published var editingGradeDetail: GradeDetail?
     
-    // TODO: add a reset button up top
     // TODO: make this process more effecient
     
     var courseName: String {
@@ -77,6 +76,10 @@ class CourseDetailViewModel: ObservableObject {
     
     func refreshView() {
         objectWillChange.send()
+    }
+    
+    func deleteAssignment(_ assignment: Assignment) { 
+        editingGradeDetail?.assignments.removeAll(where: {$0.id == assignment.id})
     }
   
 }
