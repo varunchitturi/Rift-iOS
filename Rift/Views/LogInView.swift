@@ -21,7 +21,6 @@ struct LogInView: View {
     init(locale: Locale) {
         // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to only intialize this once
         logInViewModel = LogInViewModel(locale: locale)
-        print("initialized")
     }
     
     var body: some View {

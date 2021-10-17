@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AssignmentDetailView: View {
-    @State private var selectionIndex: Int? = 0
     @State private var categoryIsEditing = false
     @State private var scoreIsEditing = false
     @State private var pointsIsEditing = false
@@ -35,7 +34,7 @@ struct AssignmentDetailView: View {
                 .padding(.top)
                 AssignmentDetailStats()
                     .environmentObject(assignmentDetailViewModel)
-                CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $selectionIndex, isEditing: $categoryIsEditing)
+                CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
                 HStack {
                     CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
                     
@@ -51,7 +50,7 @@ struct AssignmentDetailView: View {
                     }
                 }
                 DestructiveButton("Delete Assignment") {
-                    assignmentDetailViewModel.assignmentDeleted = true
+                    assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -64,7 +63,7 @@ struct AssignmentDetailView: View {
             assignmentDetailViewModel.getDetail()
         }
         .onDisappear {
-            if !assignmentDetailViewModel.assignmentDeleted {
+            if !assignmentDetailViewModel.assignmentIsDeleted {
                 assignmentDetailViewModel.commitChanges()
             }
         }

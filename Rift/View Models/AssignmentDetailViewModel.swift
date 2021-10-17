@@ -12,6 +12,7 @@ import SwiftUI
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
     @Binding var assignmentToEdit: Assignment
+    var assignmentIsDeleted = false
     
     
     // TODO: remove all extensions and make them computed vars in view model
@@ -95,12 +96,23 @@ class AssignmentDetailViewModel: ObservableObject {
             modifiedAssignment.scorePoints = Double(newValue)
         }
     }
+    
+    var categorySelectionIndex: Int? {
+        didSet {
+            // TODO: add assignment.category which is a computed var with a getter and setter. This is done over settign categoryName and ID individually.
+            if categorySelectionIndex != nil {
+                modifiedAssignment.categoryName = gradingCategories[categorySelectionIndex!].name
+                modifiedAssignment.categoryID = gradingCategories[categorySelectionIndex!].id
+            }
+            
+        }
+    }
 
     init(originalAssignment: Assignment, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
         self.assignmentDetailModel = AssignmentDetailModel(originalAssignment: originalAssignment, modifiedAssignment: assignmentToEdit.wrappedValue, gradingCategories: gradingCategories)
         self._assignmentToEdit = assignmentToEdit
-        setPointText()
-        print("init")
+        categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignmentToEdit.wrappedValue.categoryID})
+        provisionInput()
     }
     
     // TODO: organize structure of files
@@ -112,9 +124,11 @@ class AssignmentDetailViewModel: ObservableObject {
         return Text.nilStringText
     }
     
-    private func setPointText() {
+    
+    private func provisionInput() {
         totalPointsText = assignmentToEdit.totalPoints?.description ?? ""
         scorePointsText = assignmentToEdit.scorePoints != nil ? assignmentToEdit.scorePoints!.description :  ""
+        categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignmentToEdit.categoryID})
     }
     
     // MARK: - Intents
@@ -137,7 +151,7 @@ class AssignmentDetailViewModel: ObservableObject {
     // TODO: stop useing totalPointsText and scorePointsText. Source of truth for text field should be from the assignment itself, not a seperate binding. Create a capsuleNumberfield component to accomplish this. Make sure to abide by DRY principles.
     func resetChanges() {
         modifiedAssignment = originalAssignment
-        setPointText()
+        provisionInput()
     }
     
 }
