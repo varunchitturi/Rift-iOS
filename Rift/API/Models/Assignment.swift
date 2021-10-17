@@ -12,7 +12,7 @@ struct Assignment: Codable, Identifiable, Equatable {
     
     let id: Int
     let isActive: Bool
-    let assignmentName: String
+    var assignmentName: String
     let dueDate: Date?
     let assignedDate: Date?
     let courseName: String

@@ -10,7 +10,7 @@ import SwiftUI
 struct AssignmentDetailView: View {
     @State private var categoryIsEditing = false
     @State private var scoreIsEditing = false
-    @State private var pointsIsEditing = false
+    @State private var totalIsEditing = false
     @ObservedObject var assignmentDetailViewModel: AssignmentDetailViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var courseDetailViewModel: CourseDetailViewModel
@@ -31,14 +31,14 @@ struct AssignmentDetailView: View {
                         .font(.title2)
                     Spacer()
                 }
-                .padding(.top)
                 AssignmentDetailStats()
                     .environmentObject(assignmentDetailViewModel)
-                CapsuleDropDown("Category", description: "Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
+                // TODO: make sure that there is no logic in views. The below mapping should be done in the view model and only expose the array of category names.
+                CapsuleDropDown("Category", description: "Select Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
                 HStack {
                     CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
                     
-                    CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $pointsIsEditing, inputType: .decimal)
+                    CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $totalIsEditing, inputType: .decimal)
                 }
                 let remarks = assignmentDetailViewModel.remarks
                 ForEach(remarks.keys, id: \.hashValue) { key in
@@ -55,7 +55,7 @@ struct AssignmentDetailView: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
-            .padding(.horizontal)
+            .padding()
             .foregroundColor(DrawingConstants.foregroundColor)
         }
         .navigationTitle("Assignment")
@@ -72,7 +72,9 @@ struct AssignmentDetailView: View {
                 HStack {
                     if assignmentDetailViewModel.hasModifications {
                         Button {
-                            assignmentDetailViewModel.resetChanges()
+                            withAnimation {
+                                assignmentDetailViewModel.resetChanges()
+                            }
                         } label: {
                             Image(systemName: "arrow.counterclockwise")
                         }

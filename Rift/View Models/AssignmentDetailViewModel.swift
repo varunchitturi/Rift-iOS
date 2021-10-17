@@ -100,9 +100,9 @@ class AssignmentDetailViewModel: ObservableObject {
     var categorySelectionIndex: Int? {
         didSet {
             // TODO: add assignment.category which is a computed var with a getter and setter. This is done over settign categoryName and ID individually.
-            if categorySelectionIndex != nil {
-                modifiedAssignment.categoryName = gradingCategories[categorySelectionIndex!].name
-                modifiedAssignment.categoryID = gradingCategories[categorySelectionIndex!].id
+            if let categorySelectionIndex = categorySelectionIndex {
+                modifiedAssignment.categoryName = gradingCategories[categorySelectionIndex].name
+                modifiedAssignment.categoryID = gradingCategories[categorySelectionIndex].id
             }
             
         }

@@ -10,6 +10,7 @@ import SwiftUI
 struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
+    @State private var addAssignmentIsPresented = false
     
     init(course: Course) {
         self.courseDetailViewModel = CourseDetailViewModel(course: course)
@@ -19,7 +20,7 @@ struct CourseDetailView: View {
     var body: some View {
         // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
-            if courseDetailViewModel.gradeDetail != nil {
+            if courseDetailViewModel.hasGradeDetail {
                 CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                     .padding(.top)
                     .padding(.horizontal)
@@ -44,14 +45,18 @@ struct CourseDetailView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
-                    Button {
-                        print("add assignment")
-                    } label: {
-                        Image(systemName: "plus")
+                    if courseDetailViewModel.hasGradeDetail {
+                        Button {
+                            addAssignmentIsPresented = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                     if courseDetailViewModel.hasModifications {
                         Button {
-                            courseDetailViewModel.resetChanges()
+                            withAnimation {
+                                courseDetailViewModel.resetChanges()
+                            }
                         } label: {
                             Image(systemName: "arrow.counterclockwise")
                         }
@@ -63,6 +68,12 @@ struct CourseDetailView: View {
         }
         .onAppear {
             courseDetailViewModel.refreshView()
+        }
+        .sheet(isPresented: $addAssignmentIsPresented) {
+            if courseDetailViewModel.editingGradeDetail != nil {
+                AddAssignmentView(courseName: courseDetailViewModel.courseName, assignments: $courseDetailViewModel.editingGradeDetail.unwrap()!.assignments, gradingCategories: courseDetailViewModel.editingGradeDetail!.categories)
+            }
+            
         }
         .navigationTitle(courseDetailViewModel.courseName)
     }

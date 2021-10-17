@@ -108,6 +108,9 @@
 		27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */; };
 		27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D4E7272709727C0063CB65 /* LoadingView.swift */; };
 		27D9897E271BA01100311973 /* DestructiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D9897D271BA01100311973 /* DestructiveButton.swift */; };
+		27D98980271C0C0000311973 /* AddAssignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D9897F271C0C0000311973 /* AddAssignmentView.swift */; };
+		27D98982271C0C5300311973 /* AddAssignmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */; };
+		27D98984271C0C6400311973 /* AddAssignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D98983271C0C6400311973 /* AddAssignmentModel.swift */; };
 		27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */; };
 		27EFC7BC270E2A1200B90FCA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */; };
 		27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BF270E851900B90FCA /* TextTag.swift */; };
@@ -192,6 +195,9 @@
 		27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistentLocale+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		27D4E7272709727C0063CB65 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		27D9897D271BA01100311973 /* DestructiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestructiveButton.swift; sourceTree = "<group>"; };
+		27D9897F271C0C0000311973 /* AddAssignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentView.swift; sourceTree = "<group>"; };
+		27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentViewModel.swift; sourceTree = "<group>"; };
+		27D98983271C0C6400311973 /* AddAssignmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssignmentModel.swift; sourceTree = "<group>"; };
 		27DA637C26FE6C0500E90E91 /* PreferenceRowToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowToggle.swift; sourceTree = "<group>"; };
 		27DA638126FE793F00E90E91 /* PreferenceRowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowButton.swift; sourceTree = "<group>"; };
 		27DA638326FE7A1A00E90E91 /* PreferenceRowLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceRowLink.swift; sourceTree = "<group>"; };
@@ -328,6 +334,7 @@
 				2701CD5226FD26F400D65B84 /* UserPreferenceView.swift */,
 				274F432B270A3998001D5D4A /* CourseDetailView.swift */,
 				279E7DA227161D630039D283 /* AssignmentDetailView.swift */,
+				27D9897F271C0C0000311973 /* AddAssignmentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -449,6 +456,7 @@
 				27DA638526FE85FA00E90E91 /* ApplicationViewModel.swift */,
 				274F4339270ABD0E001D5D4A /* CourseDetailViewModel.swift */,
 				2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */,
+				27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -465,6 +473,7 @@
 				274F433B270ABD27001D5D4A /* CourseDetailModel.swift */,
 				2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */,
 				27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */,
+				27D98983271C0C6400311973 /* AddAssignmentModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -595,6 +604,8 @@
 				27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */,
 				27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */,
 				27D4E6F52709152F0063CB65 /* WebView.swift in Sources */,
+				27D98982271C0C5300311973 /* AddAssignmentViewModel.swift in Sources */,
+				27D98984271C0C6400311973 /* AddAssignmentModel.swift in Sources */,
 				27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */,
 				27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */,
 				27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */,
@@ -637,6 +648,7 @@
 				27D4E7122709152F0063CB65 /* CoursesView.swift in Sources */,
 				274165CF270C2C9400F9EFCF /* GradingCategory.swift in Sources */,
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
+				27D98980271C0C0000311973 /* AddAssignmentView.swift in Sources */,
 				274F433C270ABD27001D5D4A /* CourseDetailModel.swift in Sources */,
 				27D4E7142709152F0063CB65 /* AssignmentsView.swift in Sources */,
 				2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */,
