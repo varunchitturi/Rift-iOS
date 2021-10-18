@@ -1,109 +1,111 @@
 {
   "images" : [
     {
-      "filename" : "favicon_3_40x40.png",
+      "filename" : "rift_logo_favicon_1024-20@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "favicon_4_60x60.png",
+      "filename" : "rift_logo_favicon_1024-20@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "favicon_58x58.png",
+      "filename" : "rift_logo_favicon_1024-29.png",
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "rift_logo_favicon_1024-29@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "favicon_2_87x87.png",
+      "filename" : "rift_logo_favicon_1024-29@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "favicon_5_80x80.png",
+      "filename" : "rift_logo_favicon_1024-40@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "favicon_7_120x120.png",
+      "filename" : "rift_logo_favicon_1024-40@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "favicon_7_120x120-1.png",
+      "filename" : "rift_logo_favicon_1024-60@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "favicon_8_180x180.png",
+      "filename" : "rift_logo_favicon_1024-60@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "favicon_9_20x20.png",
+      "filename" : "rift_logo_favicon_1024-20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "favicon_3_40x40-2.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "favicon_1_29x29.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "favicon_58x58-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "favicon_3_40x40-1.png",
+      "filename" : "rift_logo_favicon_1024-40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "favicon_5_80x80-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "favicon_10_76x76.png",
+      "filename" : "rift_logo_favicon_1024-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "favicon_11_152x152.png",
+      "filename" : "rift_logo_favicon_1024-76@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "favicon_14_167x167.png",
+      "filename" : "rift_logo_favicon_1024-83.5@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "favicon_13_1024x1024.png",
+      "filename" : "rift_logo_favicon_1024-1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
