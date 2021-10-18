@@ -66,10 +66,11 @@ struct CapsuleDropDown: View {
 }
 
 
-
+#if DEBUG
 struct CapsuleDropDown_Previews: PreviewProvider {
     @State private static var isEditing = false
     static var previews: some View {
         CapsuleDropDown("DropDown", description: "Pick an option", options: ["Option 1", "Option 2", "Option 3"], selectionIndex: .constant(nil), isEditing: $isEditing)
     }
 }
+#endif

@@ -38,8 +38,10 @@ struct TextTag: View {
     }
 }
 
+#if DEBUG
 struct TextTag_Previews: PreviewProvider {
     static var previews: some View {
         TextTag("Test")
     }
 }
+#endif

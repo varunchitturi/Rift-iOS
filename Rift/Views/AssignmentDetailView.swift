@@ -15,7 +15,6 @@ struct AssignmentDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var courseDetailViewModel: CourseDetailViewModel
     
-    // TODO: make capsule textfield more configurable. Accent color should be defaulted to Color("AccentColor")
     
     // TODO: add last modified date
     // TODO: allow editing of categories
@@ -49,6 +48,7 @@ struct AssignmentDetailView: View {
                         AssignmentDetailSection(header: header, text!)
                     }
                 }
+                
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
@@ -60,7 +60,10 @@ struct AssignmentDetailView: View {
         }
         .navigationTitle("Assignment")
         .onAppear {
-            assignmentDetailViewModel.getDetail()
+            withAnimation {
+                assignmentDetailViewModel.getDetail()
+            }
+            
         }
         .onDisappear {
             if !assignmentDetailViewModel.assignmentIsDeleted {
@@ -90,8 +93,10 @@ struct AssignmentDetailView: View {
     }
 }
 
+#if DEBUG
 struct AssignmentDetailView_Previews: PreviewProvider {
     static var previews: some View {
         AssignmentDetailView(originalAssignment: PreviewObjects.assignment, assignmentToEdit: .constant(PreviewObjects.assignment), gradingCategories: [PreviewObjects.gradingCategory])
     }
 }
+#endif

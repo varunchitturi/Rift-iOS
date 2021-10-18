@@ -44,9 +44,10 @@ struct UserPreferenceView: View {
 }
 
 
-
+#if DEBUG
 struct UserPreferenceView_Previews: PreviewProvider {
     static var previews: some View {
         UserPreferenceView(preferences: UserPreferenceModel.shared)
     }
 }
+#endif

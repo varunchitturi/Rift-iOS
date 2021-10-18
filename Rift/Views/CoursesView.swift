@@ -52,9 +52,11 @@ struct CourseList: View {
     }
 }
 
+#if DEBUG
 struct CoursesView_Previews: PreviewProvider {
     static var previews: some View {
         CoursesView(viewModel: CoursesViewModel())
             .environmentObject(HomeViewModel())
     }
 }
+#endif

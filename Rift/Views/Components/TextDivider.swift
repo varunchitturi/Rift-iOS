@@ -29,9 +29,11 @@ struct TextDivider: View {
     }
 }
 
+#if DEBUG
 struct TextDivider_Previews: PreviewProvider {
     static var previews: some View {
         TextDivider("or")
             .foregroundColor(Color("Tertiary"))
     }
 }
+#endif

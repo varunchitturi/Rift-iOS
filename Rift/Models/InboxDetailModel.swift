@@ -9,6 +9,6 @@ import Foundation
 
 struct InboxDetailModel {
 
-    var messageBody: String = ""
+    var messageBody: String? = nil
     let message: Message
 }

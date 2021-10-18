@@ -45,6 +45,7 @@ struct AssignmentCard: View {
     }
 }
 
+#if DEBUG
 struct AssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
         
@@ -52,3 +53,4 @@ struct AssignmentCard_Previews: PreviewProvider {
             
     }
 }
+#endif

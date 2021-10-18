@@ -34,8 +34,10 @@ struct CourseDetailStatsRow: View {
     }
 }
 
+#if DEBUG
 struct CourseDetailStatsRow_Previews: PreviewProvider {
     static var previews: some View {
         CourseDetailStatsRow(category: "Test", realGrade: "90%", calculatedGrade: "100%")
     }
 }
+#endif

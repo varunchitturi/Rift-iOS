@@ -41,8 +41,10 @@ struct AssignmentDetailSection: View {
     }
 }
 
+#if DEBUG
 struct AssignmentDetailSection_Previews: PreviewProvider {
     static var previews: some View {
         AssignmentDetailSection(header: "Section Header", "This is an assignment detail section")
     }
 }
+#endif

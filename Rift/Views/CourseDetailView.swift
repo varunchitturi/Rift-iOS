@@ -82,9 +82,11 @@ struct CourseDetailView: View {
     }
 }
 
+#if DEBUG
 struct CourseDetailView_Previews: PreviewProvider {
     
     static var previews: some View {
         CourseDetailView(course: PreviewObjects.course)
     }
 }
+#endif

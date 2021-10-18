@@ -26,8 +26,10 @@ struct PreferenceRowButton: View {
     }
 }
 
+#if DEBUG
 struct PreferenceRowButton_Previews: PreviewProvider {
     static var previews: some View {
         PreferenceRowButton(UserPreferenceModel.shared[.user]![0])
     }
 }
+#endif

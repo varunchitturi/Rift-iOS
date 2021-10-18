@@ -32,10 +32,11 @@ struct CapsuleFieldBackground: View {
     }
 }
 
-
+#if DEBUG
 struct CapsuleFieldBackground_Previews: PreviewProvider {
     static var previews: some View {
         CapsuleFieldBackground(accentColor: Color("Primary"), isEditing: .constant(true))
         CapsuleFieldBackground(accentColor: Color("Primary"), isEditing: .constant(false))
     }
 }
+#endif

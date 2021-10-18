@@ -16,11 +16,18 @@ struct InboxDetailView: View {
     }
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                Text(inboxDetailViewModel.messageBody)
+        ZStack {
+            if inboxDetailViewModel.messageBody != nil {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        Text(inboxDetailViewModel.messageBody!)
+                    }
+                    .padding()
+                }
             }
-            .padding()
+            else {
+                LoadingView()
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(inboxDetailViewModel.messageType.rawValue)
@@ -30,8 +37,10 @@ struct InboxDetailView: View {
     }
 }
 
+#if DEBUG
 struct InboxDetailView_Previews: PreviewProvider {
     static var previews: some View {
         InboxDetailView(PreviewObjects.message)
     }
 }
+#endif

@@ -69,6 +69,7 @@ struct DistrictSearchView: View {
     }
 }
 
+#if DEBUG
 struct DistrictSearchView_Previews: PreviewProvider {
     @StateObject static var welcomeViewModel = WelcomeViewModel()
     static var previews: some View {
@@ -76,3 +77,4 @@ struct DistrictSearchView_Previews: PreviewProvider {
             .environmentObject(WelcomeViewModel())
     }
 }
+#endif

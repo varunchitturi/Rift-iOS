@@ -33,8 +33,10 @@ struct PreferenceRow: View {
     }
 }
 
+#if DEBUG
 struct PreferenceRow_Previews: PreviewProvider {
     static var previews: some View {
         PreferenceRow(UserPreferenceModel.shared[.user]![0])
     }
 }
+#endif

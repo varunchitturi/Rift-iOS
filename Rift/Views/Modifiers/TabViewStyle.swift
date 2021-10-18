@@ -20,7 +20,7 @@ struct TabViewStyle: ViewModifier {
             UITabBar.appearance().unselectedItemTintColor = UIColor(unselectedColor)
         }
         else {
-            self.unselectedColor = Color(UITabBar.appearance().unselectedItemTintColor ?? .systemGray)
+            self.unselectedColor = Color(UITabBar.appearance().unselectedItemTintColor ?? .clear)
         }
         if let backgroundColor = backgroundColor {
             self.backgroundColor = backgroundColor
@@ -29,7 +29,7 @@ struct TabViewStyle: ViewModifier {
         else {
             self.backgroundColor = Color(UITabBar.appearance().barTintColor ?? .clear)
         }
-        UITabBar.appearance().isTranslucent = true
+        UITabBar.appearance().isTranslucent = false
     }
     
     func body(content: Content) -> some View {

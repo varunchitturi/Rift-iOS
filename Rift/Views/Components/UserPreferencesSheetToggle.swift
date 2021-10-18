@@ -18,9 +18,11 @@ struct UserPreferencesSheetToggle: View {
     }
 }
 
+#if DEBUG
 struct UserPreferencesSheetToggle_Previews: PreviewProvider {
     static var previews: some View {
         UserPreferencesSheetToggle()
             .environmentObject(HomeViewModel())
     }
 }
+#endif

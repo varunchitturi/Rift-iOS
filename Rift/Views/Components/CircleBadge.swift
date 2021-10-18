@@ -65,6 +65,7 @@ struct CircleBadge: View {
     }
 }
 
+#if DEBUG
 struct CircleBadge_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
@@ -74,3 +75,4 @@ struct CircleBadge_Previews: PreviewProvider {
         
     }
 }
+#endif

@@ -75,6 +75,7 @@ struct CapsuleTextField: View {
 
 }
 
+#if DEBUG
 struct CapsuleTextField_Previews: PreviewProvider {
     @State private static var text = ""
     @State private static var isEditing = false
@@ -91,3 +92,4 @@ struct CapsuleTextField_Previews: PreviewProvider {
         
     }
 }
+#endif

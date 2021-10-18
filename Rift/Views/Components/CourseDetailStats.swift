@@ -66,6 +66,7 @@ struct CourseDetailStats: View {
     }
 }
 
+#if DEBUG
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
         CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
@@ -73,3 +74,4 @@ struct GradeDetailStatView_Previews: PreviewProvider {
             .previewDevice("iPhone 13 Pro Max")
     }
 }
+#endif

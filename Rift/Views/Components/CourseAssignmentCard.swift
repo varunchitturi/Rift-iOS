@@ -49,8 +49,10 @@ struct CourseAssignmentCard: View {
     }
 }
 
+#if DEBUG
 struct CourseAssignmentCard_Previews: PreviewProvider {
     static var previews: some View {
         CourseAssignmentCard(assignment: PreviewObjects.assignment)
     }
 }
+#endif

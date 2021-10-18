@@ -83,6 +83,7 @@ struct CapsuleButton: View {
     }
 }
 
+#if DEBUG
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         CapsuleButton("Primary", icon: "arrow.right", style: .primary) {
@@ -108,3 +109,4 @@ struct SwiftUIView_Previews: PreviewProvider {
         .preferredColorScheme(.dark)
     }
 }
+#endif

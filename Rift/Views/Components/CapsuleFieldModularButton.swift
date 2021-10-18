@@ -68,8 +68,10 @@ struct CapsuleFieldModularButton: View {
     }
 }
 
+#if DEBUG
 struct CapsuleFieldModularButton_Previews: PreviewProvider {
     static var previews: some View {
         CapsuleFieldModularButton("Button", description: "A Button", text: .constant("Button"))
     }
 }
+#endif

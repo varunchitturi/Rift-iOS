@@ -53,21 +53,22 @@ extension API {
             
             let endpoint = message.endpoint
             
+            
             guard let url = URL(
                 string: locale.districtBaseURL.appendingPathComponent(endpoint).description.removingPercentEncoding ?? ""
             ) else {
                 completion(.failure(APIError.invalidRequest))
                 return
             }
-            
-            do {
-                let messageHTML = try String(contentsOf: url)
-                let doc = try SwiftSoup.parse(messageHTML)
-                completion(.success(try doc.text()))
-                
-            }
-            catch {
-                completion(.failure(error))
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    let messageHTML = try String(contentsOf: url)
+                    let doc = try SwiftSoup.parse(messageHTML)
+                    completion(.success(try doc.text()))
+                }
+                catch {
+                    completion(.failure(error))
+                }
             }
         }
         

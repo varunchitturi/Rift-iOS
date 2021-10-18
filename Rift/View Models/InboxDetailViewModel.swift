@@ -12,7 +12,7 @@ class InboxDetailViewModel: ObservableObject {
     
     @Published private var inboxDetailModel: InboxDetailModel
     
-    var messageBody: String {
+    var messageBody: String? {
         inboxDetailModel.messageBody
     }
     

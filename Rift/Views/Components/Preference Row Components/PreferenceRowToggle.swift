@@ -30,8 +30,10 @@ struct PreferenceRowToggle: View {
     }
 }
 
+#if DEBUG
 struct PreferenceRowToggle_Previews: PreviewProvider {
     static var previews: some View {
         PreferenceRowToggle(UserPreferenceModel.shared[.user]![0])
     }
 }
+#endif

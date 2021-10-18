@@ -27,8 +27,10 @@ struct SectionHeader: View {
     }
 }
 
+#if DEBUG
 struct SectionHeader_Previews: PreviewProvider {
     static var previews: some View {
         SectionHeader("Hello")
     }
 }
+#endif

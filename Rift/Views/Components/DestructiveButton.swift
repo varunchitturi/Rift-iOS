@@ -37,6 +37,7 @@ struct DestructiveButton: View {
     }
 }
 
+#if DEBUG
 struct DestructiveButton_Previews: PreviewProvider {
     static var previews: some View {
         DestructiveButton("Delete") {
@@ -44,3 +45,4 @@ struct DestructiveButton_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -35,7 +35,7 @@ struct HomeView: View {
                     HomeModel.Tab.inbox
                 }
         }
-        .tabViewStyle(backgroundColor: DrawingConstants.tabBackgroundColor, unselectedColor: DrawingConstants.tabUnselectedColor)
+        
         .sheet(isPresented: $homeViewModel.settingsIsPresented) {
             UserPreferenceView(preferences: UserPreferenceModel.shared)
                 .environmentObject(homeViewModel)
@@ -49,8 +49,10 @@ struct HomeView: View {
     }
 }
 
+#if DEBUG
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
     }
 }
+#endif

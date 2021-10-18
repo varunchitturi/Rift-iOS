@@ -67,8 +67,10 @@ struct MessageCard: View {
     }
 }
 
+#if DEBUG
 struct MessageCard_Previews: PreviewProvider {
     static var previews: some View {
         MessageCard(PreviewObjects.message)
     }
 }
+#endif

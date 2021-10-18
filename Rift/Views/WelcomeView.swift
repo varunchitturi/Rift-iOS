@@ -74,7 +74,7 @@ struct WelcomeView: View {
 }
 
 
-
+#if DEBUG
 struct WelcomeView_Previews: PreviewProvider {
     @StateObject private static var welcomeViewModel = WelcomeViewModel()
     static var previews: some View {
@@ -84,3 +84,4 @@ struct WelcomeView_Previews: PreviewProvider {
             .previewDevice("iPhone 11")
     }
 }
+#endif

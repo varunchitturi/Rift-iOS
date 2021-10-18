@@ -6,6 +6,8 @@
 //
 
 
+#if DEBUG
+
 import Foundation
 
 // TODO: make sure that this does not compile in debug
@@ -47,3 +49,4 @@ struct PreviewObjects {
     static let message = Message(id: 5, courseID: 6, postedTime: Date(), date: Date(), unread: true, endpoint: "portal/messageView.xsl?x=messenger.MessengerEngine-getMessageRecipientView&messageID=5063&messageRecipientID=1777546&processMessageID=965771", type: .default, name: "Library Closure")
     
 }
+#endif

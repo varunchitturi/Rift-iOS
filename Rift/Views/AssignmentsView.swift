@@ -50,10 +50,12 @@ struct AssignmentsView: View {
         static let backgroundColor = Color("Secondary")
     }
 }
-
+#if DEBUG
 struct AssignmentsView_Previews: PreviewProvider {
     static var previews: some View {
         AssignmentsView(viewModel: AssignmentsViewModel())
             .environmentObject(HomeViewModel())
     }
 }
+#endif
+

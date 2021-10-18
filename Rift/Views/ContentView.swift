@@ -33,9 +33,10 @@ struct ContentView: View {
 private struct DrawingConstants {
     static let navigationColor = Color("Primary")
 }
-
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+#endif

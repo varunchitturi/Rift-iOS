@@ -39,8 +39,10 @@ struct InboxView: View {
     }
 }
 
+#if DEBUG
 struct InboxView_Previews: PreviewProvider {
     static var previews: some View {
         InboxView(viewModel: InboxViewModel())
     }
 }
+#endif

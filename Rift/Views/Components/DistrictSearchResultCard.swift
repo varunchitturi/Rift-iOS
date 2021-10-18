@@ -33,6 +33,7 @@ struct DistrictSearchResultCard: View {
     }
 }
 
+#if DEBUG
 struct DistrictSearchResultCard_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
@@ -45,3 +46,4 @@ struct DistrictSearchResultCard_Previews: PreviewProvider {
         }
     }
 }
+#endif

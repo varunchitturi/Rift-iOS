@@ -24,8 +24,10 @@ struct PreferenceRowLink: View {
     }
 }
 
+#if DEBUG
 struct PreferenceRowLink_Previews: PreviewProvider {
     static var previews: some View {
         PreferenceRowLink(UserPreferenceModel.shared[.user]![0])
     }
 }
+#endif
