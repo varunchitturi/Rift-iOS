@@ -18,13 +18,8 @@ struct CoursesView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: DrawingConstants.cardSpacing) {
-                    ForEach(coursesViewModel.courseList) { course in
-                        if !course.isDropped {
-                            NavigationLink(destination: CourseDetailView(course: course)) {
-                                CourseCard(course: course)
-                            }
-                        }
-                    }
+                    CourseList()
+                        .environmentObject(coursesViewModel)
                 }
                 .padding()
             }
@@ -41,6 +36,19 @@ struct CoursesView: View {
     
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
+    }
+}
+
+struct CourseList: View {
+    @EnvironmentObject var coursesViewModel: CoursesViewModel
+    var body: some View {
+        ForEach(coursesViewModel.courseList) { course in
+            if !course.isDropped {
+                NavigationLink(destination: CourseDetailView(course: course)) {
+                    CourseCard(course: course)
+                }
+            }
+        }
     }
 }
 

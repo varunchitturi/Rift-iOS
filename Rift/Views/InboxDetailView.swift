@@ -14,7 +14,7 @@ struct InboxDetailView: View {
     init(_ message: Message) {
         inboxDetailViewModel = InboxDetailViewModel(message: message)
     }
-    // TODO: better this message view
+    // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
