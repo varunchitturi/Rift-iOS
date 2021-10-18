@@ -178,7 +178,7 @@ extension URLSessionConfiguration {
     
     static let dataLoad: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .reloadRevalidatingCacheData
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         return configuration
     }()
 }
