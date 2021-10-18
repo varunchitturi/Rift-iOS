@@ -1,0 +1,14 @@
+//
+//  InboxDetailModel.swift
+//  Rift
+//
+//  Created by Varun Chitturi on 10/17/21.
+//
+
+import Foundation
+
+struct InboxDetailModel {
+
+    var messageBody: String = ""
+    let message: Message
+}

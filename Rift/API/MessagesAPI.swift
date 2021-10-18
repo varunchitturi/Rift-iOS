@@ -20,7 +20,7 @@ extension API {
         
         static func getMessageList(locale: Locale? = nil, completion: @escaping (Result<[Message], Error>) -> Void) {
             guard let locale = locale ?? PersistentLocale.getLocale() else {
-                completion(.failure(APIError.invalidLocale))
+                completion(.failure(API.APIError.invalidLocale))
                 return
             }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.messageList))
@@ -47,12 +47,18 @@ extension API {
         
         static func getMessageBody(locale: Locale? = nil, message: Message, completion: @escaping (Result<String, Error>) -> Void) {
             guard let locale = locale ?? PersistentLocale.getLocale() else {
-                completion(.failure(APIError.invalidLocale))
+                completion(.failure(API.APIError.invalidLocale))
                 return
             }
             
             let endpoint = message.endpoint
-            let url = locale.districtBaseURL.appendingPathComponent(endpoint)
+            
+            guard let url = URL(
+                string: locale.districtBaseURL.appendingPathComponent(endpoint).description.removingPercentEncoding ?? ""
+            ) else {
+                completion(.failure(APIError.invalidRequest))
+                return
+            }
             
             do {
                 let messageHTML = try String(contentsOf: url)
@@ -67,7 +73,7 @@ extension API {
         
         static func deleteMessage(locale: Locale? = nil, message: Message, completion: @escaping (Error?) -> Void) {
             guard let locale = locale ?? PersistentLocale.getLocale() else {
-                completion(APIError.invalidLocale)
+                completion(API.APIError.invalidLocale)
                 return
             }
             

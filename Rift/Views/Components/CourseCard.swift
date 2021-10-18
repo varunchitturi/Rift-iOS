@@ -49,7 +49,7 @@ struct CourseCard: View {
         static let foregroundColor = Color("Tertiary")
         static let backgroundColor = Color("Secondary")
         static let secondaryForegroundColor = Color("Quartenary")
-        static let backgroundCornerRadius: CGFloat = 25
+        static let backgroundCornerRadius: CGFloat = 20
         static let percentageDisplayWidth: CGFloat = 80
     }
     

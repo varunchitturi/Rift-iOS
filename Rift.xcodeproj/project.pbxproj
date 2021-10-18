@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 27074EC126EAA2AC00A6ED72 /* SwiftSoup */; };
+		2720D7B6271CFC68001C1806 /* InboxDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B5271CFC68001C1806 /* InboxDetailView.swift */; };
+		2720D7B8271CFC84001C1806 /* InboxDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */; };
+		2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */; };
+		273261CF271CEBEF00BC1FF5 /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261CE271CEBEF00BC1FF5 /* InboxViewModel.swift */; };
+		273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D0271CEBFC00BC1FF5 /* InboxModel.swift */; };
+		273261D5271CECC000BC1FF5 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D4271CECC000BC1FF5 /* InboxView.swift */; };
+		273261D7271CEE9F00BC1FF5 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D6271CEE9F00BC1FF5 /* MessageCard.swift */; };
 		273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */; };
 		273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FF27190FE0006D936A /* AssignmentDetail.swift */; };
 		273DB90327194356006D936A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 273DB90227194356006D936A /* OrderedCollections */; };
@@ -129,10 +136,17 @@
 		27074EC726EB310300A6ED72 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCornerStyle.swift; sourceTree = "<group>"; };
 		271B3ED126EBC9B200DAB4D9 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		2720D7B5271CFC68001C1806 /* InboxDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailView.swift; sourceTree = "<group>"; };
+		2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailViewModel.swift; sourceTree = "<group>"; };
+		2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailModel.swift; sourceTree = "<group>"; };
 		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
+		273261CE271CEBEF00BC1FF5 /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
+		273261D0271CEBFC00BC1FF5 /* InboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxModel.swift; sourceTree = "<group>"; };
+		273261D4271CECC000BC1FF5 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		273261D6271CEE9F00BC1FF5 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailSection.swift; sourceTree = "<group>"; };
 		273DB8FF27190FE0006D936A /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
 		273DB908271961F2006D936A /* UIToolbarDismiss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIToolbarDismiss.swift; sourceTree = "<group>"; };
@@ -332,6 +346,7 @@
 				27D0F5B726DB2AFA0004F0A2 /* LogInView.swift */,
 				27DA822E26E8115B00CB3A95 /* DistrictSearchView.swift */,
 				27DE343626EDBE190046942E /* CoursesView.swift */,
+				273261D4271CECC000BC1FF5 /* InboxView.swift */,
 				27DE343426EDBE100046942E /* HomeView.swift */,
 				27DC59BF26F5C9B9007A57EF /* ContentView.swift */,
 				27761BB026F73CE000601A37 /* AssignmentsView.swift */,
@@ -339,6 +354,7 @@
 				274F432B270A3998001D5D4A /* CourseDetailView.swift */,
 				279E7DA227161D630039D283 /* AssignmentDetailView.swift */,
 				27D9897F271C0C0000311973 /* AddAssignmentView.swift */,
+				2720D7B5271CFC68001C1806 /* InboxDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,6 +371,7 @@
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
 				27D9897D271BA01100311973 /* DestructiveButton.swift */,
 				2771159C26D8297C00EBBB99 /* CourseCard.swift */,
+				273261D6271CEE9F00BC1FF5 /* MessageCard.swift */,
 				279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */,
 				27761BB626F7B7A700601A37 /* AssignmentCard.swift */,
 				27DA823226E8542B00CB3A95 /* DistrictSearchResultCard.swift */,
@@ -463,6 +480,8 @@
 				274F4339270ABD0E001D5D4A /* CourseDetailViewModel.swift */,
 				2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */,
 				27D98981271C0C5300311973 /* AddAssignmentViewModel.swift */,
+				273261CE271CEBEF00BC1FF5 /* InboxViewModel.swift */,
+				2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -480,6 +499,8 @@
 				2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */,
 				27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */,
 				27D98983271C0C6400311973 /* AddAssignmentModel.swift */,
+				273261D0271CEBFC00BC1FF5 /* InboxModel.swift */,
+				2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -572,6 +593,7 @@
 				27D98986271C2CBC00311973 /* MessagesAPI.swift in Sources */,
 				27D4E6D92709152F0063CB65 /* LogInModel.swift in Sources */,
 				27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */,
+				273261D5271CECC000BC1FF5 /* InboxView.swift in Sources */,
 				27D4E6DA2709152F0063CB65 /* CoursesModel.swift in Sources */,
 				277E6348270CD16400CA056E /* GradeTerm.swift in Sources */,
 				274F4360270AE867001D5D4A /* AuthenticationAPI.swift in Sources */,
@@ -584,6 +606,7 @@
 				27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */,
 				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
 				27D4E6E12709152F0063CB65 /* AssignmentsViewModel.swift in Sources */,
+				273261CF271CEBEF00BC1FF5 /* InboxViewModel.swift in Sources */,
 				27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */,
 				273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */,
 				27D4E6E22709152F0063CB65 /* HomeViewModel.swift in Sources */,
@@ -595,6 +618,7 @@
 				2799A10927175E0200136C23 /* TextUtils.swift in Sources */,
 				27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */,
 				2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */,
+				273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */,
 				27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */,
 				27D4E6E92709152F0063CB65 /* LocaleUtils.swift in Sources */,
 				274F4354270AE0D5001D5D4A /* AssignmentsAPI.swift in Sources */,
@@ -609,6 +633,7 @@
 				27D4E6F12709152F0063CB65 /* PickerField.swift in Sources */,
 				27D4E6F22709152F0063CB65 /* UIPickerField.swift in Sources */,
 				27D4E6F32709152F0063CB65 /* LegacyTextField.swift in Sources */,
+				2720D7B8271CFC84001C1806 /* InboxDetailViewModel.swift in Sources */,
 				27D4E6F42709152F0063CB65 /* UILegacyTextField.swift in Sources */,
 				27D4E6F52709152F0063CB65 /* WebView.swift in Sources */,
 				27D98982271C0C5300311973 /* AddAssignmentViewModel.swift in Sources */,
@@ -626,6 +651,7 @@
 				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,
 				27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */,
 				27D4E6FD2709152F0063CB65 /* CapsuleDropDown.swift in Sources */,
+				2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */,
 				27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */,
 				27D4E6FF2709152F0063CB65 /* CapsuleButton.swift in Sources */,
 				27D4E7002709152F0063CB65 /* CourseCard.swift in Sources */,
@@ -658,6 +684,7 @@
 				27D4E7132709152F0063CB65 /* ContentView.swift in Sources */,
 				27D98980271C0C0000311973 /* AddAssignmentView.swift in Sources */,
 				274F433C270ABD27001D5D4A /* CourseDetailModel.swift in Sources */,
+				273261D7271CEE9F00BC1FF5 /* MessageCard.swift in Sources */,
 				27D4E7142709152F0063CB65 /* AssignmentsView.swift in Sources */,
 				2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */,
 				27D4E7152709152F0063CB65 /* UserPreferenceView.swift in Sources */,
@@ -667,6 +694,7 @@
 				27D4E7182709152F0063CB65 /* RiftApp.swift in Sources */,
 				27D4E7192709152F0063CB65 /* PreviewObjects.swift in Sources */,
 				273DB909271961F2006D936A /* UIToolbarDismiss.swift in Sources */,
+				2720D7B6271CFC68001C1806 /* InboxDetailView.swift in Sources */,
 				279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

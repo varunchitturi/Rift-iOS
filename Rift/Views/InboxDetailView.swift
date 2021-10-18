@@ -1,0 +1,37 @@
+//
+//  InboxDetailView.swift
+//  Rift
+//
+//  Created by Varun Chitturi on 10/17/21.
+//
+
+import SwiftUI
+
+struct InboxDetailView: View {
+    
+    @ObservedObject var inboxDetailViewModel: InboxDetailViewModel
+    
+    init(_ message: Message) {
+        inboxDetailViewModel = InboxDetailViewModel(message: message)
+    }
+    // TODO: better this message view
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack {
+                Text(inboxDetailViewModel.messageBody)
+            }
+            .padding()
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(inboxDetailViewModel.messageType.rawValue)
+        .onAppear {
+            inboxDetailViewModel.getMessageDetail()
+        }
+    }
+}
+
+struct InboxDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        InboxDetailView(PreviewObjects.message)
+    }
+}

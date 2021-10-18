@@ -17,17 +17,17 @@ struct CoursesView: View {
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
-                Spacer(minLength: DrawingConstants.scrollViewTopInsetPadding)
-                ForEach(coursesViewModel.courseList) { course in
-                    if !course.isDropped {
-                        NavigationLink(destination: CourseDetailView(course: course)) {
-                            CourseCard(course: course)
-                                .padding(.vertical, DrawingConstants.cardSpacing)
+                VStack(spacing: DrawingConstants.cardSpacing) {
+                    ForEach(coursesViewModel.courseList) { course in
+                        if !course.isDropped {
+                            NavigationLink(destination: CourseDetailView(course: course)) {
+                                CourseCard(course: course)
+                            }
                         }
                     }
                 }
+                .padding()
             }
-            .padding(.horizontal, DrawingConstants.cardHorizontalPadding)
             // TODO: change this value
             .navigationTitle(HomeModel.Tab.courses.label)
             .toolbar {
@@ -40,9 +40,7 @@ struct CoursesView: View {
     }
     
     private struct DrawingConstants {
-        static let cardSpacing: CGFloat = 3
-        static let cardHorizontalPadding: CGFloat = 14
-        static let scrollViewTopInsetPadding: CGFloat = 12
+        static let cardSpacing: CGFloat = 15
     }
 }
 
