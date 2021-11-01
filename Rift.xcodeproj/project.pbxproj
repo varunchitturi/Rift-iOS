@@ -126,6 +126,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		077B524F27305AAD00C27673 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2701CD4A26FD05E600D65B84 /* UserPreferenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceModel.swift; sourceTree = "<group>"; };
 		2701CD4C26FD05F200D65B84 /* LocaleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleUtils.swift; sourceTree = "<group>"; };
 		2701CD4E26FD0FC600D65B84 /* UserPreferenceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceUtils.swift; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		274E622226C21FB400C855D4 = {
 			isa = PBXGroup;
 			children = (
+				077B524F27305AAD00C27673 /* README.md */,
 				274E622C26C21FB400C855D4 /* Products */,
 				274E622D26C21FB400C855D4 /* Rift */,
 			);

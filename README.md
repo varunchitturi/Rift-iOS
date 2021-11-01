@@ -16,6 +16,8 @@ Currently Rift is in the beta stage with expected deployment date of December 1,
 This project is used by:
 
 - Students who use Infinite Campus
+
+
 Coming soon
 
 - Parents who use Infintie Campus to see their childs grades
@@ -23,7 +25,7 @@ Coming soon
 
 ## Tech Stack
 
-**Client:** Swift, SwiftUI
+**Client:** Swift, SwiftUI, RestAPIs
 
 
 
