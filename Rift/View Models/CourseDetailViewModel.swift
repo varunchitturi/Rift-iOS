@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Algorithms
 
 class CourseDetailViewModel: ObservableObject {
 
     @Published private var courseDetailModel: CourseDetailModel
-    @Published var editingGradeDetail: GradeDetail?
+    @Published var editingGradeDetails: [GradeDetail]?
+    @Published var chosenTermIndex: Int?
     
     // TODO: make this process more effecient
     
@@ -19,16 +21,50 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.courseName
     }
     
-    var gradeDetail: GradeDetail? {
-        courseDetailModel.gradeDetail
+    var chosenTerm: Term? {
+        guard let chosenTermIndex = chosenTermIndex else {
+            return nil
+        }
+        return courseDetailModel.terms?[chosenTermIndex]
     }
+    
+    var gradeDetail: GradeDetail? {
+        getChosenGradeDetail(from: courseDetailModel.gradeDetails)
+    }
+    
+    var termNames: [String] {
+        guard let terms = courseDetailModel.terms else {
+            return []
+        }
+        return terms.map { term in
+            term.termName
+        }
+    }
+    
+    var editingGradeDetail: GradeDetail? {
+        get {
+            getChosenGradeDetail(from: editingGradeDetails)
+        }
+        set {
+            guard editingGradeDetails != nil, let newValue = newValue else {
+                return
+            }
+            for index in editingGradeDetails!.indices {
+                if editingGradeDetails![index].id == newValue.id {
+                    editingGradeDetails![index] = newValue
+                }
+            }
+        }
+    }
+    
+    
     
     var courseGradeDisplay: String {
         courseDetailModel.course.gradeDisplay
     }
     
     var hasModifications: Bool {
-        gradeDetail != editingGradeDetail
+        courseDetailModel.gradeDetails != editingGradeDetails
     }
     
     var hasGradeDetail: Bool {
@@ -40,9 +76,11 @@ class CourseDetailViewModel: ObservableObject {
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(( _ , let gradeDetails)):
-                    self?.courseDetailModel.gradeDetail = gradeDetails.first
-                    self?.editingGradeDetail = gradeDetails.first
+                case .success((let terms , let gradeDetails)):
+                    self?.courseDetailModel.terms = terms
+                    self?.courseDetailModel.gradeDetails = gradeDetails
+                    self?.editingGradeDetails = gradeDetails
+                    self?.chosenTermIndex = self?.getCurrentTermIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
                     print(error)
@@ -50,6 +88,42 @@ class CourseDetailViewModel: ObservableObject {
             }
         }
         
+    }
+    
+    private func getCurrentTermIndex(from terms: [Term]) -> Int? {
+        let currentDate = Date()
+        guard !terms.isEmpty,
+                currentDate >= terms.first!.startDate,
+                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
+            return nil
+        }
+       
+        if currentDate < terms.first!.startDate {
+            return nil
+        }
+        for (index, term) in terms.enumerated() {
+            if (term.startDate...term.endDate).contains(currentDate) {
+                return index
+            }
+        }
+        
+        return nil
+        
+    }
+    
+    private func getChosenGradeDetail(from gradeDetails: [GradeDetail]?) -> GradeDetail? {
+        guard let gradeDetails = gradeDetails else {
+            return nil
+        }
+        
+        for gradeDetail in gradeDetails {
+            if gradeDetail.grade.termName == chosenTerm?.termName {
+                return gradeDetail
+            }
+        }
+        
+        return nil
+
     }
     
     // MARK: - Intents
@@ -75,7 +149,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
-        editingGradeDetail = gradeDetail
+        editingGradeDetails = courseDetailModel.gradeDetails
     }
     
     func refreshView() {

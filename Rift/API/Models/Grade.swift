@@ -17,7 +17,7 @@ struct Grade: Codable, Equatable {
     let termName: String
     let termType: String?
     let groupWeighted: Bool
-    
+    let hasAssignments: Bool
 
     enum CodingKeys: String, CodingKey {
         case letterGrade = "progressScore"
@@ -27,6 +27,7 @@ struct Grade: Codable, Equatable {
         case termName
         case termType = "taskName"
         case groupWeighted
+        case hasAssignments
     }
     
 }

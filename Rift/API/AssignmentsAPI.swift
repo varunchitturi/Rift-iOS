@@ -40,7 +40,7 @@ extension API {
                 }
             }.resume()
         }
-        
+        // TODO: remove dispatchqueue.main.async from api
         static func getAssignmentDetail(locale: Locale? = nil, for assignment: Assignment, completion: @escaping (Result<AssignmentDetail, Error>) -> ()) {
             let id = assignment.id
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }

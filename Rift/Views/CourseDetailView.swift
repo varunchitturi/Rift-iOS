@@ -11,6 +11,7 @@ struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
     @State private var addAssignmentIsPresented = false
+    @State private var termIsEditing = false
     
     init(course: Course) {
         self.courseDetailViewModel = CourseDetailViewModel(course: course)
@@ -21,6 +22,7 @@ struct CourseDetailView: View {
         // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
             VStack(spacing: DrawingConstants.cardSpacing) {
+                CapsuleDropDown("Term", description: "Choose a term", options: courseDetailViewModel.termNames, selectionIndex: $courseDetailViewModel.chosenTermIndex, isEditing: $termIsEditing)
                 if courseDetailViewModel.hasGradeDetail {
                     CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                         .padding(.bottom)

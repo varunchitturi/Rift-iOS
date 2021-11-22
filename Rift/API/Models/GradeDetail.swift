@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct GradeDetail: Codable, Equatable {
+struct GradeDetail: Codable, Equatable, Identifiable {
     
     let grade: Grade
     var categories: [GradingCategory]
-    
+    let id: UUID = UUID()
     var assignments: [Assignment] {
         get {
             var assignments: [Assignment] = []

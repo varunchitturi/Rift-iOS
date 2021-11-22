@@ -37,7 +37,7 @@ struct PreviewObjects {
         return cookies
     }
     
-    static let grade = Grade(letterGrade: "A", percentage: 90, currentPoints: 90, totalPoints: 100, termName: "Q1", termType: "Quarter", groupWeighted: false)
+    static let grade = Grade(letterGrade: "A", percentage: 90, currentPoints: 90, totalPoints: 100, termName: "Q1", termType: "Quarter", groupWeighted: false, hasAssignments: true)
     static let assignment = Assignment(id: 1, isActive: true, assignmentName: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, scorePoints: 90, comments: nil, categoryName: "Unit Test")
     
     static let course = Course(id: 2, sectionID: 3, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: [grade], isDropped: false)

@@ -80,7 +80,8 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         var response = try decoder.decode(Response.self, from: data)
-                        API.setCategoriesForAssignments(gradeDetails: &response.gradeDetails)
+                        API.setCategoriesForAssignments(for: &response.gradeDetails)
+                        API.removeGradesWithoutDetail(from: &response.gradeDetails)
                         completion(.success((response.terms, response.gradeDetails)))
                     }
                     catch {
@@ -96,7 +97,13 @@ extension API {
         
     }
     
-    private static func setCategoriesForAssignments(gradeDetails: inout [GradeDetail]) {
+    private static func removeGradesWithoutDetail(from gradeDetails: inout [GradeDetail]) {
+        gradeDetails.removeAll { gradeDetail in
+            return !gradeDetail.grade.hasAssignments
+        }
+    }
+    
+    private static func setCategoriesForAssignments(for gradeDetails: inout [GradeDetail]) {
         for (detailIndex, detail) in gradeDetails.enumerated() {
             for (categoryIndex, category) in detail.categories.enumerated() {
                 for assignmentIndex in category.assignments.indices {
