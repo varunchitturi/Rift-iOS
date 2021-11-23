@@ -16,11 +16,9 @@ class CoursesViewModel: ObservableObject {
     
     init() {
         API.Grades.getTermGrades { [weak self] result in
-            // TODO: do better term finding in API implementation
             DispatchQueue.main.async {
                 switch result {
                 case .success(let terms):
-                    // TODO: change this so that you aren't just getting the first term
                     self?.coursesModel.courseList = self?.getCurrentTerm(from: terms)?.courses ?? []
                 case .failure(let error):
                     // TODO: do bettter error handling here

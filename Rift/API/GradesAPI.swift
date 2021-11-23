@@ -42,7 +42,6 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         let responseBody = try decoder.decode([Response].self, from: data)
-                        // TODO: check if the following is getting only the first term
                         !responseBody.isEmpty ? completion(.success(responseBody[0].gradeTerms)) : completion(.failure(APIError.invalidData))
                     }
                     catch {
