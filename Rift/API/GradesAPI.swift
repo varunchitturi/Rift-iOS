@@ -133,6 +133,8 @@ extension API {
                 }
             }
         }
+        gradeDetails.removeAll(where: {$0.categories.isEmpty})
+        gradeDetails.sort {$0.linkedGrades != nil && $1.linkedGrades == nil}
     }
     
     private static func resolveCategories(for gradeDetails: inout [GradeDetail]) {
