@@ -15,12 +15,11 @@ class CoursesViewModel: ObservableObject {
     }
     
     init() {
-        API.Grades.getTermGrades { result in
-            // TODO: do better term finding in API implementation
+        API.Grades.getTermGrades { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let terms):
-                    self.coursesModel.courseList = !terms.isEmpty ? terms[0].courses ?? [] : []
+                    self?.coursesModel.courseList = self?.getCurrentTerm(from: terms)?.courses ?? []
                 case .failure(let error):
                     // TODO: do bettter error handling here
                     print("Courses error")
@@ -32,6 +31,16 @@ class CoursesViewModel: ObservableObject {
     
     func rebuildView() {
         objectWillChange.send()
+    }
+    
+    private func getCurrentTerm(from terms: [GradeTerm]) -> GradeTerm? {
+        let currentDate = Date()
+        guard !terms.isEmpty,
+                currentDate >= terms.first!.startDate,
+                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
+            return nil
+        }
+        return terms.first(where: {($0.startDate...$0.endDate).contains(currentDate)})
     }
 }
 

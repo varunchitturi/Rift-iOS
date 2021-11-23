@@ -80,7 +80,8 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         var response = try decoder.decode(Response.self, from: data)
-                        API.setCategoriesForAssignments(gradeDetails: &response.gradeDetails)
+                        API.resolveCategories(for: &response.gradeDetails)
+                        API.resolveTerms(for: &response.gradeDetails)
                         completion(.success((response.terms, response.gradeDetails)))
                     }
                     catch {
@@ -96,7 +97,46 @@ extension API {
         
     }
     
-    private static func setCategoriesForAssignments(gradeDetails: inout [GradeDetail]) {
+    private static func resolveTerms(for gradeDetails: inout [GradeDetail]) {
+        gradeDetails.removeAll { gradeDetail in
+            return !gradeDetail.grade.isIndividualGrade && !gradeDetail.grade.hasCompositeTasks
+        }
+        var termsWithAssignments = [String: [GradingCategory]]()
+        gradeDetails.forEach { gradeDetail in
+            if gradeDetail.grade.isIndividualGrade {
+                termsWithAssignments[gradeDetail.grade.termName] = gradeDetail.categories
+            }
+        }
+        for detailIndex in gradeDetails.indices {
+            if !gradeDetails[detailIndex].grade.isIndividualGrade && gradeDetails[detailIndex].grade.hasCompositeTasks {
+                var allTerms = Set<String>()
+                gradeDetails[detailIndex].linkedGrades?.forEach { grade in
+                    allTerms.insert(grade.termName)
+                    if let cumulativeTermName = grade.cumulativeTermName {
+                        allTerms.insert(cumulativeTermName)
+                    }
+                }
+                allTerms.forEach { term in
+                    if let gradingCategories = termsWithAssignments[term] {
+                        gradingCategories.forEach { gradingCategory in
+                            if gradeDetails[detailIndex].categories.contains(where: {$0.id == gradingCategory.id}) {
+                                if let categoryIndex = gradeDetails[detailIndex].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
+                                    gradeDetails[detailIndex].categories[categoryIndex].assignments += gradingCategory.assignments
+                                }
+                            }
+                            else {
+                                gradeDetails[detailIndex].categories.append(gradingCategory)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        gradeDetails.removeAll(where: {$0.categories.isEmpty})
+        gradeDetails.sort {$0.linkedGrades != nil && $1.linkedGrades == nil}
+    }
+    
+    private static func resolveCategories(for gradeDetails: inout [GradeDetail]) {
         for (detailIndex, detail) in gradeDetails.enumerated() {
             for (categoryIndex, category) in detail.categories.enumerated() {
                 for assignmentIndex in category.assignments.indices {

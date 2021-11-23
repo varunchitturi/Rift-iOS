@@ -15,9 +15,11 @@ struct Grade: Codable, Equatable {
     let currentPoints: Double?
     let totalPoints: Double?
     let termName: String
-    let termType: String?
+    let termType: String
     let groupWeighted: Bool
-    
+    let isIndividualGrade: Bool
+    let hasCompositeTasks: Bool
+    let cumulativeTermName: String?
 
     enum CodingKeys: String, CodingKey {
         case letterGrade = "progressScore"
@@ -27,6 +29,9 @@ struct Grade: Codable, Equatable {
         case termName
         case termType = "taskName"
         case groupWeighted
+        case isIndividualGrade = "hasAssignments"
+        case hasCompositeTasks
+        case cumulativeTermName
     }
     
 }

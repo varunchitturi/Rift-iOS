@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Algorithms
 
 class CourseDetailViewModel: ObservableObject {
 
     @Published private var courseDetailModel: CourseDetailModel
-    @Published var editingGradeDetail: GradeDetail?
+    @Published var editingGradeDetails: [GradeDetail]?
+    @Published var chosenGradeDetailIndex: Int?
     
     // TODO: make this process more effecient
     
@@ -19,16 +21,44 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.courseName
     }
     
+    var gradeDetailOptions: [String] {
+        guard let gradeDetails = courseDetailModel.gradeDetails else {
+            return []
+        }
+        
+        return gradeDetails.filter({$0.grade.hasCompositeTasks || $0.grade.isIndividualGrade}).map {
+            "\($0.grade.termName) \( $0.grade.termType)"
+        }
+    }
+    
     var gradeDetail: GradeDetail? {
-        courseDetailModel.gradeDetail
+        guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+            return nil
+        }
+        return courseDetailModel.gradeDetails?[chosenGradeDetailIndex]
+    }
+    
+    var editingGradeDetail: GradeDetail? {
+        get {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+                return nil
+            }
+            return editingGradeDetails?[chosenGradeDetailIndex]
+        }
+        set {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, let newValue = newValue else {
+                return
+            }
+            editingGradeDetails?[chosenGradeDetailIndex] = newValue
+        }
     }
     
     var courseGradeDisplay: String {
-        courseDetailModel.course.gradeDisplay
+        gradeDetail?.grade.letterGrade ?? Text.nilStringText
     }
     
     var hasModifications: Bool {
-        gradeDetail != editingGradeDetail
+        courseDetailModel.gradeDetails != editingGradeDetails
     }
     
     var hasGradeDetail: Bool {
@@ -40,9 +70,11 @@ class CourseDetailViewModel: ObservableObject {
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(( _ , let gradeDetails)):
-                    self?.courseDetailModel.gradeDetail = gradeDetails.first
-                    self?.editingGradeDetail = gradeDetails.first
+                case .success((let terms , let gradeDetails)):
+                    self?.courseDetailModel.terms = terms
+                    self?.courseDetailModel.gradeDetails = gradeDetails
+                    self?.editingGradeDetails = gradeDetails
+                    self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
                     print(error)
@@ -51,6 +83,25 @@ class CourseDetailViewModel: ObservableObject {
         }
         
     }
+    
+    private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
+        let currentDate = Date()
+        guard !terms.isEmpty,
+                currentDate >= terms.first!.startDate,
+                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
+            return nil
+        }
+        
+        for term in terms {
+            if (term.startDate...term.endDate).contains(currentDate) {
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName && !$0.grade.isIndividualGrade}) ??
+                    courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
+            }
+        }
+        
+        return nil
+    }
+    
     
     // MARK: - Intents
     
@@ -75,14 +126,14 @@ class CourseDetailViewModel: ObservableObject {
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
-        editingGradeDetail = gradeDetail
+        editingGradeDetails = courseDetailModel.gradeDetails
     }
     
     func refreshView() {
         objectWillChange.send()
     }
     
-    func deleteAssignment(_ assignment: Assignment) { 
+    func deleteAssignment(_ assignment: Assignment) {
         editingGradeDetail?.assignments.removeAll(where: {$0.id == assignment.id})
     }
   

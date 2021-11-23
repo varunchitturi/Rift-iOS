@@ -13,41 +13,35 @@ struct GradingCategory: Identifiable, Codable, Equatable {
     let isWeighted: Bool
     let weight: Double
     let isExcluded: Bool
-    var assignments: [Assignment]
-    
-    // TODO: change computed properties to stored properties with a will set to improve performance
+    var assignments: [Assignment] {
+        didSet {
+            var currentPoints: Double?
+            var totalPoints: Double?
+            assignments.forEach { `assignment` in
+                if let assignmentScorePoints = `assignment`.scorePoints, let assignmentTotalPoints = `assignment`.totalPoints {
+                    currentPoints = (currentPoints ?? 0) + assignmentScorePoints
+                    totalPoints = (totalPoints ?? 0) + assignmentTotalPoints
+                }
+            }
+            categoryGrade?.currentPoints = currentPoints
+            categoryGrade?.totalPoints = totalPoints
+        }
+    }
+    private(set) var categoryGrade: CategoryGrade?
     
     var totalPoints: Double? {
-        var totalPoints = 0.0
-        for assignment in assignments {
-            if assignment.scorePoints != nil && assignment.isActive {
-                totalPoints += assignment.totalPoints ?? 0
-            }
-        }
-        return totalPoints != 0 ? totalPoints : nil
+        categoryGrade?.totalPoints
     }
     
     var currentPoints: Double? {
-        
-        if assignments.allSatisfy ({ $0.scorePoints == nil }){
-            return nil
-        }
-        var currentPoints = 0.0
-        for assignment in assignments {
-            if assignment.isActive {
-                currentPoints += assignment.scorePoints ?? 0
-            }
-        }
-        return currentPoints
+        categoryGrade?.currentPoints
     }
     
     var percentage: Double? {
         guard let currentPoints = currentPoints, let totalPoints = totalPoints else {
             return nil
         }
-        
-        return (currentPoints / totalPoints) * 100
-
+        return ((currentPoints/totalPoints) * 100).rounded(2)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -55,6 +49,7 @@ struct GradingCategory: Identifiable, Codable, Equatable {
         case name
         case isWeighted, isExcluded
         case assignments
+        case categoryGrade = "progress"
         case weight
     }
     

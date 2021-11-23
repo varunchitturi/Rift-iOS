@@ -52,6 +52,9 @@ struct PickerField : UIViewRepresentable {
         pickerField.placeholder = placeholder
         pickerField.inputView = picker
         pickerField.delegate = context.coordinator
+        if let selectionIndex = selectionIndex {
+            picker.selectRow(selectionIndex, inComponent: 0, animated: false)
+        }
         return pickerField
     }
     
@@ -91,6 +94,7 @@ struct PickerField : UIViewRepresentable {
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             self.parent.selectionIndex = row
         }
+        
         
         func textFieldDidEndEditing(_ textField: UITextField) {
             self.parent.selectionIndex = self.parent.picker.selectedRow(inComponent: 0)

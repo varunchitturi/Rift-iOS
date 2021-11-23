@@ -59,7 +59,6 @@ struct AssignmentDetail: Codable, Identifiable {
     
     let isActive: Bool
     
-    
     private let rubrics: [Rubric]?
     private let scores: [Score]?
     let description: Description

@@ -12,7 +12,7 @@ struct CourseDetailModel {
     
     let course: Course
     
-    var gradeDetail: GradeDetail?
-    var editingGradeDetail: GradeDetail?
+    var terms: [Term]?
+    var gradeDetails: [GradeDetail]?
     
 }
