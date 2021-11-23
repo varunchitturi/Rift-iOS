@@ -12,6 +12,7 @@ struct GradeDetail: Codable, Equatable, Identifiable {
     
     let grade: Grade
     var categories: [GradingCategory]
+    let linkedGrades: [Grade]?
     let id: UUID = UUID()
     var assignments: [Assignment] {
         get {
@@ -77,5 +78,6 @@ struct GradeDetail: Codable, Equatable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case grade = "task"
         case categories
+        case linkedGrades = "children"
     }
 }

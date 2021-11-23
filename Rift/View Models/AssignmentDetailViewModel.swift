@@ -25,7 +25,7 @@ class AssignmentDetailViewModel: ObservableObject {
             assignmentDetailModel.modifiedAssignment
         }
         set {
-            assignmentDetailModel.modifiedAssignment  = newValue
+            assignmentDetailModel.modifiedAssignment = newValue
         }
     }
 
@@ -82,9 +82,7 @@ class AssignmentDetailViewModel: ObservableObject {
             StatsDisplay(header: "Real", text: percentageDisplay(for: originalAssignment)),
             StatsDisplay(header: "Calculated", text: percentageDisplay(for: modifiedAssignment)),
         ]
-        
     }
-    
     
     var totalPointsText: String = "" {
         willSet {

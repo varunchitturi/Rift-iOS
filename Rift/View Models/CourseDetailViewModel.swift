@@ -13,7 +13,7 @@ class CourseDetailViewModel: ObservableObject {
 
     @Published private var courseDetailModel: CourseDetailModel
     @Published var editingGradeDetails: [GradeDetail]?
-    @Published var chosenTermIndex: Int?
+    @Published var chosenGradeDetailIndex: Int?
     
     // TODO: make this process more effecient
     
@@ -21,43 +21,37 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.courseName
     }
     
-    var chosenTerm: Term? {
-        guard let chosenTermIndex = chosenTermIndex else {
-            return nil
+    var gradeDetailOptions: [String] {
+        guard let gradeDetails = courseDetailModel.gradeDetails else {
+            return []
         }
-        return courseDetailModel.terms?[chosenTermIndex]
+        
+        return gradeDetails.filter({$0.grade.hasCompositeTasks || $0.grade.isIndividualGrade}).map {
+            "\($0.grade.termName) \( $0.grade.termType)"
+        }
     }
     
     var gradeDetail: GradeDetail? {
-        getChosenGradeDetail(from: courseDetailModel.gradeDetails)
-    }
-    
-    var termNames: [String] {
-        guard let terms = courseDetailModel.terms else {
-            return []
+        guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+            return nil
         }
-        return terms.map { term in
-            term.termName
-        }
+        return courseDetailModel.gradeDetails?[chosenGradeDetailIndex]
     }
     
     var editingGradeDetail: GradeDetail? {
         get {
-            getChosenGradeDetail(from: editingGradeDetails)
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+                return nil
+            }
+            return editingGradeDetails?[chosenGradeDetailIndex]
         }
         set {
-            guard editingGradeDetails != nil, let newValue = newValue else {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, let newValue = newValue else {
                 return
             }
-            for index in editingGradeDetails!.indices {
-                if editingGradeDetails![index].id == newValue.id {
-                    editingGradeDetails![index] = newValue
-                }
-            }
+            editingGradeDetails?[chosenGradeDetailIndex] = newValue
         }
     }
-    
-    
     
     var courseGradeDisplay: String {
         courseDetailModel.course.gradeDisplay
@@ -80,7 +74,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.courseDetailModel.terms = terms
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
-                    self?.chosenTermIndex = self?.getCurrentTermIndex(from: terms)
+                    self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
                     print(error)
@@ -90,41 +84,24 @@ class CourseDetailViewModel: ObservableObject {
         
     }
     
-    private func getCurrentTermIndex(from terms: [Term]) -> Int? {
+    private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
         let currentDate = Date()
         guard !terms.isEmpty,
                 currentDate >= terms.first!.startDate,
                 currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
             return nil
         }
-       
-        if currentDate < terms.first!.startDate {
-            return nil
-        }
-        for (index, term) in terms.enumerated() {
+        
+        for term in terms {
             if (term.startDate...term.endDate).contains(currentDate) {
-                return index
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName && !$0.grade.isIndividualGrade}) ??
+                    courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
             }
         }
         
         return nil
-        
     }
     
-    private func getChosenGradeDetail(from gradeDetails: [GradeDetail]?) -> GradeDetail? {
-        guard let gradeDetails = gradeDetails else {
-            return nil
-        }
-        
-        for gradeDetail in gradeDetails {
-            if gradeDetail.grade.termName == chosenTerm?.termName {
-                return gradeDetail
-            }
-        }
-        
-        return nil
-
-    }
     
     // MARK: - Intents
     
@@ -156,7 +133,7 @@ class CourseDetailViewModel: ObservableObject {
         objectWillChange.send()
     }
     
-    func deleteAssignment(_ assignment: Assignment) { 
+    func deleteAssignment(_ assignment: Assignment) {
         editingGradeDetail?.assignments.removeAll(where: {$0.id == assignment.id})
     }
   

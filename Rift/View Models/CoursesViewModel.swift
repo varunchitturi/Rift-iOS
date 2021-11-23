@@ -20,6 +20,7 @@ class CoursesViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let terms):
+                    // TODO: change this so that you aren't just getting the first term
                     self.coursesModel.courseList = !terms.isEmpty ? terms[0].courses ?? [] : []
                 case .failure(let error):
                     // TODO: do bettter error handling here

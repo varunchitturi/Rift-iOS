@@ -15,6 +15,7 @@
 		273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D0271CEBFC00BC1FF5 /* InboxModel.swift */; };
 		273261D5271CECC000BC1FF5 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D4271CECC000BC1FF5 /* InboxView.swift */; };
 		273261D7271CEE9F00BC1FF5 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D6271CEE9F00BC1FF5 /* MessageCard.swift */; };
+		273CD48C274CCABD00369FBD /* CategoryGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273CD48B274CCABD00369FBD /* CategoryGrade.swift */; };
 		273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */; };
 		273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FF27190FE0006D936A /* AssignmentDetail.swift */; };
 		273DB90327194356006D936A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 273DB90227194356006D936A /* OrderedCollections */; };
@@ -147,6 +148,7 @@
 		273261D0271CEBFC00BC1FF5 /* InboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxModel.swift; sourceTree = "<group>"; };
 		273261D4271CECC000BC1FF5 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		273261D6271CEE9F00BC1FF5 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
+		273CD48B274CCABD00369FBD /* CategoryGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryGrade.swift; sourceTree = "<group>"; };
 		273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailSection.swift; sourceTree = "<group>"; };
 		273DB8FF27190FE0006D936A /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
 		273DB908271961F2006D936A /* UIToolbarDismiss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIToolbarDismiss.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				277AD63E270B7CE000AF441E /* Term.swift */,
 				27FF50D826E0725D0001F8D6 /* Locale.swift */,
 				274165CE270C2C9400F9EFCF /* GradingCategory.swift */,
+				273CD48B274CCABD00369FBD /* CategoryGrade.swift */,
 				274165D2270C2F1A00F9EFCF /* GradeDetail.swift */,
 				277E6347270CD16400CA056E /* GradeTerm.swift */,
 				273DB8FF27190FE0006D936A /* AssignmentDetail.swift */,
@@ -667,6 +670,7 @@
 				2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */,
 				27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */,
 				27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */,
+				273CD48C274CCABD00369FBD /* CategoryGrade.swift in Sources */,
 				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
 				27D98988271C34AA00311973 /* Message.swift in Sources */,
 				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,

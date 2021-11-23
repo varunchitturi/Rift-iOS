@@ -42,6 +42,7 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         let responseBody = try decoder.decode([Response].self, from: data)
+                        // TODO: check if the following is getting only the first term
                         !responseBody.isEmpty ? completion(.success(responseBody[0].gradeTerms)) : completion(.failure(APIError.invalidData))
                     }
                     catch {
@@ -80,8 +81,8 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         var response = try decoder.decode(Response.self, from: data)
-                        API.setCategoriesForAssignments(for: &response.gradeDetails)
-                        API.removeGradesWithoutDetail(from: &response.gradeDetails)
+                        API.resolveCategories(for: &response.gradeDetails)
+                        API.resolveTerms(for: &response.gradeDetails)
                         completion(.success((response.terms, response.gradeDetails)))
                     }
                     catch {
@@ -97,13 +98,44 @@ extension API {
         
     }
     
-    private static func removeGradesWithoutDetail(from gradeDetails: inout [GradeDetail]) {
+    private static func resolveTerms(for gradeDetails: inout [GradeDetail]) {
         gradeDetails.removeAll { gradeDetail in
-            return !gradeDetail.grade.hasAssignments
+            return !gradeDetail.grade.isIndividualGrade && !gradeDetail.grade.hasCompositeTasks
+        }
+        var termsWithAssignments = [String: [GradingCategory]]()
+        gradeDetails.forEach { gradeDetail in
+            if gradeDetail.grade.isIndividualGrade {
+                termsWithAssignments[gradeDetail.grade.termName] = gradeDetail.categories
+            }
+        }
+        for index in gradeDetails.indices {
+            if !gradeDetails[index].grade.isIndividualGrade && gradeDetails[index].grade.hasCompositeTasks {
+                var allTerms = Set<String>()
+                gradeDetails[index].linkedGrades?.forEach { grade in
+                    allTerms.insert(grade.termName)
+                    if let cumulativeTermName = grade.cumulativeTermName {
+                        allTerms.insert(cumulativeTermName)
+                    }
+                }
+                allTerms.forEach { term in
+                    if let gradingCategories = termsWithAssignments[term] {
+                        gradingCategories.forEach { gradingCategory in
+                            if gradeDetails[index].categories.contains(where: {$0.id == gradingCategory.id}) {
+                                if let categoryIndex = gradeDetails[index].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
+                                    gradeDetails[index].categories[categoryIndex].assignments += gradingCategory.assignments
+                                }
+                            }
+                            else {
+                                gradeDetails[index].categories.append(gradingCategory)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
-    private static func setCategoriesForAssignments(for gradeDetails: inout [GradeDetail]) {
+    private static func resolveCategories(for gradeDetails: inout [GradeDetail]) {
         for (detailIndex, detail) in gradeDetails.enumerated() {
             for (categoryIndex, category) in detail.categories.enumerated() {
                 for assignmentIndex in category.assignments.indices {
