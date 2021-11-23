@@ -54,7 +54,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var courseGradeDisplay: String {
-        courseDetailModel.course.gradeDisplay
+        gradeDetail?.grade.letterGrade ?? Text.nilStringText
     }
     
     var hasModifications: Bool {

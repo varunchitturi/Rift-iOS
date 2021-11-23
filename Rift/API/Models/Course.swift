@@ -26,7 +26,6 @@ struct Course: Codable, Identifiable {
     let isDropped: Bool
     
     var currentGrade: Grade? {
-        // TODO: use the correct term by start and end date
         grades?[0]
     }
     

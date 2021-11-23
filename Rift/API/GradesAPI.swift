@@ -108,10 +108,10 @@ extension API {
                 termsWithAssignments[gradeDetail.grade.termName] = gradeDetail.categories
             }
         }
-        for index in gradeDetails.indices {
-            if !gradeDetails[index].grade.isIndividualGrade && gradeDetails[index].grade.hasCompositeTasks {
+        for detailIndex in gradeDetails.indices {
+            if !gradeDetails[detailIndex].grade.isIndividualGrade && gradeDetails[detailIndex].grade.hasCompositeTasks {
                 var allTerms = Set<String>()
-                gradeDetails[index].linkedGrades?.forEach { grade in
+                gradeDetails[detailIndex].linkedGrades?.forEach { grade in
                     allTerms.insert(grade.termName)
                     if let cumulativeTermName = grade.cumulativeTermName {
                         allTerms.insert(cumulativeTermName)
@@ -120,13 +120,13 @@ extension API {
                 allTerms.forEach { term in
                     if let gradingCategories = termsWithAssignments[term] {
                         gradingCategories.forEach { gradingCategory in
-                            if gradeDetails[index].categories.contains(where: {$0.id == gradingCategory.id}) {
-                                if let categoryIndex = gradeDetails[index].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
-                                    gradeDetails[index].categories[categoryIndex].assignments += gradingCategory.assignments
+                            if gradeDetails[detailIndex].categories.contains(where: {$0.id == gradingCategory.id}) {
+                                if let categoryIndex = gradeDetails[detailIndex].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
+                                    gradeDetails[detailIndex].categories[categoryIndex].assignments += gradingCategory.assignments
                                 }
                             }
                             else {
-                                gradeDetails[index].categories.append(gradingCategory)
+                                gradeDetails[detailIndex].categories.append(gradingCategory)
                             }
                         }
                     }
