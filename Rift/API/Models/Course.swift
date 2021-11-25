@@ -26,7 +26,7 @@ struct Course: Decodable, Identifiable {
     let isDropped: Bool
     
     var currentGrade: Grade? {
-        grades?.first
+        return grades?.first(where: {$0.letterGrade != nil}) ?? grades?.first
     }
     
     
