@@ -32,7 +32,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var gradeDetail: GradeDetail? {
-        guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+        guard let chosenGradeDetailIndex = chosenGradeDetailIndex, courseDetailModel.gradeDetails?.isEmpty == false else {
             return nil
         }
         return courseDetailModel.gradeDetails?[chosenGradeDetailIndex]
@@ -40,7 +40,7 @@ class CourseDetailViewModel: ObservableObject {
     
     var editingGradeDetail: GradeDetail? {
         get {
-            guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, editingGradeDetails?.isEmpty == false else {
                 return nil
             }
             return editingGradeDetails?[chosenGradeDetailIndex]

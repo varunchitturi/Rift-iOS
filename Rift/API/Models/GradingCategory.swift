@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GradingCategory: Identifiable, Codable, Equatable {
+struct GradingCategory: Identifiable, Decodable, Equatable {
     let id: Int
     let name: String
     let isWeighted: Bool

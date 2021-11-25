@@ -9,7 +9,7 @@ import Foundation
 
 
 
-struct CategoryGrade: Codable, Equatable {
+struct CategoryGrade: Decodable, Equatable {
     let letterGrade: String?
     var currentPoints: Double?
     var totalPoints: Double?

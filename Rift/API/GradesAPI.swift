@@ -31,7 +31,7 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    struct Response: Codable {
+                    struct Response: Decodable {
                         // TODO: use custom term here
                         let gradeTerms: [GradeTerm]
                         
@@ -67,7 +67,7 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    struct Response: Codable {
+                    struct Response: Decodable {
                         let terms: [Term]
                         var gradeDetails: [GradeDetail]
                         
