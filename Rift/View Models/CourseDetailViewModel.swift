@@ -115,24 +115,13 @@ class CourseDetailViewModel: ObservableObject {
     
     // MARK: - Intents
     
-    func getOriginalAssignment(for assignment: Assignment) -> Assignment {
+    func getOriginalAssignment(for assignment: Assignment) -> Assignment? {
         for originalAssignment in gradeDetail?.assignments ?? [] {
             if originalAssignment.id == assignment.id {
                 return originalAssignment
             }
         }
-        return Assignment(id: assignment.id,
-                          isActive: true,
-                          assignmentName: assignment.assignmentName,
-                          dueDate: nil,
-                          assignedDate: nil,
-                          courseName: assignment.courseName,
-                          totalPoints: nil,
-                          scorePoints: nil,
-                          comments: nil,
-                          categoryName: assignment.categoryName,
-                          categoryID: assignment.categoryID
-        )
+        return nil
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {

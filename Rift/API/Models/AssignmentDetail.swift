@@ -123,10 +123,10 @@ struct AssignmentDetail: Decodable, Identifiable {
             
             let id = try container.decode(Int.self, forKey: .id)
             
-            let scorePointsString = try container.decode(String.self, forKey: .scorePoints)
-            let scorePoints = Double(scorePointsString) ?? nil
+            let scorePointsString = (try? container.decode(String.self, forKey: .scorePoints)) ?? ""
+            let scorePoints = Double(scorePointsString)
             
-            let comments = try container.decode(String?.self, forKey: .comments)
+            let comments = try? container.decode(String?.self, forKey: .comments)
             
             self.init(id: id, scorePoints: scorePoints, comments: comments)
             
