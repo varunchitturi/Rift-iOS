@@ -9,7 +9,7 @@ import Foundation
 
 extension Locale: StorageManager {
     
-    enum USTerritory: String, CaseIterable, Comparable, Codable {
+    enum USTerritory: String, CaseIterable, Comparable, Decodable {
         static func < (lhs: USTerritory, rhs: USTerritory) -> Bool {
             lhs.rawValue < rhs.rawValue
         }

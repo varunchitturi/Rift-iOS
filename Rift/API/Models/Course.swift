@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Course: Codable, Identifiable {
+struct Course: Decodable, Identifiable {
     
     init(id: Int, sectionID: Int, courseName: String, teacherName: String?, grades: [Grade]?, isDropped: Bool) {
         self.id = id
@@ -26,8 +26,7 @@ struct Course: Codable, Identifiable {
     let isDropped: Bool
     
     var currentGrade: Grade? {
-        // TODO: use the correct term by start and end date
-        grades?[0]
+        return grades?.first(where: {$0.letterGrade != nil}) ?? grades?.first
     }
     
     

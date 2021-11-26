@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Term: Codable {
+struct Term: Decodable {
     
     // TODO: see if you can combine this with GradeTerm (Json flat map)
     

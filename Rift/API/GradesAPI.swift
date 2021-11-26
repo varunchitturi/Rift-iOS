@@ -31,7 +31,7 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    struct Response: Codable {
+                    struct Response: Decodable {
                         // TODO: use custom term here
                         let gradeTerms: [GradeTerm]
                         
@@ -67,7 +67,7 @@ extension API {
                     completion(.failure(error))
                 }
                 else if let data = data {
-                    struct Response: Codable {
+                    struct Response: Decodable {
                         let terms: [Term]
                         var gradeDetails: [GradeDetail]
                         
@@ -80,7 +80,8 @@ extension API {
                     do {
                         let decoder = JSONDecoder()
                         var response = try decoder.decode(Response.self, from: data)
-                        API.setCategoriesForAssignments(gradeDetails: &response.gradeDetails)
+                        response.gradeDetails.resolveCategories()
+                        response.gradeDetails.resolveTerms()
                         completion(.success((response.terms, response.gradeDetails)))
                     }
                     catch {
@@ -94,20 +95,5 @@ extension API {
             
         }
         
-    }
-    
-    private static func setCategoriesForAssignments(gradeDetails: inout [GradeDetail]) {
-        for (detailIndex, detail) in gradeDetails.enumerated() {
-            for (categoryIndex, category) in detail.categories.enumerated() {
-                for assignmentIndex in category.assignments.indices {
-                    gradeDetails[detailIndex]
-                        .categories[categoryIndex]
-                        .assignments[assignmentIndex].categoryName = category.name
-                    gradeDetails[detailIndex]
-                        .categories[categoryIndex]
-                        .assignments[assignmentIndex].categoryID = category.id
-                }
-            }
-        }
     }
 }

@@ -11,6 +11,7 @@ struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
     @State private var addAssignmentIsPresented = false
+    @State private var gradeDetailChoiceIsEditing = false
     
     init(course: Course) {
         self.courseDetailViewModel = CourseDetailViewModel(course: course)
@@ -21,16 +22,17 @@ struct CourseDetailView: View {
         // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
             VStack(spacing: DrawingConstants.cardSpacing) {
+                CapsuleDropDown("Term", description: "Choose a term", options: courseDetailViewModel.gradeDetailOptions, selectionIndex: $courseDetailViewModel.chosenGradeDetailIndex, isEditing: $gradeDetailChoiceIsEditing)
                 if courseDetailViewModel.hasGradeDetail {
                     CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                         .padding(.bottom)
                     ForEach ($courseDetailViewModel.editingGradeDetail.unwrap()!.assignments) { `assignment` in
                         NavigationLink(
                             destination: AssignmentDetailView(
-                                // TODO: make this more effecient. Calculate get orignal assignment only after navigation
-                                originalAssignment: courseDetailViewModel.getOriginalAssignment(for: `assignment`.wrappedValue),
-                                assignmentToEdit: `assignment`,
-                                gradingCategories: courseDetailViewModel.editingGradeDetail!.categories
+                                    // TODO: make this more effecient. Calculate get orignal assignment only after navigation
+                                    originalAssignment: courseDetailViewModel.getOriginalAssignment(for: `assignment`.wrappedValue),
+                                    assignmentToEdit: `assignment`,
+                                    gradingCategories: courseDetailViewModel.editingGradeDetail!.categories
                                 )
                                 .environmentObject(courseDetailViewModel)
                         ) {

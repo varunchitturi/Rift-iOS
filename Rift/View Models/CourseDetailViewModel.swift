@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Algorithms
 
 class CourseDetailViewModel: ObservableObject {
 
     @Published private var courseDetailModel: CourseDetailModel
-    @Published var editingGradeDetail: GradeDetail?
+    @Published var editingGradeDetails: [GradeDetail]?
+    @Published var chosenGradeDetailIndex: Int?
     
     // TODO: make this process more effecient
     
@@ -19,16 +21,44 @@ class CourseDetailViewModel: ObservableObject {
         courseDetailModel.course.courseName
     }
     
+    var gradeDetailOptions: [String] {
+        guard let gradeDetails = courseDetailModel.gradeDetails else {
+            return []
+        }
+        
+        return gradeDetails.map {
+            "\($0.grade.termName) \( $0.grade.termType)"
+        }
+    }
+    
     var gradeDetail: GradeDetail? {
-        courseDetailModel.gradeDetail
+        guard let chosenGradeDetailIndex = chosenGradeDetailIndex, courseDetailModel.gradeDetails?.isEmpty == false else {
+            return nil
+        }
+        return courseDetailModel.gradeDetails?[chosenGradeDetailIndex]
+    }
+    
+    var editingGradeDetail: GradeDetail? {
+        get {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, editingGradeDetails?.isEmpty == false else {
+                return nil
+            }
+            return editingGradeDetails?[chosenGradeDetailIndex]
+        }
+        set {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, let newValue = newValue else {
+                return
+            }
+            editingGradeDetails?[chosenGradeDetailIndex] = newValue
+        }
     }
     
     var courseGradeDisplay: String {
-        courseDetailModel.course.gradeDisplay
+        gradeDetail?.grade.letterGrade ?? Text.nilStringText
     }
     
     var hasModifications: Bool {
-        gradeDetail != editingGradeDetail
+        editingGradeDetail?.assignments != gradeDetail?.assignments
     }
     
     var hasGradeDetail: Bool {
@@ -40,9 +70,21 @@ class CourseDetailViewModel: ObservableObject {
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(( _ , let gradeDetails)):
-                    self?.courseDetailModel.gradeDetail = gradeDetails.first
-                    self?.editingGradeDetail = gradeDetails.first
+                case .success((let terms , let gradeDetails)):
+                    // sort by term first, then by compositeTasks. (gradeDetails with composite tasks should go after)
+                    let gradeDetails = gradeDetails.sorted { (detail1, detail2) in
+                        let detail1Index = terms.firstIndex(where: {$0.termName == detail1.grade.termName}) ?? -1
+                        let detail2Index = terms.firstIndex(where: {$0.termName == detail2.grade.termName}) ?? -1
+                        if detail1Index != detail2Index {
+                            return detail1Index < detail2Index
+                        }
+                        return detail1.grade.hasInitialAssignments
+                    }
+                    self?.courseDetailModel.terms = terms
+                    self?.courseDetailModel.gradeDetails = gradeDetails
+                    self?.editingGradeDetails = gradeDetails
+                    self?.editingGradeDetails?.setCalculation(to: true)
+                    self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
                     print(error)
@@ -52,37 +94,46 @@ class CourseDetailViewModel: ObservableObject {
         
     }
     
+    
+    private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
+        let currentDate = Date()
+        guard !terms.isEmpty,
+                currentDate >= terms.first!.startDate,
+                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
+            return nil
+        }
+        
+        for term in terms {
+            if (term.startDate...term.endDate).contains(currentDate) {
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
+            }
+        }
+        
+        return nil
+    }
+    
+    
     // MARK: - Intents
     
-    func getOriginalAssignment(for assignment: Assignment) -> Assignment {
+    func getOriginalAssignment(for assignment: Assignment) -> Assignment? {
         for originalAssignment in gradeDetail?.assignments ?? [] {
             if originalAssignment.id == assignment.id {
                 return originalAssignment
             }
         }
-        return Assignment(id: assignment.id,
-                          isActive: true,
-                          assignmentName: assignment.assignmentName,
-                          dueDate: nil,
-                          assignedDate: nil,
-                          courseName: assignment.courseName,
-                          totalPoints: nil,
-                          scorePoints: nil,
-                          comments: nil,
-                          categoryName: assignment.categoryName,
-                          categoryID: assignment.categoryID
-        )
+        return nil
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
         editingGradeDetail = gradeDetail
+        editingGradeDetail?.isCalculated = true
     }
     
     func refreshView() {
         objectWillChange.send()
     }
     
-    func deleteAssignment(_ assignment: Assignment) { 
+    func deleteAssignment(_ assignment: Assignment) {
         editingGradeDetail?.assignments.removeAll(where: {$0.id == assignment.id})
     }
   
@@ -90,12 +141,12 @@ class CourseDetailViewModel: ObservableObject {
 
 extension GradingCategory {
     var percentageDisplay: String {
-        percentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        percentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }
 
 extension GradeDetail {
     var totalPercentageDisplay: String {
-        totalPercentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        totalPercentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }

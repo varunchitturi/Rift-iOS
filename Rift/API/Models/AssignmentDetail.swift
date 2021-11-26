@@ -8,7 +8,7 @@
 import Foundation
 import SwiftSoup
 
-struct AssignmentDetail: Codable, Identifiable {
+struct AssignmentDetail: Decodable, Identifiable {
     
     // TODO: make sure API naming schemes are consistent
     private init(id: Int, startDate: Date?, endDate: Date?, modifiedDate: Date?, isActive: Bool, rubrics: [AssignmentDetail.Rubric], scores: [AssignmentDetail.Score]?, description: AssignmentDetail.Description) {
@@ -59,7 +59,6 @@ struct AssignmentDetail: Codable, Identifiable {
     
     let isActive: Bool
     
-    
     private let rubrics: [Rubric]?
     private let scores: [Score]?
     let description: Description
@@ -101,7 +100,7 @@ struct AssignmentDetail: Codable, Identifiable {
         case scores
     }
     
-    private struct Score: Codable, Identifiable {
+    private struct Score: Decodable, Identifiable {
         
         init(id: Int, scorePoints: Double?, comments: String?) {
             self.id = id
@@ -124,17 +123,17 @@ struct AssignmentDetail: Codable, Identifiable {
             
             let id = try container.decode(Int.self, forKey: .id)
             
-            let scorePointsString = try container.decode(String.self, forKey: .scorePoints)
-            let scorePoints = Double(scorePointsString) ?? nil
+            let scorePointsString = (try? container.decode(String.self, forKey: .scorePoints)) ?? ""
+            let scorePoints = Double(scorePointsString)
             
-            let comments = try container.decode(String?.self, forKey: .comments)
+            let comments = try? container.decode(String?.self, forKey: .comments)
             
             self.init(id: id, scorePoints: scorePoints, comments: comments)
             
         }
         
     }
-    struct Description: Codable {
+    struct Description: Decodable {
         
         struct SummaryContent: Decodable {
             let content: String
@@ -173,7 +172,7 @@ struct AssignmentDetail: Codable, Identifiable {
         }
     }
     
-    private struct Rubric: Codable {
+    private struct Rubric: Decodable {
         let totalPoints: Double?
         let weight: Double?
         let categoryID: Int
