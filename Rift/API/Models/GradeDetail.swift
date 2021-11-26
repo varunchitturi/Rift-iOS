@@ -66,8 +66,10 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
         if categories.allSatisfy ({ $0.percentage == nil }) {
             return nil
         }
-
-        switch grade.groupWeighted {
+        
+        let useGroupWeight = categories.allSatisfy {$0.isWeighted == true}
+        
+        switch useGroupWeight {
             // TODO: Describe all properties for API models
         case true:
             var currentWeight = 0.0
@@ -141,11 +143,6 @@ extension Array where Element == GradeDetail {
                     if let cumulativeTermName = grade.cumulativeTermName {
                         allTerms.insert(cumulativeTermName)
                     }
-                }
-                
-                // Sets the grade calculation strategy for GradingDetail
-                if let linkedGroupWeight = self[index].linkedGrades?.first?.groupWeighted {
-                    self[index].grade.groupWeighted = linkedGroupWeight
                 }
                 
                 // Adds the assignments to a GradingDetail based on the terms accumalated

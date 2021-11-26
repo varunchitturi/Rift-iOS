@@ -9,7 +9,7 @@ import Foundation
 
 struct GradingCategory: Identifiable, Decodable, Equatable {
     
-    init(id: Int, name: String, isWeighted: Bool, weight: Double, isExcluded: Bool, isCalculated: Bool = false, assignments: [Assignment], categoryGrade: CategoryGrade? = nil) {
+    init(id: Int, name: String, isWeighted: Bool, weight: Double, isExcluded: Bool, isCalculated: Bool = false, assignments: [Assignment], usePercent: Bool, categoryGrade: CategoryGrade? = nil) {
         self.id = id
         self.name = name
         self.isWeighted = isWeighted
@@ -17,6 +17,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
         self.isExcluded = isExcluded
         self.isCalculated = isCalculated
         self.assignments = assignments
+        self.usePercent = usePercent
         self.categoryGrade = categoryGrade
     }
     
@@ -26,30 +27,36 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     let weight: Double
     let isExcluded: Bool
     var isCalculated = false
-    var assignments: [Assignment] {
-        didSet {
-            var currentPoints: Double?
-            var totalPoints: Double?
-            assignments.forEach { `assignment` in
-                if let assignmentScorePoints = `assignment`.scorePoints, let assignmentTotalPoints = `assignment`.totalPoints {
-                    currentPoints = (currentPoints ?? 0) + assignmentScorePoints
-                    totalPoints = (totalPoints ?? 0) + assignmentTotalPoints
-                }
-            }
-            categoryGrade?.currentPoints = currentPoints
-            categoryGrade?.totalPoints = totalPoints
-        }
-    }
+    var assignments: [Assignment]
+    let usePercent: Bool
     private(set) var categoryGrade: CategoryGrade?
     
-    
-    
-    var totalPoints: Double? {
-        categoryGrade?.totalPoints
+    var currentPoints: Double? {
+        if isCalculated {
+            var currentPoints: Double?
+            assignments.forEach { `assignment` in
+                if let assignmentScorePoints = `assignment`.scorePoints, let assignmentTotalPoints = `assignment`.totalPoints {
+                    let assignmentScore = usePercent ? (assignmentScorePoints/assignmentTotalPoints) * 100 : assignmentScorePoints
+                    currentPoints = (currentPoints ?? 0) + assignmentScore
+                }
+            }
+            return currentPoints
+        }
+        return categoryGrade?.currentPoints
     }
     
-    var currentPoints: Double? {
-        categoryGrade?.currentPoints
+    var totalPoints: Double? {
+        if isCalculated {
+            var totalPoints: Double?
+            assignments.forEach { `assignment` in
+                if `assignment`.scorePoints != nil, let assignmentTotalPoints = `assignment`.totalPoints {
+                    let assignmentTotal = usePercent ? 100 : assignmentTotalPoints
+                    totalPoints = (totalPoints ?? 0) + assignmentTotal
+                }
+            }
+            return totalPoints
+        }
+        return categoryGrade?.totalPoints
     }
     
     var percentage: Double? {
@@ -69,6 +76,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
         case assignments
         case categoryGrade = "progress"
         case weight
+        case usePercent
     }
     
     init(from decoder: Decoder) throws {
@@ -80,8 +88,9 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
         let assignments = (try? container.decode([Assignment]?.self, forKey: .assignments)) ?? []
         let categoryGrade = try? container.decode(CategoryGrade?.self, forKey: .categoryGrade)
         let weight = (try? container.decode(Double?.self, forKey: .weight)) ?? 0
+        let usePercent = (try? container.decode(Bool?.self, forKey: .usePercent)) ?? false
         
-        self.init(id: id, name: name, isWeighted: isWeighted, weight: weight, isExcluded: isExcluded, assignments: assignments, categoryGrade: categoryGrade)
+        self.init(id: id, name: name, isWeighted: isWeighted, weight: weight, isExcluded: isExcluded, assignments: assignments, usePercent: usePercent, categoryGrade: categoryGrade)
     }
     
 }
