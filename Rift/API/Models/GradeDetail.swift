@@ -11,15 +11,22 @@ import SwiftUI
 struct GradeDetail: Decodable, Equatable, Identifiable {
     
     var grade: Grade
-    var categories: [GradingCategory]
+    private(set) var categories: [GradingCategory]
     let linkedGrades: [Grade]?
     let id: UUID = UUID()
+    var isCalculated = false {
+        willSet {
+            for index in categories.indices {
+                categories[index].isCalculated = newValue
+            }
+        }
+    }
+    
     var assignments: [Assignment] {
         get {
             var assignments: [Assignment] = []
             categories.forEach { category in
                 assignments += category.assignments
-            
             }
             assignments.sort { lhs, rhs in
                 if let lhs = lhs.dueDate, let rhs = rhs.dueDate {
@@ -42,9 +49,20 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
         }
     }
     
-    
     var totalPercentage: Double? {
-        
+        if isCalculated {
+            return calculatePercentage()
+        }
+        return grade.percentage
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case grade = "task"
+        case categories
+        case linkedGrades = "children"
+    }
+    
+    private func calculatePercentage() -> Double? {
         if categories.allSatisfy ({ $0.percentage == nil }) {
             return nil
         }
@@ -74,62 +92,72 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
         }
     }
     
-    enum CodingKeys: String, CodingKey {
-        case grade = "task"
-        case categories
-        case linkedGrades = "children"
+    mutating func resolveCategories() {
+        for (categoryIndex, category) in self.categories.enumerated() {
+            for assignmentIndex in category.assignments.indices {
+                self.categories[categoryIndex].assignments[assignmentIndex].categoryName = category.name
+                self.categories[categoryIndex].assignments[assignmentIndex].categoryID = category.id
+            }
+        }
+    }
+    
+    mutating func addGradingCategory(_ gradingCategory: GradingCategory) {
+        self.categories.append(gradingCategory)
     }
 }
 
 extension Array where Element == GradeDetail {
     mutating func resolveCategories() {
-        for (detailIndex, detail) in self.enumerated() {
-            for (categoryIndex, category) in detail.categories.enumerated() {
-                for assignmentIndex in category.assignments.indices {
-                    self[detailIndex]
-                        .categories[categoryIndex]
-                        .assignments[assignmentIndex].categoryName = category.name
-                    self[detailIndex]
-                        .categories[categoryIndex]
-                        .assignments[assignmentIndex].categoryID = category.id
-                }
-            }
+        for index in self.indices {
+            self[index].resolveCategories()
         }
     }
     
     mutating func resolveTerms() {
+        
+        // Collects all categories by termName and resets all categories for each GradingDetail
         var termsWithAssignments = [String: [GradingCategory]]()
         for detailIndex in self.indices {
-            if self[detailIndex].grade.isIndividualGrade {
+            if self[detailIndex].grade.hasInitialAssignments {
                 termsWithAssignments[self[detailIndex].grade.termName] = self[detailIndex].categories
-                self[detailIndex].categories.removeAll()
+                self[detailIndex].assignments = []
             }
         }
-        for detailIndex in self.indices {
-            var allTerms = Set<String>()
-            allTerms.insert(self[detailIndex].grade.termName)
-            if let cumulativeTermName = self[detailIndex].grade.cumulativeTermName {
-                allTerms.insert(cumulativeTermName)
-            }
-            self[detailIndex].linkedGrades?.forEach { grade in
-                allTerms.insert(grade.termName)
-                if let cumulativeTermName = grade.cumulativeTermName {
+        
+        // Assigns the correct assignments to all of the GradingDetails
+        for index in self.indices {
+            
+            if self[index].grade.hasCompositeTasks || self[index].grade.hasInitialAssignments {
+                
+                // Accumalates all the terms for a GradingDetail
+                var allTerms = Set<String>()
+                allTerms.insert(self[index].grade.termName)
+                if let cumulativeTermName = self[index].grade.cumulativeTermName {
                     allTerms.insert(cumulativeTermName)
                 }
-            }
-            if let linkedGroupWeight = self[detailIndex].linkedGrades?.first?.groupWeighted {
-                self[detailIndex].grade.groupWeighted = linkedGroupWeight
-            }
-            allTerms.forEach { term in
-                if let gradingCategories = termsWithAssignments[term] {
-                    gradingCategories.forEach { gradingCategory in
-                        if self[detailIndex].categories.contains(where: {$0.id == gradingCategory.id}) {
-                            if let categoryIndex = self[detailIndex].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
-                                self[detailIndex].categories[categoryIndex].assignments += gradingCategory.assignments
+                
+                self[index].linkedGrades?.forEach { grade in
+                    allTerms.insert(grade.termName)
+                    if let cumulativeTermName = grade.cumulativeTermName {
+                        allTerms.insert(cumulativeTermName)
+                    }
+                }
+                
+                // Sets the grade calculation strategy for GradingDetail
+                if let linkedGroupWeight = self[index].linkedGrades?.first?.groupWeighted {
+                    self[index].grade.groupWeighted = linkedGroupWeight
+                }
+                
+                // Adds the assignments to a GradingDetail based on the terms accumalated
+                allTerms.forEach { term in
+                    if let gradingCategories = termsWithAssignments[term] {
+                        gradingCategories.forEach { gradingCategory in
+                            if self[index].categories.contains(where: {$0.id == gradingCategory.id}) {
+                                self[index].assignments += gradingCategory.assignments
                             }
-                        }
-                        else {
-                            self[detailIndex].categories.append(gradingCategory)
+                            else {
+                                self[index].addGradingCategory(gradingCategory)
+                            }
                         }
                     }
                 }
@@ -137,5 +165,9 @@ extension Array where Element == GradeDetail {
         }
     }
     
+    mutating func setCalculation(to isCalculated: Bool) {
+        for index in self.indices {
+            self[index].isCalculated = isCalculated
+        }
+    }
 }
-

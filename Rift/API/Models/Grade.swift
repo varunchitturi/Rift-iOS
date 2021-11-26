@@ -11,7 +11,7 @@ import Foundation
 
 struct Grade: Decodable, Equatable {
     
-    init(letterGrade: String?, percentage: Double?, currentPoints: Double?, totalPoints: Double?, termName: String, termType: String, groupWeighted: Bool, isIndividualGrade: Bool, hasCompositeTasks: Bool, cumulativeTermName: String?) {
+    init(letterGrade: String?, percentage: Double?, currentPoints: Double?, totalPoints: Double?, termName: String, termType: String, groupWeighted: Bool, hasInitialAssignments: Bool, hasCompositeTasks: Bool, cumulativeTermName: String?) {
         self.letterGrade = letterGrade
         self.percentage = percentage
         self.currentPoints = currentPoints
@@ -19,7 +19,7 @@ struct Grade: Decodable, Equatable {
         self.termName = termName
         self.termType = termType
         self.groupWeighted = groupWeighted
-        self.isIndividualGrade = isIndividualGrade
+        self.hasInitialAssignments = hasInitialAssignments
         self.hasCompositeTasks = hasCompositeTasks
         self.cumulativeTermName = cumulativeTermName
     }
@@ -31,7 +31,7 @@ struct Grade: Decodable, Equatable {
     let termName: String
     let termType: String
     var groupWeighted: Bool
-    let isIndividualGrade: Bool
+    let hasInitialAssignments: Bool
     let hasCompositeTasks: Bool
     let cumulativeTermName: String?
 
@@ -45,7 +45,7 @@ struct Grade: Decodable, Equatable {
         case termName
         case termType = "taskName"
         case groupWeighted
-        case isIndividualGrade = "hasAssignments"
+        case hasInitialAssignments = "hasAssignments"
         case hasCompositeTasks
         case cumulativeTermName
         
@@ -65,11 +65,11 @@ struct Grade: Decodable, Equatable {
         let termName = try container.decode(String.self, forKey: .termName)
         let termType = try container.decode(String.self, forKey: .termType)
         let groupWeighted = (try? container.decode(Bool?.self, forKey: .groupWeighted)) ?? false
-        let isIndividualGrade = try container.decode(Bool.self, forKey: .isIndividualGrade)
+        let hasInitialAssignments = try container.decode(Bool.self, forKey: .hasInitialAssignments)
         let hasCompositeTasks = try container.decode(Bool.self, forKey: .hasCompositeTasks)
         let cumulativeTermName = try? container.decode(String?.self, forKey: .cumulativeTermName)
         
-        self.init(letterGrade: letterGrade, percentage: percentage, currentPoints: currentPoints, totalPoints: totalPoints, termName: termName, termType: termType, groupWeighted: groupWeighted, isIndividualGrade: isIndividualGrade, hasCompositeTasks: hasCompositeTasks, cumulativeTermName: cumulativeTermName)
+        self.init(letterGrade: letterGrade, percentage: percentage, currentPoints: currentPoints, totalPoints: totalPoints, termName: termName, termType: termType, groupWeighted: groupWeighted, hasInitialAssignments: hasInitialAssignments, hasCompositeTasks: hasCompositeTasks, cumulativeTermName: cumulativeTermName)
     }
     
 }

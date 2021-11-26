@@ -58,7 +58,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var hasModifications: Bool {
-        editingGradeDetail != gradeDetail
+        editingGradeDetail?.assignments != gradeDetail?.assignments
     }
     
     var hasGradeDetail: Bool {
@@ -78,11 +78,12 @@ class CourseDetailViewModel: ObservableObject {
                         if detail1Index != detail2Index {
                             return detail1Index < detail2Index
                         }
-                        return detail1.grade.hasCompositeTasks != detail2.grade.hasCompositeTasks
+                        return detail1.grade.hasInitialAssignments
                     }
                     self?.courseDetailModel.terms = terms
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
+                    self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
@@ -104,7 +105,7 @@ class CourseDetailViewModel: ObservableObject {
         
         for term in terms {
             if (term.startDate...term.endDate).contains(currentDate) {
-                return courseDetailModel.gradeDetails?.lastIndex(where: {$0.grade.termName == term.termName})
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
             }
         }
         
@@ -136,6 +137,7 @@ class CourseDetailViewModel: ObservableObject {
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
         editingGradeDetail = gradeDetail
+        editingGradeDetail?.isCalculated = true
     }
     
     func refreshView() {
@@ -150,12 +152,12 @@ class CourseDetailViewModel: ObservableObject {
 
 extension GradingCategory {
     var percentageDisplay: String {
-        percentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        percentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }
 
 extension GradeDetail {
     var totalPercentageDisplay: String {
-        totalPercentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        totalPercentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }

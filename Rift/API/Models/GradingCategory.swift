@@ -8,11 +8,24 @@
 import Foundation
 
 struct GradingCategory: Identifiable, Decodable, Equatable {
+    
+    init(id: Int, name: String, isWeighted: Bool, weight: Double, isExcluded: Bool, isCalculated: Bool = false, assignments: [Assignment], categoryGrade: CategoryGrade? = nil) {
+        self.id = id
+        self.name = name
+        self.isWeighted = isWeighted
+        self.weight = weight
+        self.isExcluded = isExcluded
+        self.isCalculated = isCalculated
+        self.assignments = assignments
+        self.categoryGrade = categoryGrade
+    }
+    
     let id: Int
     let name: String
     let isWeighted: Bool
     let weight: Double
     let isExcluded: Bool
+    var isCalculated = false
     var assignments: [Assignment] {
         didSet {
             var currentPoints: Double?
@@ -29,6 +42,8 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     }
     private(set) var categoryGrade: CategoryGrade?
     
+    
+    
     var totalPoints: Double? {
         categoryGrade?.totalPoints
     }
@@ -38,10 +53,13 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     }
     
     var percentage: Double? {
-        guard let currentPoints = currentPoints, let totalPoints = totalPoints else {
-            return nil
+        if isCalculated {
+            guard let currentPoints = currentPoints, let totalPoints = totalPoints else {
+                return nil
+            }
+            return ((currentPoints/totalPoints) * 100).truncated(2)
         }
-        return ((currentPoints/totalPoints) * 100).rounded(2)
+        return categoryGrade?.percentage
     }
     
     enum CodingKeys: String, CodingKey {
@@ -51,6 +69,19 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
         case assignments
         case categoryGrade = "progress"
         case weight
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decode(Int.self, forKey: .id)
+        let name = try container.decode(String.self, forKey: .name)
+        let isWeighted = (try? container.decode(Bool?.self, forKey: .isWeighted)) ?? false
+        let isExcluded = (try? container.decode(Bool.self, forKey: .isExcluded)) ?? true
+        let assignments = (try? container.decode([Assignment]?.self, forKey: .assignments)) ?? []
+        let categoryGrade = try? container.decode(CategoryGrade?.self, forKey: .categoryGrade)
+        let weight = (try? container.decode(Double?.self, forKey: .weight)) ?? 0
+        
+        self.init(id: id, name: name, isWeighted: isWeighted, weight: weight, isExcluded: isExcluded, assignments: assignments, categoryGrade: categoryGrade)
     }
     
 }
