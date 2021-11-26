@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct GradeTerm: Codable, Identifiable {
+struct GradeTerm: Decodable, Identifiable {
     
     init(id: Int, startDate: Date, endDate: Date, termName: String, termScheduleName: String, courses: [Course]?) {
         self.id = id
