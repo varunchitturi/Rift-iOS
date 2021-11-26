@@ -1,0 +1,8 @@
+app_identifier("org.schoolscope.rift-infinite-campus") # The bundle identifier of your app
+apple_id("varunchitturi@icloud.com") # Your Apple email address
+
+itc_team_id("123611807") # App Store Connect Team ID
+team_id("P3BD6D8HQC") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
