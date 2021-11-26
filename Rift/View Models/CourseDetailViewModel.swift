@@ -26,7 +26,7 @@ class CourseDetailViewModel: ObservableObject {
             return []
         }
         
-        return gradeDetails.filter({$0.grade.hasCompositeTasks || $0.grade.isIndividualGrade}).map {
+        return gradeDetails.map {
             "\($0.grade.termName) \( $0.grade.termType)"
         }
     }
@@ -58,7 +58,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var hasModifications: Bool {
-        courseDetailModel.gradeDetails != editingGradeDetails
+        editingGradeDetail != gradeDetail
     }
     
     var hasGradeDetail: Bool {
@@ -71,6 +71,15 @@ class CourseDetailViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
+                    // sort by term first, then by compositeTasks. (gradeDetails with composite tasks should go after)
+                    let gradeDetails = gradeDetails.sorted { (detail1, detail2) in
+                        let detail1Index = terms.firstIndex(where: {$0.termName == detail1.grade.termName}) ?? -1
+                        let detail2Index = terms.firstIndex(where: {$0.termName == detail2.grade.termName}) ?? -1
+                        if detail1Index != detail2Index {
+                            return detail1Index < detail2Index
+                        }
+                        return detail1.grade.hasCompositeTasks != detail2.grade.hasCompositeTasks
+                    }
                     self?.courseDetailModel.terms = terms
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
@@ -84,6 +93,7 @@ class CourseDetailViewModel: ObservableObject {
         
     }
     
+    
     private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
         let currentDate = Date()
         guard !terms.isEmpty,
@@ -94,8 +104,7 @@ class CourseDetailViewModel: ObservableObject {
         
         for term in terms {
             if (term.startDate...term.endDate).contains(currentDate) {
-                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName && !$0.grade.isIndividualGrade}) ??
-                    courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
+                return courseDetailModel.gradeDetails?.lastIndex(where: {$0.grade.termName == term.termName})
             }
         }
         
@@ -126,7 +135,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
-        editingGradeDetails = courseDetailModel.gradeDetails
+        editingGradeDetail = gradeDetail
     }
     
     func refreshView() {

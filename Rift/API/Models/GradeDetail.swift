@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GradeDetail: Decodable, Equatable, Identifiable {
     
-    let grade: Grade
+    var grade: Grade
     var categories: [GradingCategory]
     let linkedGrades: [Grade]?
     let id: UUID = UUID()
@@ -55,10 +55,9 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
             var currentWeight = 0.0
             var totalWeight = 0.0
             categories.forEach { category in
-                let percentage = category.percentage
-                if !category.isExcluded && percentage != nil {
+                if let percentage = category.percentage, !category.isExcluded {
                     totalWeight += category.weight
-                    currentWeight += category.weight * percentage!
+                    currentWeight += category.weight * percentage
                 }
             }
             return totalWeight != 0 ? currentWeight / totalWeight : nil
@@ -81,3 +80,62 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
         case linkedGrades = "children"
     }
 }
+
+extension Array where Element == GradeDetail {
+    mutating func resolveCategories() {
+        for (detailIndex, detail) in self.enumerated() {
+            for (categoryIndex, category) in detail.categories.enumerated() {
+                for assignmentIndex in category.assignments.indices {
+                    self[detailIndex]
+                        .categories[categoryIndex]
+                        .assignments[assignmentIndex].categoryName = category.name
+                    self[detailIndex]
+                        .categories[categoryIndex]
+                        .assignments[assignmentIndex].categoryID = category.id
+                }
+            }
+        }
+    }
+    
+    mutating func resolveTerms() {
+        var termsWithAssignments = [String: [GradingCategory]]()
+        for detailIndex in self.indices {
+            if self[detailIndex].grade.isIndividualGrade {
+                termsWithAssignments[self[detailIndex].grade.termName] = self[detailIndex].categories
+                self[detailIndex].categories.removeAll()
+            }
+        }
+        for detailIndex in self.indices {
+            var allTerms = Set<String>()
+            allTerms.insert(self[detailIndex].grade.termName)
+            if let cumulativeTermName = self[detailIndex].grade.cumulativeTermName {
+                allTerms.insert(cumulativeTermName)
+            }
+            self[detailIndex].linkedGrades?.forEach { grade in
+                allTerms.insert(grade.termName)
+                if let cumulativeTermName = grade.cumulativeTermName {
+                    allTerms.insert(cumulativeTermName)
+                }
+            }
+            if let linkedGroupWeight = self[detailIndex].linkedGrades?.first?.groupWeighted {
+                self[detailIndex].grade.groupWeighted = linkedGroupWeight
+            }
+            allTerms.forEach { term in
+                if let gradingCategories = termsWithAssignments[term] {
+                    gradingCategories.forEach { gradingCategory in
+                        if self[detailIndex].categories.contains(where: {$0.id == gradingCategory.id}) {
+                            if let categoryIndex = self[detailIndex].categories.firstIndex(where: {$0.id == gradingCategory.id}) {
+                                self[detailIndex].categories[categoryIndex].assignments += gradingCategory.assignments
+                            }
+                        }
+                        else {
+                            self[detailIndex].categories.append(gradingCategory)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+

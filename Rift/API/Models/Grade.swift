@@ -30,7 +30,7 @@ struct Grade: Decodable, Equatable {
     let totalPoints: Double?
     let termName: String
     let termType: String
-    let groupWeighted: Bool
+    var groupWeighted: Bool
     let isIndividualGrade: Bool
     let hasCompositeTasks: Bool
     let cumulativeTermName: String?
