@@ -12,7 +12,6 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Use build tools version
       - name: Checkout repository
         uses: actions/checkout@v2
 
