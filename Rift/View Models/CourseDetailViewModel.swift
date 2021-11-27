@@ -26,13 +26,13 @@ class CourseDetailViewModel: ObservableObject {
             return []
         }
         
-        return gradeDetails.filter({$0.grade.hasCompositeTasks || $0.grade.isIndividualGrade}).map {
+        return gradeDetails.map {
             "\($0.grade.termName) \( $0.grade.termType)"
         }
     }
     
     var gradeDetail: GradeDetail? {
-        guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+        guard let chosenGradeDetailIndex = chosenGradeDetailIndex, courseDetailModel.gradeDetails?.isEmpty == false else {
             return nil
         }
         return courseDetailModel.gradeDetails?[chosenGradeDetailIndex]
@@ -40,7 +40,7 @@ class CourseDetailViewModel: ObservableObject {
     
     var editingGradeDetail: GradeDetail? {
         get {
-            guard let chosenGradeDetailIndex = chosenGradeDetailIndex else {
+            guard let chosenGradeDetailIndex = chosenGradeDetailIndex, editingGradeDetails?.isEmpty == false else {
                 return nil
             }
             return editingGradeDetails?[chosenGradeDetailIndex]
@@ -58,7 +58,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var hasModifications: Bool {
-        courseDetailModel.gradeDetails != editingGradeDetails
+        editingGradeDetail?.assignments != gradeDetail?.assignments
     }
     
     var hasGradeDetail: Bool {
@@ -71,9 +71,19 @@ class CourseDetailViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
+                    // sort by term first, then by compositeTasks. (gradeDetails with composite tasks should go after)
+                    let gradeDetails = gradeDetails.sorted { (detail1, detail2) in
+                        let detail1Index = terms.firstIndex(where: {$0.termName == detail1.grade.termName}) ?? -1
+                        let detail2Index = terms.firstIndex(where: {$0.termName == detail2.grade.termName}) ?? -1
+                        if detail1Index != detail2Index {
+                            return detail1Index < detail2Index
+                        }
+                        return detail1.grade.hasInitialAssignments
+                    }
                     self?.courseDetailModel.terms = terms
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
+                    self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
                 case .failure(let error):
                     // TODO: better error handling here
@@ -83,6 +93,7 @@ class CourseDetailViewModel: ObservableObject {
         }
         
     }
+    
     
     private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
         let currentDate = Date()
@@ -94,8 +105,7 @@ class CourseDetailViewModel: ObservableObject {
         
         for term in terms {
             if (term.startDate...term.endDate).contains(currentDate) {
-                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName && !$0.grade.isIndividualGrade}) ??
-                    courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
             }
         }
         
@@ -105,28 +115,18 @@ class CourseDetailViewModel: ObservableObject {
     
     // MARK: - Intents
     
-    func getOriginalAssignment(for assignment: Assignment) -> Assignment {
+    func getOriginalAssignment(for assignment: Assignment) -> Assignment? {
         for originalAssignment in gradeDetail?.assignments ?? [] {
             if originalAssignment.id == assignment.id {
                 return originalAssignment
             }
         }
-        return Assignment(id: assignment.id,
-                          isActive: true,
-                          assignmentName: assignment.assignmentName,
-                          dueDate: nil,
-                          assignedDate: nil,
-                          courseName: assignment.courseName,
-                          totalPoints: nil,
-                          scorePoints: nil,
-                          comments: nil,
-                          categoryName: assignment.categoryName,
-                          categoryID: assignment.categoryID
-        )
+        return nil
     }
     // TODO: consolidate between the word changes and modifications. Both should not be used.
     func resetChanges() {
-        editingGradeDetails = courseDetailModel.gradeDetails
+        editingGradeDetail = gradeDetail
+        editingGradeDetail?.isCalculated = true
     }
     
     func refreshView() {
@@ -141,12 +141,12 @@ class CourseDetailViewModel: ObservableObject {
 
 extension GradingCategory {
     var percentageDisplay: String {
-        percentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        percentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }
 
 extension GradeDetail {
     var totalPercentageDisplay: String {
-        totalPercentage?.truncated(2).description.appending("%") ?? Text.nilStringText
+        totalPercentage?.rounded(2).description.appending("%") ?? Text.nilStringText
     }
 }
