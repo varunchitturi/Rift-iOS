@@ -1,4 +1,4 @@
-name: CD_main
+name: CD
 on:
   push:
     branches: [ main ]
@@ -8,15 +8,15 @@ on:
 
 jobs:
   deploy:
-    name: Deploying to Testflight App Store Connect
-    runs-on: macOS-latest
+    name: Deploying to Testflight App Store Connect Users
+    runs-on: macOS-12
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Fastlane Action
-        uses: maierj/fastlane-action@v1.4.0
+        uses: maierj/fastlane-action@v2.1.0
         with:
           lane: stage
         env:
