@@ -9,8 +9,13 @@ on:
 jobs:
   deploy:
     name: Deploying to Testflight External Beta
+<<<<<<< HEAD
     runs-on: macos-11
 
+=======
+    runs-on: macos-latest
+    
+>>>>>>> 1639ba661ba4f59d3464ffe56f20d3da3e2222db
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
