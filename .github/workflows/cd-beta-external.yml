@@ -10,7 +10,7 @@ jobs:
   deploy:
     name: Deploying to Testflight External Beta
     runs-on: macos-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
