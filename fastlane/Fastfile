@@ -70,7 +70,6 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    ensure_git_status_clean
     increment_build_number(xcodeproj: "Rift.xcodeproj")
     build_app(
       scheme: "Rift",
@@ -118,7 +117,6 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    ensure_git_status_clean
     increment_build_number(xcodeproj: "Rift.xcodeproj")
     build_app(
       scheme: "Rift",
@@ -169,7 +167,6 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    ensure_git_status_clean
     increment_build_number(xcodeproj: "Rift.xcodeproj")
     build_app(
       scheme: "Rift",
