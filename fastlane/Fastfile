@@ -69,7 +69,10 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    increment_build_number(
+      build_number: latest_testflight_build_number + 1,
+      xcodeproj: "Rift.xcodeproj"
+    )
     build_app(
       scheme: "Rift",
       configuration: "Release",
@@ -115,7 +118,10 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    increment_build_number(
+      build_number: latest_testflight_build_number + 1,
+      xcodeproj: "Rift.xcodeproj"
+    )
     build_app(
       scheme: "Rift",
       configuration: "Release",
@@ -164,7 +170,10 @@ platform :ios do
       keychain_password: TEMP_KEYCHAIN_PASSWORD,
       api_key: api_key
     )
-    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    increment_build_number(
+      build_number: latest_testflight_build_number + 1,
+      xcodeproj: "Rift.xcodeproj"
+    )
     build_app(
       scheme: "Rift",
       configuration: "Release",
