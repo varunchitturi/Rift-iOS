@@ -1,7 +1,7 @@
-name: CD_beta_external
+name: CD
 on:
   push:
-    branches: [ beta/externa ]
+    branches: [ beta/external ]
 
   # Allows you to run this workflow manually from the Actions a tab
   workflow_dispatch:
@@ -9,14 +9,14 @@ on:
 jobs:
   deploy:
     name: Deploying to Testflight External Beta
-    runs-on: macOS-latest
+    runs-on: macOS-12
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Fastlane Action
-        uses: maierj/fastlane-action@v1.4.0
+        uses: maierj/fastlane-action@v2.1.0
         with:
           lane: stage
         env:

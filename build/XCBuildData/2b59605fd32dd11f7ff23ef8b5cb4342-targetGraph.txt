@@ -1,0 +1,89 @@
+Target dependency graph (28 targets)
+_NumericsShims in swift-numerics, no dependencies
+RealModule in swift-numerics, depends on:
+_NumericsShims in swift-numerics (explicit)
+RealModule in swift-numerics, depends on:
+RealModule in swift-numerics (explicit)
+_NumericsShims in swift-numerics (explicit)
+Algorithms in swift-algorithms, depends on:
+RealModule in swift-numerics (explicit)
+Algorithms in swift-algorithms, depends on:
+Algorithms in swift-algorithms (explicit)
+RealModule in swift-numerics (explicit)
+SwiftSoup in SwiftSoup, no dependencies
+SwiftSoup in SwiftSoup, depends on:
+SwiftSoup in SwiftSoup (explicit)
+OrderedCollections in swift-collections, no dependencies
+OrderedCollections in swift-collections, depends on:
+OrderedCollections in swift-collections (explicit)
+CNIOLinux in swift-nio, no dependencies
+CNIODarwin in swift-nio, no dependencies
+CNIOAtomics in swift-nio, no dependencies
+NIOConcurrencyHelpers in swift-nio, depends on:
+CNIOAtomics in swift-nio (explicit)
+NIOPriorityQueue in swift-nio, no dependencies
+CNIOSHA1 in swift-nio, no dependencies
+NIO in swift-nio, depends on:
+CNIOLinux in swift-nio (explicit)
+CNIODarwin in swift-nio (explicit)
+CNIOAtomics in swift-nio (explicit)
+NIOConcurrencyHelpers in swift-nio (explicit)
+NIOPriorityQueue in swift-nio (explicit)
+CNIOSHA1 in swift-nio (explicit)
+NIO in swift-nio, depends on:
+NIO in swift-nio (explicit)
+CNIOLinux in swift-nio (explicit)
+CNIODarwin in swift-nio (explicit)
+CNIOAtomics in swift-nio (explicit)
+NIOConcurrencyHelpers in swift-nio (explicit)
+NIOPriorityQueue in swift-nio (explicit)
+CNIOSHA1 in swift-nio (explicit)
+Async in Core, depends on:
+NIO in swift-nio (explicit)
+Debugging in Core, no dependencies
+Bits in Core, depends on:
+Debugging in Core (explicit)
+NIO in swift-nio (explicit)
+COperatingSystem in Core, no dependencies
+NIOFoundationCompat in swift-nio, depends on:
+CNIOLinux in swift-nio (explicit)
+CNIODarwin in swift-nio (explicit)
+CNIOAtomics in swift-nio (explicit)
+NIOConcurrencyHelpers in swift-nio (explicit)
+NIOPriorityQueue in swift-nio (explicit)
+CNIOSHA1 in swift-nio (explicit)
+NIO in swift-nio (explicit)
+NIOFoundationCompat in swift-nio, depends on:
+NIOFoundationCompat in swift-nio (explicit)
+CNIOLinux in swift-nio (explicit)
+CNIODarwin in swift-nio (explicit)
+CNIOAtomics in swift-nio (explicit)
+NIOConcurrencyHelpers in swift-nio (explicit)
+NIOPriorityQueue in swift-nio (explicit)
+CNIOSHA1 in swift-nio (explicit)
+NIO in swift-nio (explicit)
+Core in Core, depends on:
+Async in Core (explicit)
+Debugging in Core (explicit)
+Bits in Core (explicit)
+COperatingSystem in Core (explicit)
+NIO in swift-nio (explicit)
+NIOFoundationCompat in swift-nio (explicit)
+Core in Core, depends on:
+Core in Core (explicit)
+Async in Core (explicit)
+Debugging in Core (explicit)
+Bits in Core (explicit)
+COperatingSystem in Core (explicit)
+NIO in swift-nio (explicit)
+NIOFoundationCompat in swift-nio (explicit)
+URLEncodedForm in URLEncodedForm, depends on:
+Core in Core (explicit)
+URLEncodedForm in URLEncodedForm, depends on:
+URLEncodedForm in URLEncodedForm (explicit)
+Core in Core (explicit)
+Rift in Rift, depends on:
+Algorithms in swift-algorithms (explicit)
+SwiftSoup in SwiftSoup (explicit)
+OrderedCollections in swift-collections (explicit)
+URLEncodedForm in URLEncodedForm (explicit)
