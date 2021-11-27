@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Assignment: Codable, Identifiable, Equatable {
+struct Assignment: Decodable, Identifiable, Equatable {
     
     let id: Int
     let isActive: Bool
@@ -46,8 +46,8 @@ extension Assignment {
         let dueDateString = try (container.decode(String?.self, forKey: .dueDate))
         let assignedDateString = try container.decode(String?.self, forKey: .assignedDate)
         let comments = try container.decode(String?.self, forKey: .comments)
-        let scorePointsString = try container.decode(String?.self, forKey: .scorePoints)
-        let scorePoints = Double(scorePointsString ?? "")
+        let scorePointsString = (try? container.decode(String?.self, forKey: .scorePoints)) ?? ""
+        let scorePoints = Double(scorePointsString)
         
         let dueDate = dueDateString != nil ? DateFormatter.iso180601Full.date(from: dueDateString!) : nil
         let assignedDate = assignedDateString != nil ? DateFormatter.iso180601Full.date(from: assignedDateString!) : nil

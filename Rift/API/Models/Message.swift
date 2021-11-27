@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Message: Codable, Identifiable {
+struct Message: Decodable, Identifiable {
 
     let id: Int
     let courseID: Int
@@ -30,7 +30,7 @@ struct Message: Codable, Identifiable {
 
     }
 
-    enum MessageType: String, Codable {
+    enum MessageType: String, Decodable {
         case `default` = "Message"
         case announcement = "Announcement"
     }
