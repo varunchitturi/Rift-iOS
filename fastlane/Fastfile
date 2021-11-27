@@ -1,0 +1,213 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+DEVELOPER_APP_ID = ENV["DEVELOPER_APP_ID"]
+DEVELOPER_APP_IDENTIFIER = ENV["DEVELOPER_APP_IDENTIFIER"]
+PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
+TEMP_KEYCHAIN_USER = ENV["TEMP_KEYCHAIN_USER"]
+TEMP_KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
+APPLE_ISSUER_ID = ENV["APPLE_ISSUER_ID"]
+APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
+APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
+GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
+
+def delete_temp_keychain(name)
+  delete_keychain(
+    name: name
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+end
+
+def create_temp_keychain(name, password)
+  create_keychain(
+    name: name,
+    password: password,
+    unlock: false,
+    timeout: 0
+  )
+end
+
+def ensure_temp_keychain(name, password)
+  delete_temp_keychain(name)
+  create_temp_keychain(name, password)
+end
+
+
+
+
+
+platform :ios do
+  desc "Push a new beta build to TestFlight for App Store Connect Users"
+  lane :stage do
+    keychain_name = TEMP_KEYCHAIN_USER
+    keychain_password = TEMP_KEYCHAIN_PASSWORD
+    ensure_temp_keychain(keychain_name, keychain_password)
+
+    api_key = app_store_connect_api_key(
+      key_id: APPLE_KEY_ID,
+      issuer_id: APPLE_ISSUER_ID,
+      key_content: APPLE_KEY_CONTENT,
+      duration: 1200,
+      in_house: false
+    )
+
+    match(
+      type: 'appstore',
+      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      api_key: api_key
+    )
+    ensure_git_status_clean
+    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    build_app(
+      scheme: "Rift",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+            DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
+        }
+      }
+    )
+    upload_to_testflight(
+      api_key: api_key,
+      beta_app_feedback_email: ENV["RIFT_SUPPORT_EMAIL"],
+      changelog: File.read("../changelog.txt"),
+      ipa: "./rift.ipa",
+      beta_app_review_info: {
+        contact_email: ENV["RIFT_CONTACT_EMAIL"],
+        contact_first_name: "Varun",
+        contact_last_name: "Chitturi",
+        contact_phone: ENV["RIFT_CONTACT_PHONE"],
+        demo_account_name: ENV["DEMO_ACCOUNT_USERNAME"],
+        demo_account_password: ENV["DEMO_ACCOUNT_PASSWORD"],
+        notes: "For review, select California and Fremont Unified School District and use SSO to Login"
+      }
+    )
+  end
+  desc "Push a new beta build to TestFlight for internal testers"
+  lane :beta_internal do
+    keychain_name = TEMP_KEYCHAIN_USER
+    keychain_password = TEMP_KEYCHAIN_PASSWORD
+    ensure_temp_keychain(keychain_name, keychain_password)
+
+    api_key = app_store_connect_api_key(
+      key_id: APPLE_KEY_ID,
+      issuer_id: APPLE_ISSUER_ID,
+      key_content: APPLE_KEY_CONTENT,
+      duration: 1200,
+      in_house: false
+    )
+
+    match(
+      type: 'appstore',
+      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      api_key: api_key
+    )
+    ensure_git_status_clean
+    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    build_app(
+      scheme: "Rift",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+            DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
+        }
+      }
+    )
+    upload_to_testflight(
+      api_key: api_key,
+      beta_app_feedback_email: ENV["RIFT_SUPPORT_EMAIL"],
+      distribute_external: true,
+      groups: ["School Scope Team"],
+      changelog: File.read("../changelog.txt"),
+      ipa: "./rift.ipa",
+      beta_app_review_info: {
+        contact_email: ENV["RIFT_CONTACT_EMAIL"],
+        contact_first_name: "Varun",
+        contact_last_name: "Chitturi",
+        contact_phone: ENV["RIFT_CONTACT_PHONE"],
+        demo_account_name: ENV["DEMO_ACCOUNT_USERNAME"],
+        demo_account_password: ENV["DEMO_ACCOUNT_PASSWORD"],
+        notes: "For review, select California and Fremont Unified School District and use SSO to Login"
+      }
+
+    )
+  end
+  desc "Push a new beta build to TestFlight for external testers"
+  lane :beta_external do
+    keychain_name = TEMP_KEYCHAIN_USER
+    keychain_password = TEMP_KEYCHAIN_PASSWORD
+    ensure_temp_keychain(keychain_name, keychain_password)
+
+    api_key = app_store_connect_api_key(
+      key_id: APPLE_KEY_ID,
+      issuer_id: APPLE_ISSUER_ID,
+      key_content: APPLE_KEY_CONTENT,
+      duration: 1200,
+      in_house: false
+    )
+
+    match(
+      type: 'appstore',
+      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      api_key: api_key
+    )
+    ensure_git_status_clean
+    increment_build_number(xcodeproj: "Rift.xcodeproj")
+    build_app(
+      scheme: "Rift",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+            DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
+        }
+      }
+    )
+    upload_to_testflight(
+      api_key: api_key,
+      beta_app_feedback_email: ENV["RIFT_SUPPORT_EMAIL"],
+      distribute_external: true,
+      expire_previous_builds: true,
+      groups: ["School Scope Team", "Beta Group 1"],
+      changelog: File.read("../changelog.txt"),
+      ipa: "./rift.ipa",
+      beta_app_review_info: {
+        contact_email: ENV["RIFT_CONTACT_EMAIL"],
+        contact_first_name: "Varun",
+        contact_last_name: "Chitturi",
+        contact_phone: ENV["RIFT_CONTACT_PHONE"],
+        demo_account_name: ENV["DEMO_ACCOUNT_USERNAME"],
+        demo_account_password: ENV["DEMO_ACCOUNT_PASSWORD"],
+        notes: "For review, select California and Fremont Unified School District and use SSO to Login"
+      }
+    )
+  end
+  delete_temp_keychain(keychain_name)
+end
