@@ -124,7 +124,18 @@
 		27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */; };
 		27EFC7BC270E2A1200B90FCA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */; };
 		27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BF270E851900B90FCA /* TextTag.swift */; };
+		86C0A69A275722B40014DC13 /* RiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C0A699275722B40014DC13 /* RiftTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		86C0A69B275722B40014DC13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 274E622326C21FB400C855D4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 274E622A26C21FB400C855D4;
+			remoteInfo = Rift;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		077B524F27305AAD00C27673 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -243,6 +254,8 @@
 		27FF50D826E0725D0001F8D6 /* Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locale.swift; sourceTree = "<group>"; };
 		27FF50DA26E072E50001F8D6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		27FF50E526E078B20001F8D6 /* CapsuleFieldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldLabel.swift; sourceTree = "<group>"; };
+		86C0A697275722B30014DC13 /* RiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		86C0A699275722B40014DC13 /* RiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +267,13 @@
 				27074EC226EAA2AC00A6ED72 /* SwiftSoup in Frameworks */,
 				273DB90327194356006D936A /* OrderedCollections in Frameworks */,
 				277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86C0A694275722B30014DC13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				077B524F27305AAD00C27673 /* README.md */,
+				86C0A698275722B40014DC13 /* RiftTests */,
 				274E622C26C21FB400C855D4 /* Products */,
 				274E622D26C21FB400C855D4 /* Rift */,
 			);
@@ -308,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				274E622B26C21FB400C855D4 /* Rift.app */,
+				86C0A697275722B30014DC13 /* RiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -510,6 +532,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		86C0A698275722B40014DC13 /* RiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				86C0A699275722B40014DC13 /* RiftTests.swift */,
+			);
+			path = RiftTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -536,17 +566,39 @@
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
 			productType = "com.apple.product-type.application";
 		};
+		86C0A696275722B30014DC13 /* RiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86C0A69F275722B50014DC13 /* Build configuration list for PBXNativeTarget "RiftTests" */;
+			buildPhases = (
+				86C0A693275722B30014DC13 /* Sources */,
+				86C0A694275722B30014DC13 /* Frameworks */,
+				86C0A695275722B30014DC13 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				86C0A69C275722B40014DC13 /* PBXTargetDependency */,
+			);
+			name = RiftTests;
+			productName = RiftTests;
+			productReference = 86C0A697275722B30014DC13 /* RiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		274E622326C21FB400C855D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					274E622A26C21FB400C855D4 = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					86C0A696275722B30014DC13 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 274E622A26C21FB400C855D4;
 					};
 				};
 			};
@@ -570,6 +622,7 @@
 			projectRoot = "";
 			targets = (
 				274E622A26C21FB400C855D4 /* Rift */,
+				86C0A696275722B30014DC13 /* RiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -581,6 +634,13 @@
 			files = (
 				274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */,
 				274E623326C21FB500C855D4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86C0A695275722B30014DC13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +765,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		86C0A693275722B30014DC13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86C0A69A275722B40014DC13 /* RiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		86C0A69C275722B40014DC13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 274E622A26C21FB400C855D4 /* Rift */;
+			targetProxy = 86C0A69B275722B40014DC13 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		274E623826C21FB500C855D4 /* Debug */ = {
@@ -876,6 +952,54 @@
 			};
 			name = Release;
 		};
+		86C0A69D275722B40014DC13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus.RiftTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rift.app/Rift";
+			};
+			name = Debug;
+		};
+		86C0A69E275722B40014DC13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus.RiftTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rift.app/Rift";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -893,6 +1017,15 @@
 			buildConfigurations = (
 				274E623B26C21FB500C855D4 /* Debug */,
 				274E623C26C21FB500C855D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		86C0A69F275722B50014DC13 /* Build configuration list for PBXNativeTarget "RiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86C0A69D275722B40014DC13 /* Debug */,
+				86C0A69E275722B40014DC13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

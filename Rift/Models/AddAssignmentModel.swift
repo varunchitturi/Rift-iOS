@@ -29,6 +29,24 @@ struct AddAssignmentModel {
         self.gradingCategories = gradingCategories
     }
     
+    func validateAssignmentName(_ assignment: String?) throws -> String {
+        guard let assignment = assignment else { throw
+            ValidationError.invalidValue }
+        
+        return assignment
+    }
+    
     
 
+}
+
+enum ValidationError: LocalizedError {
+    case invalidValue
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidValue:
+            return "Invalid Assignment Name"
+        }
+    }
 }
