@@ -11,6 +11,8 @@
 		2720D7B6271CFC68001C1806 /* InboxDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B5271CFC68001C1806 /* InboxDetailView.swift */; };
 		2720D7B8271CFC84001C1806 /* InboxDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */; };
 		2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */; };
+		272EF97E275C31CC00532958 /* ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EF97C275C31CC00532958 /* ConditionalModifiers.swift */; };
+		272EF97F275C31CC00532958 /* SkeletonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EF97D275C31CC00532958 /* SkeletonLoader.swift */; };
 		273261CF271CEBEF00BC1FF5 /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261CE271CEBEF00BC1FF5 /* InboxViewModel.swift */; };
 		273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D0271CEBFC00BC1FF5 /* InboxModel.swift */; };
 		273261D5271CECC000BC1FF5 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D4271CECC000BC1FF5 /* InboxView.swift */; };
@@ -40,9 +42,7 @@
 		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
 		277AD63F270B7CE000AF441E /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /* Term.swift */; };
 		277E6348270CD16400CA056E /* GradeTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E6347270CD16400CA056E /* GradeTerm.swift */; };
-		2785B500275AF37D00C93224 /* ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2785B4FF275AF37D00C93224 /* ConditionalModifiers.swift */; };
 		2785B503275AF7EC00C93224 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 2785B502275AF7EC00C93224 /* Shimmer */; };
-		2785B505275AF88B00C93224 /* SkeletonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2785B504275AF88B00C93224 /* SkeletonLoader.swift */; };
 		279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */; };
 		2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10627174E6000136C23 /* AssignmentDetailStats.swift */; };
 		2799A10927175E0200136C23 /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10827175E0200136C23 /* TextUtils.swift */; };
@@ -145,6 +145,8 @@
 		2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailViewModel.swift; sourceTree = "<group>"; };
 		2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailModel.swift; sourceTree = "<group>"; };
 		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
+		272EF97C275C31CC00532958 /* ConditionalModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalModifiers.swift; sourceTree = "<group>"; };
+		272EF97D275C31CC00532958 /* SkeletonLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonLoader.swift; sourceTree = "<group>"; };
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
 		272F78F826E0494100CDA668 /* CapsuleFieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleFieldBackground.swift; sourceTree = "<group>"; };
 		272F78FA26E04FFB00CDA668 /* UILegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILegacyTextField.swift; sourceTree = "<group>"; };
@@ -190,8 +192,6 @@
 		27761BBC26F7F39600601A37 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		277AD63E270B7CE000AF441E /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		277E6347270CD16400CA056E /* GradeTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTerm.swift; sourceTree = "<group>"; };
-		2785B4FF275AF37D00C93224 /* ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConditionalModifiers.swift; path = ../../../../../../../../../ConditionalModifiers.swift; sourceTree = "<group>"; };
-		2785B504275AF88B00C93224 /* SkeletonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkeletonLoader.swift; path = ../../../../../../../../../SkeletonLoader.swift; sourceTree = "<group>"; };
 		278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAssignmentCard.swift; sourceTree = "<group>"; };
@@ -278,14 +278,14 @@
 		270CE0E326D98A72009768A7 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				272EF97C275C31CC00532958 /* ConditionalModifiers.swift */,
+				272EF97D275C31CC00532958 /* SkeletonLoader.swift */,
 				270CE0E426D98A93009768A7 /* RectangleCornerStyle.swift */,
 				27D0F5B026DAFC300004F0A2 /* NavigationViewStyle.swift */,
 				27CAE27726E01FEA000022EF /* PickerFieldStyle.swift */,
 				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
 				27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */,
 				274F4331270A924A001D5D4A /* TabViewStyle.swift */,
-				2785B4FF275AF37D00C93224 /* ConditionalModifiers.swift */,
-				2785B504275AF88B00C93224 /* SkeletonLoader.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -628,7 +628,7 @@
 				27D4E6E32709152F0063CB65 /* ApplicationViewModel.swift in Sources */,
 				27D4E6E42709152F0063CB65 /* ColorUtils.swift in Sources */,
 				27D4E6E52709152F0063CB65 /* StatusBarUtils.swift in Sources */,
-				2785B500275AF37D00C93224 /* ConditionalModifiers.swift in Sources */,
+				272EF97E275C31CC00532958 /* ConditionalModifiers.swift in Sources */,
 				27D4E6E62709152F0063CB65 /* NetworkUtils.swift in Sources */,
 				27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */,
 				2799A10927175E0200136C23 /* TextUtils.swift in Sources */,
@@ -655,7 +655,7 @@
 				27D98982271C0C5300311973 /* AddAssignmentViewModel.swift in Sources */,
 				27D98984271C0C6400311973 /* AddAssignmentModel.swift in Sources */,
 				27D4E7282709727C0063CB65 /* LoadingView.swift in Sources */,
-				2785B505275AF88B00C93224 /* SkeletonLoader.swift in Sources */,
+				272EF97F275C31CC00532958 /* SkeletonLoader.swift in Sources */,
 				27D4E6F72709152F0063CB65 /* PreferenceRowToggle.swift in Sources */,
 				27D4E6F82709152F0063CB65 /* PreferenceRowButton.swift in Sources */,
 				27D4E6F92709152F0063CB65 /* PreferenceRowLink.swift in Sources */,
