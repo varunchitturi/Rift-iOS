@@ -68,7 +68,7 @@ struct CourseDetailView: View {
             }
         }
         .onAppear {
-            courseDetailViewModel.refreshView()
+            courseDetailViewModel.rebuildView()
         }
         .sheet(isPresented: $addAssignmentIsPresented) {
             if courseDetailViewModel.editingGradeDetail != nil {
