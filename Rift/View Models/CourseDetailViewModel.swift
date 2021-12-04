@@ -129,7 +129,7 @@ class CourseDetailViewModel: ObservableObject {
         editingGradeDetail?.isCalculated = true
     }
     
-    func refreshView() {
+    func rebuildView() {
         objectWillChange.send()
     }
     
