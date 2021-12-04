@@ -44,6 +44,7 @@ struct CapsuleTextField: View {
                 if icon != nil {
                     Image(systemName: icon!)
                         .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
+                        .unredacted()
                 }
                 
                 LegacyTextField(text: $text, isEditing: $isEditing, inputType: inputType, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in

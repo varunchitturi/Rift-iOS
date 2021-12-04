@@ -10,18 +10,22 @@ import SwiftUI
 
 class CoursesViewModel: ObservableObject {
     @Published private var coursesModel: CoursesModel = CoursesModel()
+    @Published var responseState: ResponseState = .idle
     var courseList: [Course] {
         coursesModel.courseList
     }
     
     init() {
+        responseState = .loading
         API.Grades.getTermGrades { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let terms):
                     self?.coursesModel.courseList = self?.getCurrentTerm(from: terms)?.courses ?? []
+                    self?.responseState = .idle
                 case .failure(let error):
                     // TODO: do bettter error handling here
+                    self?.responseState = .failure(error: error)
                     print("Courses error")
                     print(error.localizedDescription)
                 }

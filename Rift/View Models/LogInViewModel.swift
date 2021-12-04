@@ -96,7 +96,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         responseState = .loading
         API.Authentication.getProvisionalCookies(for: locale) {[weak self] error in
             if let error = error {
-                self?.responseState = .failure
+                self?.responseState = .failure(error: error)
                 print(error)
             }
             else if let self = self {
@@ -107,7 +107,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                         self.responseState = .idle
                     case .failure(let error):
                         // TODO: do bettter error handling here
-                        self.responseState = .failure
+                        self.responseState = .failure(error: error)
                         print("Log in error")
                         print(error.localizedDescription)
                     }
