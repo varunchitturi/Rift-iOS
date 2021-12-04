@@ -192,8 +192,6 @@
 		27761BBC26F7F39600601A37 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		277AD63E270B7CE000AF441E /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		277E6347270CD16400CA056E /* GradeTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTerm.swift; sourceTree = "<group>"; };
-		2785B4FF275AF37D00C93224 /* ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConditionalModifiers.swift; path = ../../../../../../../../../ConditionalModifiers.swift; sourceTree = "<group>"; };
-		2785B504275AF88B00C93224 /* SkeletonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkeletonLoader.swift; path = ../../../../../../../../../SkeletonLoader.swift; sourceTree = "<group>"; };
 		278E9BEE27078883009CA8D7 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAssignmentCard.swift; sourceTree = "<group>"; };
@@ -288,8 +286,6 @@
 				27FF50D226E067270001F8D6 /* DisabledStyle.swift */,
 				27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */,
 				274F4331270A924A001D5D4A /* TabViewStyle.swift */,
-				2785B4FF275AF37D00C93224 /* ConditionalModifiers.swift */,
-				2785B504275AF88B00C93224 /* SkeletonLoader.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
