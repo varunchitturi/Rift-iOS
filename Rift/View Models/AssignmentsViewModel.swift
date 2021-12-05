@@ -14,12 +14,12 @@ class AssignmentsViewModel: ObservableObject {
     
     var assignmentDateList: [Date?: [Assignment]] {
         var assignmentDateList = [Date?: [Assignment]]()
-        for assignment in assignmentsModel.assignmentList {
-            let dueDate = assignment.dueDate
+        for `assignment` in assignmentsModel.assignmentList {
+            let dueDate = `assignment`.dueDate
             if !assignmentDateList.keys.contains(dueDate) {
                 assignmentDateList[dueDate] = []
             }
-            assignmentDateList[dueDate]?.append(assignment)
+            assignmentDateList[dueDate]?.append(`assignment`)
             
         }
         return assignmentDateList

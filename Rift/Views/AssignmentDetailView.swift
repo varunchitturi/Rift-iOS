@@ -63,7 +63,6 @@ struct AssignmentDetailView: View {
             withAnimation {
                 assignmentDetailViewModel.getDetail()
             }
-            
         }
         .onDisappear {
             if !assignmentDetailViewModel.assignmentIsDeleted {

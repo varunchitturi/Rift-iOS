@@ -67,9 +67,6 @@ struct CourseDetailView: View {
                 .animation(.easeInOut, value: courseDetailViewModel.hasModifications)
             }
         }
-        .onAppear {
-            courseDetailViewModel.rebuildView()
-        }
         .sheet(isPresented: $addAssignmentIsPresented) {
             if courseDetailViewModel.editingGradeDetail != nil {
                 AddAssignmentView(courseName: courseDetailViewModel.courseName, assignments: $courseDetailViewModel.editingGradeDetail.unwrap()!.assignments, gradingCategories: courseDetailViewModel.editingGradeDetail!.categories)

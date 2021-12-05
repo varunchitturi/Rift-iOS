@@ -107,10 +107,11 @@ class AssignmentDetailViewModel: ObservableObject {
     }
 
     init(originalAssignment: Assignment?, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
+        print("init")
         self.assignmentDetailModel = AssignmentDetailModel(originalAssignment: originalAssignment, modifiedAssignment: assignmentToEdit.wrappedValue, gradingCategories: gradingCategories)
         self._assignmentToEdit = assignmentToEdit
         categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignmentToEdit.wrappedValue.categoryID})
-        provisionInput()
+        provisionInput(with: self.assignmentToEdit)
     }
     
     // TODO: organize structure of files
@@ -123,11 +124,12 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     
     
-    private func provisionInput() {
-        totalPointsText = assignmentToEdit.totalPoints?.description ?? ""
-        scorePointsText = assignmentToEdit.scorePoints != nil ? assignmentToEdit.scorePoints!.description :  ""
-        categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignmentToEdit.categoryID})
+    private func provisionInput(with assignment: Assignment) {
+        totalPointsText = assignment.totalPoints?.description ?? ""
+        scorePointsText = assignment.scorePoints != nil ? assignment.scorePoints!.description :  ""
+        categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignment.categoryID})
     }
+    
     
     // MARK: - Intents
     
@@ -150,8 +152,9 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     // TODO: stop useing totalPointsText and scorePointsText. Source of truth for text field should be from the assignment itself, not a seperate binding. Create a capsuleNumberfield component to accomplish this. Make sure to abide by DRY principles.
     func resetChanges() {
-        modifiedAssignment = originalAssignment ?? assignmentToEdit
-        provisionInput()
+        let initialAssignment = originalAssignment ?? assignmentToEdit
+        modifiedAssignment = initialAssignment
+        provisionInput(with: initialAssignment)
     }
     
 }
