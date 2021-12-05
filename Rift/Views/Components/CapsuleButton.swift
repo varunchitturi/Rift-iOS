@@ -84,7 +84,7 @@ struct CapsuleButton: View {
 }
 
 #if DEBUG
-struct SwiftUIView_Previews: PreviewProvider {
+struct CapsuleButton_Previews: PreviewProvider {
     static var previews: some View {
         CapsuleButton("Primary", icon: "arrow.right", style: .primary) {
             
