@@ -150,10 +150,7 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     // TODO: stop useing totalPointsText and scorePointsText. Source of truth for text field should be from the assignment itself, not a seperate binding. Create a capsuleNumberfield component to accomplish this. Make sure to abide by DRY principles.
     func resetChanges() {
-        if let originalAssignment = originalAssignment {
-            assignmentToEdit = originalAssignment
-        }
-        modifiedAssignment = assignmentToEdit
+        modifiedAssignment = originalAssignment ?? assignmentToEdit
         provisionInput()
     }
     
