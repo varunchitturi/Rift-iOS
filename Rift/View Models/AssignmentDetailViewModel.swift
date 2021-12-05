@@ -11,6 +11,7 @@ import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
+    @Published var responseState: ResponseState = .loading
     @Binding var assignmentToEdit: Assignment
     var assignmentIsDeleted = false
     
@@ -107,7 +108,6 @@ class AssignmentDetailViewModel: ObservableObject {
     }
 
     init(originalAssignment: Assignment?, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
-        print("init")
         self.assignmentDetailModel = AssignmentDetailModel(originalAssignment: originalAssignment, modifiedAssignment: assignmentToEdit.wrappedValue, gradingCategories: gradingCategories)
         self._assignmentToEdit = assignmentToEdit
         categorySelectionIndex = gradingCategories.firstIndex(where: {$0.id == assignmentToEdit.wrappedValue.categoryID})
@@ -139,8 +139,10 @@ class AssignmentDetailViewModel: ObservableObject {
                 switch result {
                 case .success(let detail):
                     self?.assignmentDetailModel.assignmentDetail = detail
+                    self?.responseState = .idle
                 case .failure(let error):
                     // TODO: better error handling here
+                    self?.responseState = .failure(error: error)
                     print(error)
                 }
             }

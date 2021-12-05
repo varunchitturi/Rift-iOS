@@ -49,6 +49,7 @@ struct AssignmentDetailView: View {
                     }
                 }
                 
+                .skeletonLoad(assignmentDetailViewModel.responseState == .loading)
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
