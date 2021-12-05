@@ -8,7 +8,7 @@
 import Foundation
 import SwiftSoup
 
-struct AssignmentDetail: Decodable, Identifiable {
+struct AssignmentDetail: Decodable, Identifiable, Equatable {
     
     // TODO: make sure API naming schemes are consistent
     private init(id: Int, startDate: Date?, endDate: Date?, modifiedDate: Date?, isActive: Bool, rubrics: [AssignmentDetail.Rubric], scores: [AssignmentDetail.Score]?, description: AssignmentDetail.Description) {
@@ -100,7 +100,7 @@ struct AssignmentDetail: Decodable, Identifiable {
         case scores
     }
     
-    private struct Score: Decodable, Identifiable {
+    private struct Score: Decodable, Identifiable, Equatable {
         
         init(id: Int, scorePoints: Double?, comments: String?) {
             self.id = id
@@ -133,7 +133,7 @@ struct AssignmentDetail: Decodable, Identifiable {
         }
         
     }
-    struct Description: Decodable {
+    struct Description: Decodable, Equatable {
         
         struct SummaryContent: Decodable {
             let content: String
@@ -172,7 +172,7 @@ struct AssignmentDetail: Decodable, Identifiable {
         }
     }
     
-    private struct Rubric: Decodable {
+    private struct Rubric: Decodable, Equatable {
         let totalPoints: Double?
         let weight: Double?
         let categoryID: Int
