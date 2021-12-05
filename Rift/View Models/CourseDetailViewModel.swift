@@ -14,6 +14,7 @@ class CourseDetailViewModel: ObservableObject {
     @Published private var courseDetailModel: CourseDetailModel
     @Published var editingGradeDetails: [GradeDetail]?
     @Published var chosenGradeDetailIndex: Int?
+    @Published var responseState: ResponseState = .loading
     
     // TODO: make this process more effecient
     
@@ -85,8 +86,10 @@ class CourseDetailViewModel: ObservableObject {
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
+                    self?.responseState = .idle
                 case .failure(let error):
                     // TODO: better error handling here
+                    self?.responseState = .failure(error: error)
                     print(error)
                 }
             }
