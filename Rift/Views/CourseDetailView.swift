@@ -43,6 +43,7 @@ struct CourseDetailView: View {
             }
             .padding()
         }
+        .skeletonLoad(courseDetailViewModel.responseState == .loading)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
