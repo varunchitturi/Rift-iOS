@@ -42,11 +42,6 @@ struct HomeView: View {
         }
         
     }
-    
-    private struct DrawingConstants {
-        static let tabBackgroundColor = Color(UIColor.systemBackground)
-        static let tabUnselectedColor = Color("Quartenary")
-    }
 }
 
 #if DEBUG

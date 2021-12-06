@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shimmer
 
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
@@ -49,6 +50,17 @@ struct CourseList: View {
                 }
             }
         }
+        .skeletonLoad(coursesViewModel.responseState == .loading) {
+            ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                CourseCard()
+                    .redacted(reason: .placeholder)
+                    .shimmering()
+            }
+        }
+    }
+    
+    private struct DrawingConstants {
+        static let placeholderCourseCount = 6
     }
 }
 

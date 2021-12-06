@@ -43,6 +43,7 @@ struct CourseDetailView: View {
             }
             .padding()
         }
+        .skeletonLoad(courseDetailViewModel.responseState == .loading)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
@@ -66,9 +67,6 @@ struct CourseDetailView: View {
                 .transition(.opacity)
                 .animation(.easeInOut, value: courseDetailViewModel.hasModifications)
             }
-        }
-        .onAppear {
-            courseDetailViewModel.refreshView()
         }
         .sheet(isPresented: $addAssignmentIsPresented) {
             if courseDetailViewModel.editingGradeDetail != nil {

@@ -55,6 +55,19 @@ struct CourseCard: View {
     
 }
 
+extension CourseCard {
+    init() {
+        course = Course(
+            id: UUID().hashValue,
+            sectionID: UUID().hashValue,
+            courseName: "Course Name",
+            teacherName: "Teacher Name",
+            grades: nil,
+            isDropped: false
+        )
+    }
+}
+
 #if DEBUG
 struct CourseCard_Previews: PreviewProvider {
     

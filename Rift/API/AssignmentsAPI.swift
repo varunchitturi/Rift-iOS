@@ -46,24 +46,26 @@ extension API {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentDetail.appending(id.description)))
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
-                    completion(.failure(error))
-                }
-                else if let data = data {
-                    DispatchQueue.main.async {
-                        do {
-                            let decoder = JSONDecoder()
-                            let responseBody = try decoder.decode(AssignmentDetail.self, from: data)
-                            completion(.success(responseBody))
-                        }
-                        catch {
-                            completion(.failure(error))
-                        }
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(.failure(error))
+                    }
+                    else if let data = data {
+                            do {
+                                let decoder = JSONDecoder()
+                                let responseBody = try decoder.decode(AssignmentDetail.self, from: data)
+                                completion(.success(responseBody))
+                            }
+                            catch {
+                                completion(.failure(error))
+                            }
+                        
+                    }
+                    else {
+                        completion(.failure(APIError.invalidData))
                     }
                 }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
+                
             }.resume()
         }
     }
