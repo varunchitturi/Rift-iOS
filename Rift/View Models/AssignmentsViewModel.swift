@@ -56,9 +56,3 @@ class AssignmentsViewModel: ObservableObject {
         }
     }
 }
-
-extension Assignment {
-    var totalPointsDisplay: String {
-        self.totalPoints?.description ?? Text.nilStringText
-    }
-}

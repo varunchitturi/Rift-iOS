@@ -28,7 +28,7 @@ struct LoadingView: View {
     }
     
     private struct DrawingConstants {
-        static let loaderWidth: CGFloat = 60
+        static let loaderWidth: CGFloat = 80
         static let animationDuration: CGFloat = 2
     }
 }

@@ -11,6 +11,8 @@
 		2720D7B6271CFC68001C1806 /* InboxDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B5271CFC68001C1806 /* InboxDetailView.swift */; };
 		2720D7B8271CFC84001C1806 /* InboxDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */; };
 		2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */; };
+		27286C6B27600E3300B7F975 /* APIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27286C6A27600E3300B7F975 /* APIUtils.swift */; };
+		27286C6F276012CE00B7F975 /* CardAssignmentGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27286C6E276012CE00B7F975 /* CardAssignmentGrade.swift */; };
 		272EF97E275C31CC00532958 /* ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EF97C275C31CC00532958 /* ConditionalModifiers.swift */; };
 		272EF97F275C31CC00532958 /* SkeletonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EF97D275C31CC00532958 /* SkeletonLoader.swift */; };
 		273261CF271CEBEF00BC1FF5 /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261CE271CEBEF00BC1FF5 /* InboxViewModel.swift */; };
@@ -45,7 +47,7 @@
 		2785B503275AF7EC00C93224 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 2785B502275AF7EC00C93224 /* Shimmer */; };
 		279376B8270EB4CE005A7567 /* CourseAssignmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */; };
 		2799A10727174E6000136C23 /* AssignmentDetailStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10627174E6000136C23 /* AssignmentDetailStats.swift */; };
-		2799A10927175E0200136C23 /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10827175E0200136C23 /* TextUtils.swift */; };
+		2799A10927175E0200136C23 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10827175E0200136C23 /* StringUtils.swift */; };
 		2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */; };
 		2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */; };
 		279E7DA327161D630039D283 /* AssignmentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E7DA227161D630039D283 /* AssignmentDetailView.swift */; };
@@ -145,6 +147,8 @@
 		2720D7B7271CFC84001C1806 /* InboxDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailViewModel.swift; sourceTree = "<group>"; };
 		2720D7B9271CFC9E001C1806 /* InboxDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxDetailModel.swift; sourceTree = "<group>"; };
 		2721EEF526D743A900C5E906 /* PickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerField.swift; sourceTree = "<group>"; };
+		27286C6A27600E3300B7F975 /* APIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtils.swift; sourceTree = "<group>"; };
+		27286C6E276012CE00B7F975 /* CardAssignmentGrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAssignmentGrade.swift; sourceTree = "<group>"; };
 		272EF97C275C31CC00532958 /* ConditionalModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionalModifiers.swift; sourceTree = "<group>"; };
 		272EF97D275C31CC00532958 /* SkeletonLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonLoader.swift; sourceTree = "<group>"; };
 		272F78F626E03FD400CDA668 /* LegacyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTextField.swift; sourceTree = "<group>"; };
@@ -196,7 +200,7 @@
 		278F272426D5E97F000FF26F /* CapsuleDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleDropDown.swift; sourceTree = "<group>"; };
 		279376B7270EB4CE005A7567 /* CourseAssignmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAssignmentCard.swift; sourceTree = "<group>"; };
 		2799A10627174E6000136C23 /* AssignmentDetailStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailStats.swift; sourceTree = "<group>"; };
-		2799A10827175E0200136C23 /* TextUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
+		2799A10827175E0200136C23 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailViewModel.swift; sourceTree = "<group>"; };
 		2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailModel.swift; sourceTree = "<group>"; };
 		279E7DA227161D630039D283 /* AssignmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailView.swift; sourceTree = "<group>"; };
@@ -397,6 +401,7 @@
 				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
 				2799A10627174E6000136C23 /* AssignmentDetailStats.swift */,
 				273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */,
+				27286C6E276012CE00B7F975 /* CardAssignmentGrade.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -456,8 +461,9 @@
 				27E3F1822708F82E005B485F /* CoreDataUtils.swift */,
 				27C33600270FF40E002A8D52 /* NumberUtils.swift */,
 				27B57D2527119B1F00F9F06D /* ScrollViewUtils.swift */,
-				2799A10827175E0200136C23 /* TextUtils.swift */,
+				2799A10827175E0200136C23 /* StringUtils.swift */,
 				27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */,
+				27286C6A27600E3300B7F975 /* APIUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				27D4E6DD2709152F0063CB65 /* ApplicationModel.swift in Sources */,
 				27D4E6DE2709152F0063CB65 /* WelcomeViewModel.swift in Sources */,
 				27D4E6DF2709152F0063CB65 /* LogInViewModel.swift in Sources */,
+				27286C6B27600E3300B7F975 /* APIUtils.swift in Sources */,
 				27D4E6E02709152F0063CB65 /* CoursesViewModel.swift in Sources */,
 				27D4E6E12709152F0063CB65 /* AssignmentsViewModel.swift in Sources */,
 				273261CF271CEBEF00BC1FF5 /* InboxViewModel.swift in Sources */,
@@ -631,7 +638,7 @@
 				272EF97E275C31CC00532958 /* ConditionalModifiers.swift in Sources */,
 				27D4E6E62709152F0063CB65 /* NetworkUtils.swift in Sources */,
 				27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */,
-				2799A10927175E0200136C23 /* TextUtils.swift in Sources */,
+				2799A10927175E0200136C23 /* StringUtils.swift in Sources */,
 				27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */,
 				2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */,
 				273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */,
@@ -666,6 +673,7 @@
 				27D4E6FA2709152F0063CB65 /* CapsuleFieldBackground.swift in Sources */,
 				27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */,
 				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,
+				27286C6F276012CE00B7F975 /* CardAssignmentGrade.swift in Sources */,
 				27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */,
 				27D4E6FD2709152F0063CB65 /* CapsuleDropDown.swift in Sources */,
 				2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */,
