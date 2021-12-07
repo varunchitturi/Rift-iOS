@@ -48,27 +48,3 @@ class CoursesViewModel: ObservableObject {
     }
 }
 
-extension Course {
-    var gradeDisplay: String {
-        currentGrade?.letterGrade ?? Text.nilStringText
-    }
-    
-    var percentageDisplay: String {
-        currentGrade?.percentageString ?? Text.nilStringText
-    }
-}
-
-extension Grade {
-    var percentageString: String {
-        guard let percentage = percentage?.description else {
-            if let totalPoints = totalPoints, let currentPoints = currentPoints {
-                return (((currentPoints / totalPoints) * 100).rounded(2)).description.appending("%")
-            } else {
-                return Text.nilStringText
-            }
-            
-        }
-        return percentage.appending("%")
-    }
-
-}

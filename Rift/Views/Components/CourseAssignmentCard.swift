@@ -24,13 +24,12 @@ struct CourseAssignmentCard: View {
             .padding(.horizontal, DrawingConstants.textHorizontalPadding)
             .padding(.vertical, DrawingConstants.textVerticalPadding)
             Spacer()
-            CircleBadge(assignment.scorePoints?.description ?? "-")
+            CircleBadge(assignment.scorePointsDisplay, style: .secondary)
             Capsule()
-                .frame(width: 2)
+                .frame(width: DrawingConstants.scoreDividerWidth)
                 .edgesIgnoringSafeArea(.vertical)
                 .foregroundColor(Color("Background"))
                 .padding(.vertical)
-                .rotationEffect(.degrees(20))
             CircleBadge(assignment.totalPointsDisplay)
             Image(systemName: "chevron.right")
                 .foregroundColor(DrawingConstants.secondaryForegroundColor)
@@ -53,6 +52,7 @@ struct CourseAssignmentCard: View {
         static let textHorizontalPadding: CGFloat = 11
         static let textVerticalPadding: CGFloat = 16
         static let textInsetPadding: CGFloat = 5
+        static let scoreDividerWidth: CGFloat = 1.5
     }
 }
 
