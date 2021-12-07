@@ -10,9 +10,10 @@ import SwiftUI
 struct CircleBadge: View {
     
     
-    init(_ text: String, size: Size = .default) {
+    init(_ text: String, size: Size = .default, style: Style = .primary) {
         self.text = text
         self.size = size
+        self.style = style
         minDiameter = DrawingConstants.minCircleDiameter
         maxDiameter = DrawingConstants.maxCircleDiameter
         textPadding = DrawingConstants.textPadding
@@ -25,12 +26,18 @@ struct CircleBadge: View {
     
     let text: String
     let size: Size
+    let style: Style
     private var minDiameter: CGFloat
     private var maxDiameter: CGFloat
     private var textPadding: CGFloat
     var body: some View {
         Circle()
-            .fill(DrawingConstants.circleBackground)
+            .if(style == .secondary) {
+                $0
+                    .stroke(lineWidth: DrawingConstants.secondaryStrokeWidth)
+            }
+            .foregroundColor(DrawingConstants.circleBackground)
+            
             .frame(minWidth: minDiameter,
                    maxWidth: maxDiameter,
                    minHeight: minDiameter,
@@ -47,11 +54,17 @@ struct CircleBadge: View {
                     .padding(textPadding)
                     
             )
+            
     }
     
     enum Size {
         case large
         case `default`
+    }
+    
+    enum Style {
+        case primary
+        case secondary
     }
     
     private struct DrawingConstants {
@@ -62,6 +75,7 @@ struct CircleBadge: View {
         static let maxCircleDiameter: CGFloat = 35.0
         static let circleForeground = Color("Foreground")
         static let circleBackground = Color("Background")
+        static let secondaryStrokeWidth: CGFloat = 2
     }
 }
 
@@ -71,6 +85,7 @@ struct CircleBadge_Previews: PreviewProvider {
         VStack {
             CircleBadge("100", size: .large)
             CircleBadge("100")
+            CircleBadge("100", style: .secondary)
         }
         
     }
