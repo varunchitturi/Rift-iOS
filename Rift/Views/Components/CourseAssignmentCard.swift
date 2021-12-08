@@ -24,8 +24,7 @@ struct CourseAssignmentCard: View {
             .padding(.horizontal, DrawingConstants.textHorizontalPadding)
             .padding(.vertical, DrawingConstants.textVerticalPadding)
             Spacer()
-            CardAssignmentGrade(assignment: assignment
-            )
+            CardAssignmentGrade(assignment: assignment)
             Image(systemName: "chevron.right")
                 .foregroundColor(DrawingConstants.secondaryForegroundColor)
                 .font(.callout.bold())
