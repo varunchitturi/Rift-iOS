@@ -11,10 +11,8 @@ struct LoadingView: View {
     @State private var isRotating = false
     var body: some View {
         ZStack(alignment: .center) {
-            Image("Icon")
-                .resizable()
-                .scaledToFit()
-                .frame(width: DrawingConstants.loaderWidth)
+            Icon()
+                .frame(width: 60)
                 .rotationEffect(.degrees(isRotating ? 360 : 0))
                 .animation(
                     .linear(duration: DrawingConstants.animationDuration)
@@ -23,13 +21,12 @@ struct LoadingView: View {
                 .onAppear {
                     isRotating = true
                 }
-                
         }
     }
-    
+
     private struct DrawingConstants {
-        static let loaderWidth: CGFloat = 60
-        static let animationDuration: CGFloat = 2
+        static let loaderWidth: CGFloat = 30
+        static let animationDuration: CGFloat = 0.5
     }
 }
 

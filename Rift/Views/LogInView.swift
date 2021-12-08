@@ -81,7 +81,7 @@ struct LogInView: View {
                 logInViewModel.setPersistence(false)
                 logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
                 },
-                  secondaryButton: .default(Text("Ok")) {
+                  secondaryButton: .default(Text("Yes")) {
                 logInViewModel.setPersistence(true)
                 logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
                 }
