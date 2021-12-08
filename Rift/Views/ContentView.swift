@@ -28,11 +28,12 @@ struct ContentView: View {
         .usingCustomTableViewStyle()
        
     }
+    private struct DrawingConstants {
+        static let navigationColor = Color("Primary")
+    }
 }
 
-private struct DrawingConstants {
-    static let navigationColor = Color("Primary")
-}
+
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

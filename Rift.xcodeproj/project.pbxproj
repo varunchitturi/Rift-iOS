@@ -48,6 +48,7 @@
 		2799A10927175E0200136C23 /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10827175E0200136C23 /* TextUtils.swift */; };
 		2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */; };
 		2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */; };
+		279D323F27615DA500BA85B3 /* GlobalDrawingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */; };
 		279E7DA327161D630039D283 /* AssignmentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E7DA227161D630039D283 /* AssignmentDetailView.swift */; };
 		27B57D242711799E00F9F06D /* CourseDetailStatsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B57D232711799E00F9F06D /* CourseDetailStatsRow.swift */; };
 		27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B57D2527119B1F00F9F06D /* ScrollViewUtils.swift */; };
@@ -199,6 +200,7 @@
 		2799A10827175E0200136C23 /* TextUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
 		2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailViewModel.swift; sourceTree = "<group>"; };
 		2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailModel.swift; sourceTree = "<group>"; };
+		279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDrawingConstants.swift; sourceTree = "<group>"; };
 		279E7DA227161D630039D283 /* AssignmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailView.swift; sourceTree = "<group>"; };
 		27A29CD127001C5D005E70D6 /* BundleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtils.swift; sourceTree = "<group>"; };
 		27A29CD527013011005E70D6 /* ApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 				27D4E6E72709152F0063CB65 /* DataUtils.swift in Sources */,
 				2799A10927175E0200136C23 /* TextUtils.swift in Sources */,
 				27D4E6E82709152F0063CB65 /* DateUtils.swift in Sources */,
+				279D323F27615DA500BA85B3 /* GlobalDrawingConstants.swift in Sources */,
 				2799A10B2717635200136C23 /* AssignmentDetailViewModel.swift in Sources */,
 				273261D1271CEBFC00BC1FF5 /* InboxModel.swift in Sources */,
 				27B57D2627119B1F00F9F06D /* ScrollViewUtils.swift in Sources */,
