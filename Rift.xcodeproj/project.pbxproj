@@ -200,7 +200,7 @@
 		2799A10827175E0200136C23 /* TextUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
 		2799A10A2717635200136C23 /* AssignmentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailViewModel.swift; sourceTree = "<group>"; };
 		2799A10C2717637F00136C23 /* AssignmentDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailModel.swift; sourceTree = "<group>"; };
-		279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GlobalDrawingConstants.swift; path = ../../../GlobalDrawingConstants.swift; sourceTree = "<group>"; };
+		279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDrawingConstants.swift; sourceTree = "<group>"; };
 		279E7DA227161D630039D283 /* AssignmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailView.swift; sourceTree = "<group>"; };
 		27A29CD127001C5D005E70D6 /* BundleUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleUtils.swift; sourceTree = "<group>"; };
 		27A29CD527013011005E70D6 /* ApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModel.swift; sourceTree = "<group>"; };
