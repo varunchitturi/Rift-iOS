@@ -42,7 +42,7 @@ struct CapsuleFieldModularButton: View {
             .disableable()
             .padding()
             .background(
-                CapsuleFieldBackground(accentColor: DrawingConstants.foregroundColor, isEditing: .constant(false))
+                CapsuleFieldBackground()
             )
         }
     }

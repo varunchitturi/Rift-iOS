@@ -30,7 +30,7 @@ struct CircleBadge: View {
     private var textPadding: CGFloat
     var body: some View {
         Circle()
-            .fill(Rift.DrawingConstants.accentForegroundColor)
+            .fill(Rift.DrawingConstants.accentBackgroundColor)
             .frame(minWidth: minDiameter,
                    maxWidth: maxDiameter,
                    minHeight: minDiameter,

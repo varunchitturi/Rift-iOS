@@ -24,7 +24,7 @@ struct DestructiveButton: View {
                 RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
                     .fill(Rift.DrawingConstants.backgroundColor)
                 Text(label)
-                    .foregroundColor(.red)
+                    .foregroundColor(Rift.DrawingConstants.destructiveTextColor)
                     .padding()
             }
             .fixedSize(horizontal: false, vertical: true)

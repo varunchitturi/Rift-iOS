@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CapsuleFieldBackground: View {
     
-    internal init(accentColor: Color = DrawingConstants.accentColor, isEditing: Binding<Bool>) {
+    internal init(accentColor: Color = DrawingConstants.accentColor, isEditing: Binding<Bool> = .constant(false)) {
         self.accentColor = accentColor
         self._isEditing = isEditing
     }

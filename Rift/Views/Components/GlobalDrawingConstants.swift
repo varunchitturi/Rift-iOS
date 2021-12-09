@@ -15,11 +15,11 @@ struct DrawingConstants {
     static let accentColor = Color("Primary")
     static let foregroundColor = Color("Tertiary")
     static let secondaryForegroundColor = Color("Quartenary")
-    static let accentForegroundColor = Color("AccentForegroundcolor")
+    static let accentForegroundColor = Color("AccentSecondary")
+    static let inverseForegroundColor = Color("Secondary")
     static let backgroundColor = Color("Secondary")
-    static let accentBackgroundColor = Color("AccentBackgroundColor")
-    static let textColor = Color("Tertiary")
-    static let secondaryTextColor = Color("Quartenary")
+    static let accentBackgroundColor = Color("AccentTertiary")
+    static let destructiveTextColor = Color.red
     static let disabledColor = Color("Quartenary")
     
     static let disableOpacity: CGFloat = 0.6
