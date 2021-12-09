@@ -55,13 +55,9 @@ struct CapsuleDropDown: View {
             }
             
         }
-        .foregroundColor(isEditing ? DrawingConstants.accentColor : DrawingConstants.foregroundColor)
+        .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
     }
     
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let accentColor = Color("Primary")
-    }
     
 }
 

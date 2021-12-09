@@ -22,9 +22,9 @@ struct DestructiveButton: View {
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
-                    .foregroundColor(DrawingConstants.foregroundColor)
+                    .fill(Rift.DrawingConstants.backgroundColor)
                 Text(label)
-                    .foregroundColor(.red)
+                    .foregroundColor(Rift.DrawingConstants.destructiveTextColor)
                     .padding()
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -32,7 +32,6 @@ struct DestructiveButton: View {
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Secondary")
         static let rectangleCornerRadius: CGFloat = 15
     }
 }

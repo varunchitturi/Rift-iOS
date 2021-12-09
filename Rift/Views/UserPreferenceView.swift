@@ -36,11 +36,6 @@ struct UserPreferenceView: View {
             .navigationTitle("Preferences")
         }
     }
-    
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-    }
-
 }
 
 

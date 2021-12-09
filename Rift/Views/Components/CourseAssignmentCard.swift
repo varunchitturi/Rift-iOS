@@ -14,7 +14,7 @@ struct CourseAssignmentCard: View {
             VStack(alignment: .leading) {
                 
                 Text(assignment.assignmentName)
-                    .foregroundColor(DrawingConstants.foregroundColor)
+                    .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 if assignment.categoryName != nil {
                     TextTag(assignment.categoryName!)
                         .padding(.top, DrawingConstants.textInsetPadding)
@@ -26,22 +26,19 @@ struct CourseAssignmentCard: View {
             Spacer()
             CardAssignmentGrade(assignment: assignment)
             Image(systemName: "chevron.right")
-                .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                 .font(.callout.bold())
         }
         .padding(.horizontal)
         .background(
             RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                .fill(DrawingConstants.backgroundColor)
+                .fill(Rift.DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
         
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let secondaryForegroundColor = Color("Quartenary")
-        static let backgroundColor = Color("Secondary")
         static let backgroundCornerRadius: CGFloat = 15
         static let textHorizontalPadding: CGFloat = 11
         static let textVerticalPadding: CGFloat = 16

@@ -63,10 +63,6 @@ struct DistrictSearchView: View {
             .padding()
         }
     }
-    
-    private struct DrawingConstants {
-        static let accentColor = Color("Primary")
-    }
 }
 
 #if DEBUG

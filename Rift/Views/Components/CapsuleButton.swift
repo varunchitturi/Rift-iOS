@@ -33,7 +33,7 @@ struct CapsuleButton: View {
             Spacer()
         }.padding()
         .font(.headline)
-        .foregroundColor(self.style.foregroundColor)
+        .foregroundColor(self.style.textColor)
         .environment(\.colorScheme, .light)
         .background(
                 Capsule()
@@ -62,24 +62,19 @@ struct CapsuleButton: View {
         var backgroundColor: Color {
             switch self {
             case .primary:
-                return DrawingConstants.primaryColor
+                return DrawingConstants.accentColor
             case .secondary:
-                return DrawingConstants.secondaryColor
+                return DrawingConstants.backgroundColor
             }
         }
-        var foregroundColor: Color {
+        var textColor: Color {
             switch self {
             case .primary:
-                return DrawingConstants.secondaryColor
+                return DrawingConstants.inverseForegroundColor
             case .secondary:
-                return DrawingConstants.primaryColor
+                return DrawingConstants.accentColor
             }
         }
-    }
-    private struct DrawingConstants {
-        static let disabledOpacity = 0.6
-        static let primaryColor = Color("Primary")
-        static let secondaryColor = Color("Secondary")
     }
 }
 

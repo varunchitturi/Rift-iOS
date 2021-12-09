@@ -17,7 +17,7 @@ struct CourseCard: View {
                 VStack(alignment: .leading) {
                     Text(course.courseName)
                     Text(course.teacherName ?? "")
-                        .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                        .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
                         .font(.caption)
                 }
@@ -30,25 +30,22 @@ struct CourseCard: View {
                     
                 }
                 Image(systemName: "chevron.right")
-                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                     .font(.callout.bold())
             }
             .lineLimit(1)
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
             .padding()
         }
         .background(
             RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                .fill(DrawingConstants.backgroundColor)
+                .fill(Rift.DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
         
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let backgroundColor = Color("Secondary")
-        static let secondaryForegroundColor = Color("Quartenary")
         static let backgroundCornerRadius: CGFloat = 20
         static let percentageDisplayWidth: CGFloat = 80
     }

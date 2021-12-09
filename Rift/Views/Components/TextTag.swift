@@ -17,21 +17,18 @@ struct TextTag: View {
     
     var body: some View {
         Text(text)
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.accentForegroundColor)
             .font(.caption2)
             .fontWeight(.bold)
             .lineLimit(1)
             .padding(.vertical, DrawingConstants.verticalPadding)
             .padding(.horizontal, DrawingConstants.horizontalPadding)
             .clipped()
-            .background(DrawingConstants.backgroundColor)
+            .background(Rift.DrawingConstants.accentBackgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.tagCornerRadius))
     }
     
     private struct DrawingConstants {
-        
-        static let backgroundColor = Color("Background")
-        static let foregroundColor = Color("Foreground")
         static let tagCornerRadius: CGFloat = 3
         static let verticalPadding: CGFloat = 1
         static let horizontalPadding: CGFloat = 4

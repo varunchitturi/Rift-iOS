@@ -63,7 +63,7 @@ struct WelcomeView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // explain why we do this
+            // explain why we do this. To refresh provisional cookies
             welcomeViewModel.reset()
         }
     }

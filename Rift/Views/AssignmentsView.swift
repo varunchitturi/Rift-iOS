@@ -44,11 +44,6 @@ struct AssignmentsView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let backgroundColor = Color("Secondary")
-    }
 }
 #if DEBUG
 struct AssignmentsView_Previews: PreviewProvider {
