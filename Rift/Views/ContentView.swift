@@ -15,7 +15,7 @@ struct ContentView: View {
             let locale = PersistentLocale.getLocale()
             switch applicationViewModel.authenticationState {
             case .loading:
-                LoadingView()
+                SplashScreen()
             case .authenticated where locale != nil:
                 HomeView()
                     .environmentObject(applicationViewModel)

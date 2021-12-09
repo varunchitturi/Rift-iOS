@@ -25,7 +25,7 @@ struct AssignmentCard: View {
             .lineLimit(1)
             .padding(DrawingConstants.textPadding)
             Spacer()
-            CircleBadge(assignment.totalPointsDisplay)
+            CardAssignmentGrade(assignment: assignment)
         }
         .padding(.horizontal)
         .background(

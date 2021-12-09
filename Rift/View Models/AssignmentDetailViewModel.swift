@@ -43,7 +43,7 @@ class AssignmentDetailViewModel: ObservableObject {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: assignedDate)
         }
-        return Text.nilStringText
+        return String.nilDisplay
         
     }
     var dueDateDisplay: String {
@@ -51,7 +51,7 @@ class AssignmentDetailViewModel: ObservableObject {
             let formatter = DateFormatter.simpleDate
             return formatter.string(from: dueDate)
         }
-        return Text.nilStringText
+        return String.nilDisplay
     }
     
     var remarks: OrderedDictionary<String, String?> {
@@ -120,7 +120,7 @@ class AssignmentDetailViewModel: ObservableObject {
         if let totalPoints = assignment.totalPoints, let scorePoints = assignment.scorePoints {
             return ((scorePoints/totalPoints) * 100).truncated(2).description.appending("%")
         }
-        return Text.nilStringText
+        return String.nilDisplay
     }
     
     

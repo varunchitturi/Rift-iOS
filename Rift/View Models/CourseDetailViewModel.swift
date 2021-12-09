@@ -55,7 +55,7 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     var courseGradeDisplay: String {
-        gradeDetail?.grade.letterGrade ?? Text.nilStringText
+        gradeDetail?.grade.letterGrade ?? String.nilDisplay
     }
     
     var hasModifications: Bool {
@@ -142,14 +142,3 @@ class CourseDetailViewModel: ObservableObject {
   
 }
 
-extension GradingCategory {
-    var percentageDisplay: String {
-        percentage?.rounded(2).description.appending("%") ?? Text.nilStringText
-    }
-}
-
-extension GradeDetail {
-    var totalPercentageDisplay: String {
-        totalPercentage?.rounded(2).description.appending("%") ?? Text.nilStringText
-    }
-}

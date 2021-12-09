@@ -1,0 +1,6 @@
+See both your total score and the score you received on your assignment.
+Added a new skeleton loader on startup
+Added loading icons when you open the app.
+And a NEW APP ICON!!!!
+
+Add your friends via the link in our instagram bio @rift_schoolscope
