@@ -376,6 +376,7 @@
 		274E624C26C2F45C00C855D4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */,
 				27DA637E26FE6C8C00E90E91 /* Preference Row Components */,
 				2701CD5626FD2DC900D65B84 /* Capsule Field Components */,
 				27D4E7272709727C0063CB65 /* LoadingView.swift */,
@@ -399,7 +400,6 @@
 				27C335FC270FDF9E002A8D52 /* CourseDetailStats.swift */,
 				2799A10627174E6000136C23 /* AssignmentDetailStats.swift */,
 				273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */,
-				279D323E27615DA500BA85B3 /* GlobalDrawingConstants.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

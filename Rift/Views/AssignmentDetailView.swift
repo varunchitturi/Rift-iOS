@@ -57,7 +57,7 @@ struct AssignmentDetailView: View {
                 }
             }
             .padding()
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
         }
         .navigationTitle("Assignment")
         .onAppear {
@@ -88,7 +88,6 @@ struct AssignmentDetailView: View {
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
         static let spacing: CGFloat = 15
     }
 }

@@ -35,7 +35,7 @@ struct CourseDetailStats: View {
                     }
                     .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
                 }
-                .foregroundColor(DrawingConstants.headerForegroundColor)
+                .foregroundColor(Rift.DrawingConstants.accentColor)
                 .font(.caption.bold())
                 
                 HStack {
@@ -61,8 +61,6 @@ struct CourseDetailStats: View {
         static let tableCellWidth: CGFloat = 70
         static let rowSpacing: CGFloat = 10
         static let gradeXAdjustment = 0.01 * UIScreen.main.bounds.width
-        static let headerForegroundColor = Color("Primary")
-        static let foregroundColor = Color("Tertiary")
     }
 }
 

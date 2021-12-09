@@ -62,24 +62,19 @@ struct CapsuleButton: View {
         var backgroundColor: Color {
             switch self {
             case .primary:
-                return DrawingConstants.primaryColor
+                return DrawingConstants.accentColor
             case .secondary:
-                return DrawingConstants.secondaryColor
+                return DrawingConstants.foregroundColor
             }
         }
         var foregroundColor: Color {
             switch self {
             case .primary:
-                return DrawingConstants.secondaryColor
+                return DrawingConstants.foregroundColor
             case .secondary:
-                return DrawingConstants.primaryColor
+                return DrawingConstants.accentColor
             }
         }
-    }
-    private struct DrawingConstants {
-        static let disabledOpacity = 0.6
-        static let primaryColor = Color("Primary")
-        static let secondaryColor = Color("Secondary")
     }
 }
 

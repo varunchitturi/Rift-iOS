@@ -11,13 +11,18 @@ import SwiftUI
 struct DrawingConstants {
     private init() {}
     
-    // colors
+    // core colors
     static let accentColor = Color("Primary")
-    static let foregroundColor = Color("Foreground")
-    static let backgroundColor = Color("Background")
-    static let secondaryColor = Color("Secondary")
-    static let teritaryColor = Color("Tertiary")
-    static let quartenaryColor = Color("Quartenary")
+    static let foregroundColor = Color("Tertiary")
+    static let secondaryForegroundColor = Color("Quartenary")
+    static let accentForegroundColor = Color("AccentForegroundcolor")
+    static let backgroundColor = Color("Secondary")
+    static let accentBackgroundColor = Color("AccentBackgroundColor")
+    static let textColor = Color("Tertiary")
+    static let secondaryTextColor = Color("Quartenary")
+    static let disabledColor = Color("Quartenary")
+    
+    static let disableOpacity: CGFloat = 0.6
     
     
 }

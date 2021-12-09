@@ -61,11 +61,6 @@ struct CapsuleFieldModularButton: View {
                 .disableable()
         }
     }
-    
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let disabledColor = Color("Quartenary")
-    }
 }
 
 #if DEBUG
