@@ -49,6 +49,8 @@ struct CourseList: View {
     var body: some View {
         ForEach(coursesViewModel.courseList) { course in
             if !course.isDropped {
+                
+                // TODO: pass the chosen term to the course detail view
                 NavigationLink(destination: CourseDetailView(course: course)) {
                     CourseCard(course: course)
                 }
