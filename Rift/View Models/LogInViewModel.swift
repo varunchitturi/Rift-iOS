@@ -78,7 +78,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         if let keyPath = keyPath {
             switch keyPath {
             case "URL":
-                guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, let _ = url.host else {
+                guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, url.host != nil else {
                     self.singleSignOnIsPresented = false
                     return
                 }

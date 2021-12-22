@@ -13,8 +13,8 @@ struct CardAssignmentGrade: View {
         HStack {
             CircleBadge(assignment.scorePointsDisplay, style: .secondary)
             Capsule()
+                .fill(Rift.DrawingConstants.backgroundColor)
                 .frame(width: DrawingConstants.scoreDividerWidth)
-                .foregroundColor(DrawingConstants.scoreDividerColor)
                 .padding(.vertical, DrawingConstants.scoreDividerPadding)
             CircleBadge(assignment.totalPointsDisplay)
         }
@@ -22,7 +22,6 @@ struct CardAssignmentGrade: View {
     private struct DrawingConstants {
         static let scoreDividerWidth: CGFloat = 1.5
         static let scoreDividerPadding: CGFloat = 20
-        static let scoreDividerColor = Color("Background")
     }
 }
 

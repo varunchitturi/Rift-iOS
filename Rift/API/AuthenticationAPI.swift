@@ -144,11 +144,13 @@ extension API {
                 let jsonEncoder = JSONEncoder()
                 urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
                 Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
-                        completion(nil)
-                    }
-                    else {
-                        completion(Authentication.AuthenticationError.failure)
+                    DispatchQueue.main.async {
+                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
+                            completion(nil)
+                        }
+                        else {
+                            completion(Authentication.AuthenticationError.failure)
+                        }
                     }
                 }
                 .resume()
@@ -167,11 +169,13 @@ extension API {
                 urlRequest.httpBody = requestBody
                 urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
                 URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
-                    if let response = response as? HTTPURLResponse, response.status == .success {
-                        completion(.authenticated)
-                    }
-                    else  {
-                        completion(.unauthenticated)
+                    DispatchQueue.main.async {
+                        if let response = response as? HTTPURLResponse, response.status == .success {
+                            completion(.authenticated)
+                        }
+                        else  {
+                            completion(.unauthenticated)
+                        }
                     }
                 }.resume()
             }

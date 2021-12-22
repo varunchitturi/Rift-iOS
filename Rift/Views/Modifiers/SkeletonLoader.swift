@@ -15,12 +15,12 @@ struct CustomSkeletonLoader<V>: ViewModifier where V: View {
     let loadingView: () -> V
     
     func body(content: Content) -> some View {
-        content
-            .if(isLoading) { _ in
-                loadingView()
-            } else: {
-                $0
-            }
+        if isLoading {
+            loadingView()
+        }
+        else {
+            content
+        }
     }
 }
 
@@ -29,15 +29,15 @@ struct DefaultSkeletonLoader: ViewModifier {
     let isLoading: Bool
     
     func body(content: Content) -> some View {
-        content
-            .if(isLoading) {
-                $0
-                    .disabled(true)
-                    .redacted(reason: .placeholder)
-                    .shimmering()
-            } else: {
-                $0
-            }
+        if isLoading {
+            content
+                .disabled(true)
+                .redacted(reason: .placeholder)
+                .shimmering()
+        }
+        else {
+            content
+        }
     }
 }
 
