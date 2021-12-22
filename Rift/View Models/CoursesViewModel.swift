@@ -39,12 +39,13 @@ class CoursesViewModel: ObservableObject {
     
     private func getCurrentTerm(from terms: [GradeTerm]) -> GradeTerm? {
         let currentDate = Date()
-        guard !terms.isEmpty,
-                currentDate >= terms.first!.startDate,
-                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
-            return nil
+        
+        for term in terms {
+            if currentDate < term.endDate {
+                return term
+            }
         }
-        return terms.first(where: {($0.startDate...$0.endDate).contains(currentDate)})
+        return terms.last
     }
 }
 
