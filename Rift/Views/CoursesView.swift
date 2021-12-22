@@ -11,6 +11,7 @@ import Shimmer
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @State private var termChoiceIsEditing = false
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
@@ -19,6 +20,9 @@ struct CoursesView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: DrawingConstants.cardSpacing) {
+                    if !coursesViewModel.termOptions.isEmpty {
+                        CapsuleDropDown("Term", description: "Choose a Term", options: coursesViewModel.termOptions, selectionIndex: $coursesViewModel.chosenTermIndex, isEditing: $termChoiceIsEditing)
+                    }
                     CourseList()
                         .environmentObject(coursesViewModel)
                 }

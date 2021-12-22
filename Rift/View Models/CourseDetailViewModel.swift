@@ -103,7 +103,7 @@ class CourseDetailViewModel: ObservableObject {
         let currentDate = Date()
         
         for term in terms {
-            if currentDate < term.endDate {
+            if currentDate <= term.endDate {
                 return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
             }
         }
