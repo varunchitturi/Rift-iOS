@@ -22,7 +22,7 @@ struct CourseDetailView: View {
         // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
             VStack(spacing: DrawingConstants.cardSpacing) {
-                CapsuleDropDown("Term", description: "Choose a term", options: courseDetailViewModel.gradeDetailOptions, selectionIndex: $courseDetailViewModel.chosenGradeDetailIndex, isEditing: $gradeDetailChoiceIsEditing)
+                CapsuleDropDown("Term", description: "Choose a Term", options: courseDetailViewModel.gradeDetailOptions, selectionIndex: $courseDetailViewModel.chosenGradeDetailIndex, isEditing: $gradeDetailChoiceIsEditing)
                 if courseDetailViewModel.hasGradeDetail {
                     CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                         .padding(.bottom)

@@ -11,8 +11,17 @@ import SwiftUI
 class CoursesViewModel: ObservableObject {
     @Published private var coursesModel: CoursesModel = CoursesModel()
     @Published var responseState: ResponseState = .idle
+    @Published var chosenTermIndex: Int?
+    
     var courseList: [Course] {
-        coursesModel.courseList
+        guard let chosenTermIndex = chosenTermIndex else {
+            return []
+        }
+        return coursesModel.terms?[chosenTermIndex].courses ?? []
+    }
+    
+    var termOptions: [String] {
+        (coursesModel.terms ?? []).map{ $0.termName }
     }
     
     init() {
@@ -21,7 +30,8 @@ class CoursesViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let terms):
-                    self?.coursesModel.courseList = self?.getCurrentTerm(from: terms)?.courses ?? []
+                    self?.chosenTermIndex = self?.getCurrentTermIndex(from: terms)
+                    self?.coursesModel.terms = terms
                     self?.responseState = .idle
                 case .failure(let error):
                     // TODO: do bettter error handling here
@@ -33,18 +43,20 @@ class CoursesViewModel: ObservableObject {
         }
     }
     
-    func rebuildView() {
+    func rebuildView() { 
         objectWillChange.send()
     }
     
-    private func getCurrentTerm(from terms: [GradeTerm]) -> GradeTerm? {
+    private func getCurrentTermIndex(from terms: [GradeTerm]) -> Int? {
+        
         let currentDate = Date()
-        guard !terms.isEmpty,
-                currentDate >= terms.first!.startDate,
-                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
-            return nil
+        
+        for (index, term) in terms.enumerated() {
+            if currentDate <= term.endDate {
+                return index
+            }
         }
-        return terms.first(where: {($0.startDate...$0.endDate).contains(currentDate)})
+        return terms.lastIndex {$0.termName == terms.last?.termName}
     }
 }
 

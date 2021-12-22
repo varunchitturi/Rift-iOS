@@ -99,20 +99,15 @@ class CourseDetailViewModel: ObservableObject {
     
     
     private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
+
         let currentDate = Date()
-        guard !terms.isEmpty,
-                currentDate >= terms.first!.startDate,
-                currentDate <= terms[terms.index(before: terms.endIndex)].endDate else {
-            return nil
-        }
         
         for term in terms {
-            if (term.startDate...term.endDate).contains(currentDate) {
+            if currentDate <= term.endDate {
                 return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
             }
         }
-        
-        return nil
+        return terms.lastIndex {$0.termName == terms.last?.termName}
     }
     
     
