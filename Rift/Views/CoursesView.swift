@@ -55,11 +55,11 @@ struct CourseList: View {
             }
         }
         .skeletonLoad(coursesViewModel.responseState == .loading) {
-            CapsuleFieldBackground()
+            CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                .skeletonLoad()
             ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
                 CourseCard()
-                    .redacted(reason: .placeholder)
-                    .shimmering()
+                    .skeletonLoad()
             }
         }
     }
