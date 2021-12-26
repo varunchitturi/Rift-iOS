@@ -13,16 +13,22 @@ class CoursesViewModel: ObservableObject {
     @Published var responseState: ResponseState = .idle
     @Published var chosenTermIndex: Int?
     
-    var courseList: [Course] {
+    var chosenTerm: GradeTerm? {
         guard let chosenTermIndex = chosenTermIndex else {
-            return []
+            return nil
         }
-        return coursesModel.terms?[chosenTermIndex].courses ?? []
+        return coursesModel.terms?[chosenTermIndex]
+    }
+    
+    var courseList: [Course] {
+        return chosenTerm?.courses ?? []
     }
     
     var termOptions: [String] {
         (coursesModel.terms ?? []).map{ $0.termName }
     }
+    
+    
     
     init() {
         responseState = .loading

@@ -13,8 +13,8 @@ struct CourseDetailView: View {
     @State private var addAssignmentIsPresented = false
     @State private var gradeDetailChoiceIsEditing = false
     
-    init(course: Course) {
-        self.courseDetailViewModel = CourseDetailViewModel(course: course)
+    init(course: Course, termSelectionID: Int? = nil) {
+        self.courseDetailViewModel = CourseDetailViewModel(course: course, termSelectionID: termSelectionID)
     }
     
     

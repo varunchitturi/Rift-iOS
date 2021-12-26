@@ -49,14 +49,13 @@ struct CourseList: View {
     var body: some View {
         ForEach(coursesViewModel.courseList) { course in
             if !course.isDropped {
-                
-                // TODO: pass the chosen term to the course detail view
-                NavigationLink(destination: CourseDetailView(course: course)) {
+                NavigationLink(destination: CourseDetailView(course: course, termSelectionID: coursesViewModel.chosenTerm?.id)) {
                     CourseCard(course: course)
                 }
             }
         }
         .skeletonLoad(coursesViewModel.responseState == .loading) {
+            CapsuleFieldBackground()
             ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
                 CourseCard()
                     .redacted(reason: .placeholder)

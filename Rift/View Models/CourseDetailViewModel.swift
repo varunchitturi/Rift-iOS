@@ -66,7 +66,7 @@ class CourseDetailViewModel: ObservableObject {
         gradeDetail != nil
     }
     
-    init(course: Course) {
+    init(course: Course, termSelectionID: Int? = nil) {
         self.courseDetailModel = CourseDetailModel(course: course)
         API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
             DispatchQueue.main.async {
@@ -74,8 +74,8 @@ class CourseDetailViewModel: ObservableObject {
                 case .success((let terms , let gradeDetails)):
                     // sort by term first, then by compositeTasks. (gradeDetails with composite tasks should go after)
                     let gradeDetails = gradeDetails.sorted { (detail1, detail2) in
-                        let detail1Index = terms.firstIndex(where: {$0.termName == detail1.grade.termName}) ?? -1
-                        let detail2Index = terms.firstIndex(where: {$0.termName == detail2.grade.termName}) ?? -1
+                        let detail1Index = terms.firstIndex(where: {$0.id == detail1.grade.termID}) ?? -1
+                        let detail2Index = terms.firstIndex(where: {$0.id == detail2.grade.termID}) ?? -1
                         if detail1Index != detail2Index {
                             return detail1Index < detail2Index
                         }
@@ -85,7 +85,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
-                    self?.chosenGradeDetailIndex = self?.getCurrentGradeDetailIndex(from: terms)
+                    self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
                     self?.responseState = .idle
                 case .failure(let error):
                     // TODO: better error handling here
@@ -104,10 +104,10 @@ class CourseDetailViewModel: ObservableObject {
         
         for term in terms {
             if currentDate <= term.endDate {
-                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termName == term.termName})
+                return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == term.id})
             }
         }
-        return terms.lastIndex {$0.termName == terms.last?.termName}
+        return courseDetailModel.gradeDetails?.firstIndex {$0.grade.termID == terms.last?.id}
     }
     
     
