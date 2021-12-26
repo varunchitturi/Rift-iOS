@@ -56,12 +56,10 @@ struct CourseList: View {
         }
         .skeletonLoad(coursesViewModel.responseState == .loading) {
             CapsuleTextField(text: .constant(""), isEditing: .constant(false))
-                .redacted(reason: .placeholder)
-                .shimmering()
+                .skeletonLoad()
             ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
                 CourseCard()
-                    .redacted(reason: .placeholder)
-                    .shimmering()
+                    .skeletonLoad()
             }
         }
     }
