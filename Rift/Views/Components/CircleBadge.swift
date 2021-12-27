@@ -36,12 +36,8 @@ struct CircleBadge: View {
                 $0
                     .stroke(lineWidth: DrawingConstants.secondaryStrokeWidth)
             }
-<<<<<<< HEAD
             .foregroundColor(Rift.DrawingConstants.accentBackgroundColor)
-=======
-            .foregroundColor(DrawingConstants.circleBackground)
-            
->>>>>>> origin/beta/external
+
             .frame(minWidth: minDiameter,
                    maxWidth: maxDiameter,
                    minHeight: minDiameter,
@@ -77,11 +73,6 @@ struct CircleBadge: View {
         static let minCircleDiameter: CGFloat = 30.0
         static let largeStyleMultiplier = 1.2
         static let maxCircleDiameter: CGFloat = 35.0
-<<<<<<< HEAD
-=======
-        static let circleForeground = Color("Foreground")
-        static let circleBackground = Color("Background")
->>>>>>> origin/beta/external
         static let secondaryStrokeWidth: CGFloat = 2
     }
 }

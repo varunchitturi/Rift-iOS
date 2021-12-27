@@ -65,3 +65,4 @@ class CoursesViewModel: ObservableObject {
         return terms.lastIndex {$0.termName == terms.last?.termName}
     }
 }
+
