@@ -34,9 +34,26 @@ struct ApplicationModel {
         }
     }
     
-    enum AuthenticationState {
+    enum AuthenticationState: Equatable {
+        
+        static func == (lhs: ApplicationModel.AuthenticationState, rhs: ApplicationModel.AuthenticationState) -> Bool {
+            switch (lhs, rhs) {
+            case (.loading, .loading):
+                return true
+            case (.authenticated, .authenticated):
+                return true
+            case (.unauthenticated, .unauthenticated):
+                return true
+            case (.failure(_), .failure(_)):
+                return true
+            default:
+                return false
+            }
+        }
+        
         case loading
         case authenticated
         case unauthenticated
+        case failure(Error)
     }
 }

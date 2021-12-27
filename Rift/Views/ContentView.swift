@@ -19,10 +19,17 @@ struct ContentView: View {
             case .authenticated where locale != nil:
                 HomeView()
                     .environmentObject(applicationViewModel)
+            case .failure(let error):
+                WelcomeView()
+                    .environmentObject(applicationViewModel)
+                    .apiErrorHandler(error: error) { _ in
+                        applicationViewModel.authenticateUsingCookies()
+                    }
             default:
                 WelcomeView()
                     .environmentObject(applicationViewModel)
             }
+            
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()

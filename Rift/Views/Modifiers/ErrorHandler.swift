@@ -58,7 +58,7 @@ struct APIErrorHandler: ViewModifier {
                      Please logout and log back in
                      """, error: error)
             case URLError.notConnectedToInternet:
-                ErrorDisplay(message: "You are not connected to the internet", error: error, retryAction: retryAction)
+                ErrorDisplay(message: "No Internet Connection", error: error, retryAction: retryAction)
             default:
                 ErrorDisplay(error: error, retryAction: retryAction)
             }
@@ -76,6 +76,7 @@ extension View {
     }
     
     func apiErrorHandler(error: Error?, retryAction: ((Error) -> ())? = nil) -> some View {
+        // TODO: do sentry logging here. However, do not create the function to do so here. This place should only call the function
         modifier(APIErrorHandler(error: error, retryAction: retryAction))
     }
 }

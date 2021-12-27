@@ -12,11 +12,18 @@ class ApplicationViewModel: ObservableObject {
     @Published private var applicationModel = ApplicationModel()
     
     init() {
+        authenticateUsingCookies()
+    }
+    
+    func authenticateUsingCookies() {
         let usePersistence = UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
         if usePersistence {
-            API.Authentication.attemptAuthentication { authenticationState in
-                DispatchQueue.main.async {
+            API.Authentication.attemptAuthentication { result in
+                switch result {
+                case .success(let authenticationState):
                     self.applicationModel.authenticationState = authenticationState
+                case .failure(let error):
+                    self.applicationModel.authenticationState = .failure(error)
                 }
             }
         }

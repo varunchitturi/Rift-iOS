@@ -160,7 +160,7 @@ extension API {
             }
         }
         
-        static func attemptAuthentication(completion: @escaping (ApplicationModel.AuthenticationState) -> ()) {
+        static func attemptAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             // TODO: fix context accessed for persistent container Model with no stores loaded CoreData: warning:  View context accessed for persistent container Model with no stores loaded
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
@@ -171,16 +171,19 @@ extension API {
                 URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
                     DispatchQueue.main.async {
                         if let response = response as? HTTPURLResponse, response.status == .success {
-                            completion(.authenticated)
+                            completion(.success(.authenticated))
                         }
-                        else  {
-                            completion(.unauthenticated)
+                        else if let error = error  {
+                            completion(.failure(error))
+                        }
+                        else {
+                            completion(.success(.unauthenticated))
                         }
                     }
                 }.resume()
             }
             else {
-                completion(.unauthenticated)
+                completion(.success(.authenticated))
             }
         }
         
