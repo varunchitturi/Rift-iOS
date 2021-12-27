@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct CapsuleFieldBackground: View {
-    var accentColor: Color
+    
+    internal init(accentColor: Color = DrawingConstants.accentColor, isEditing: Binding<Bool> = .constant(false)) {
+        self.accentColor = accentColor
+        self._isEditing = isEditing
+    }
+    
+    let accentColor: Color
     @Binding var isEditing: Bool
 
     var body: some View {
         let backgroundRectangle =  RoundedRectangle(cornerRadius: .infinity)
-            .fill(DrawingConstants.secondaryColor)
+            .fill(DrawingConstants.backgroundColor)
         let accentRectangle = RoundedRectangle(cornerRadius: .infinity).stroke()
             .fill(accentColor)
         ZStack {
@@ -26,17 +32,13 @@ struct CapsuleFieldBackground: View {
             }
         }
     }
-    private struct DrawingConstants {
-        static let primaryColor = Color("Primary")
-        static let secondaryColor = Color("Secondary")
-    }
 }
 
 #if DEBUG
 struct CapsuleFieldBackground_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleFieldBackground(accentColor: Color("Primary"), isEditing: .constant(true))
-        CapsuleFieldBackground(accentColor: Color("Primary"), isEditing: .constant(false))
+        CapsuleFieldBackground(accentColor: DrawingConstants.accentColor, isEditing: .constant(true))
+        CapsuleFieldBackground(accentColor: DrawingConstants.accentColor, isEditing: .constant(false))
     }
 }
 #endif

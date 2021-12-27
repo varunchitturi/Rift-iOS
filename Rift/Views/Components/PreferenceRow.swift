@@ -24,12 +24,7 @@ struct PreferenceRow: View {
                 PreferenceRowLink(preference)
             }
         }
-        .foregroundColor(preference.prominence == .high ? DrawingConstants.prominentForeground : DrawingConstants.defaultForeground)
-    }
-    
-    private struct DrawingConstants {
-        static let prominentForeground = Color("Primary")
-        static let defaultForeground = Color("Tertiary")
+        .foregroundColor(preference.prominence == .high ? DrawingConstants.accentColor : DrawingConstants.foregroundColor)
     }
 }
 

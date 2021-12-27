@@ -11,6 +11,7 @@ import Shimmer
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @State private var termChoiceIsEditing = false
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
@@ -19,6 +20,9 @@ struct CoursesView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: DrawingConstants.cardSpacing) {
+                    if !coursesViewModel.termOptions.isEmpty {
+                        CapsuleDropDown("Term", description: "Choose a Term", options: coursesViewModel.termOptions, selectionIndex: $coursesViewModel.chosenTermIndex, isEditing: $termChoiceIsEditing)
+                    }
                     CourseList()
                         .environmentObject(coursesViewModel)
                 }
@@ -45,16 +49,17 @@ struct CourseList: View {
     var body: some View {
         ForEach(coursesViewModel.courseList) { course in
             if !course.isDropped {
-                NavigationLink(destination: CourseDetailView(course: course)) {
+                NavigationLink(destination: CourseDetailView(course: course, termSelectionID: coursesViewModel.chosenTerm?.id)) {
                     CourseCard(course: course)
                 }
             }
         }
         .skeletonLoad(coursesViewModel.responseState == .loading) {
+            CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                .skeletonLoad()
             ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
                 CourseCard()
-                    .redacted(reason: .placeholder)
-                    .shimmering()
+                    .skeletonLoad()
             }
         }
     }

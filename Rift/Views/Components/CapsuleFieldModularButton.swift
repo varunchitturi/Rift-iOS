@@ -42,7 +42,7 @@ struct CapsuleFieldModularButton: View {
             .disableable()
             .padding()
             .background(
-                CapsuleFieldBackground(accentColor: DrawingConstants.foregroundColor, isEditing: .constant(false))
+                CapsuleFieldBackground()
             )
         }
     }
@@ -60,11 +60,6 @@ struct CapsuleFieldModularButton: View {
             labelView
                 .disableable()
         }
-    }
-    
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let disabledColor = Color("Quartenary")
     }
 }
 

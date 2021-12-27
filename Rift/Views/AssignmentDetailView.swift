@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shimmer
 
 struct AssignmentDetailView: View {
     @State private var categoryIsEditing = false
@@ -48,8 +49,10 @@ struct AssignmentDetailView: View {
                         AssignmentDetailSection(header: header, text!)
                     }
                 }
-                
-                .skeletonLoad(assignmentDetailViewModel.responseState == .loading)
+                .skeletonLoad(assignmentDetailViewModel.responseState == .loading) {
+                    AssignmentDetailSection("")
+                        .skeletonLoad()
+                }
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
@@ -57,7 +60,7 @@ struct AssignmentDetailView: View {
                 }
             }
             .padding()
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
         }
         .navigationTitle("Assignment")
         .onAppear {
@@ -88,7 +91,6 @@ struct AssignmentDetailView: View {
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
         static let spacing: CGFloat = 15
     }
 }

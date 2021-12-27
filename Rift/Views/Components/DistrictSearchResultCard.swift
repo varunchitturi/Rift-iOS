@@ -22,14 +22,13 @@ struct DistrictSearchResultCard: View {
                 Spacer(minLength: DrawingConstants.minimumTextTrailingSpace)
                 Image(systemName: "arrow.up.left")
             }
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
         }.padding(.vertical)
     }
     
     private struct DrawingConstants {
         static let minimumTextTrailingSpace: CGFloat = 25
         static let textLineLimit = 1
-        static let foregroundColor = Color("Tertiary")
     }
 }
 

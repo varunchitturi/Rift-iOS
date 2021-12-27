@@ -17,7 +17,7 @@ struct AssignmentDetailStats: View {
                 VStack {
                     Text(statsDisplays[index].header)
                         .font(.caption2.bold())
-                        .foregroundColor(DrawingConstants.headerColor)
+                        .foregroundColor(Rift.DrawingConstants.accentColor)
                         .padding(.bottom, DrawingConstants.headerPadding)
                     Text(statsDisplays[index].text)
                         .font(.caption2)
@@ -28,12 +28,10 @@ struct AssignmentDetailStats: View {
                 }
             }
         }
-        .foregroundColor(DrawingConstants.foregroundColor)
+        .foregroundColor(Rift.DrawingConstants.foregroundColor)
     }
     private struct DrawingConstants {
         static let headerPadding: CGFloat = 5
-        static let headerColor = Color("Primary")
-        static let foregroundColor = Color("Tertiary")
     }
 }
 

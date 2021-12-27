@@ -190,7 +190,7 @@ platform :ios do
       distribute_external: true,
       expire_previous_builds: true,
       groups: ["School Scope Team", "Beta Group 1"],
-      changelog: File.read("../changelog.txt"),
+      changelog: File.read("../Rift/changelog.txt"),
       ipa: "./rift.ipa",
       beta_app_review_info: {
         contact_email: ENV["RIFT_CONTACT_EMAIL"],
