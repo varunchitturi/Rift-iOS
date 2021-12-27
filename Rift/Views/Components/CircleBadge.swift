@@ -37,6 +37,7 @@ struct CircleBadge: View {
                     .stroke(lineWidth: DrawingConstants.secondaryStrokeWidth)
             }
             .foregroundColor(Rift.DrawingConstants.accentBackgroundColor)
+
             .frame(minWidth: minDiameter,
                    maxWidth: maxDiameter,
                    minHeight: minDiameter,
@@ -53,6 +54,7 @@ struct CircleBadge: View {
                     .padding(textPadding)
                     
             )
+            
     }
     
     enum Size {

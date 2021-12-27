@@ -46,7 +46,7 @@ extension View {
         modifier(CustomSkeletonLoader(isLoading: isLoading, loadingView: loadingView))
     }
     
-    func skeletonLoad(_ isLoading: Bool) -> some View {
+    func skeletonLoad(_ isLoading: Bool = true) -> some View {
         modifier(DefaultSkeletonLoader(isLoading: isLoading))
     }
 }

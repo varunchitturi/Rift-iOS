@@ -11,6 +11,6 @@ import Foundation
 struct CoursesModel {
     
     var courseList = [Course]()    
-    
+    var terms: [GradeTerm]?
 }
 
