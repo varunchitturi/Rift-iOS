@@ -12,24 +12,24 @@ class CoursesViewModel: ObservableObject {
     @Published private var coursesModel: CoursesModel = CoursesModel()
     @Published var responseState: ResponseState = .idle
     @Published var chosenTermIndex: Int?
-    
+
     var chosenTerm: GradeTerm? {
         guard let chosenTermIndex = chosenTermIndex else {
             return nil
         }
         return coursesModel.terms?[chosenTermIndex]
     }
-    
+
     var courseList: [Course] {
         return chosenTerm?.courses ?? []
     }
-    
+
     var termOptions: [String] {
         (coursesModel.terms ?? []).map{ $0.termName }
     }
-    
-    
-    
+
+
+
     init() {
         responseState = .loading
         API.Grades.getTermGrades { [weak self] result in
@@ -48,15 +48,15 @@ class CoursesViewModel: ObservableObject {
             }
         }
     }
-    
-    func rebuildView() { 
+
+    func rebuildView() {
         objectWillChange.send()
     }
-    
+
     private func getCurrentTermIndex(from terms: [GradeTerm]) -> Int? {
-        
+
         let currentDate = Date()
-        
+
         for (index, term) in terms.enumerated() {
             if currentDate <= term.endDate {
                 return index
@@ -65,4 +65,3 @@ class CoursesViewModel: ObservableObject {
         return terms.lastIndex {$0.termName == terms.last?.termName}
     }
 }
-
