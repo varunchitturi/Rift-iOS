@@ -7,25 +7,29 @@
 
 import SwiftUI
 
-struct ErrorMessage: View {
+struct ErrorDisplay: View {
     
-    init(error: Error, retryAction: ((Error) -> ())? = nil) {
+    init(message: String? = nil, error: Error? = nil, retryAction: ((Error) -> ())? = nil) {
+        self.message = message ?? "An Error Occured"
         self.error = error
         self.retryAction = retryAction
     }
     
-    
-    let message: String = "An Error Occured"
-    let error: Error
+    let message: String
+    let error: Error?
     let retryAction: ((Error) -> ())?
     
     var body: some View {
         VStack {
-            Text(message)
-                .font(.callout)
-            if retryAction != nil {
+            HStack {
+                Text(message)
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+            }
+           
+            if retryAction != nil, error != nil {
                 Button {
-                    retryAction!(error)
+                    retryAction!(error!)
                 } label: {
                     Text("Try Again")
                         .font(.footnote)
@@ -48,11 +52,14 @@ struct ErrorMessage: View {
 }
 
 #if DEBUG
-struct ErrorMessage_Previews: PreviewProvider {
+struct ErrorDisplay_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorMessage(error: URLError.notConnectedToInternet as! Error) { _ in
-            
-        }
+        
+        ErrorDisplay(message: """
+                     An authentication error occured
+                     Please logout and log back in
+                     """, error: URLError.init(.notConnectedToInternet))
+            .padding()
     }
 }
 #endif
