@@ -20,16 +20,20 @@ struct DefaultAsyncHandler: ViewModifier {
         case .success:
             content
         case .failure(let error):
-            ErrorDisplay(error: error, retryAction: retryAction)
+            VStack {
+                ErrorDisplay(error: error, retryAction: retryAction)
+            }
         case .loading:
-            LoadingView()
+            VStack {
+                LoadingView()
+            }
         }
     }
 }
 
 struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>: ViewModifier {
     
-    init(asyncState: AsyncState, idleView: (() -> IdleContent)?, successView: (() -> SuccessContent)?, loadingView: (() -> LoadingContent)?, failureView: ((Error) -> FailureContent)? = nil) {
+    init(asyncState: AsyncState, idleView: @escaping () -> IdleContent, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, failureView: @escaping (Error) -> FailureContent) {
         self.asyncState = asyncState
         self.idleView = idleView
         self.successView = successView
@@ -40,48 +44,73 @@ struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureConten
     
     let asyncState: AsyncState
     
-    let idleView: (() -> IdleContent)?
-    let successView: (() -> SuccessContent)?
-    let failureView: ((Error) -> FailureContent)?
-    let loadingView: (() -> LoadingContent)?
+    let idleView: () -> IdleContent
+    let successView: () -> SuccessContent
+    let failureView: (Error) -> FailureContent
+    let loadingView: () -> LoadingContent
     
     func body(content: Content) -> some View {
         switch asyncState {
         case .idle:
-            if idleView != nil {
-                idleView!()
-            }
-            else {
-                content
-            }
+           idleView()
         case .success:
-            if successView != nil {
-                successView!()
-            }
-            else {
-                content
-            }
+            successView()
         case .failure(let error):
-            if failureView != nil {
-                failureView!(error)
-            }
-            else {
-                ErrorDisplay(error: error, retryAction: nil)
-            }
+            failureView(error)
         case .loading:
-            if loadingView != nil {
-                loadingView!()
-            }
-            else {
-                LoadingView()
-            }
+            loadingView()
         }
     }
 }
 
-struct APIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier {
+struct DefaultAPIAsyncHandler: ViewModifier {
     
-    init(asyncState: AsyncState, successView: (() -> SuccessContent)?, loadingView: (() -> LoadingContent)?, retryAction: ((Error) -> ())?) {
+    init(asyncState: AsyncState, retryAction: ((Error) -> ())?) {
+        self.asyncState = asyncState
+        self.retryAction = retryAction
+    }
+    
+    
+    let asyncState: AsyncState
+    let retryAction: ((Error) -> ())?
+    
+    func body(content: Content) -> some View {
+        switch asyncState {
+        case .idle:
+            content
+        case .success:
+            content
+        case .failure(let error):
+            VStack {
+                switch error {
+                case API.APIError.notAuthorized:
+                    ErrorDisplay("""
+                         An authentication error occured
+                         Please logout and log back in
+                         """,
+                                 error: error
+                    )
+                case URLError.notConnectedToInternet:
+                    ErrorDisplay("No Internet Connection",
+                                 error: error,
+                                 retryAction: retryAction
+                    )
+                default:
+                    ErrorDisplay(error: error,
+                                 retryAction: retryAction
+                    )
+                }
+            }
+        case .loading:
+            content
+                .skeletonLoad()
+        }
+    }
+}
+
+struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier {
+    
+    init(asyncState: AsyncState, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())?) {
         self.asyncState = asyncState
         self.retryAction = retryAction
         self.successView = successView
@@ -91,48 +120,38 @@ struct APIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier
     
     let asyncState: AsyncState
     let retryAction: ((Error) -> ())?
-    let successView: (() -> SuccessContent)?
-    let loadingView: (() -> LoadingContent)?
+    let successView: () -> SuccessContent
+    let loadingView: () -> LoadingContent
     
     func body(content: Content) -> some View {
         switch asyncState {
         case .idle:
             content
         case .success:
-            if successView != nil {
-                successView!()
-            }
-            else {
-                content
-            }
+            successView()
         case .failure(let error):
-            switch error {
-                
-            case API.APIError.notAuthorized:
-                ErrorDisplay("""
-                     An authentication error occured
-                     Please logout and log back in
-                     """,
-                             error: error
-                )
-            case URLError.notConnectedToInternet:
-                ErrorDisplay("No Internet Connection",
-                             error: error,
-                             retryAction: retryAction
-                )
-            default:
-                ErrorDisplay(error: error,
-                             retryAction: retryAction
-                )
+            VStack {
+                switch error {
+                case API.APIError.notAuthorized:
+                    ErrorDisplay("""
+                         An authentication error occured
+                         Please logout and log back in
+                         """,
+                                 error: error
+                    )
+                case URLError.notConnectedToInternet:
+                    ErrorDisplay("No Internet Connection",
+                                 error: error,
+                                 retryAction: retryAction
+                    )
+                default:
+                    ErrorDisplay(error: error,
+                                 retryAction: retryAction
+                    )
+                }
             }
         case .loading:
-            if loadingView != nil {
-                loadingView!()
-            }
-            else {
-                content
-                    .skeletonLoad()
-            }
+            loadingView()
         }
     }
 }
@@ -142,12 +161,19 @@ extension View {
         modifier(DefaultAsyncHandler(asyncState: asyncState, retryAction: retryAction))
     }
     
-    func asyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>(asyncState: AsyncState, idleView: (() -> IdleContent)? = nil, successView: (() -> SuccessContent)? = nil, loadingView: (() -> LoadingContent)? = nil, failureView: ((Error) -> FailureContent)? = nil) -> some View {
+    func asyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>(asyncState: AsyncState, idleView: @escaping () -> IdleContent, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, failureView: @escaping (Error) -> FailureContent) -> some View {
         modifier(CustomAsyncHandler(asyncState: asyncState, idleView: idleView, successView: successView, loadingView: loadingView, failureView: failureView))
     }
     
-    func apiHandler<SuccessContent: View, LoadingContent: View>(asyncState: AsyncState, successView: (() -> SuccessContent)? = nil, loadingView: (() -> LoadingContent)? = nil, retryAction: ((Error) -> ())? = nil) -> some View {
-        modifier(APIAsyncHandler(asyncState: asyncState, successView: successView, loadingView: loadingView, retryAction: retryAction))
+    func apiHandler(asyncState: AsyncState, retryAction: ((Error) -> ())? = nil) -> some View {
+        modifier(DefaultAPIAsyncHandler(asyncState: asyncState, retryAction: retryAction))
     }
     
+    func apiHandler<SuccessContent: View, LoadingContent: View>(asyncState: AsyncState, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())? = nil) -> some View {
+        modifier(CustomAPIAsyncHandler(asyncState: asyncState, successView: successView, loadingView: loadingView, retryAction: retryAction))
+    }
+    
+    func apiHandler<LoadingContent: View>(asyncState: AsyncState, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())? = nil) -> some View {
+        modifier(CustomAPIAsyncHandler(asyncState: asyncState, successView: {self}, loadingView: loadingView, retryAction: retryAction))
+    }
 }

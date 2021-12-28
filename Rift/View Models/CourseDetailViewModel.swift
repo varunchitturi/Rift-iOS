@@ -67,8 +67,12 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     init(course: Course, termSelectionID: Int? = nil) {
-        self.courseDetailModel = CourseDetailModel(course: course)
-        API.Grades.getGradeDetails(for: course.sectionID) {[weak self] result in
+        self.courseDetailModel = CourseDetailModel(course: course, termSelectionID: termSelectionID)
+        fetchGradeDetails()
+    }
+    
+    func fetchGradeDetails() {
+        API.Grades.getGradeDetails(for: courseDetailModel.course.sectionID) {[weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
@@ -85,7 +89,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.courseDetailModel.gradeDetails = gradeDetails
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
-                    self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
+                    self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == self?.courseDetailModel.termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
                     self?.networkState = .idle
                 case .failure(let error):
                     // TODO: better error handling here
@@ -94,9 +98,7 @@ class CourseDetailViewModel: ObservableObject {
                 }
             }
         }
-        
     }
-    
     
     private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
 

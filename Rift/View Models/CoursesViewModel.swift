@@ -31,6 +31,10 @@ class CoursesViewModel: ObservableObject {
 
 
     init() {
+        fetchGrades()
+    }
+
+    func fetchGrades() {
         networkState = .loading
         API.Grades.getTermGrades { [weak self] result in
             DispatchQueue.main.async {
@@ -38,7 +42,7 @@ class CoursesViewModel: ObservableObject {
                 case .success(let terms):
                     self?.chosenTermIndex = self?.getCurrentTermIndex(from: terms)
                     self?.coursesModel.terms = terms
-                    self?.networkState = .idle
+                    self?.networkState = .success
                 case .failure(let error):
                     // TODO: do bettter error handling here
                     self?.networkState = .failure(error)
@@ -48,7 +52,8 @@ class CoursesViewModel: ObservableObject {
             }
         }
     }
-
+    
+    
     func rebuildView() {
         objectWillChange.send()
     }

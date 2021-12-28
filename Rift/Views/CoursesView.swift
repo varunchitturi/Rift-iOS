@@ -54,14 +54,17 @@ struct CourseList: View {
                 }
             }
         }
-        .skeletonLoad(coursesViewModel.networkState == .loading) {
-            CapsuleTextField(text: .constant(""), isEditing: .constant(false))
-                .skeletonLoad()
-            ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
-                CourseCard()
-                    .skeletonLoad()
+        .apiHandler(asyncState: coursesViewModel.networkState, loadingView: {
+            VStack {
+                CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                    CourseCard()
+                }
             }
-        }
+            .skeletonLoad()
+        }, retryAction: { _ in
+            coursesViewModel.fetchGrades()
+        })
     }
     
     private struct DrawingConstants {

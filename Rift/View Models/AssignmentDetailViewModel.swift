@@ -133,7 +133,7 @@ class AssignmentDetailViewModel: ObservableObject {
     
     // MARK: - Intents
     
-    func getDetail() {
+    func fetchAssignmentDetail() {
         if let originalAssignment = originalAssignment {
             API.Assignments.getAssignmentDetail(for: originalAssignment) { [weak self] result in
                 switch result {

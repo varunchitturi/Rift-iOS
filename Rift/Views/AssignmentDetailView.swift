@@ -49,9 +49,11 @@ struct AssignmentDetailView: View {
                         AssignmentDetailSection(header: header, text!)
                     }
                 }
-                .skeletonLoad(assignmentDetailViewModel.networkState == .loading) {
+                .apiHandler(asyncState: assignmentDetailViewModel.networkState) {
                     AssignmentDetailSection("")
                         .skeletonLoad()
+                } retryAction: { _ in
+                    assignmentDetailViewModel.fetchAssignmentDetail()
                 }
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
@@ -65,7 +67,7 @@ struct AssignmentDetailView: View {
         .navigationTitle("Assignment")
         .onAppear {
             withAnimation {
-                assignmentDetailViewModel.getDetail()
+                assignmentDetailViewModel.fetchAssignmentDetail()
             }
         }
         .onDisappear {

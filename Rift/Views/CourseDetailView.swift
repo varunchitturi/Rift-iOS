@@ -43,7 +43,9 @@ struct CourseDetailView: View {
             }
             .padding()
         }
-        .skeletonLoad(courseDetailViewModel.networkState == .loading)
+        .apiHandler(asyncState: courseDetailViewModel.networkState) { _ in
+            courseDetailViewModel.fetchGradeDetails()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
