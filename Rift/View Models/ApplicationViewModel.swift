@@ -18,17 +18,16 @@ class ApplicationViewModel: ObservableObject {
     func authenticateUsingCookies() {
         let usePersistence = UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
         if usePersistence {
-            API.Authentication.attemptAuthentication { result in
+            applicationModel.networkState = .loading
+            API.Authentication.attemptAuthentication { [weak self] result in
                 switch result {
                 case .success(let authenticationState):
-                    self.applicationModel.authenticationState = authenticationState
+                    self?.applicationModel.authenticationState = authenticationState
+                    self?.applicationModel.networkState = .success
                 case .failure(let error):
-                    self.applicationModel.authenticationState = .failure(error)
+                    self?.applicationModel.networkState = .failure(error)
                 }
             }
-        }
-        else {
-            applicationModel.authenticationState = .unauthenticated
         }
     }
     
@@ -44,6 +43,9 @@ class ApplicationViewModel: ObservableObject {
         set {
             applicationModel.authenticationState = newValue
         }
-        
+    }
+    
+    var networkState: AsyncState {
+        applicationModel.networkState
     }
 }

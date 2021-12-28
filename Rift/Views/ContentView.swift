@@ -14,27 +14,17 @@ struct ContentView: View {
         Group {
             let locale = PersistentLocale.getLocale()
             
-            
-            
             WelcomeView()
                 .environmentObject(applicationViewModel)
-            
-            switch applicationViewModel.authenticationState {
-            case .loading:
-                SplashScreen()
-            case .authenticated where locale != nil:
-                HomeView()
-                    .environmentObject(applicationViewModel)
-            case .failure(let error):
-                WelcomeView()
-                    .environmentObject(applicationViewModel)
-//                    .apiErrorHandler(error: error) { _ in
-//                        applicationViewModel.authenticateUsingCookies()
-//                    }
-            default:
-                WelcomeView()
-                    .environmentObject(applicationViewModel)
-            }
+                .apiHandler(asyncState: applicationViewModel.networkState) {
+                    ApplicationView(locale: locale)
+                        .environmentObject(applicationViewModel)
+                } loadingView: {
+                    SplashScreen()
+                } retryAction: { _ in
+                    applicationViewModel.authenticateUsingCookies()
+                }
+
             
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
@@ -42,6 +32,21 @@ struct ContentView: View {
     }
 }
 
+struct ApplicationView: View {
+    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
+    let locale: Locale?
+    
+    var body: some View {
+        switch applicationViewModel.authenticationState {
+        case .authenticated where locale != nil:
+            HomeView()
+                .environmentObject(applicationViewModel)
+        default:
+            WelcomeView()
+                .environmentObject(applicationViewModel)
+        }
+    }
+}
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
