@@ -54,7 +54,7 @@ struct CourseList: View {
                 }
             }
         }
-        .skeletonLoad(coursesViewModel.responseState == .loading) {
+        .skeletonLoad(coursesViewModel.networkState == .loading) {
             CapsuleTextField(text: .constant(""), isEditing: .constant(false))
                 .skeletonLoad()
             ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in

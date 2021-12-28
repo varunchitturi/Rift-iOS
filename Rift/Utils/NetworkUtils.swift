@@ -155,27 +155,6 @@ extension WKHTTPCookieStore {
     
 }
 
-enum ResponseState: Equatable {
-    
-    static func == (lhs: ResponseState, rhs: ResponseState) -> Bool {
-        switch (lhs, rhs) {
-        case (.loading, .loading):
-            return true
-        case (.idle, .idle):
-            return true
-        case (.failure(_), .failure(_)):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    
-    case idle
-    case loading
-    case failure(error: Error)
-}
-
 extension URLSessionConfiguration {
     static let authentication: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default

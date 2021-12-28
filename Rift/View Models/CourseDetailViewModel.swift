@@ -14,7 +14,7 @@ class CourseDetailViewModel: ObservableObject {
     @Published private var courseDetailModel: CourseDetailModel
     @Published var editingGradeDetails: [GradeDetail]?
     @Published var chosenGradeDetailIndex: Int?
-    @Published var responseState: ResponseState = .loading
+    @Published var networkState: AsyncState = .loading
     
     // TODO: make this process more effecient
     
@@ -86,10 +86,10 @@ class CourseDetailViewModel: ObservableObject {
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
-                    self?.responseState = .idle
+                    self?.networkState = .idle
                 case .failure(let error):
                     // TODO: better error handling here
-                    self?.responseState = .failure(error: error)
+                    self?.networkState = .failure(error)
                     print(error)
                 }
             }

@@ -72,7 +72,7 @@ struct LogInView: View {
         }
         .padding()
         .navigationTitle("Log In")
-        .skeletonLoad(logInViewModel.responseState == .loading)
+        .skeletonLoad(logInViewModel.networkState == .loading)
         .onAppear {
             logInViewModel.provisionLogInView()
         }

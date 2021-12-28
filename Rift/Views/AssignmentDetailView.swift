@@ -49,7 +49,7 @@ struct AssignmentDetailView: View {
                         AssignmentDetailSection(header: header, text!)
                     }
                 }
-                .skeletonLoad(assignmentDetailViewModel.responseState == .loading) {
+                .skeletonLoad(assignmentDetailViewModel.networkState == .loading) {
                     AssignmentDetailSection("")
                         .skeletonLoad()
                 }

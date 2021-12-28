@@ -17,7 +17,6 @@ struct ApplicationModel {
     static var appType: AppType = .student
     
     var authenticationState: AuthenticationState = .unauthenticated
-    var networkState: AsyncState = .idle
     
     
     func resetUserState() {
