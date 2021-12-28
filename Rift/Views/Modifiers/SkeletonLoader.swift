@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Shimmer
 
-struct CustomSkeletonLoader<V>: ViewModifier where V: View {
+struct CustomSkeletonLoader<V: View>: ViewModifier {
  
     let isLoading: Bool
     let loadingView: () -> V
@@ -42,7 +42,7 @@ struct DefaultSkeletonLoader: ViewModifier {
 }
 
 extension View {
-    func skeletonLoad<V>(_ isLoading: Bool, @ViewBuilder loadingView: @escaping () -> V) -> some View where V: View {
+    func skeletonLoad<V: View>(_ isLoading: Bool, @ViewBuilder loadingView: @escaping () -> V) -> some View {
         modifier(CustomSkeletonLoader(isLoading: isLoading, loadingView: loadingView))
     }
     

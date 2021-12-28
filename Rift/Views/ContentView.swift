@@ -13,6 +13,12 @@ struct ContentView: View {
     var body: some View {
         Group {
             let locale = PersistentLocale.getLocale()
+            
+            
+            
+            WelcomeView()
+                .environmentObject(applicationViewModel)
+            
             switch applicationViewModel.authenticationState {
             case .loading:
                 SplashScreen()
@@ -22,9 +28,9 @@ struct ContentView: View {
             case .failure(let error):
                 WelcomeView()
                     .environmentObject(applicationViewModel)
-                    .apiErrorHandler(error: error) { _ in
-                        applicationViewModel.authenticateUsingCookies()
-                    }
+//                    .apiErrorHandler(error: error) { _ in
+//                        applicationViewModel.authenticateUsingCookies()
+//                    }
             default:
                 WelcomeView()
                     .environmentObject(applicationViewModel)

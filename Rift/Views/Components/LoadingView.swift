@@ -11,13 +11,19 @@ struct LoadingView: View {
     @State private var isRotating = false
     var body: some View {
         ZStack(alignment: .center) {
-            Icon()
-                .frame(width: 60)
+            Circle()
+                .stroke(style: StrokeStyle(lineWidth: DrawingConstants.loaderLineWidth + 1, lineCap: .round))
+                .fill(Rift.DrawingConstants.accentBackgroundColor)
+                .frame(width: DrawingConstants.loaderSize)
+            Circle()
+                .trim(from: 0, to: DrawingConstants.loaderArcLength)
+                .stroke(style: StrokeStyle(lineWidth: DrawingConstants.loaderLineWidth, lineCap: .round))
+                .fill(Rift.DrawingConstants.accentColor)
+                .frame(width: DrawingConstants.loaderSize)
                 .rotationEffect(.degrees(isRotating ? 360 : 0))
-                .animation(
-                    .linear(duration: DrawingConstants.animationDuration)
-                        .repeatForever(autoreverses: false)
-                )
+                .animation(.linear(duration: DrawingConstants.animationDuration)
+                            .repeatForever(autoreverses: false),
+                           value: isRotating)
                 .onAppear {
                     isRotating = true
                 }
@@ -25,8 +31,10 @@ struct LoadingView: View {
     }
 
     private struct DrawingConstants {
-        static let loaderWidth: CGFloat = 30
+        static let loaderLineWidth: CGFloat = 5
         static let animationDuration: CGFloat = 0.5
+        static let loaderSize: CGFloat = 35
+        static let loaderArcLength: CGFloat = 0.2
     }
 }
 

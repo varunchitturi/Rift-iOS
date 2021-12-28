@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ErrorDisplay: View {
     
-    init(message: String? = nil, error: Error? = nil, retryAction: ((Error) -> ())? = nil) {
+    init(_ message: String? = nil, error: Error, retryAction: ((Error) -> ())? = nil) {
         self.message = message ?? "An Error Occured"
-        self.error = error
         self.retryAction = retryAction
+        self.error = error
     }
     
+    let error: Error
     let message: String
-    let error: Error?
     let retryAction: ((Error) -> ())?
     
     var body: some View {
@@ -27,9 +27,9 @@ struct ErrorDisplay: View {
                     .multilineTextAlignment(.center)
             }
            
-            if retryAction != nil, error != nil {
+            if retryAction != nil {
                 Button {
-                    retryAction!(error!)
+                    retryAction!(error)
                 } label: {
                     Text("Try Again")
                         .font(.footnote)
@@ -55,7 +55,7 @@ struct ErrorDisplay: View {
 struct ErrorDisplay_Previews: PreviewProvider {
     static var previews: some View {
         
-        ErrorDisplay(message: """
+        ErrorDisplay("""
                      An authentication error occured
                      Please logout and log back in
                      """, error: URLError.init(.notConnectedToInternet))
