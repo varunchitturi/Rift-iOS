@@ -139,7 +139,7 @@ struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewMo
                          """,
                                  error: error
                     )
-                case URLError.notConnectedToInternet:
+                case URLError.notConnectedToInternet, URLError.dataNotAllowed:
                     ErrorDisplay("No Internet Connection",
                                  error: error,
                                  retryAction: retryAction
