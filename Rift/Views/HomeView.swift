@@ -40,6 +40,7 @@ struct HomeView: View {
             UserPreferenceView(preferences: UserPreferenceModel.shared)
                 .environmentObject(homeViewModel)
         }
+        .usingCustomTabViewStyle()
         
     }
 }

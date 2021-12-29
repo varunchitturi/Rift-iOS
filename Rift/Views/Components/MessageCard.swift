@@ -9,25 +9,25 @@ import SwiftUI
 
 struct MessageCard: View {
     
-    init(_ message: Message) {
+    init(_ message: Message? = nil) {
         self.message = message
     }
     
-    let message: Message
+    let message: Message?
     
     var body: some View {
         Group {
             HStack {
                 VStack(alignment: .leading, spacing: DrawingConstants.textSpacing) {
-                    Text(message.name)
+                    Text(message?.name ?? String.nilDisplay)
                     Group {
-                        if message.date != nil {
-                            Text(DateFormatter.simpleDate.string(from: message.date!))
+                        if message?.date != nil {
+                            Text(DateFormatter.simpleDate.string(from: message!.date!))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
                         else {
-                            Text(DateFormatter.simpleDate.string(from: message.postedTime))
+                            Text(DateFormatter.simpleDate.string(from: message?.postedTime ?? Date()))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
@@ -35,7 +35,7 @@ struct MessageCard: View {
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                 }
                 Spacer()
-                if message.unread {
+                if message?.unread == true {
                     Circle()
                         .fill(Rift.DrawingConstants.accentBackgroundColor)
                         .frame(width: DrawingConstants.badgeRadius, height: DrawingConstants.badgeRadius)

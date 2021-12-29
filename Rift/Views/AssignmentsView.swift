@@ -58,7 +58,7 @@ struct AssignmentsView: View {
     }
     
     private struct DrawingConstants {
-        static let placeholderCardCount = 6
+        static let placeholderCardCount = 8
     }
 }
 #if DEBUG
