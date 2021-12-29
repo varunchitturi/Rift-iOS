@@ -78,13 +78,11 @@ extension API {
             do {
                 urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
                 Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            completion(error)
-                        }
-                        else {
-                            completion(nil)
-                        }
+                    if let error = error {
+                        completion(error)
+                    }
+                    else {
+                        completion(nil)
                     }
                 }
                 .resume()
@@ -113,13 +111,9 @@ extension API {
                     let html = try String(contentsOf: loginURL)
                     let htmlDOM = try SwiftSoup.parse(html)
                     let samlURLString: String = (try? htmlDOM.getElementById("samlLoginLink")?.attr("href")) ?? ""
-                    DispatchQueue.main.async {
-                        completion(.success(URL(string: samlURLString)))
-                    }
+                    completion(.success(URL(string: samlURLString)))
                 } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
+                    completion(.failure(error))
                 }
             }
         }
@@ -144,13 +138,11 @@ extension API {
                 let jsonEncoder = JSONEncoder()
                 urlRequest.httpBody = try jsonEncoder.encode(persistenceUpdateConfiguration)
                 Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    DispatchQueue.main.async {
-                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
-                            completion(nil)
-                        }
-                        else {
-                            completion(Authentication.AuthenticationError.failure)
-                        }
+                    if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
+                        completion(nil)
+                    }
+                    else {
+                        completion(Authentication.AuthenticationError.failure)
                     }
                 }
                 .resume()
@@ -169,16 +161,14 @@ extension API {
                 urlRequest.httpBody = requestBody
                 urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
                 URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
-                    DispatchQueue.main.async {
-                        if let response = response as? HTTPURLResponse, response.status == .success {
-                            completion(.success(.authenticated))
-                        }
-                        else if let error = error  {
-                            completion(.failure(error))
-                        }
-                        else {
-                            completion(.success(.unauthenticated))
-                        }
+                    if let response = response as? HTTPURLResponse, response.status == .success {
+                        completion(.success(.authenticated))
+                    }
+                    else if let error = error  {
+                        completion(.failure(error))
+                    }
+                    else {
+                        completion(.success(.unauthenticated))
                     }
                 }.resume()
             }
