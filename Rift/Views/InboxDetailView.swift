@@ -16,9 +16,9 @@ struct InboxDetailView: View {
     }
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
-        ZStack {
+        VStack {
             if inboxDetailViewModel.messageBody != nil {
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack {
                         Text(inboxDetailViewModel.messageBody!)
                     }
