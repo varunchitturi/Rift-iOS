@@ -16,7 +16,7 @@ struct ApplicationModel {
     
     static var appType: AppType = .student
     
-    var authenticationState: AuthenticationState = .loading
+    var authenticationState: AuthenticationState = .unauthenticated
     
     
     func resetUserState() {
@@ -34,8 +34,7 @@ struct ApplicationModel {
         }
     }
     
-    enum AuthenticationState {
-        case loading
+    enum AuthenticationState: Equatable {
         case authenticated
         case unauthenticated
     }

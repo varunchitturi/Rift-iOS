@@ -16,5 +16,6 @@ struct API {
         case invalidData
         case invalidRequest
         case invalidLocale
+        case notAuthorized
     }
 }

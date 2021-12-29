@@ -26,14 +26,25 @@ struct AssignmentsView: View {
                             ForEach(assignmentDateList[date]!) { assignment in
                                 AssignmentCard(assignment: assignment)
                             }
-                            
+
                         }
                         .textCase(nil)
-                        .foregroundColor(DrawingConstants.foregroundColor)
+                        .foregroundColor(Rift.DrawingConstants.foregroundColor)
                     }
                 }
+                .apiHandler(asyncState: assignmentsViewModel.networkState) {
+                    List {
+                        Section(header: Text(String.nilDisplay)) {
+                            ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+                                AssignmentCard()
+                            }
+                        }
+                        .skeletonLoad()
+                    }
+                } retryAction: { _ in
+                    assignmentsViewModel.fetchAssignments()
+                }
                 .listStyle(.plain)
-               
                 .navigationTitle(HomeModel.Tab.assignments.label)
                 .toolbar {
                     ToolbarItem(id: UUID().uuidString) {
@@ -41,8 +52,13 @@ struct AssignmentsView: View {
                             .environmentObject(homeViewModel)
                     }
                 }
+                
         }
         .navigationViewStyle(.stack)
+    }
+    
+    private struct DrawingConstants {
+        static let placeholderCardCount = 8
     }
 }
 #if DEBUG

@@ -13,22 +13,40 @@ struct ContentView: View {
     var body: some View {
         Group {
             let locale = PersistentLocale.getLocale()
-            switch applicationViewModel.authenticationState {
-            case .loading:
-                SplashScreen()
-            case .authenticated where locale != nil:
-                HomeView()
-                    .environmentObject(applicationViewModel)
-            default:
-                WelcomeView()
-                    .environmentObject(applicationViewModel)
-            }
+            
+            WelcomeView()
+                .environmentObject(applicationViewModel)
+                .apiHandler(asyncState: applicationViewModel.networkState) {
+                    ApplicationView(locale: locale)
+                        .environmentObject(applicationViewModel)
+                } loadingView: {
+                    SplashScreen()
+                } retryAction: { _ in
+                    applicationViewModel.authenticateUsingCookies()
+                }
+
+            
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
     }
 }
 
+struct ApplicationView: View {
+    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
+    let locale: Locale?
+    
+    var body: some View {
+        switch applicationViewModel.authenticationState {
+        case .authenticated where locale != nil:
+            HomeView()
+                .environmentObject(applicationViewModel)
+        default:
+            WelcomeView()
+                .environmentObject(applicationViewModel)
+        }
+    }
+}
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {

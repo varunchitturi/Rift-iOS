@@ -9,27 +9,11 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct TabViewStyle: ViewModifier {
-    let backgroundColor: Color
-    let unselectedColor: Color
+struct CustomTabViewStyle: ViewModifier {
     
     
-    init(backgroundColor: Color? = nil, unselectedColor: Color? = nil) {
-        if let unselectedColor = unselectedColor {
-            self.unselectedColor = unselectedColor
-            UITabBar.appearance().unselectedItemTintColor = UIColor(unselectedColor)
-        }
-        else {
-            self.unselectedColor = Color(UITabBar.appearance().unselectedItemTintColor ?? .clear)
-        }
-        if let backgroundColor = backgroundColor {
-            self.backgroundColor = backgroundColor
-            UITabBar.appearance().barTintColor = UIColor(backgroundColor)
-        }
-        else {
-            self.backgroundColor = Color(UITabBar.appearance().barTintColor ?? .clear)
-        }
-        UITabBar.appearance().isTranslucent = false
+    init() {
+        UITabBar.appearance().tintAdjustmentMode = .normal
     }
     
     func body(content: Content) -> some View {
@@ -38,7 +22,7 @@ struct TabViewStyle: ViewModifier {
 }
 
 extension View {
-    func tabViewStyle(backgroundColor: Color? = nil, unselectedColor: Color? = nil) -> some View {
-        modifier(TabViewStyle(backgroundColor: backgroundColor, unselectedColor: unselectedColor))
+    func usingCustomTabViewStyle() -> some View {
+        modifier(CustomTabViewStyle())
     }
 }

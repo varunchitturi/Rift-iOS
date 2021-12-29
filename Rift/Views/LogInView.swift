@@ -70,9 +70,12 @@ struct LogInView: View {
                 print("log in")
             }
         }
+        
         .padding()
         .navigationTitle("Log In")
-        .skeletonLoad(logInViewModel.responseState == .loading)
+        .apiHandler(asyncState: logInViewModel.networkState) { _ in
+            logInViewModel.provisionLogInView()
+        }
         .onAppear {
             logInViewModel.provisionLogInView()
         }
