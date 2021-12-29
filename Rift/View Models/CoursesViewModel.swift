@@ -52,8 +52,8 @@ class CoursesViewModel: ObservableObject {
             }
         }
     }
-    
-    
+
+
     func rebuildView() {
         objectWillChange.send()
     }
@@ -70,4 +70,3 @@ class CoursesViewModel: ObservableObject {
         return terms.lastIndex {$0.termName == terms.last?.termName}
     }
 }
-

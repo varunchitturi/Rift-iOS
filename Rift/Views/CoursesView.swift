@@ -15,7 +15,7 @@ struct CoursesView: View {
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -38,7 +38,7 @@ struct CoursesView: View {
             }
         }
     }
-    
+
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
     }
@@ -66,7 +66,7 @@ struct CourseList: View {
             coursesViewModel.fetchGrades()
         })
     }
-    
+
     private struct DrawingConstants {
         static let placeholderCourseCount = 6
     }
