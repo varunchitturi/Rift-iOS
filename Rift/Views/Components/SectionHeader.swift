@@ -16,14 +16,12 @@ struct SectionHeader: View {
         Text(text)
             .padding()
             .frame(width: UIScreen.main.bounds.width, height: DrawingConstants.headerHeight, alignment: .leading)
-            .background(DrawingConstants.backgroundColor)
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .background(Rift.DrawingConstants.backgroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
     }
     
     private struct DrawingConstants {
         static let headerHeight: CGFloat = 28
-        static let backgroundColor = Color("Secondary")
-        static let foregroundColor = Color("Tertiary")
     }
 }
 

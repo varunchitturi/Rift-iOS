@@ -14,7 +14,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logInModel: LogInModel
     @Published var singleSignOnIsPresented = false
-    @Published var responseState: ResponseState = .idle
+    @Published var networkState: AsyncState = .idle
     
     
     private static let safeSSOURLS = [
@@ -78,7 +78,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         if let keyPath = keyPath {
             switch keyPath {
             case "URL":
-                guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, let _ = url.host else {
+                guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, url.host != nil else {
                     self.singleSignOnIsPresented = false
                     return
                 }
@@ -93,23 +93,27 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     func provisionLogInView() {
-        responseState = .loading
+        networkState = .loading
         API.Authentication.getProvisionalCookies(for: locale) {[weak self] error in
             if let error = error {
-                self?.responseState = .failure(error: error)
-                print(error)
+                DispatchQueue.main.async {
+                    self?.networkState = .failure(error)
+                    print(error)
+                }
             }
             else if let self = self {
                 API.Authentication.getLogInSSO(for: self.locale) { result in
-                    switch result {
-                    case .success(let ssoURL):
-                        self.logInModel.ssoURL = ssoURL
-                        self.responseState = .idle
-                    case .failure(let error):
-                        // TODO: do bettter error handling here
-                        self.responseState = .failure(error: error)
-                        print("Log in error")
-                        print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let ssoURL):
+                            self.logInModel.ssoURL = ssoURL
+                            self.networkState = .idle
+                        case .failure(let error):
+                            // TODO: do bettter error handling here
+                            self.networkState = .failure(error)
+                            print("Log in error")
+                            print(error.localizedDescription)
+                        }
                     }
                 }
             }
@@ -129,11 +133,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func setPersistence(_ persistence: Bool) {
         API.Authentication.usePersistence(locale: locale, persistence) { error in
-            if let _ = error {
-                UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
-            }
-            else {
-                UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
+            DispatchQueue.main.async {
+                if let _ = error {
+                    UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                else {
+                    UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
             }
         }
     }

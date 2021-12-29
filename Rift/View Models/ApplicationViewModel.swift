@@ -10,18 +10,26 @@ import URLEncodedForm
 
 class ApplicationViewModel: ObservableObject {
     @Published private var applicationModel = ApplicationModel()
-    
+    @Published var networkState: AsyncState = .idle
     init() {
+        authenticateUsingCookies()
+    }
+    
+    func authenticateUsingCookies() {
         let usePersistence = UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
         if usePersistence {
-            API.Authentication.attemptAuthentication { authenticationState in
+            networkState = .loading
+            API.Authentication.attemptAuthentication { [weak self] result in
                 DispatchQueue.main.async {
-                    self.applicationModel.authenticationState = authenticationState
+                    switch result {
+                    case .success(let authenticationState):
+                        self?.applicationModel.authenticationState = authenticationState
+                        self?.networkState = .success
+                    case .failure(let error):
+                        self?.networkState = .failure(error)
+                    }
                 }
             }
-        }
-        else {
-            applicationModel.authenticationState = .unauthenticated
         }
     }
     
@@ -37,6 +45,5 @@ class ApplicationViewModel: ObservableObject {
         set {
             applicationModel.authenticationState = newValue
         }
-        
     }
 }

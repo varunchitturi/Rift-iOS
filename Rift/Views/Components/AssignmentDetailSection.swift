@@ -24,20 +24,18 @@ struct AssignmentDetailSection: View {
             }
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
-                    .foregroundColor(DrawingConstants.backgroundColor)
+                    .foregroundColor(Rift.DrawingConstants.backgroundColor)
                 Text(text)
                     .font(.callout)
                     .padding()
             }
         }
-        .foregroundColor(DrawingConstants.foregroundColor)
+        .foregroundColor(Rift.DrawingConstants.foregroundColor)
         .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
         static let rectangleCornerRadius: CGFloat = 15
-        static let backgroundColor = Color("Secondary")
-        static let foregroundColor = Color("Tertiary")
     }
 }
 

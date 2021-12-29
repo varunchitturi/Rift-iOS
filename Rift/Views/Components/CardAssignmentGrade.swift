@@ -8,21 +8,25 @@
 import SwiftUI
 
 struct CardAssignmentGrade: View {
-    let assignment: Assignment
+    
+    init(assignment: Assignment? = nil) {
+        self.assignment = assignment
+    }
+    
+    let assignment: Assignment?
     var body: some View {
         HStack {
-            CircleBadge(assignment.scorePointsDisplay, style: .secondary)
+            CircleBadge(assignment?.scorePointsDisplay ?? String.nilDisplay, style: .secondary)
             Capsule()
+                .fill(Rift.DrawingConstants.accentBackgroundColor)
                 .frame(width: DrawingConstants.scoreDividerWidth)
-                .foregroundColor(DrawingConstants.scoreDividerColor)
                 .padding(.vertical, DrawingConstants.scoreDividerPadding)
-            CircleBadge(assignment.totalPointsDisplay)
+            CircleBadge(assignment?.totalPointsDisplay ?? String.nilDisplay)
         }
     }
     private struct DrawingConstants {
         static let scoreDividerWidth: CGFloat = 1.5
         static let scoreDividerPadding: CGFloat = 20
-        static let scoreDividerColor = Color("Background")
     }
 }
 

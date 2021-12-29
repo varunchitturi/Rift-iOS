@@ -43,13 +43,13 @@ struct CapsuleTextField: View {
             HStack {
                 if icon != nil {
                     Image(systemName: icon!)
-                        .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
+                        .foregroundColor(isEditing ? accentColor : DrawingConstants.secondaryForegroundColor)
                         .unredacted()
                 }
                 
                 LegacyTextField(text: $text, isEditing: $isEditing, inputType: inputType, onEditingChanged: onEditingChanged, onCommit: onCommit, configuration: {textField in
                     textField.isSecureTextEntry = isSecureStyle
-                    textField.textColor = UIColor(DrawingConstants.textColor)
+                    textField.textColor = UIColor(Rift.DrawingConstants.foregroundColor)
                     configuration(textField)
                 })
                 
@@ -67,12 +67,7 @@ struct CapsuleTextField: View {
         }
         
     }
-    
-    private struct DrawingConstants {
-        static let foregroundColor = Color("Quartenary")
-        static let accentColor = Color("Primary")
-        static let textColor = Color("Tertiary")
-    }
+
 
 }
 

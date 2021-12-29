@@ -9,58 +9,54 @@ import SwiftUI
 
 struct MessageCard: View {
     
-    init(_ message: Message) {
+    init(_ message: Message? = nil) {
         self.message = message
     }
     
-    let message: Message
+    let message: Message?
     
     var body: some View {
         Group {
             HStack {
                 VStack(alignment: .leading, spacing: DrawingConstants.textSpacing) {
-                    Text(message.name)
+                    Text(message?.name ?? String.nilDisplay)
                     Group {
-                        if message.date != nil {
-                            Text(DateFormatter.simpleDate.string(from: message.date!))
+                        if message?.date != nil {
+                            Text(DateFormatter.simpleDate.string(from: message!.date!))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
                         else {
-                            Text(DateFormatter.simpleDate.string(from: message.postedTime))
+                            Text(DateFormatter.simpleDate.string(from: message?.postedTime ?? Date()))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
                     }
-                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                 }
                 Spacer()
-                if message.unread {
+                if message?.unread == true {
                     Circle()
-                        .fill(DrawingConstants.badgeColor)
+                        .fill(Rift.DrawingConstants.accentBackgroundColor)
                         .frame(width: DrawingConstants.badgeRadius, height: DrawingConstants.badgeRadius)
                         .padding(.trailing)
                 }
                 Image(systemName: "chevron.right")
-                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                     .font(.callout.bold())
             }
             .lineLimit(1)
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
             .padding()
         }
         .background(
             RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                .fill(DrawingConstants.backgroundColor)
+                .fill(Rift.DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let backgroundColor = Color("Secondary")
-        static let secondaryForegroundColor = Color("Quartenary")
-        static let badgeColor = Color("Background")
         static let textSpacing: CGFloat = 5
         static let badgeRadius: CGFloat = 15
         static let backgroundCornerRadius: CGFloat = 15

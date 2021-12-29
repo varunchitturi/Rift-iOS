@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct AssignmentCard: View {
-    let assignment: Assignment
+    
+    init(assignment: Assignment? = nil) {
+        self.assignment = assignment
+    }
+    
+    let assignment: Assignment?
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment.assignmentName)
-                    .foregroundColor(DrawingConstants.foregroundColor)
+                Text(assignment?.assignmentName ?? String.nilDisplay)
+                    .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 
-                Text(assignment.courseName)
+                Text(assignment?.courseName ?? String.nilDisplay)
                     .fontWeight(.semibold)
                     .font(.caption)
-                    .foregroundColor(DrawingConstants.secondaryForegroundColor)
+                    .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                     .padding([.vertical], DrawingConstants.textInsetPadding)
             }
             .lineLimit(1)
@@ -30,16 +35,13 @@ struct AssignmentCard: View {
         .padding(.horizontal)
         .background(
             RoundedRectangle(cornerRadius: DrawingConstants.backgroundCornerRadius)
-                .fill(DrawingConstants.backgroundColor)
+                .fill(Rift.DrawingConstants.backgroundColor)
         )
         .fixedSize(horizontal: false, vertical: true)
     }
     
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
-        static let backgroundColor = Color("Secondary")
         static let backgroundCornerRadius: CGFloat = 15
-        static let secondaryForegroundColor = Color("Quartenary")
         static let textPadding: CGFloat = 11
         static let textInsetPadding: CGFloat = 1.5
     }

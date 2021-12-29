@@ -45,20 +45,37 @@ struct LogInView: View {
                 }
                 
                 Spacer()
-                CapsuleTextField("Username", text: $username, isEditing: $usernameIsEditing, icon: "person.fill", accentColor: DrawingConstants.accentColor, configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Username",
+                                 text: $username,
+                                 isEditing: $usernameIsEditing,
+                                 icon: "person.fill",
+                                 accentColor: Rift.DrawingConstants.accentColor,
+                                 configuration: LegacyTextField.customInputConfiguration
+                )
                     
-                CapsuleTextField("Password", text: $password, isEditing: $passwordIsEditing, icon: "key.fill", accentColor: DrawingConstants.accentColor, isSecureStyle: true, configuration: LegacyTextField.customInputConfiguration)
+                CapsuleTextField("Password",
+                                 text: $password,
+                                 isEditing: $passwordIsEditing,
+                                 icon: "key.fill",
+                                 accentColor:
+                                    Rift.DrawingConstants.accentColor,
+                                 isSecureStyle: true,
+                                 configuration: LegacyTextField.customInputConfiguration
+                )
             }
-            .foregroundColor(DrawingConstants.fieldForegroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
                 // TODO: implement here
                 print("log in")
             }
         }
+        
         .padding()
         .navigationTitle("Log In")
-        .skeletonLoad(logInViewModel.responseState == .loading)
+        .apiHandler(asyncState: logInViewModel.networkState) { _ in
+            logInViewModel.provisionLogInView()
+        }
         .onAppear {
             logInViewModel.provisionLogInView()
         }
@@ -92,8 +109,6 @@ struct LogInView: View {
     private struct DrawingConstants {
         static let dividerPadding: CGFloat = 20
         static let formTopSpacing: CGFloat = 30
-        static let fieldForegroundColor = Color("Tertiary")
-        static let accentColor = Color("Primary")
     }
     
 }

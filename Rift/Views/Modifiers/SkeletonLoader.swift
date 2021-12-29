@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 import Shimmer
 
-struct CustomSkeletonLoader<V>: ViewModifier where V: View {
+struct CustomSkeletonLoader<V: View>: ViewModifier {
  
     let isLoading: Bool
     let loadingView: () -> V
     
     func body(content: Content) -> some View {
-        content
-            .if(isLoading) { _ in
-                loadingView()
-            } else: {
-                $0
-            }
+        if isLoading {
+            loadingView()
+        }
+        else {
+            content
+        }
     }
 }
 
@@ -29,24 +29,24 @@ struct DefaultSkeletonLoader: ViewModifier {
     let isLoading: Bool
     
     func body(content: Content) -> some View {
-        content
-            .if(isLoading) {
-                $0
-                    .disabled(true)
-                    .redacted(reason: .placeholder)
-                    .shimmering()
-            } else: {
-                $0
-            }
+        if isLoading {
+            content
+                .disabled(true)
+                .redacted(reason: .placeholder)
+                .shimmering()
+        }
+        else {
+            content
+        }
     }
 }
 
 extension View {
-    func skeletonLoad<V>(_ isLoading: Bool, @ViewBuilder loadingView: @escaping () -> V) -> some View where V: View {
+    func skeletonLoad<V: View>(_ isLoading: Bool, @ViewBuilder loadingView: @escaping () -> V) -> some View {
         modifier(CustomSkeletonLoader(isLoading: isLoading, loadingView: loadingView))
     }
     
-    func skeletonLoad(_ isLoading: Bool) -> some View {
+    func skeletonLoad(_ isLoading: Bool = true) -> some View {
         modifier(DefaultSkeletonLoader(isLoading: isLoading))
     }
 }

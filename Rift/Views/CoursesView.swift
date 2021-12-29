@@ -11,14 +11,18 @@ import Shimmer
 struct CoursesView: View {
     @ObservedObject var coursesViewModel: CoursesViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @State private var termChoiceIsEditing = false
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: DrawingConstants.cardSpacing) {
+                    if !coursesViewModel.termOptions.isEmpty {
+                        CapsuleDropDown("Term", description: "Choose a Term", options: coursesViewModel.termOptions, selectionIndex: $coursesViewModel.chosenTermIndex, isEditing: $termChoiceIsEditing)
+                    }
                     CourseList()
                         .environmentObject(coursesViewModel)
                 }
@@ -34,7 +38,7 @@ struct CoursesView: View {
             }
         }
     }
-    
+
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
     }
@@ -45,20 +49,24 @@ struct CourseList: View {
     var body: some View {
         ForEach(coursesViewModel.courseList) { course in
             if !course.isDropped {
-                NavigationLink(destination: CourseDetailView(course: course)) {
+                NavigationLink(destination: CourseDetailView(course: course, termSelectionID: coursesViewModel.chosenTerm?.id)) {
                     CourseCard(course: course)
                 }
             }
         }
-        .skeletonLoad(coursesViewModel.responseState == .loading) {
-            ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
-                CourseCard()
-                    .redacted(reason: .placeholder)
-                    .shimmering()
+        .apiHandler(asyncState: coursesViewModel.networkState, loadingView: {
+            VStack {
+                CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                    CourseCard()
+                }
             }
-        }
+            .skeletonLoad()
+        }, retryAction: { _ in
+            coursesViewModel.fetchGrades()
+        })
     }
-    
+
     private struct DrawingConstants {
         static let placeholderCourseCount = 6
     }

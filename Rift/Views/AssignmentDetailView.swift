@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Shimmer
 
 struct AssignmentDetailView: View {
     @State private var categoryIsEditing = false
@@ -14,11 +15,11 @@ struct AssignmentDetailView: View {
     @ObservedObject var assignmentDetailViewModel: AssignmentDetailViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var courseDetailViewModel: CourseDetailViewModel
-    
-    
+
+
     // TODO: add last modified date
     // TODO: allow editing of categories
-    
+
     init(originalAssignment: Assignment?, assignmentToEdit: Binding<Assignment>, gradingCategories: [GradingCategory]) {
         self.assignmentDetailViewModel = AssignmentDetailViewModel(originalAssignment: originalAssignment, assignmentToEdit: assignmentToEdit, gradingCategories: gradingCategories)
     }
@@ -36,20 +37,24 @@ struct AssignmentDetailView: View {
                 CapsuleDropDown("Category", description: "Select Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
                 HStack {
                     CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
-                    
+
                     CapsuleTextField("Total points", text: $assignmentDetailViewModel.totalPointsText, isEditing: $totalIsEditing, inputType: .decimal)
                 }
                 let remarks = assignmentDetailViewModel.remarks
                 ForEach(remarks.keys, id: \.hashValue) { key in
                     let header = key.description
                     let text = remarks[key]!
-                    
+
                     if text != nil {
                         AssignmentDetailSection(header: header, text!)
                     }
                 }
-                
-                .skeletonLoad(assignmentDetailViewModel.responseState == .loading)
+                .apiHandler(asyncState: assignmentDetailViewModel.networkState) {
+                    AssignmentDetailSection("")
+                        .skeletonLoad()
+                } retryAction: { _ in
+                    assignmentDetailViewModel.fetchAssignmentDetail()
+                }
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
@@ -57,12 +62,12 @@ struct AssignmentDetailView: View {
                 }
             }
             .padding()
-            .foregroundColor(DrawingConstants.foregroundColor)
+            .foregroundColor(Rift.DrawingConstants.foregroundColor)
         }
         .navigationTitle("Assignment")
         .onAppear {
             withAnimation {
-                assignmentDetailViewModel.getDetail()
+                assignmentDetailViewModel.fetchAssignmentDetail()
             }
         }
         .onDisappear {
@@ -86,9 +91,8 @@ struct AssignmentDetailView: View {
             }
         }
     }
-    
+
     private struct DrawingConstants {
-        static let foregroundColor = Color("Tertiary")
         static let spacing: CGFloat = 15
     }
 }
