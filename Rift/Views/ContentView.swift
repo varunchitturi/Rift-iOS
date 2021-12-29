@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             let locale = PersistentLocale.getLocale()
-            
+
             WelcomeView()
                 .environmentObject(applicationViewModel)
                 .apiHandler(asyncState: applicationViewModel.networkState) {
@@ -25,7 +25,7 @@ struct ContentView: View {
                     applicationViewModel.authenticateUsingCookies()
                 }
 
-            
+
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
@@ -35,7 +35,7 @@ struct ContentView: View {
 struct ApplicationView: View {
     @EnvironmentObject private var applicationViewModel: ApplicationViewModel
     let locale: Locale?
-    
+
     var body: some View {
         switch applicationViewModel.authenticationState {
         case .authenticated where locale != nil:
