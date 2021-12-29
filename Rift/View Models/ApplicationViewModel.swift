@@ -20,12 +20,14 @@ class ApplicationViewModel: ObservableObject {
         if usePersistence {
             networkState = .loading
             API.Authentication.attemptAuthentication { [weak self] result in
-                switch result {
-                case .success(let authenticationState):
-                    self?.applicationModel.authenticationState = authenticationState
-                    self?.networkState = .success
-                case .failure(let error):
-                    self?.networkState = .failure(error)
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let authenticationState):
+                        self?.applicationModel.authenticationState = authenticationState
+                        self?.networkState = .success
+                    case .failure(let error):
+                        self?.networkState = .failure(error)
+                    }
                 }
             }
         }
