@@ -16,7 +16,7 @@ struct SplashScreen: View {
     }
     
     private struct DrawingConstants {
-        static let loaderWidth: CGFloat = UIScreen.main.bounds.size.width * 0.3
+        static let loaderWidth: CGFloat = UIScreen.main.bounds.size.width * 0.4
     }
 }
 

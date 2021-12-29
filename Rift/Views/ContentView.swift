@@ -20,7 +20,7 @@ struct ContentView: View {
                     ApplicationView(locale: locale)
                         .environmentObject(applicationViewModel)
                 } loadingView: {
-                    SplashScreen()
+                    ProgressView("Logging In")
                 } retryAction: { _ in
                     applicationViewModel.authenticateUsingCookies()
                 }
