@@ -73,6 +73,7 @@ class CourseDetailViewModel: ObservableObject {
 
     func fetchGradeDetails() {
         API.Grades.getGradeDetails(for: courseDetailModel.course.sectionID) {[weak self] result in
+
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
@@ -103,7 +104,6 @@ class CourseDetailViewModel: ObservableObject {
     private func getCurrentGradeDetailIndex(from terms: [Term]) -> Int? {
 
         let currentDate = Date()
-
         for term in terms {
             if currentDate <= term.endDate {
                 return courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == term.id})

@@ -29,7 +29,6 @@ class CoursesViewModel: ObservableObject {
     }
 
 
-
     init() {
         fetchGrades()
     }
@@ -52,7 +51,6 @@ class CoursesViewModel: ObservableObject {
             }
         }
     }
-
 
     func rebuildView() {
         objectWillChange.send()
