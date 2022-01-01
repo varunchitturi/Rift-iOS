@@ -71,7 +71,6 @@ private struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, Failu
 private struct APIErrorDisplay: View {
     
     init(error: Error, retryAction: ((Error) -> ())? = nil) {
-        Crashlytics.crashlytics().record(error: error)
         self.error = error
         self.retryAction = retryAction
     }
@@ -83,13 +82,16 @@ private struct APIErrorDisplay: View {
     var body: some View {
         VStack {
             switch error {
-            case URLError.notConnectedToInternet:
+            case API.APIError.responseError(_):
                 ErrorDisplay("""
-                     An authentication error occured
+                     An Error Occured
                      Please logout and log back in
                      """,
                              error: error
                 )
+                .onAppear {
+                    Crashlytics.crashlytics().record(error: error)
+                }
             case URLError.notConnectedToInternet, URLError.dataNotAllowed:
                 ErrorDisplay("No Internet Connection",
                              error: error,
@@ -99,6 +101,9 @@ private struct APIErrorDisplay: View {
                 ErrorDisplay(error: error,
                              retryAction: retryAction
                 )
+                .onAppear {
+                    Crashlytics.crashlytics().record(error: error)
+                }
             }
         }
     }

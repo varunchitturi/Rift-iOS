@@ -16,18 +16,18 @@ class HomeViewModel: ObservableObject {
     @Published var networkState: AsyncState = .idle
     
     init() {
-        if let locale = PersistentLocale.getLocale() {
-            Analytics.setDefaultEventParameters(try? locale.allProperties())
-        }
         fetchUser()
+    }
+    
+    var user: UserAccount? {
+        homeModel.user
     }
     
     func fetchUser() {
         API.Resources.getUserAccount { [weak self] result in
             switch result {
             case .success(let user):
-                Analytics.setUserProperties(user)
-                Crashlytics.crashlytics().setUserID(user.id)
+                FirebaseApp.setUser(user)
                 DispatchQueue.main.async {
                     self?.networkState = .success
                     self?.homeModel.user = user
