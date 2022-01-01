@@ -78,7 +78,7 @@ extension API {
             do {
                 urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
                 Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    if let error = error {
+                    if let error = (error ?? APIError(response: response)) {
                         completion(error)
                     }
                     else {
@@ -153,7 +153,6 @@ extension API {
         }
         
         static func attemptAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
-            // TODO: fix context accessed for persistent container Model with no stores loaded CoreData: warning:  View context accessed for persistent container Model with no stores loaded
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
             let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
@@ -164,7 +163,7 @@ extension API {
                     if let response = response as? HTTPURLResponse, response.status == .success {
                         completion(.success(.authenticated))
                     }
-                    else if let error = error  {
+                    else if let error = (error ?? APIError(response: response))  {
                         completion(.failure(error))
                     }
                     else {

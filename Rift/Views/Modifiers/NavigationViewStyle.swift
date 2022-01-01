@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct NavigationViewStyle: ViewModifier {
+private struct NavigationViewStyle: ViewModifier {
     let backgroundColor: Color
     let foregroundColor: Color
     

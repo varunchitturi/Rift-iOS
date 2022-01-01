@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-struct CustomTabViewStyle: ViewModifier {
+private struct CustomTabViewStyle: ViewModifier {
     
     
     init() {

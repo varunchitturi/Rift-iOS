@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Disableable: ViewModifier {
+private struct Disableable: ViewModifier {
     @Environment(\.isEnabled) var isEnabled
     func body(content: Content) -> some View {
         if isEnabled {
