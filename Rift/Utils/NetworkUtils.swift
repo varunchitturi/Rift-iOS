@@ -88,6 +88,10 @@ extension HTTPURLResponse {
         case unknown
         case badRequest
         case moved
+        
+        var description: String {
+            String(describing: self)
+        }
     }
     
     var status: Status {

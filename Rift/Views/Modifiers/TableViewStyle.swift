@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct CustomTableViewStyle: ViewModifier {
+private struct CustomTableViewStyle: ViewModifier {
     
     init() {
         UITableView.appearance().separatorColor = .clear

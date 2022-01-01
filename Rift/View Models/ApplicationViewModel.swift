@@ -5,6 +5,7 @@
 //  Created by Varun Chitturi on 9/24/21.
 //
 
+import Firebase
 import SwiftUI
 import URLEncodedForm
 
@@ -25,6 +26,7 @@ class ApplicationViewModel: ObservableObject {
                     case .success(let authenticationState):
                         self?.applicationModel.authenticationState = authenticationState
                         self?.networkState = .success
+                        Analytics.logEvent("persisted_log_in", parameters: nil)
                     case .failure(let error):
                         self?.networkState = .failure(error)
                     }

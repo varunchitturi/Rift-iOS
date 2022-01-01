@@ -5,10 +5,11 @@
 //  Created by Varun Chitturi on 9/9/21.
 //
 
-import Foundation
-import WebKit
-import SwiftUI
 import CoreData
+import Firebase
+import Foundation
+import SwiftUI
+import WebKit
 
 class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
@@ -109,10 +110,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                             self.logInModel.ssoURL = ssoURL
                             self.networkState = .idle
                         case .failure(let error):
-                            // TODO: do bettter error handling here
                             self.networkState = .failure(error)
-                            print("Log in error")
-                            print(error.localizedDescription)
                         }
                     }
                 }
@@ -124,11 +122,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func authenticate(with credentials: LogInModel.Credentials) {
         // TODO: implement this for normal sign in
+        Analytics.logEvent("new_log_in", parameters: nil)
         
     }
     
     func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
         state.wrappedValue = authenticationState
+        Analytics.logEvent("new_log_in", parameters: nil)
     }
     
     func setPersistence(_ persistence: Bool) {

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Shimmer
 
-struct CustomSkeletonLoader<V: View>: ViewModifier {
+private struct CustomSkeletonLoader<V: View>: ViewModifier {
  
     let isLoading: Bool
     let loadingView: () -> V
@@ -24,7 +24,7 @@ struct CustomSkeletonLoader<V: View>: ViewModifier {
     }
 }
 
-struct DefaultSkeletonLoader: ViewModifier {
+private struct DefaultSkeletonLoader: ViewModifier {
  
     let isLoading: Bool
     

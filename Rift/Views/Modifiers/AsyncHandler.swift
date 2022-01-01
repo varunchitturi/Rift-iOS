@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import Firebase
 import SwiftUI
 
-struct DefaultAsyncHandler: ViewModifier {
+
+// TODO: Create async handler protocol
+
+
+private struct DefaultAsyncHandler: ViewModifier {
     
     let asyncState: AsyncState
     let retryAction: ((Error) -> ())?
@@ -31,7 +36,7 @@ struct DefaultAsyncHandler: ViewModifier {
     }
 }
 
-struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>: ViewModifier {
+private struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>: ViewModifier {
     
     init(asyncState: AsyncState, idleView: @escaping () -> IdleContent, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, failureView: @escaping (Error) -> FailureContent) {
         self.asyncState = asyncState
@@ -63,7 +68,43 @@ struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureConten
     }
 }
 
-struct DefaultAPIAsyncHandler: ViewModifier {
+private struct APIErrorDisplay: View {
+    
+    init(error: Error, retryAction: ((Error) -> ())? = nil) {
+        Crashlytics.crashlytics().record(error: error)
+        self.error = error
+        self.retryAction = retryAction
+    }
+    
+    
+    let error: Error
+    let retryAction: ((Error) -> ())?
+    
+    var body: some View {
+        VStack {
+            switch error {
+            case URLError.notConnectedToInternet:
+                ErrorDisplay("""
+                     An authentication error occured
+                     Please logout and log back in
+                     """,
+                             error: error
+                )
+            case URLError.notConnectedToInternet, URLError.dataNotAllowed:
+                ErrorDisplay("No Internet Connection",
+                             error: error,
+                             retryAction: retryAction
+                )
+            default:
+                ErrorDisplay(error: error,
+                             retryAction: retryAction
+                )
+            }
+        }
+    }
+}
+
+private struct DefaultAPIAsyncHandler: ViewModifier {
     
     init(asyncState: AsyncState, retryAction: ((Error) -> ())?) {
         self.asyncState = asyncState
@@ -81,26 +122,7 @@ struct DefaultAPIAsyncHandler: ViewModifier {
         case .success:
             content
         case .failure(let error):
-            VStack {
-                switch error {
-                case API.APIError.notAuthorized:
-                    ErrorDisplay("""
-                         An authentication error occured
-                         Please logout and log back in
-                         """,
-                                 error: error
-                    )
-                case URLError.notConnectedToInternet:
-                    ErrorDisplay("No Internet Connection",
-                                 error: error,
-                                 retryAction: retryAction
-                    )
-                default:
-                    ErrorDisplay(error: error,
-                                 retryAction: retryAction
-                    )
-                }
-            }
+            APIErrorDisplay(error: error, retryAction: retryAction)
         case .loading:
             content
                 .skeletonLoad()
@@ -108,7 +130,7 @@ struct DefaultAPIAsyncHandler: ViewModifier {
     }
 }
 
-struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier {
+private struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier {
     
     init(asyncState: AsyncState, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())?) {
         self.asyncState = asyncState
@@ -130,26 +152,7 @@ struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewMo
         case .success:
             successView()
         case .failure(let error):
-            VStack {
-                switch error {
-                case API.APIError.notAuthorized:
-                    ErrorDisplay("""
-                         An authentication error occured
-                         Please logout and log back in
-                         """,
-                                 error: error
-                    )
-                case URLError.notConnectedToInternet, URLError.dataNotAllowed:
-                    ErrorDisplay("No Internet Connection",
-                                 error: error,
-                                 retryAction: retryAction
-                    )
-                default:
-                    ErrorDisplay(error: error,
-                                 retryAction: retryAction
-                    )
-                }
-            }
+            APIErrorDisplay(error: error, retryAction: retryAction)
         case .loading:
             loadingView()
         }

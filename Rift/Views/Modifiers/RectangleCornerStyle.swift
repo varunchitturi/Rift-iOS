@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RectangleCornerStyle: Shape {
+private struct RectangleCornerStyle: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
     

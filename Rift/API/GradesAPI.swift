@@ -22,12 +22,9 @@ extension API {
                 return
             }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGrades))
-            // TODO: customize this (caching mechanism for cookies and responses)
-            // TODO: have a loading view for courses
-            // TODO: show an network error message if no data is able to be retrieved
-            // TODO: create a shared session
+            
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
+                if let error = (error ?? APIError(response: response)) {
                     completion(.failure(error))
                 }
                 else if let data = data {
@@ -63,7 +60,7 @@ extension API {
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGradeDetails + "/\(assignmentID)"))
             
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
+                if let error = (error ?? APIError(response: response)) {
                     completion(.failure(error))
                 }
                 else if let data = data {
