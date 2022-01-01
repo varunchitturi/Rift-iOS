@@ -188,11 +188,10 @@ extension API {
             }
             let urlRequest = URLRequest(url: url)
             // TODO: explain why we use shared here
-            URLSession.shared.dataTask(with: urlRequest) { _, _, error in
-                if let error = error {
+            URLSession.shared.dataTask(with: urlRequest) { _, response, error in
+                if let error = (error ?? APIError(response: response)) {
                     completion(error)
                     return
-                    // TODO: better error handling here
                 }
                 else {
                     completion(nil)

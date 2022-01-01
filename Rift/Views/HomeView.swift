@@ -41,6 +41,9 @@ struct HomeView: View {
                 .environmentObject(homeViewModel)
         }
         .usingCustomTabViewStyle()
+        .apiHandler(asyncState: homeViewModel.networkState) { _ in
+            homeViewModel.fetchUser()
+        }
         
     }
 }
