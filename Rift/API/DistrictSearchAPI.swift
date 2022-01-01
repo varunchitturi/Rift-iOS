@@ -33,7 +33,7 @@ extension API {
                     return
                 }
                 API.defaultURLSession.dataTask(with: url) { data, response, error in
-                    if let error = error {
+                    if let error = (error ?? APIError(response: response)) {
                         completion(.failure(error))
                     }
                     else if let data = data {

@@ -25,7 +25,7 @@ extension API {
             }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.messageList))
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
+                if let error = (error ?? APIError(response: response)) {
                     completion(.failure(error))
                 }
                 else if let data = data {
@@ -88,7 +88,7 @@ extension API {
             do {
                 urlRequest.httpBody = try formEncoder.encode(DeleteMessageBody(processMessageID: message.id))
                 API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    if let error = error {
+                    if let error = (error ?? APIError(response: response)) {
                         completion(error)
                     }
                     else {

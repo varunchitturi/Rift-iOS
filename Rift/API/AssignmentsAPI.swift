@@ -15,12 +15,11 @@ extension API {
             static let assignmentDetail = "api/instruction/curriculum/sectionContent/"
         }
         
-        // TODO: make all dispatch queue .main.async calls from the view model only. API should not have access to the main thread.
         static func getList(locale: Locale? = nil, completion: @escaping (Result<[Assignment], Error>) -> ()) {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentList))
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
+                if let error = (error ?? APIError(response: response)) {
                     completion(.failure(error))
                 }
                 else if let data = data {
@@ -38,13 +37,13 @@ extension API {
                 }
             }.resume()
         }
-        // TODO: remove dispatchqueue.main.async from api
+
         static func getAssignmentDetail(locale: Locale? = nil, for assignment: Assignment, completion: @escaping (Result<AssignmentDetail, Error>) -> ()) {
             let id = assignment.id
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentDetail.appending(id.description)))
             API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = error {
+                if let error = (error ?? APIError(response: response)) {
                     completion(.failure(error))
                 }
                 else if let data = data {

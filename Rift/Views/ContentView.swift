@@ -32,22 +32,6 @@ struct ContentView: View {
     }
 }
 
-struct ApplicationView: View {
-    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
-    let locale: Locale?
-
-    var body: some View {
-        switch applicationViewModel.authenticationState {
-        case .authenticated where locale != nil:
-            HomeView()
-                .environmentObject(applicationViewModel)
-        default:
-            WelcomeView()
-                .environmentObject(applicationViewModel)
-        }
-    }
-}
-
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

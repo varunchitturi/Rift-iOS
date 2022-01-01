@@ -5,6 +5,7 @@
 //  Created by Varun Chitturi on 9/23/21.
 //
 
+import Firebase
 import Foundation
 import SwiftUI
 
@@ -39,7 +40,10 @@ extension UserPreferenceModel {
                     action: { viewModels in
                         if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
                             let applicationViewModel = viewModels.0
+                            let homeViewModel = viewModels.1
                             API.Authentication.logOut { _ in
+                                Analytics.logEvent("log_out", parameters: nil)
+                                FirebaseApp.clearUser()
                                 DispatchQueue.main.async {
                                     applicationViewModel.resetApplicationState()
                                 }
