@@ -70,6 +70,8 @@ private struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, Failu
 
 private struct APIErrorDisplay: View {
     
+    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
+    
     init(error: Error, retryAction: ((Error) -> ())? = nil) {
         self.error = error
         self.retryAction = retryAction
@@ -79,15 +81,23 @@ private struct APIErrorDisplay: View {
     let error: Error
     let retryAction: ((Error) -> ())?
     
+    private func logOut() {
+        applicationViewModel.resetApplicationState()
+    }
+    
     var body: some View {
         VStack {
             switch error {
             case API.APIError.responseError(_):
                 ErrorDisplay("""
                      An Error Occured
-                     Please logout and log back in
+                     Please Log Out and Log Back In
                      """,
-                             error: error
+                             error: error,
+                             retryMessage: "Log Out",
+                             retryAction: { _ in
+                                logOut()
+                            }
                 )
                 .onAppear {
                     Crashlytics.crashlytics().record(error: error)

@@ -9,12 +9,17 @@ import Foundation
 import SwiftUI
 
 struct ApplicationView: View {
-    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
-    let locale: Locale?
+    
+    init(viewModel: ApplicationViewModel) {
+        self.applicationViewModel = viewModel
+        
+    }
+    
+    @ObservedObject var applicationViewModel: ApplicationViewModel
 
     var body: some View {
         switch applicationViewModel.authenticationState {
-        case .authenticated where locale != nil:
+        case .authenticated where applicationViewModel.locale != nil:
             HomeView()
                 .environmentObject(applicationViewModel)
         default:

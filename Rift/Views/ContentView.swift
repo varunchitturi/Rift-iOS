@@ -9,17 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var applicationViewModel = ApplicationViewModel()
-    @StateObject private var welcomeViewModel = WelcomeViewModel()
     var body: some View {
         Group {
-            let locale = PersistentLocale.getLocale()
-
-            WelcomeView()
-                .environmentObject(applicationViewModel)
-                .apiHandler(asyncState: applicationViewModel.networkState) {
-                    ApplicationView(locale: locale)
-                        .environmentObject(applicationViewModel)
-                } loadingView: {
+            ApplicationView(viewModel: applicationViewModel)
+                .apiHandler(asyncState: applicationViewModel.networkState)  {
                     ProgressView("Logging In")
                 } retryAction: { _ in
                     applicationViewModel.authenticateUsingCookies()

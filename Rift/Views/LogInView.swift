@@ -95,20 +95,27 @@ struct LogInView: View {
             Alert(title: Text("Stay Logged In"),
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
-                logInViewModel.setPersistence(false)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                },
+                        logInViewModel.setPersistence(false) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                  },
                   secondaryButton: .default(Text("Yes")) {
-                logInViewModel.setPersistence(true)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                }
+                        logInViewModel.setPersistence(true) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                 }
             )
         }
+        
     }
     
     private struct DrawingConstants {
         static let dividerPadding: CGFloat = 20
-        static let formTopSpacing: CGFloat = 30
+        static let formTopSpacing: CGFloat = 15
     }
     
 }

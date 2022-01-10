@@ -18,7 +18,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     @Published var networkState: AsyncState = .idle
     
     
-    private static let safeSSOURLS = [
+    private static let SSOURLS = [
         URL(string: "https://accounts.google.com/")!
     ]
     
@@ -31,14 +31,14 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         let portalURL = locale.districtBaseURL.appendingPathComponent(API.Authentication.successPath)
 
         let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
-        let baseURLSearchingeRange = min(3,portalURL.pathComponents.count)
+        let baseURLSearchingRange = min(3,portalURL.pathComponents.count)
         
-        if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingeRange] {
+        if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] {
             if let _ = try? PersistentLocale.saveLocale(locale: locale) {
                 return .authenticated
             }
-            
         }
+        
         return .unauthenticated
     }
 
@@ -55,7 +55,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     var safeWebViewHostURLs: [URL] {
-        LogInViewModel.safeSSOURLS + [locale.districtBaseURL]
+        LogInViewModel.SSOURLS + [locale.districtBaseURL]
     }
     
     init(locale: Locale) {
@@ -131,16 +131,15 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         Analytics.logEvent("new_log_in", parameters: nil)
     }
     
-    func setPersistence(_ persistence: Bool) {
+    func setPersistence(_ persistence: Bool, completion: @escaping () -> () = {}) {
         API.Authentication.usePersistence(locale: locale, persistence) { error in
-            DispatchQueue.main.async {
-                if let _ = error {
-                    UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
-                }
-                else {
-                    UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
-                }
+            if let _ = error {
+                UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
             }
+            else {
+                UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
+            }
+            completion()
         }
     }
 
