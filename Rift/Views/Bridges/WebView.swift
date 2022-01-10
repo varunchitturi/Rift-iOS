@@ -19,7 +19,6 @@ struct WebView: UIViewRepresentable {
         self.cookieObserver = cookieObserver
         self.urlObserver = urlObserver
         self.initialCookies = initialCookies ?? []
-        
     }
         
     func makeUIView(context: Context) -> WKWebView  {
