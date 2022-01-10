@@ -51,7 +51,7 @@ fileprivate extension Analytics {
         
     }
    
-    
+    // TODO: create structs for each event
     
     
 }
