@@ -1,5 +1,5 @@
 //
-//  AnalyticsUtils.swift
+//  FirebaseUtils.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 1/1/22.
@@ -44,7 +44,15 @@ fileprivate extension Analytics {
     static func clearProperties() {
         clearUserProperties()
         clearDefaultProperties()
+        
     }
+    
+    static func logEvent() {
+        
+    }
+   
+    
+    
     
 }
 
