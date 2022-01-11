@@ -13,6 +13,7 @@ struct API {
     
     enum APIError: Error {
         
+        case invalidUser
         case invalidData
         case invalidRequest
         case invalidLocale
@@ -20,6 +21,8 @@ struct API {
         
         var localizedDescription: String {
             switch self {
+            case .invalidUser:
+                return "Invalid user found when trying to log in."
             case .invalidData:
                 return "No or invalid data was found in the API response."
             case .invalidRequest:

@@ -13,10 +13,18 @@ struct ErrorDisplay: View {
         self.message = message ?? "An Error Occured"
         self.retryAction = retryAction
         self.error = error
+        self.retryMessage = nil
+    }
+    init(_ message: String? = nil, error: Error, retryMessage: String, retryAction: @escaping ((Error) -> ())) {
+        self.message = message ?? "An Error Occured"
+        self.retryMessage = retryMessage
+        self.retryAction = retryAction
+        self.error = error
     }
     
     let error: Error
     let message: String
+    let retryMessage: String?
     let retryAction: ((Error) -> ())?
     
     var body: some View {
@@ -31,7 +39,7 @@ struct ErrorDisplay: View {
                 Button {
                     retryAction!(error)
                 } label: {
-                    Text("Try Again")
+                    Text(retryMessage ?? "Try Again")
                         .font(.footnote)
                         .padding(.vertical, DrawingConstants.retryTextVerticalPadding)
                         .padding(.horizontal)

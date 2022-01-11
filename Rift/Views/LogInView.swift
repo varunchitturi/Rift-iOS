@@ -21,30 +21,27 @@ struct LogInView: View {
     @State private var persistenceAlertIsPresented = false
     
     init(locale: Locale) {
-        // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to only intialize this once
         logInViewModel = LogInViewModel(locale: locale)
     }
     
     var body: some View {
         VStack {
-            
             ScrollView {
                 Spacer(minLength: DrawingConstants.formTopSpacing)
                 if logInViewModel.hasSSOLogin {
-                    // TODO: have a loading state for single sign on button
                     CapsuleButton("Single Sign-On", style: .secondary) {
                         DispatchQueue.main.async {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        
-                        logInViewModel.promptSingleSignOn()
+                        logInViewModel.provisionAuthentication()
+                        logInViewModel.singleSignOnIsPresented = true
                     }
                     
                     TextDivider("or")
                         .padding(.vertical, DrawingConstants.dividerPadding)
                     Spacer()
-                }
+                } 
                 
                 Spacer()
                 CapsuleTextField("Username",
@@ -68,7 +65,7 @@ struct LogInView: View {
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
-                // TODO: implement here
+                logInViewModel.provisionAuthentication()
                 print("log in")
             }
         }
@@ -76,10 +73,10 @@ struct LogInView: View {
         .padding()
         .navigationTitle("Log In")
         .apiHandler(asyncState: logInViewModel.networkState) { _ in
-            logInViewModel.provisionLogInView()
+            logInViewModel.loadLogInOptions()
         }
         .onAppear {
-            logInViewModel.provisionLogInView()
+            logInViewModel.loadLogInOptions()
         }
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
             if logInViewModel.authenticationState == .authenticated {
@@ -92,25 +89,34 @@ struct LogInView: View {
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
+                .apiHandler(asyncState: logInViewModel.networkState) {
+                    ProgressView("Loading")
+                }
         }
         .alert(isPresented: $persistenceAlertIsPresented) {
             Alert(title: Text("Stay Logged In"),
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
-                logInViewModel.setPersistence(false)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                },
+                        logInViewModel.setPersistence(false) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                  },
                   secondaryButton: .default(Text("Yes")) {
-                logInViewModel.setPersistence(true)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                }
+                        logInViewModel.setPersistence(true) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                 }
             )
         }
     }
     
     private struct DrawingConstants {
         static let dividerPadding: CGFloat = 20
-        static let formTopSpacing: CGFloat = 30
+        static let formTopSpacing: CGFloat = 15
     }
     
 }

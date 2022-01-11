@@ -18,8 +18,12 @@ struct ApplicationModel {
     
     var authenticationState: AuthenticationState = .unauthenticated
     
+    var locale: Locale? {
+        PersistentLocale.getLocale()
+    }
     
-    func resetUserState() {
+    
+    mutating func resetUserState() {
         HTTPCookieStorage.shared.clearCookies()
         URLCache.shared.removeAllCachedResponses()
         _ = try? PersistentLocale.clearLocale()

@@ -65,9 +65,8 @@ class WelcomeViewModel: ObservableObject {
         }
     }
     
-    func reset() {
+    func resetInput() {
         stateSelectionIndex = nil
         welcome.resetQueries()
-        
     }
 }
