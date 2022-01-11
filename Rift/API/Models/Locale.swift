@@ -13,7 +13,7 @@ import SwiftUI
 // TODO: explain why this is not included in API
 
 
-struct Locale: Identifiable, Decodable, PropertyInspectable {
+struct Locale: Identifiable, Decodable, PropertyIterable {
     
     var id: Int
     var districtName: String

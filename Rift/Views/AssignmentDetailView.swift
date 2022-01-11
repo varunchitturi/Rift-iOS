@@ -90,6 +90,7 @@ struct AssignmentDetailView: View {
                 }
             }
         }
+        .logViewAnlaytics(self)
     }
 
     private struct DrawingConstants {

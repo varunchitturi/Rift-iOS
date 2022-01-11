@@ -65,6 +65,7 @@ struct CourseList: View {
         }, retryAction: { _ in
             coursesViewModel.fetchGrades()
         })
+        .logViewAnlaytics(self)
     }
 
     private struct DrawingConstants {

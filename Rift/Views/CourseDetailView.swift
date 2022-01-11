@@ -77,6 +77,7 @@ struct CourseDetailView: View {
             
         }
         .navigationTitle(courseDetailViewModel.courseName)
+        .logViewAnlaytics(self)
     }
     
     private struct DrawingConstants {

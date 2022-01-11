@@ -5,6 +5,7 @@
 //  Created by Varun Chitturi on 10/17/21.
 //
 
+import Firebase
 import SwiftUI
 
 struct InboxDetailView: View {
@@ -34,6 +35,7 @@ struct InboxDetailView: View {
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
+        .logViewAnlaytics(self)
     }
 }
 

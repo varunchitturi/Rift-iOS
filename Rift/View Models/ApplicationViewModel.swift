@@ -26,7 +26,7 @@ class ApplicationViewModel: ObservableObject {
                     case .success(let authenticationState):
                         self?.applicationModel.authenticationState = authenticationState
                         self?.networkState = .success
-                        Analytics.logEvent("login", parameters: ["login_type": "automatic"])
+                        Analytics.logEvent(Analytics.LogInEvent(method: .automatic))
                     case .failure(let error):
                         self?.networkState = .failure(error)
                     }

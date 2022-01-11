@@ -55,6 +55,7 @@ struct AssignmentsView: View {
                 
         }
         .navigationViewStyle(.stack)
+        .logViewAnlaytics(self)
     }
     
     private struct DrawingConstants {
