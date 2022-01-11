@@ -9,11 +9,9 @@ import Foundation
 import SwiftUI
 
 
-// TODO: give difference between this and Persistent Core Data. (maybe implement this better)
-// TODO: explain why this is not included in API
+// TODO: give difference between this and Persistent Core Data. (maybe implement this better). Instead of using PersistentLocale, think of using the @Persisted Wrapper
 
-
-struct Locale: Identifiable, Decodable, PropertyInspectable {
+struct Locale: Identifiable, Decodable, PropertyIterable {
     
     var id: Int
     var districtName: String
@@ -24,6 +22,18 @@ struct Locale: Identifiable, Decodable, PropertyInspectable {
     var staffLogInURL: URL
     var studentLogInURL: URL
     var parentLogInURL: URL
+    
+    var logInURL: URL {
+        switch ApplicationModel.appType {
+        case .student:
+            return studentLogInURL
+        case .parent:
+            return parentLogInURL
+        case .staff:
+            return staffLogInURL
+        }
+        
+    }
     
     enum CodingKeys: String, CodingKey {
         case id

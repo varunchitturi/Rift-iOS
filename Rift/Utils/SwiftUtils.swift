@@ -11,11 +11,11 @@ extension String {
     static let nilDisplay = "-"
 }
 
-protocol PropertyInspectable {
+protocol PropertyIterable {
     func allProperties() throws -> [String: Any]
 }
 
-extension PropertyInspectable {
+extension PropertyIterable {
     func allProperties() throws -> [String: Any] {
 
         var result: [String: Any] = [:]

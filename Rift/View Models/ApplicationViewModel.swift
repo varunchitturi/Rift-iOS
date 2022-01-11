@@ -12,6 +12,20 @@ import URLEncodedForm
 class ApplicationViewModel: ObservableObject {
     @Published private var applicationModel = ApplicationModel()
     @Published var networkState: AsyncState = .idle
+    
+    var locale: Locale? {
+        applicationModel.locale
+    }
+    
+    var authenticationState: ApplicationModel.AuthenticationState {
+        get {
+            applicationModel.authenticationState
+        }
+        set {
+            applicationModel.authenticationState = newValue
+        }
+    }
+    
     init() {
         authenticateUsingCookies()
     }
@@ -26,8 +40,9 @@ class ApplicationViewModel: ObservableObject {
                     case .success(let authenticationState):
                         self?.applicationModel.authenticationState = authenticationState
                         self?.networkState = .success
-                        Analytics.logEvent("persisted_log_in", parameters: nil)
+                        Analytics.logEvent(Analytics.LogInEvent(method: .automatic))
                     case .failure(let error):
+                        print(error)
                         self?.networkState = .failure(error)
                     }
                 }
@@ -38,14 +53,5 @@ class ApplicationViewModel: ObservableObject {
     func resetApplicationState() {
         applicationModel.resetUserState()
         authenticationState = .unauthenticated
-    }
-    
-    var authenticationState: ApplicationModel.AuthenticationState {
-        get {
-            applicationModel.authenticationState
-        }
-        set {
-            applicationModel.authenticationState = newValue
-        }
     }
 }

@@ -5,13 +5,15 @@
 //  Created by Varun Chitturi on 8/28/21.
 //
 
-import SwiftUI
+
 import CoreData
+import Firebase
+import SwiftUI
 
 struct LogInView: View {
     
-    @EnvironmentObject var applicationViewModel: ApplicationViewModel
-    @ObservedObject private var logInViewModel: LogInViewModel
+    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
+    @ObservedObject var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
     @State private var username: String = ""
@@ -19,30 +21,27 @@ struct LogInView: View {
     @State private var persistenceAlertIsPresented = false
     
     init(locale: Locale) {
-        // TODO: login view model is initializing multiple times due to view creation which inturn sends duplicate network requests. Make sure to only intialize this once
         logInViewModel = LogInViewModel(locale: locale)
     }
     
     var body: some View {
         VStack {
-            
             ScrollView {
                 Spacer(minLength: DrawingConstants.formTopSpacing)
                 if logInViewModel.hasSSOLogin {
-                    // TODO: have a loading state for single sign on button
                     CapsuleButton("Single Sign-On", style: .secondary) {
                         DispatchQueue.main.async {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        
-                        logInViewModel.promptSingleSignOn()
+                        logInViewModel.provisionAuthentication(for: .sso)
+                        logInViewModel.singleSignOnIsPresented = true
                     }
                     
                     TextDivider("or")
                         .padding(.vertical, DrawingConstants.dividerPadding)
                     Spacer()
-                }
+                } 
                 
                 Spacer()
                 CapsuleTextField("Username",
@@ -66,49 +65,57 @@ struct LogInView: View {
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
-                // TODO: implement here
+                logInViewModel.provisionAuthentication(for: .credential)
                 print("log in")
             }
         }
         
         .padding()
         .navigationTitle("Log In")
-        .apiHandler(asyncState: logInViewModel.networkState) { _ in
-            logInViewModel.provisionLogInView()
+        .apiHandler(asyncState: logInViewModel.defaultNetworkState) { _ in
+            logInViewModel.loadLogInOptions()
         }
         .onAppear {
-            logInViewModel.provisionLogInView()
+            logInViewModel.loadLogInOptions()
         }
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
             if logInViewModel.authenticationState == .authenticated {
                 persistenceAlertIsPresented = true
             }
-        }
-        content: {
+        } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
                     cookieObserver: logInViewModel,
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
+                .apiHandler(asyncState: logInViewModel.webViewNetworkState) {
+                    ProgressView("Loading")
+                }
         }
         .alert(isPresented: $persistenceAlertIsPresented) {
             Alert(title: Text("Stay Logged In"),
                   message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
                   primaryButton: .default(Text("Not Now")) {
-                logInViewModel.setPersistence(false)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                },
+                        logInViewModel.setPersistence(false) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                  },
                   secondaryButton: .default(Text("Yes")) {
-                logInViewModel.setPersistence(true)
-                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                }
+                        logInViewModel.setPersistence(true) {
+                            DispatchQueue.main.async {
+                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                            }
+                        }
+                 }
             )
         }
     }
     
     private struct DrawingConstants {
         static let dividerPadding: CGFloat = 20
-        static let formTopSpacing: CGFloat = 30
+        static let formTopSpacing: CGFloat = 15
     }
     
 }

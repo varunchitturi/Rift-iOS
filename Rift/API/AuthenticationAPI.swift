@@ -26,7 +26,7 @@ extension API {
             var name: String {
                 switch self {
                 case .jsession:
-                    return "JSESSION"
+                    return "JSESSIONID"
                 case .appName:
                     return "appName"
                 case .sis:
@@ -57,7 +57,7 @@ extension API {
         static let successPath = "nav-wrapper"
 
         private enum Endpoint {
-            static let provisionCookies = "mobile/hybridAppUtil.jsp"
+            static let provisionalCookies = "mobile/hybridAppUtil.jsp"
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
             static let logOut = "logoff.jsp"
             static let authorization = "verify.jsp"
@@ -71,7 +71,7 @@ extension API {
             Authentication.defaultURLSession = URLSession.reset(from: Authentication.defaultURLSession)
             HTTPCookieStorage.shared.clearCookies()
             let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
+            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
             urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
             let formEncoder = URLEncodedFormEncoder()
@@ -94,21 +94,9 @@ extension API {
         
         static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
             
-            var loginURL: URL {
-                switch ApplicationModel.appType {
-                case .student:
-                    return locale.studentLogInURL
-                case .parent:
-                    return locale.parentLogInURL
-                case .staff:
-                    return locale.staffLogInURL
-                }
-                
-            }
-            
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
-                    let html = try String(contentsOf: loginURL)
+                    let html = try String(contentsOf: locale.logInURL)
                     let htmlDOM = try SwiftSoup.parse(html)
                     let samlURLString: String = (try? htmlDOM.getElementById("samlLoginLink")?.attr("href")) ?? ""
                     completion(.success(URL(string: samlURLString)))
@@ -156,7 +144,7 @@ extension API {
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
             let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
-                var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
+                var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
                 urlRequest.httpBody = requestBody
                 urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
                 URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
@@ -206,6 +194,7 @@ extension API {
             }
             
             static let bootstrappedCode = "1"
+            // I think that this is the notification registration token!
             static let registrationToken = UUID().uuidString
             static let deviceID = UIDevice.currentDeviceID
             

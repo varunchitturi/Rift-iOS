@@ -29,27 +29,35 @@ struct WelcomeView: View {
         NavigationView {
             VStack {
                 ScrollView {
-                    Spacer(minLength: DrawingConstants.formTopSpacing)
-                    CapsuleDropDown("State", description: "Choose State", options: stateOptions, selectionIndex: $welcomeViewModel.stateSelectionIndex, isEditing: $stateSelectionIsEditing)
-                        .padding(.bottom)
+                    CapsuleDropDown("State",
+                                    description: "Choose State",
+                                    options: stateOptions,
+                                    selectionIndex: $welcomeViewModel.stateSelectionIndex,
+                                    isEditing: $stateSelectionIsEditing
+                    )
+                    .padding(.vertical)
 
-                    CapsuleFieldModularButton("District", description: "Choose District", text: .constant(welcomeViewModel.chosenLocale?.districtName), icon: "chevron.down") {
+                    CapsuleFieldModularButton("District",
+                                              description: "Choose District",
+                                              text: .constant(welcomeViewModel.chosenLocale?.districtName),
+                                              icon: "chevron.down"
+                    ) {
                         welcomeViewModel.districtSearchResults = []
                         districtSearchIsPresented = true
                     }
                         .disabled(welcomeViewModel.stateSelectionIndex == nil)
                         .sheet(isPresented: $districtSearchIsPresented) {
-                            DistrictSearchView(isPresented: $districtSearchIsPresented).environmentObject(welcomeViewModel)
+                            DistrictSearchView(isPresented: $districtSearchIsPresented)
+                                .environmentObject(welcomeViewModel)
                         }
                 }
                 if welcomeViewModel.chosenLocale != nil {
                     NavigationLink(
                         destination: LogInView(locale: welcomeViewModel.chosenLocale!)
-                                    .environmentObject(applicationViewModel)
                     ) {
                         CapsuleButton("Next", icon: "arrow.right", style: .primary)
                     }
-                    .disabled(welcomeViewModel.navigationIsDisabled)
+                        .disabled(welcomeViewModel.navigationIsDisabled)
                 }
                 else {
                     CapsuleButton("Next", icon: "arrow.right", style: .primary)
@@ -63,13 +71,8 @@ struct WelcomeView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // explain why we do this. To refresh provisional cookies
-            welcomeViewModel.reset()
+            welcomeViewModel.resetInput()
         }
-    }
-    
-    private struct DrawingConstants {
-        static let formTopSpacing: CGFloat = 70
     }
 }
 
