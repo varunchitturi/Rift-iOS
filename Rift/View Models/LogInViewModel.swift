@@ -122,13 +122,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func authenticate(with credentials: LogInModel.Credentials) {
         // TODO: implement this for normal sign in
-        Analytics.logEvent("new_log_in", parameters: nil)
+        Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .credential))
         
     }
     
     func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
         state.wrappedValue = authenticationState
-        Analytics.logEvent("new_log_in", parameters: nil)
+        Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .sso))
     }
     
     func setPersistence(_ persistence: Bool) {

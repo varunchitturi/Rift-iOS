@@ -140,6 +140,9 @@
 		27EAB276271A4ACA00AAB3CE /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */; };
 		27EFC7BC270E2A1200B90FCA /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */; };
 		27EFC7C0270E851900B90FCA /* TextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EFC7BF270E851900B90FCA /* TextTag.swift */; };
+		27F15C51278CBBE500CB5E2F /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F15C50278CBBE500CB5E2F /* Student.swift */; };
+		27F15C53278CBCD700CB5E2F /* Enrollment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F15C52278CBCD700CB5E2F /* Enrollment.swift */; };
+		27F15C55278CF8BB00CB5E2F /* AnalyticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F15C54278CF8BB00CB5E2F /* AnalyticsLogger.swift */; };
 		27FBFDE727605B6C00113578 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FBFDE627605B6C00113578 /* SplashScreen.swift */; };
 		27FBFDE927606EB300113578 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FBFDE827606EB300113578 /* Icon.swift */; };
 /* End PBXBuildFile section */
@@ -268,6 +271,9 @@
 		27EAB275271A4ACA00AAB3CE /* CombineUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtils.swift; sourceTree = "<group>"; };
 		27EFC7BB270E2A1200B90FCA /* WelcomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModel.swift; sourceTree = "<group>"; };
 		27EFC7BF270E851900B90FCA /* TextTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTag.swift; sourceTree = "<group>"; };
+		27F15C50278CBBE500CB5E2F /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		27F15C52278CBCD700CB5E2F /* Enrollment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enrollment.swift; sourceTree = "<group>"; };
+		27F15C54278CF8BB00CB5E2F /* AnalyticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsLogger.swift; sourceTree = "<group>"; };
 		27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewStyle.swift; sourceTree = "<group>"; };
 		27FBFDE627605B6C00113578 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		27FBFDE827606EB300113578 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
@@ -317,6 +323,7 @@
 				272EF97D275C31CC00532958 /* SkeletonLoader.swift */,
 				27FAB24026FF1AF6006C6643 /* TableViewStyle.swift */,
 				274F4331270A924A001D5D4A /* TabViewStyle.swift */,
+				27F15C54278CF8BB00CB5E2F /* AnalyticsLogger.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -469,6 +476,8 @@
 				273DB8FF27190FE0006D936A /* AssignmentDetail.swift */,
 				27D98987271C34AA00311973 /* Message.swift */,
 				278EAABF2780473D001C0CA5 /* UserAccount.swift */,
+				27F15C50278CBBE500CB5E2F /* Student.swift */,
+				27F15C52278CBCD700CB5E2F /* Enrollment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -712,6 +721,7 @@
 				27D4E6ED2709152F0063CB65 /* UIDeviceUtils.swift in Sources */,
 				274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */,
 				27D4E6F02709152F0063CB65 /* CoreDataUtils.swift in Sources */,
+				27F15C51278CBBE500CB5E2F /* Student.swift in Sources */,
 				27D4E6F12709152F0063CB65 /* PickerField.swift in Sources */,
 				27D4E6F22709152F0063CB65 /* UIPickerField.swift in Sources */,
 				27FBFDE927606EB300113578 /* Icon.swift in Sources */,
@@ -736,6 +746,7 @@
 				27D4E6FB2709152F0063CB65 /* CapsuleFieldLabel.swift in Sources */,
 				27286C6F276012CE00B7F975 /* CardAssignmentGrade.swift in Sources */,
 				27D4E6FC2709152F0063CB65 /* CapsuleTextField.swift in Sources */,
+				27F15C53278CBCD700CB5E2F /* Enrollment.swift in Sources */,
 				27D4E6FD2709152F0063CB65 /* CapsuleDropDown.swift in Sources */,
 				2720D7BA271CFC9E001C1806 /* InboxDetailModel.swift in Sources */,
 				27D4E6FE2709152F0063CB65 /* CapsuleFieldModularButton.swift in Sources */,
@@ -745,6 +756,7 @@
 				27D4E7022709152F0063CB65 /* TextDivider.swift in Sources */,
 				27D4E7032709152F0063CB65 /* DistrictSearchResultCard.swift in Sources */,
 				27D4E71D270915EE0063CB65 /* Model.xcdatamodeld in Sources */,
+				27F15C55278CF8BB00CB5E2F /* AnalyticsLogger.swift in Sources */,
 				27D4E7042709152F0063CB65 /* AssignmentCard.swift in Sources */,
 				27D4E7052709152F0063CB65 /* CircleBadge.swift in Sources */,
 				27D4E7062709152F0063CB65 /* SectionHeader.swift in Sources */,

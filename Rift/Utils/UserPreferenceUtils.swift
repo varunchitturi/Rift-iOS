@@ -42,7 +42,7 @@ extension UserPreferenceModel {
                             let applicationViewModel = viewModels.0
                             let homeViewModel = viewModels.1
                             API.Authentication.logOut { _ in
-                                Analytics.logEvent("log_out", parameters: nil)
+                                Analytics.logEvent(Analytics.LogOutEvent())
                                 FirebaseApp.clearUser()
                                 DispatchQueue.main.async {
                                     applicationViewModel.resetApplicationState()

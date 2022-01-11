@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct UserAccount: Decodable, Identifiable, PropertyInspectable {
+struct UserAccount: Decodable, Identifiable, PropertyIterable {
     var id: String {
         userID.description + personID.description
     }
     let userID: Int
     let personID: Int
-    let firstName: String
-    let lastName: String
+    let firstName: String?
+    let lastName: String?
     let username: String
     
 }

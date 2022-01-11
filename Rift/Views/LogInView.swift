@@ -5,8 +5,10 @@
 //  Created by Varun Chitturi on 8/28/21.
 //
 
-import SwiftUI
+
 import CoreData
+import Firebase
+import SwiftUI
 
 struct LogInView: View {
     
