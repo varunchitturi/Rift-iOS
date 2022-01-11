@@ -9,14 +9,18 @@ import SwiftUI
 
 struct InboxView: View {
     
-    @ObservedObject var viewModel: InboxViewModel
+    init(viewModel: InboxViewModel) {
+        self.inboxViewModel = viewModel
+    }
+    
+    @ObservedObject var inboxViewModel: InboxViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
         
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: DrawingConstants.cardSpacing) {
-                    ForEach(viewModel.messages) { message in
+                    ForEach(inboxViewModel.messages) { message in
                         NavigationLink(destination: InboxDetailView(message)) {
                             MessageCard(message)
                         }
@@ -24,6 +28,17 @@ struct InboxView: View {
                 }
                 .padding()
             }
+            .apiHandler(asyncState: inboxViewModel.networkState, loadingView: {
+                VStack(spacing: DrawingConstants.cardSpacing) {
+                    ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+                        MessageCard()
+                    }
+                }
+                .padding()
+                .skeletonLoad()
+            }, retryAction: { _ in
+                inboxViewModel.fetchMessages()
+            })
             .navigationTitle(HomeModel.Tab.inbox.label)
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
@@ -31,11 +46,13 @@ struct InboxView: View {
                         .environmentObject(homeViewModel)
                 }
             }
+            .logViewAnlaytics(self)
         }
     }
     
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
+        static let placeholderCardCount = 7
     }
 }
 

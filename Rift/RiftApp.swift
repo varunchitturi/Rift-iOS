@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct RiftApp: App {
-    // TODO: add a launch screen
-    // TODO: accessibility
+
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         // TODO: Change status bar color

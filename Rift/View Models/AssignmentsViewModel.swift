@@ -11,6 +11,7 @@ import SwiftUI
 class AssignmentsViewModel: ObservableObject {
     // TODO: edit this to support multiple filters
     @Published private var assignmentsModel = AssignmentsModel()
+    @Published var networkState: AsyncState = .idle
     
     var assignmentDateList: [Date?: [Assignment]] {
         var assignmentDateList = [Date?: [Assignment]]()
@@ -45,13 +46,22 @@ class AssignmentsViewModel: ObservableObject {
     
     
     init() {
+        fetchAssignments()
+    }
+    
+    func fetchAssignments() {
+        networkState = .loading
         API.Assignments.getList {[weak self] result in
-            switch result {
-            case .success(let assignmentList):
-                self?.assignmentsModel.assignmentList = assignmentList
-            case .failure(let error):
-                print(error.localizedDescription)
-                // TODO: do better error handling here
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let assignmentList):
+                    self?.assignmentsModel.assignmentList = assignmentList
+                    self?.networkState = .success
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.networkState = .failure(error)
+                    // TODO: do better error handling here
+                }
             }
         }
     }

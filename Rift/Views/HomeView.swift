@@ -40,6 +40,10 @@ struct HomeView: View {
             UserPreferenceView(preferences: UserPreferenceModel.shared)
                 .environmentObject(homeViewModel)
         }
+        .usingCustomTabViewStyle()
+        .apiHandler(asyncState: homeViewModel.networkState) { _ in
+            homeViewModel.fetchUser()
+        }
         
     }
 }

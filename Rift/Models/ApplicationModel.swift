@@ -16,10 +16,14 @@ struct ApplicationModel {
     
     static var appType: AppType = .student
     
-    var authenticationState: AuthenticationState = .loading
+    var authenticationState: AuthenticationState = .unauthenticated
+    
+    var locale: Locale? {
+        PersistentLocale.getLocale()
+    }
     
     
-    func resetUserState() {
+    mutating func resetUserState() {
         HTTPCookieStorage.shared.clearCookies()
         URLCache.shared.removeAllCachedResponses()
         _ = try? PersistentLocale.clearLocale()
@@ -34,8 +38,7 @@ struct ApplicationModel {
         }
     }
     
-    enum AuthenticationState {
-        case loading
+    enum AuthenticationState: Equatable {
         case authenticated
         case unauthenticated
     }

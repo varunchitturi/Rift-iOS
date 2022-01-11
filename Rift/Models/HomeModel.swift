@@ -10,6 +10,9 @@ import SwiftUI
 
 struct HomeModel {
     
+    var account: UserAccount?
+    var student: Student?
+    
     enum Tab: String, CaseIterable, View {
         case courses = "Courses", assignments = "Assignments", inbox = "Inbox"
         

@@ -26,7 +26,7 @@ extension API {
             var name: String {
                 switch self {
                 case .jsession:
-                    return "JSESSION"
+                    return "JSESSIONID"
                 case .appName:
                     return "appName"
                 case .sis:
@@ -57,7 +57,7 @@ extension API {
         static let successPath = "nav-wrapper"
 
         private enum Endpoint {
-            static let provisionCookies = "mobile/hybridAppUtil.jsp"
+            static let provisionalCookies = "mobile/hybridAppUtil.jsp"
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
             static let logOut = "logoff.jsp"
             static let authorization = "verify.jsp"
@@ -71,20 +71,18 @@ extension API {
             Authentication.defaultURLSession = URLSession.reset(from: Authentication.defaultURLSession)
             HTTPCookieStorage.shared.clearCookies()
             let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
+            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
             urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
             let formEncoder = URLEncodedFormEncoder()
             do {
                 urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
                 Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            completion(error)
-                        }
-                        else {
-                            completion(nil)
-                        }
+                    if let error = (error ?? APIError(response: response)) {
+                        completion(error)
+                    }
+                    else {
+                        completion(nil)
                     }
                 }
                 .resume()
@@ -96,30 +94,14 @@ extension API {
         
         static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
             
-            var loginURL: URL {
-                switch ApplicationModel.appType {
-                case .student:
-                    return locale.studentLogInURL
-                case .parent:
-                    return locale.parentLogInURL
-                case .staff:
-                    return locale.staffLogInURL
-                }
-                
-            }
-            
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
-                    let html = try String(contentsOf: loginURL)
+                    let html = try String(contentsOf: locale.logInURL)
                     let htmlDOM = try SwiftSoup.parse(html)
                     let samlURLString: String = (try? htmlDOM.getElementById("samlLoginLink")?.attr("href")) ?? ""
-                    DispatchQueue.main.async {
-                        completion(.success(URL(string: samlURLString)))
-                    }
+                    completion(.success(URL(string: samlURLString)))
                 } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
+                    completion(.failure(error))
                 }
             }
         }
@@ -158,25 +140,27 @@ extension API {
             }
         }
         
-        static func attemptAuthentication(completion: @escaping (ApplicationModel.AuthenticationState) -> ()) {
-            // TODO: fix context accessed for persistent container Model with no stores loaded CoreData: warning:  View context accessed for persistent container Model with no stores loaded
+        static func attemptAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
             let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
-                var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionCookies))
+                var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
                 urlRequest.httpBody = requestBody
                 urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
                 URLSession(configuration: .authentication).dataTask(with: urlRequest) { data, response, error in
                     if let response = response as? HTTPURLResponse, response.status == .success {
-                        completion(.authenticated)
+                        completion(.success(.authenticated))
                     }
-                    else  {
-                        completion(.unauthenticated)
+                    else if let error = (error ?? APIError(response: response))  {
+                        completion(.failure(error))
+                    }
+                    else {
+                        completion(.success(.unauthenticated))
                     }
                 }.resume()
             }
             else {
-                completion(.unauthenticated)
+                completion(.success(.authenticated))
             }
         }
         
@@ -192,11 +176,10 @@ extension API {
             }
             let urlRequest = URLRequest(url: url)
             // TODO: explain why we use shared here
-            URLSession.shared.dataTask(with: urlRequest) { _, _, error in
-                if let error = error {
+            URLSession.shared.dataTask(with: urlRequest) { _, response, error in
+                if let error = (error ?? APIError(response: response)) {
                     completion(error)
                     return
-                    // TODO: better error handling here
                 }
                 else {
                     completion(nil)
@@ -211,6 +194,7 @@ extension API {
             }
             
             static let bootstrappedCode = "1"
+            // I think that this is the notification registration token!
             static let registrationToken = UUID().uuidString
             static let deviceID = UIDevice.currentDeviceID
             

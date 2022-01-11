@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct AssignmentCard: View {
-    let assignment: Assignment
+    
+    init(assignment: Assignment? = nil) {
+        self.assignment = assignment
+    }
+    
+    let assignment: Assignment?
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment.assignmentName)
+                Text(assignment?.assignmentName ?? String.nilDisplay)
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 
-                Text(assignment.courseName)
+                Text(assignment?.courseName ?? String.nilDisplay)
                     .fontWeight(.semibold)
                     .font(.caption)
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)

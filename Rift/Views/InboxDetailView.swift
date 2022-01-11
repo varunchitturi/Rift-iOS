@@ -5,6 +5,7 @@
 //  Created by Varun Chitturi on 10/17/21.
 //
 
+import Firebase
 import SwiftUI
 
 struct InboxDetailView: View {
@@ -16,9 +17,9 @@ struct InboxDetailView: View {
     }
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
-        ZStack {
+        VStack {
             if inboxDetailViewModel.messageBody != nil {
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack {
                         Text(inboxDetailViewModel.messageBody!)
                     }
@@ -34,6 +35,7 @@ struct InboxDetailView: View {
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
+        .logViewAnlaytics(self)
     }
 }
 

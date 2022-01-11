@@ -11,7 +11,7 @@ struct CourseDetailModel {
     // TODO: handle errors when locale doesnt exist
     
     let course: Course
-    
+    let termSelectionID: Int?
     var terms: [Term]?
     var gradeDetails: [GradeDetail]?
     

@@ -9,26 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var applicationViewModel = ApplicationViewModel()
-    @StateObject private var welcomeViewModel = WelcomeViewModel()
     var body: some View {
         Group {
-            let locale = PersistentLocale.getLocale()
-            switch applicationViewModel.authenticationState {
-            case .loading:
-                SplashScreen()
-            case .authenticated where locale != nil:
-                HomeView()
-                    .environmentObject(applicationViewModel)
-            default:
-                WelcomeView()
-                    .environmentObject(applicationViewModel)
-            }
+            ApplicationView(viewModel: applicationViewModel)
+                .apiHandler(asyncState: applicationViewModel.networkState)  {
+                    ProgressView("Logging In")
+                } retryAction: { _ in
+                    applicationViewModel.authenticateUsingCookies()
+                }
+
+
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
     }
 }
-
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {

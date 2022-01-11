@@ -15,7 +15,7 @@ struct CoursesView: View {
     init(viewModel: CoursesViewModel) {
         coursesViewModel = viewModel
     }
-    
+
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -38,7 +38,7 @@ struct CoursesView: View {
             }
         }
     }
-    
+
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
     }
@@ -54,16 +54,20 @@ struct CourseList: View {
                 }
             }
         }
-        .skeletonLoad(coursesViewModel.responseState == .loading) {
-            CapsuleTextField(text: .constant(""), isEditing: .constant(false))
-                .skeletonLoad()
-            ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
-                CourseCard()
-                    .skeletonLoad()
+        .apiHandler(asyncState: coursesViewModel.networkState, loadingView: {
+            VStack {
+                CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                    CourseCard()
+                }
             }
-        }
+            .skeletonLoad()
+        }, retryAction: { _ in
+            coursesViewModel.fetchGrades()
+        })
+        .logViewAnlaytics(self)
     }
-    
+
     private struct DrawingConstants {
         static let placeholderCourseCount = 6
     }

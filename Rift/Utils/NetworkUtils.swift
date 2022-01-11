@@ -88,6 +88,10 @@ extension HTTPURLResponse {
         case unknown
         case badRequest
         case moved
+        
+        var description: String {
+            String(describing: self)
+        }
     }
     
     var status: Status {
@@ -153,27 +157,6 @@ extension WKHTTPCookieStore {
         }
     }
     
-}
-
-enum ResponseState: Equatable {
-    
-    static func == (lhs: ResponseState, rhs: ResponseState) -> Bool {
-        switch (lhs, rhs) {
-        case (.loading, .loading):
-            return true
-        case (.idle, .idle):
-            return true
-        case (.failure(_), .failure(_)):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    
-    case idle
-    case loading
-    case failure(error: Error)
 }
 
 extension URLSessionConfiguration {
