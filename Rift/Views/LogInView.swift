@@ -12,8 +12,8 @@ import SwiftUI
 
 struct LogInView: View {
     
-    @EnvironmentObject var applicationViewModel: ApplicationViewModel
-    @ObservedObject private var logInViewModel: LogInViewModel
+    @EnvironmentObject private var applicationViewModel: ApplicationViewModel
+    @ObservedObject var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
     @State private var username: String = ""
@@ -34,7 +34,7 @@ struct LogInView: View {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        logInViewModel.provisionAuthentication()
+                        logInViewModel.provisionAuthentication(for: .sso)
                         logInViewModel.singleSignOnIsPresented = true
                     }
                     
@@ -65,14 +65,14 @@ struct LogInView: View {
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
-                logInViewModel.provisionAuthentication()
+                logInViewModel.provisionAuthentication(for: .credential)
                 print("log in")
             }
         }
         
         .padding()
         .navigationTitle("Log In")
-        .apiHandler(asyncState: logInViewModel.networkState) { _ in
+        .apiHandler(asyncState: logInViewModel.defaultNetworkState) { _ in
             logInViewModel.loadLogInOptions()
         }
         .onAppear {
@@ -82,14 +82,13 @@ struct LogInView: View {
             if logInViewModel.authenticationState == .authenticated {
                 persistenceAlertIsPresented = true
             }
-        }
-        content: {
+        } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
                     cookieObserver: logInViewModel,
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
-                .apiHandler(asyncState: logInViewModel.networkState) {
+                .apiHandler(asyncState: logInViewModel.webViewNetworkState) {
                     ProgressView("Loading")
                 }
         }
