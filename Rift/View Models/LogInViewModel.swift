@@ -15,7 +15,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     @Published private var logInModel: LogInModel
     @Published var singleSignOnIsPresented = false
-    @Published var networkState: AsyncState = .idle
+    @Published var defaultNetworkState: AsyncState = .idle
+    @Published var webViewNetworkState: AsyncState = .idle
     
     private static let SSOURLS = [
         URL(string: "https://accounts.google.com/")!
@@ -102,31 +103,49 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     
     func loadLogInOptions() {
-        networkState = .loading
+        defaultNetworkState = .loading
         API.Authentication.getLogInSSO(for: self.locale) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let ssoURL):
                     self?.logInModel.ssoURL = ssoURL
-                    self?.networkState = .idle
+                    self?.defaultNetworkState = .idle
                 case .failure(let error):
-                    self?.networkState = .failure(error)
+                    self?.defaultNetworkState = .failure(error)
                 }
             }
         }
     }
     
-    func provisionAuthentication() {
+    func provisionAuthentication(for authenticationType: LogInModel.AuthenticationType) {
+        var networkState: AsyncState {
+            get {
+                switch authenticationType {
+                case .credential:
+                    return defaultNetworkState
+                case .sso:
+                    return webViewNetworkState
+                }
+            }
+            set {
+                switch authenticationType {
+                case .credential:
+                    self.defaultNetworkState = newValue
+                case .sso:
+                    self.webViewNetworkState = newValue
+                }
+            }
+        }
         networkState = .loading
-        API.Authentication.getProvisionalCookies(for: locale) {[weak self] error in
+        API.Authentication.getProvisionalCookies(for: locale) { error in
             if let error = error {
                 DispatchQueue.main.async {
-                    self?.networkState = .failure(error)
+                    networkState = .failure(error)
                 }
             }
             else {
                 DispatchQueue.main.async {
-                    self?.networkState = .success
+                    networkState = .success
                 }
             }
         }

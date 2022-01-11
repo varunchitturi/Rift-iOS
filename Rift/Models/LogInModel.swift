@@ -31,4 +31,10 @@ struct LogInModel {
         let username: String
         let password: String
     }
+    
+    enum AuthenticationType {
+        case sso
+        case credential
+    }
+    
 }
