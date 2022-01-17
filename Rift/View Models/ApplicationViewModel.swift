@@ -34,7 +34,7 @@ class ApplicationViewModel: ObservableObject {
         let usePersistence = UserDefaults.standard.bool(forKey: UserPreferenceModel.persistencePreferenceKey)
         if usePersistence {
             networkState = .loading
-            API.Authentication.attemptAuthentication { [weak self] result in
+            API.Authentication.attemptCookieAuthentication { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let authenticationState):

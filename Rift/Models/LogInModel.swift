@@ -26,12 +26,6 @@ struct LogInModel {
         return false
     }
     
-    
-    struct Credentials {
-        let username: String
-        let password: String
-    }
-    
     enum AuthenticationType {
         case sso
         case credential
