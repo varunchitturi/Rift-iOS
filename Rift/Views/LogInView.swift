@@ -70,10 +70,10 @@ struct LogInView: View {
         }
         
         .padding()
-        .navigationTitle("Log In")
         .apiHandler(asyncState: logInViewModel.defaultNetworkState) { _ in
             logInViewModel.loadLogInOptions()
         }
+        .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
             if logInViewModel.ssoAuthenticationState == .authenticated {
                 logInViewModel.presentedAlert = .persistencePrompt

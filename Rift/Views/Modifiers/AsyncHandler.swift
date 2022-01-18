@@ -102,7 +102,7 @@ private struct APIErrorDisplay: View {
                 .onAppear {
                     Crashlytics.crashlytics().record(error: error)
                 }
-            case URLError.notConnectedToInternet, URLError.dataNotAllowed:
+            case is URLError:
                 ErrorDisplay("No Internet Connection",
                              error: error,
                              retryAction: retryAction
