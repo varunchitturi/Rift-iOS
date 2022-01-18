@@ -60,7 +60,6 @@ class AssignmentsViewModel: ObservableObject {
                 case .failure(let error):
                     print(error.localizedDescription)
                     self?.networkState = .failure(error)
-                    // TODO: do better error handling here
                 }
             }
         }

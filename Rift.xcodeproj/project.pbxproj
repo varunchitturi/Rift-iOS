@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -572,7 +572,7 @@
 				274E622826C21FB400C855D4 /* Frameworks */,
 				274E622926C21FB400C855D4 /* Resources */,
 				27D4E6D5270915130063CB65 /* Sources */,
-				27E79B13277EB8A8001EF268 /* ShellScript */,
+				27E79B13277EB8A8001EF268 /* Upload DYSM to Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -647,8 +647,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		27E79B13277EB8A8001EF268 /* ShellScript */ = {
+		27E79B13277EB8A8001EF268 /* Upload DYSM to Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -658,6 +659,7 @@
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
+			name = "Upload DYSM to Crashlytics";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -864,6 +866,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -918,6 +921,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

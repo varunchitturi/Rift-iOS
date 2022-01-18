@@ -68,27 +68,27 @@ extension API {
         }
         
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            Authentication.defaultURLSession = URLSession.reset(from: Authentication.defaultURLSession)
-            HTTPCookieStorage.shared.clearCookies()
-            let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
-            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
-            urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
-            let formEncoder = URLEncodedFormEncoder()
-            do {
-                urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
-                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    if let error = (error ?? APIError(response: response)) {
-                        completion(error)
+            Authentication.defaultURLSession.reset {
+                let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
+                var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
+                urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+                urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+                let formEncoder = URLEncodedFormEncoder()
+                do {
+                    urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
+                    Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                        if let error = (error ?? APIError(response: response)) {
+                            completion(error)
+                        }
+                        else {
+                            completion(nil)
+                        }
                     }
-                    else {
-                        completion(nil)
-                    }
+                    .resume()
                 }
-                .resume()
-            }
-            catch {
-                completion(error)
+                catch {
+                    completion(error)
+                }
             }
         }
         
@@ -140,7 +140,7 @@ extension API {
             }
         }
         
-        static func attemptAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
+        static func attemptCookieAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true,
             let requestBody = try? URLEncodedFormEncoder().encode(ProvisionalCookieConfiguration(appName: locale.districtAppName)) {
@@ -164,6 +164,45 @@ extension API {
             }
         }
         
+        static func attemptCredentialAuthentication(locale: Locale? = nil, credentials: Credentials, completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
+            guard let locale = locale ?? PersistentLocale.getLocale(),
+                  let appCookie = HTTPCookie(properties: [.name : Authentication.Cookie.appName.name,
+                                                          .value : locale.districtAppName,
+                                                          .domain: locale.districtBaseURL.host?.description ?? "",
+                                                          .path: "/"
+                                                         ]) else {
+
+                return completion(.failure(APIError.invalidLocale))
+            }
+            
+            HTTPCookieStorage.shared.setCookie(appCookie)
+            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.authorization))
+            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+            urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+            
+            let formEncoder = URLEncodedFormEncoder()
+            do {
+                urlRequest.httpBody = try formEncoder.encode(credentials)
+                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                    if let error = (error ?? APIError(response: response)) {
+                        completion(.failure(error))
+                    }
+                    else {
+                        if response?.url?.lastPathComponent == Authentication.successPath {
+                            completion(.success(.authenticated))
+                        }
+                        else {
+                            completion(.success(.unauthenticated))
+                        }
+                    }
+                }
+                .resume()
+            }
+            catch {
+                completion(.failure(error))
+            }
+            
+        }
         static func logOut(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return }
             let query = URLQueryItem(name: "app", value: ApplicationModel.appType.rawValue)
@@ -217,6 +256,11 @@ extension API {
             let systemVersion = UIDevice.current.systemVersion
             let keepMeLoggedIn = true
             let deviceID = ProvisionalCookieConfiguration.deviceID
+        }
+        
+        struct Credentials: Codable {
+            let username: String
+            let password: String
         }
         
     }

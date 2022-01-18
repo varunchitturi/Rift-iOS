@@ -9,7 +9,7 @@
 import Foundation
 import URLEncodedForm
 
-// TODO: declare the structure of source files. statics, properties, inits, static methods, methods
+// TODO: declare the structure and order of components of source files. statics, properties, inits, static methods, methods
 // TODO: handle http status codes
 
 struct ApplicationModel {

@@ -18,7 +18,6 @@ struct LogInView: View {
     @State private var passwordIsEditing = false
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var persistenceAlertIsPresented = false
     
     init(locale: Locale) {
         logInViewModel = LogInViewModel(locale: locale)
@@ -34,7 +33,7 @@ struct LogInView: View {
                             usernameIsEditing = false
                             passwordIsEditing = false
                         }
-                        logInViewModel.provisionAuthentication(for: .sso)
+                        logInViewModel.provisionSSOAuthentication()
                         logInViewModel.singleSignOnIsPresented = true
                     }
                     
@@ -65,22 +64,19 @@ struct LogInView: View {
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
             Spacer()
             CapsuleButton("Log In", style: .primary) {
-                logInViewModel.provisionAuthentication(for: .credential)
-                print("log in")
+                let credentials = API.Authentication.Credentials(username: username, password: password)
+                logInViewModel.authenticate(using: credentials)
             }
         }
         
         .padding()
-        .navigationTitle("Log In")
         .apiHandler(asyncState: logInViewModel.defaultNetworkState) { _ in
             logInViewModel.loadLogInOptions()
         }
-        .onAppear {
-            logInViewModel.loadLogInOptions()
-        }
+        .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            if logInViewModel.authenticationState == .authenticated {
-                persistenceAlertIsPresented = true
+            if logInViewModel.ssoAuthenticationState == .authenticated {
+                logInViewModel.presentedAlert = .persistencePrompt
             }
         } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
@@ -90,26 +86,40 @@ struct LogInView: View {
             )
                 .apiHandler(asyncState: logInViewModel.webViewNetworkState) {
                     ProgressView("Loading")
+                } retryAction: { _ in
+                    logInViewModel.provisionSSOAuthentication()
                 }
         }
-        .alert(isPresented: $persistenceAlertIsPresented) {
-            Alert(title: Text("Stay Logged In"),
-                  message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
-                  primaryButton: .default(Text("Not Now")) {
-                        logInViewModel.setPersistence(false) {
-                            DispatchQueue.main.async {
-                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                            }
-                        }
-                  },
-                  secondaryButton: .default(Text("Yes")) {
-                        logInViewModel.setPersistence(true) {
-                            DispatchQueue.main.async {
-                                logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                            }
-                        }
-                 }
-            )
+        .alert(item: $logInViewModel.presentedAlert) { alertType in
+            switch alertType {
+            case .credentialError:
+                let errorMessage = "Please make sure that your credentials are correct\(logInViewModel.hasSSOLogin ? " and you are using the correct log in method." : ".")"
+               
+                return Alert(
+                        title: Text("Unable to Log In"),
+                        message: Text(errorMessage),
+                        dismissButton: .default(Text("Dismiss"))
+                    )
+            case .persistencePrompt:
+                return Alert(title: Text("Stay Logged In"),
+                          message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
+                          primaryButton: .default(Text("Not Now")) {
+                                logInViewModel.setPersistence(false) {
+                                    DispatchQueue.main.async {
+                                        logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                                    }
+                                }
+                          },
+                          secondaryButton: .default(Text("Yes")) {
+                                logInViewModel.setPersistence(true) {
+                                    DispatchQueue.main.async {
+                                        logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                                    }
+                                }
+                         }
+                    )
+            }
+            
         }
     }
     
