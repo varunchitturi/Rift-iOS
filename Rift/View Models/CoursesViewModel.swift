@@ -43,10 +43,7 @@ class CoursesViewModel: ObservableObject {
                     self?.coursesModel.terms = terms
                     self?.networkState = .success
                 case .failure(let error):
-                    // TODO: do bettter error handling here
                     self?.networkState = .failure(error)
-                    print("Courses error")
-                    print(error.localizedDescription)
                 }
             }
         }

@@ -75,7 +75,7 @@ struct LogInView: View {
             logInViewModel.loadLogInOptions()
         }
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            if logInViewModel.authenticationState == .authenticated {
+            if logInViewModel.ssoAuthenticationState == .authenticated {
                 logInViewModel.presentedAlert = .persistencePrompt
             }
         } content: {
@@ -84,8 +84,9 @@ struct LogInView: View {
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
-                .apiHandler(asyncState: logInViewModel.webViewNetworkState) { _ in
-                    // TODO: check this
+                .apiHandler(asyncState: logInViewModel.webViewNetworkState) {
+                    ProgressView("Loading")
+                } retryAction: { _ in
                     logInViewModel.provisionSSOAuthentication()
                 }
         }

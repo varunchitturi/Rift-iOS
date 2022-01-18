@@ -26,7 +26,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var webViewURL: URL? = nil
     
-    var authenticationState: ApplicationModel.AuthenticationState {
+    var ssoAuthenticationState: ApplicationModel.AuthenticationState {
         guard let webViewURL = webViewURL else {
             return .unauthenticated
         }
@@ -36,13 +36,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         let baseURLSearchingRange = min(3,portalURL.pathComponents.count)
         
         if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] {
-            if let _ = try? PersistentLocale.saveLocale(locale: locale) {
-                return .authenticated
-            }
+            return .authenticated
         }
         
         return .unauthenticated
     }
+    
+    var credentialAuthenticationState = ApplicationModel.AuthenticationState.unauthenticated
 
     private var locale: Locale {
         logInModel.locale
@@ -95,7 +95,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                     return
                 }
                 webViewURL = url
-                if authenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
+                if ssoAuthenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
                     singleSignOnIsPresented = false
                 }
             default:
@@ -151,17 +151,16 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                     switch result {
                     case .success(let authenticationState):
                         DispatchQueue.main.async {
+                            self.credentialAuthenticationState = authenticationState
                             self.defaultNetworkState = .success
                             switch authenticationState {
                             case .authenticated:
                                 self.presentedAlert = .persistencePrompt
-                                Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .credential))
                             case .unauthenticated:
                                 self.presentedAlert = .credentialError
                             }
                         }
                     case .failure(let error):
-                        print(error)
                         DispatchQueue.main.async {
                             self.defaultNetworkState = .failure(error)
                         }
@@ -171,21 +170,33 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         }
     }
     
-    // TODO: name this functino better pertaining to its process
     func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
-        state.wrappedValue = authenticationState
-        Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .sso))
+        switch (ssoAuthenticationState, credentialAuthenticationState) {
+        case (let ssoAuthenticationState, _ ) where ssoAuthenticationState == .authenticated:
+            state.wrappedValue = ssoAuthenticationState
+            Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .sso))
+        case ( _ , let credentialAuthenticationState) where credentialAuthenticationState == .authenticated:
+            state.wrappedValue = credentialAuthenticationState
+            Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .credential))
+        default:
+            state.wrappedValue = .unauthenticated
+        }
     }
     
     func setPersistence(_ persistence: Bool, completion: @escaping () -> () = {}) {
-        API.Authentication.usePersistence(locale: locale, persistence) { error in
-            if let _ = error {
-                UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+        if (try? PersistentLocale.saveLocale(locale: self.locale)) != nil {
+            API.Authentication.usePersistence(locale: locale, persistence) { error in
+                if error != nil {
+                    UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                else {
+                    UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                completion()
             }
-            else {
-                UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
-            }
-            completion()
+        }
+        else {
+            self.defaultNetworkState = .failure(API.APIError.invalidLocale)
         }
     }
 

@@ -28,7 +28,11 @@ struct CoursesView: View {
                 }
                 .padding()
             }
-            // TODO: change this value
+            .apiHandler(asyncState: coursesViewModel.networkState, loadingView: {
+                CourseLoadingView()
+            }, retryAction: { _ in
+                coursesViewModel.fetchGrades()
+            })
             .navigationTitle(HomeModel.Tab.courses.label)
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
@@ -41,6 +45,29 @@ struct CoursesView: View {
 
     private struct DrawingConstants {
         static let cardSpacing: CGFloat = 15
+        
+    }
+}
+
+private struct CourseLoadingView: View {
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                Group {
+                    CapsuleTextField(text: .constant(""), isEditing: .constant(false))
+                    ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                        CourseCard()
+                    }
+                }
+                .skeletonLoad()
+            }
+            .padding()
+        }
+    }
+    
+    private struct DrawingConstants {
+        static let placeholderCourseCount = 6
     }
 }
 
@@ -54,22 +81,7 @@ struct CourseList: View {
                 }
             }
         }
-        .apiHandler(asyncState: coursesViewModel.networkState, loadingView: {
-            VStack {
-                CapsuleTextField(text: .constant(""), isEditing: .constant(false))
-                ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
-                    CourseCard()
-                }
-            }
-            .skeletonLoad()
-        }, retryAction: { _ in
-            coursesViewModel.fetchGrades()
-        })
         .logViewAnlaytics(self)
-    }
-
-    private struct DrawingConstants {
-        static let placeholderCourseCount = 6
     }
 }
 
