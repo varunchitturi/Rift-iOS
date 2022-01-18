@@ -195,12 +195,3 @@ extension HTTPCookieStorage {
         self.removeCookies(since: .distantPast)
     }
 }
-
-
-extension URLSession {
-    class func reset(from session: URLSession) -> URLSession {
-        let configuration = session.configuration
-        session.invalidateAndCancel()
-        return URLSession(configuration: configuration)
-    }
-}

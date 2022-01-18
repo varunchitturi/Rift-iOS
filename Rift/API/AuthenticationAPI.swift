@@ -68,27 +68,27 @@ extension API {
         }
         
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            Authentication.defaultURLSession = URLSession.reset(from: Authentication.defaultURLSession)
-            HTTPCookieStorage.shared.clearCookies()
-            let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
-            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
-            urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
-            let formEncoder = URLEncodedFormEncoder()
-            do {
-                urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
-                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                    if let error = (error ?? APIError(response: response)) {
-                        completion(error)
+            Authentication.defaultURLSession.reset {
+                let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
+                var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
+                urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+                urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+                let formEncoder = URLEncodedFormEncoder()
+                do {
+                    urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
+                    Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                        if let error = (error ?? APIError(response: response)) {
+                            completion(error)
+                        }
+                        else {
+                            completion(nil)
+                        }
                     }
-                    else {
-                        completion(nil)
-                    }
+                    .resume()
                 }
-                .resume()
-            }
-            catch {
-                completion(error)
+                catch {
+                    completion(error)
+                }
             }
         }
         
