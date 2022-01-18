@@ -18,20 +18,18 @@ struct InboxDetailView: View {
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
         VStack {
-            if inboxDetailViewModel.messageBody != nil {
-                ScrollView {
-                    VStack {
-                        Text(inboxDetailViewModel.messageBody!)
-                    }
-                    .padding()
+            ScrollView {
+                VStack {
+                    Text(inboxDetailViewModel.messageBody ?? "")
                 }
-            }
-            else {
-                LoadingView()
+                .padding()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(inboxDetailViewModel.messageType.rawValue)
+        .apiHandler(asyncState: inboxDetailViewModel.networkState) { _ in
+            inboxDetailViewModel.getMessageDetail()
+        }
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }

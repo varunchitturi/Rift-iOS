@@ -30,7 +30,7 @@ private struct DefaultAsyncHandler: ViewModifier {
             }
         case .loading:
             VStack {
-                LoadingView()
+                ProgressView("Loading")
             }
         }
     }
@@ -90,7 +90,7 @@ private struct APIErrorDisplay: View {
             switch error {
             case API.APIError.responseError(_):
                 ErrorDisplay("""
-                     An Error Occured
+                     An Authentication Error Occured
                      Please Log Out and Log Back In
                      """,
                              error: error,
