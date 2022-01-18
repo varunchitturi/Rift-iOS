@@ -27,13 +27,31 @@ struct InboxDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(inboxDetailViewModel.messageType.rawValue)
-        .apiHandler(asyncState: inboxDetailViewModel.networkState) { _ in
+        .apiHandler(asyncState: inboxDetailViewModel.networkState) {
+            InboxDetailLoadingView()
+        } retryAction: { _ in
             inboxDetailViewModel.getMessageDetail()
         }
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
         .logViewAnlaytics(self)
+    }
+}
+
+private struct InboxDetailLoadingView: View {
+    
+    var body: some View {
+        VStack {
+            Text(String(repeating: " ", count: DrawingConstants.placeholderTextLength))
+            Spacer()
+        }
+        .padding()
+        .skeletonLoad()
+    }
+    
+    private struct DrawingConstants {
+        static let placeholderTextLength = 500
     }
 }
 
