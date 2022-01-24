@@ -80,7 +80,7 @@ struct CourseDetailView: View {
         .logViewAnlaytics(self)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let cardSpacing: CGFloat = 15
     }
 }

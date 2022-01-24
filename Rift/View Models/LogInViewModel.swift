@@ -26,6 +26,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var webViewURL: URL? = nil
     
+    var isAuthenticated: Bool {
+        ssoAuthenticationState == .authenticated || credentialAuthenticationState == .authenticated
+    }
+    
     var ssoAuthenticationState: ApplicationModel.AuthenticationState {
         guard let webViewURL = webViewURL else {
             return .unauthenticated
@@ -35,7 +39,9 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
         let baseURLSearchingRange = min(3,portalURL.pathComponents.count)
         
-        if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] {
+        if webViewURL.host == portalURL.host &&
+            webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] &&
+            webViewURL.lastPathComponent == API.Authentication.successPath {
             return .authenticated
         }
         
@@ -50,6 +56,13 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     var ssoURL: URL? {
         logInModel.ssoURL
+    }
+    
+    var ssoConfirmationURL: URL? {
+        if ssoURL != nil {
+            return locale.districtBaseURL.appendingPathComponent("SSO/\(locale.districtAppName)/SIS")
+        }
+        return nil
     }
     
     var logInURL: URL {
@@ -72,7 +85,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies { cookies in
-            let cookies = cookies.filter {API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
+            let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
             cookies.forEach {
                 // explain why we do this. We don't want to replace the JSESSIONID obtained from provisional cookies
                 if $0.name != API.Authentication.Cookie.jsession.name {
@@ -80,6 +93,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                 }
                 // provide better documentation on this. This is done to make sure that authentication passes. If we get conflicting cookie names that means authentication might have failed.
                 else if let jsessionCookie = HTTPCookieStorage.shared.cookies?.first(where: {$0.name == API.Authentication.Cookie.jsession.name}), jsessionCookie.value != $0.value {
+                    self.singleSignOnIsPresented = false
                     Crashlytics.crashlytics().record(error: API.APIError.invalidUser)
                 }
             }
@@ -203,6 +217,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     enum AlertType: String, Identifiable {
         case persistencePrompt
         case credentialError
+        case serverError
         
         var id: Int {
             return self.hashValue

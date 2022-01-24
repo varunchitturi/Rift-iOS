@@ -44,7 +44,7 @@ struct InboxView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let cardSpacing: CGFloat = 15
     }
 }
@@ -61,7 +61,7 @@ private struct InboxLoadingView: View {
         .skeletonLoad()
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let cardSpacing: CGFloat = 15
         static let placeholderCardCount = 7
     }

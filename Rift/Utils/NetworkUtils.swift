@@ -31,6 +31,16 @@ extension URL {
         }
     }
     
+    var hostURL: URL? {
+        guard let host = self.host else {
+            return nil
+        }
+        var components = URLComponents()
+        components.host = host
+        components.scheme = "https"
+        return components.url
+    }
+    
     func appendingQueryItems(_ queries: [URLQueryItem]) -> URL? {
         
         guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
@@ -164,6 +174,7 @@ extension URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         configuration.httpCookieAcceptPolicy = .always
+        
         return configuration
     }()
     
@@ -182,16 +193,11 @@ extension URLSessionConfiguration {
 }
 
 extension HTTPCookieStorage {
-    func removeSessionCookies() {
-        if let cookies = self.cookies {
-            cookies.forEach { cookie in
-                if cookie.name != API.Authentication.Cookie.persistent.name {
-                   deleteCookie(cookie)
-                }
-            }
-        }
-    }
+    
+    /// Clears all cookies in HTTPCookieStorage
     func clearCookies() {
         self.removeCookies(since: .distantPast)
     }
 }
+
+

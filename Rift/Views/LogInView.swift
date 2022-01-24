@@ -68,8 +68,8 @@ struct LogInView: View {
                 logInViewModel.authenticate(using: credentials)
             }
         }
-        
         .padding()
+        .disabled(logInViewModel.presentedAlert != nil || logInViewModel.isAuthenticated)
         .apiHandler(asyncState: logInViewModel.defaultNetworkState) { _ in
             logInViewModel.loadLogInOptions()
         }
@@ -77,6 +77,9 @@ struct LogInView: View {
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
             if logInViewModel.ssoAuthenticationState == .authenticated {
                 logInViewModel.presentedAlert = .persistencePrompt
+            }
+            else if logInViewModel.webViewURL == logInViewModel.ssoConfirmationURL {
+                logInViewModel.presentedAlert = .serverError
             }
         } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
@@ -94,6 +97,14 @@ struct LogInView: View {
             switch alertType {
             case .credentialError:
                 let errorMessage = "Please make sure that your credentials are correct\(logInViewModel.hasSSOLogin ? " and you are using the correct log in method." : ".")"
+               
+                return Alert(
+                        title: Text("Unable to Log In"),
+                        message: Text(errorMessage),
+                        dismissButton: .default(Text("Dismiss"))
+                    )
+            case .serverError:
+                let errorMessage = "An error occured while logging you in. Please try again in a few moments."
                
                 return Alert(
                         title: Text("Unable to Log In"),
@@ -123,7 +134,7 @@ struct LogInView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let dividerPadding: CGFloat = 20
         static let formTopSpacing: CGFloat = 15
     }

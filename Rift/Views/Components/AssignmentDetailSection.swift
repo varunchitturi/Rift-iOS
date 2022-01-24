@@ -34,7 +34,7 @@ struct AssignmentDetailSection: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let rectangleCornerRadius: CGFloat = 15
     }
 }

@@ -18,6 +18,7 @@ struct API {
         case invalidRequest
         case invalidLocale
         case responseError(HTTPURLResponse.Status)
+        case invalidCookies
         
         var localizedDescription: String {
             switch self {
@@ -31,6 +32,8 @@ struct API {
                 return "There is no associated district found with this request."
             case .responseError(let status):
                 return "Your request could not be completed. HTTP status: \(status.description)"
+            case .invalidCookies:
+                return "No or invalid cookies were found in the API response"
             }
         }
         

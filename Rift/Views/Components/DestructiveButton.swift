@@ -31,7 +31,7 @@ struct DestructiveButton: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let rectangleCornerRadius: CGFloat = 15
     }
 }

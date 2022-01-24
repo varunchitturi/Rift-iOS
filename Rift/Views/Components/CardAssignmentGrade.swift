@@ -24,7 +24,7 @@ struct CardAssignmentGrade: View {
             CircleBadge(assignment?.totalPointsDisplay ?? String.nilDisplay)
         }
     }
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let scoreDividerWidth: CGFloat = 1.5
         static let scoreDividerPadding: CGFloat = 20
     }

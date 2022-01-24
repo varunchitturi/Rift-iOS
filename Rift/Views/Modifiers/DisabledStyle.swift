@@ -16,7 +16,7 @@ private struct Disableable: ViewModifier {
         }
         return content.opacity(DrawingConstants.disabledOpacity)
     }
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let disabledOpacity = 0.6
         static let enabledOpacity: Double = 1
     }

@@ -45,7 +45,7 @@ struct CourseCard: View {
         
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 20
         static let percentageDisplayWidth: CGFloat = 80
     }

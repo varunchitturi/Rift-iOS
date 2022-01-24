@@ -20,7 +20,7 @@ struct SectionHeader: View {
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let headerHeight: CGFloat = 28
     }
 }

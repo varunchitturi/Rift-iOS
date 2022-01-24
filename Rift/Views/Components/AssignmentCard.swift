@@ -40,7 +40,7 @@ struct AssignmentCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 15
         static let textPadding: CGFloat = 11
         static let textInsetPadding: CGFloat = 1.5

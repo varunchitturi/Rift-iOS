@@ -31,7 +31,7 @@ struct LoadingView: View {
         }
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let loaderLineWidth: CGFloat = 5
         static let animationDuration: CGFloat = 0.5
         static let loaderSize: CGFloat = 35

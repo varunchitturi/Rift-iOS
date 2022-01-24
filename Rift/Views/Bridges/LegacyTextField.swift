@@ -85,7 +85,7 @@ struct LegacyTextField: UIViewRepresentable {
         Coordinator(text: $text, isEditing: $isEditing, options: $options, inputType: inputType, textColor: UIColor(textColor), onEditingChanged: onEditingChanged, onCommit: onCommit)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let defaultTextColor = Color("Tertiary")
     }
     

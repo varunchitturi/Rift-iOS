@@ -50,7 +50,7 @@ private struct InboxDetailLoadingView: View {
         .skeletonLoad()
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let placeholderTextLength = 500
     }
 }

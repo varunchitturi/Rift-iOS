@@ -64,7 +64,7 @@ private struct AssignmentsLoadingView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let placeholderCardCount = 8
     }
 }

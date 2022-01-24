@@ -56,7 +56,7 @@ struct MessageCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let textSpacing: CGFloat = 5
         static let badgeRadius: CGFloat = 15
         static let backgroundCornerRadius: CGFloat = 15

@@ -8,8 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct DrawingConstants {
-    private init() {}
+enum DrawingConstants {
     
     // core colors
     static let accentColor = Color("Primary")
