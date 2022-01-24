@@ -38,7 +38,7 @@ struct CourseAssignmentCard: View {
         
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 15
         static let textHorizontalPadding: CGFloat = 11
         static let textVerticalPadding: CGFloat = 16

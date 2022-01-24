@@ -29,8 +29,7 @@ extension API {
         static func searchDistrict(for query: String, state: Locale.USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
             if query.count >= DistrictSearch.minimumDistrictQueryLength {
                 guard let url = getDistrictQueryURL(query: query, state: state) else {
-                    completion(.failure(APIError.invalidRequest))
-                    return
+                    return completion(.failure(APIError.invalidRequest))
                 }
                 API.defaultURLSession.dataTask(with: url) { data, response, error in
                     if let error = (error ?? APIError(response: response)) {
@@ -61,8 +60,6 @@ extension API {
             }
             
         }
-        
-        
     }
 }
 

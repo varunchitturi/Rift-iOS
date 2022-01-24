@@ -53,7 +53,7 @@ struct ErrorDisplay: View {
         .foregroundColor(Rift.DrawingConstants.foregroundColor)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let retryButtonCornerRadius: CGFloat = 2
         static let retryTextVerticalPadding: CGFloat = 5
     }

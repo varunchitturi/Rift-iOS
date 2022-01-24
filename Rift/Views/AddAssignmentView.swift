@@ -55,7 +55,7 @@ struct AddAssignmentView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let spacing: CGFloat = 15
     }
 }

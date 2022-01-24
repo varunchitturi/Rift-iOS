@@ -30,7 +30,7 @@ struct AssignmentDetailStats: View {
         }
         .foregroundColor(Rift.DrawingConstants.foregroundColor)
     }
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let headerPadding: CGFloat = 5
     }
 }

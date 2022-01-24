@@ -43,7 +43,7 @@ struct CoursesView: View {
         }
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let cardSpacing: CGFloat = 15
         
     }
@@ -66,7 +66,7 @@ private struct CourseLoadingView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let placeholderCourseCount = 6
     }
 }

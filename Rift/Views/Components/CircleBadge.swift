@@ -67,7 +67,7 @@ struct CircleBadge: View {
         case secondary
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let textPadding: CGFloat = 9
         static let fontMinimumScale: CGFloat = 0.01
         static let minCircleDiameter: CGFloat = 30.0

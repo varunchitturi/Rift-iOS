@@ -28,7 +28,7 @@ struct CourseDetailStatsRow: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let tableCellWidth: CGFloat = 70
     }
 }

@@ -57,53 +57,107 @@ extension API {
         static let successPath = "nav-wrapper"
 
         private enum Endpoint {
+            static let portalConfig = "resources/fremont/portal/config"
             static let provisionalCookies = "mobile/hybridAppUtil.jsp"
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
             static let logOut = "logoff.jsp"
             static let authorization = "verify.jsp"
         }
         
-        enum AuthenticationError: Error {
-            case failure
-        }
-        
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            Authentication.defaultURLSession.reset {
-                let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
-                var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
-                urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
-                urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
-                let formEncoder = URLEncodedFormEncoder()
-                do {
-                    urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
-                    Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+            
+            Authentication.defaultURLSession.invalidateAndCancel()
+            Authentication.defaultURLSession = URLSession(configuration: .authentication)
+            HTTPCookieStorage.shared.clearCookies()
+         
+            getPortalConfig(for: locale) { error in
+                if let error = error {
+                    completion(error)
+                }
+                else {
+                    Authentication.defaultURLSession.dataTask(with: locale.logInURL) { data, response, error in
                         if let error = (error ?? APIError(response: response)) {
                             completion(error)
                         }
                         else {
-                            completion(nil)
+                            let provisionalCookieConfiguration = ProvisionalCookieConfiguration(appName: locale.districtAppName)
+                            var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies))
+                            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+                            urlRequest.setValue(URLRequest.ContentType.form.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
+                            let formEncoder = URLEncodedFormEncoder()
+                            do {
+                                urlRequest.httpBody = try formEncoder.encode(provisionalCookieConfiguration)
+                                Authentication.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
+                                    if let error = (error ?? APIError(response: response)) {
+                                        completion(error)
+                                    }
+                                    else {
+                                        getProvisions(for: locale) { error in
+                                            if let error = error {
+                                                completion(error)
+                                            }
+                                            else {
+                                                completion(nil)
+                                            }
+                                        }
+                                    }
+                                }.resume()
+                            }
+                            catch {
+                                completion(error)
+                            }
                         }
-                    }
-                    .resume()
-                }
-                catch {
-                    completion(error)
+                    }.resume()
                 }
             }
         }
         
-        static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
+        private static func getPortalConfig(for locale: Locale, completion: @escaping (Error?) -> ()) {
             
-            DispatchQueue.global(qos: .userInitiated).async {
+            let url = locale.districtBaseURL.appendingPathComponent(Endpoint.portalConfig)
+            Authentication.defaultURLSession.dataTask(with: url) { data, response, error in
+                if let error = (error ?? APIError(response: response)) {
+                    completion(error)
+                }
+                else {
+                    completion(nil)
+                }
+            }.resume()
+        }
+        
+        private static func getProvisions(for locale: Locale, completion: @escaping (Error?) -> ()) {
+            
+            let url = locale.districtBaseURL.appendingPathComponent(Endpoint.provisionalCookies)
+            
+            Authentication.defaultURLSession.dataTask(with: url) { data, response, error in
+                if let error = (error ?? APIError(response: response)) {
+                    completion(error)
+                }
+                else if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == API.Authentication.Cookie.sis.name}) == true {
+                    completion(nil)
+                }
+                else {
+                    completion(APIError.invalidCookies)
+                }
+            }.resume()
+        }
+        
+        static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
+            Authentication.defaultURLSession.dataTask(with: locale.logInURL) { data, response, error in
                 do {
-                    let html = try String(contentsOf: locale.logInURL)
+                    if let error = (error ?? APIError(response: response)) {
+                        throw error
+                    }
+                    guard let data = data, let html = String(data: data, encoding: .ascii) else {
+                        throw APIError.invalidData
+                    }
                     let htmlDOM = try SwiftSoup.parse(html)
                     let samlURLString: String = (try? htmlDOM.getElementById("samlLoginLink")?.attr("href")) ?? ""
                     completion(.success(URL(string: samlURLString)))
                 } catch {
                     completion(.failure(error))
                 }
-            }
+            }.resume()
         }
         
         static func usePersistence(locale: Locale? = nil, _ isPersistent: Bool, completion: @escaping (Error?) -> ()) {
@@ -130,7 +184,7 @@ extension API {
                         completion(nil)
                     }
                     else {
-                        completion(Authentication.AuthenticationError.failure)
+                        completion(API.APIError.invalidCookies)
                     }
                 }
                 .resume()
@@ -174,7 +228,7 @@ extension API {
 
                 return completion(.failure(APIError.invalidLocale))
             }
-            
+            // TODO: don't let user turn on remember me if there is no persistent cookie available
             HTTPCookieStorage.shared.setCookie(appCookie)
             var urlRequest =  URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.authorization))
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue

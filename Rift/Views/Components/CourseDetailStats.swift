@@ -57,7 +57,7 @@ struct CourseDetailStats: View {
         }
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let tableCellWidth: CGFloat = 70
         static let rowSpacing: CGFloat = 10
         static let gradeXAdjustment = 0.01 * UIScreen.main.bounds.width

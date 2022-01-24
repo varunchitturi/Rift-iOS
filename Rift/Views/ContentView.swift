@@ -17,11 +17,10 @@ struct ContentView: View {
                 } retryAction: { _ in
                     applicationViewModel.authenticateUsingCookies()
                 }
-
-
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
+        .environmentObject(applicationViewModel)
     }
 }
 

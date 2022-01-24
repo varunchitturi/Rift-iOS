@@ -93,7 +93,7 @@ struct AssignmentDetailView: View {
         .logViewAnlaytics(self)
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let spacing: CGFloat = 15
     }
 }
