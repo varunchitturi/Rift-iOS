@@ -50,8 +50,20 @@ class ApplicationViewModel: ObservableObject {
         }
     }
     
-    func resetApplicationState() {
+    private func resetApplicationState() {
         applicationModel.resetUserState()
         authenticationState = .unauthenticated
+    }
+    
+    func logOut() {
+        networkState = .loading
+        API.Authentication.logOut { _ in
+            Analytics.logEvent(Analytics.LogOutEvent())
+            FirebaseApp.clearUser()
+            DispatchQueue.main.async {
+                self.resetApplicationState()
+                self.networkState = .idle
+            }
+        }
     }
 }

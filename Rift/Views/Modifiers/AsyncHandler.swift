@@ -9,10 +9,6 @@ import Foundation
 import Firebase
 import SwiftUI
 
-
-// TODO: Create async handler protocol
-
-
 private struct DefaultAsyncHandler: ViewModifier {
     
     let asyncState: AsyncState
@@ -81,10 +77,6 @@ private struct APIErrorDisplay: View {
     let error: Error
     let retryAction: ((Error) -> ())?
     
-    private func logOut() {
-        applicationViewModel.resetApplicationState()
-    }
-    
     var body: some View {
         VStack {
             switch error {
@@ -96,14 +88,14 @@ private struct APIErrorDisplay: View {
                              error: error,
                              retryMessage: "Log Out",
                              retryAction: { _ in
-                                logOut()
+                                applicationViewModel.logOut()
                             }
                 )
                 .onAppear {
                     Crashlytics.crashlytics().record(error: error)
                 }
             case is URLError:
-                ErrorDisplay("No Internet Connection",
+                ErrorDisplay("Couldn't Connect to Internet",
                              error: error,
                              retryAction: retryAction
                 )
