@@ -120,7 +120,7 @@ struct API {
                 }
                 
                 urlSession.dataTask(with: urlRequest) { data, response, error in
-                    self.evaluateResponse(data, response, error, completion)
+                    completion(self.evaluateResponse(data, response, error))
                 }
                 .resume()
             }
