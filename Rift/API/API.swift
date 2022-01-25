@@ -115,18 +115,22 @@ struct API {
                 case .failure(let error):
                     switch error {
                     case APIError.responseError, APIError.invalidRedirect:
-                        API.Authentication.attemptCookieAuthentication { result in
-                            switch result {
-                            case .success(let authenticationState) where authenticationState == .authenticated:
-                                self.urlSession.dataTask(with: url) { data, response, error in
-                                    completion(self.evaluateResponse(requestMethod: .get, url, data, response, error))
+                        if retryAuthentication {
+                            API.Authentication.attemptCookieAuthentication { result in
+                                switch result {
+                                case .success(let authenticationState) where authenticationState == .authenticated:
+                                    self.urlSession.dataTask(with: url) { data, response, error in
+                                        completion(self.evaluateResponse(requestMethod: .get, url, data, response, error))
+                                    }
+                                    .resume()
+                                default:
+                                    completion(.failure(error))
                                 }
-                                .resume()
-                            default:
-                                completion(.failure(error))
                             }
                         }
-                        
+                        else {
+                            completion(.failure(error))
+                        }
                     default:
                         completion(.failure(error))
                     }
