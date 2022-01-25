@@ -16,13 +16,9 @@ extension API {
         }
         
         static func getList(locale: Locale? = nil, completion: @escaping (Result<[Assignment], Error>) -> ()) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentList))
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
-                    completion(.failure(error))
-                }
-                else if let data = data {
+            API.defaultRequestManager.get(endpoint: Endpoint.assignmentList, locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
                     do {
                         let decoder = JSONDecoder()
                         let responseBody = try decoder.decode([Assignment].self, from: data)
@@ -31,36 +27,31 @@ extension API {
                     catch {
                         completion(.failure(error))
                     }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
-            }.resume()
+                
+            }
         }
 
         static func getAssignmentDetail(locale: Locale? = nil, for assignment: Assignment, completion: @escaping (Result<AssignmentDetail, Error>) -> ()) {
             let id = assignment.id
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Assignments.Endpoint.assignmentDetail.appending(id.description)))
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
+            
+            API.defaultRequestManager.get(endpoint: Assignments.Endpoint.assignmentDetail.appending(id.description), locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseBody = try decoder.decode(AssignmentDetail.self, from: data)
+                        completion(.success(responseBody))
+                    }
+                    catch {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
                     completion(.failure(error))
                 }
-                else if let data = data {
-                        do {
-                            let decoder = JSONDecoder()
-                            let responseBody = try decoder.decode(AssignmentDetail.self, from: data)
-                            completion(.success(responseBody))
-                        }
-                        catch {
-                            completion(.failure(error))
-                        }
-                    
-                }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
-            }.resume()
+            }
         }
     }
 }

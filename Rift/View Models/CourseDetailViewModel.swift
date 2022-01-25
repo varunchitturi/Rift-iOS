@@ -72,7 +72,7 @@ class CourseDetailViewModel: ObservableObject {
     }
 
     func fetchGradeDetails() {
-        API.Grades.getGradeDetails(for: courseDetailModel.course.sectionID) {[weak self] result in
+        API.Grades.getGradeDetails(for: courseDetailModel.course) {[weak self] result in
 
             DispatchQueue.main.async {
                 switch result {
