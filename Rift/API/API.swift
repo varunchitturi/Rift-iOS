@@ -71,15 +71,15 @@ struct API {
         
         private var urlSession: URLSession
         
-        private func evaluateResponse(_ data: Data?, _ response: URLResponse?, _ error: Error?, _ completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ())  {
+        private func evaluateResponse(_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<(Data, HTTPURLResponse), Error>  {
             if let error = (error ?? APIError(response: response)) {
-                completion(.failure(error))
+                return .failure(error)
             }
             else if let data = data, let response = response as? HTTPURLResponse {
-                completion(.success((data, response)))
+                return .success((data, response))
             }
             else {
-                completion(.failure(APIError.invalidData))
+                return .failure(APIError.invalidData)
             }
         }
 
@@ -93,7 +93,7 @@ struct API {
         
         func get(url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             urlSession.dataTask(with: url) { data, response, error in
-                self.evaluateResponse(data, response, error, completion)
+                completion(self.evaluateResponse(data, response, error))
             }
             .resume()
         }
