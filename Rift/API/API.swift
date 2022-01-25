@@ -21,6 +21,7 @@ struct API {
         case invalidLocale
         case responseError(HTTPURLResponse.Status)
         case invalidCookies
+        case invalidRedirect
         
         var localizedDescription: String {
             switch self {
@@ -36,6 +37,8 @@ struct API {
                 return "Your request could not be completed. HTTP status: \(status.description)"
             case .invalidCookies:
                 return "No or invalid cookies were found in the API response"
+            case .invalidRedirect:
+                return "API redirected when it was not supposed to"
             }
         }
         
@@ -71,29 +74,63 @@ struct API {
         
         private var urlSession: URLSession
         
-        private func evaluateResponse(_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<(Data, HTTPURLResponse), Error>  {
+        private func evaluateResponse(requestMethod: URLRequest.HTTPMethod, _ requestURL: URL, _ data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<(Data, HTTPURLResponse), Error>  {
             if let error = (error ?? APIError(response: response)) {
                 return .failure(error)
             }
             else if let data = data, let response = response as? HTTPURLResponse {
-                return .success((data, response))
+                switch requestMethod {
+                case .get:
+                    if let responseURL = response.url?.removingQueries(),
+                       let requestURL = requestURL.removingQueries(),
+                       responseURL == requestURL {
+                        return .success((data, response))
+                    }
+                    else {
+                        return .failure(APIError.invalidRedirect)
+                    }
+                default:
+                    return .success((data, response))
+                }
             }
             else {
                 return .failure(APIError.invalidData)
             }
         }
-
-        func get(endpoint: String, locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
+        
+        func get(endpoint: String, locale: Locale? = nil, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             guard let locale = (locale ?? PersistentLocale.getLocale()) else {
                 return completion(.failure(APIError.invalidLocale))
             }
             
-            get(url: locale.districtBaseURL.appendingPathComponent(endpoint), completion: completion)
+            get(url: locale.districtBaseURL.appendingPathComponent(endpoint), retryAuthentication: retryAuthentication, completion: completion)
         }
         
-        func get(url: URL, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
+        func get(url: URL, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             urlSession.dataTask(with: url) { data, response, error in
-                completion(self.evaluateResponse(data, response, error))
+                let result = self.evaluateResponse(requestMethod: .get, url, data, response, error)
+                switch result {
+                case .success(let successResult) :
+                    completion(.success(successResult))
+                case .failure(let error):
+                    switch error {
+                    case APIError.responseError, APIError.invalidRedirect:
+                        API.Authentication.attemptCookieAuthentication { result in
+                            switch result {
+                            case .success(let authenticationState) where authenticationState == .authenticated:
+                                self.urlSession.dataTask(with: url) { data, response, error in
+                                    completion(self.evaluateResponse(requestMethod: .get, url, data, response, error))
+                                }
+                                .resume()
+                            default:
+                                completion(.failure(error))
+                            }
+                        }
+                        
+                    default:
+                        completion(.failure(error))
+                    }
+                }
             }
             .resume()
         }
@@ -105,11 +142,15 @@ struct API {
                 return completion(.failure(APIError.invalidLocale))
             }
             
-            var urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(endpoint))
-            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+            post(url: locale.districtBaseURL.appendingPathComponent(endpoint), data: data, encodeType: encodeType, locale: locale, completion: completion)
+        }
+        
+        func post<T>(url: URL, data: T, encodeType: URLRequest.ContentType, locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
             
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
+             
             do {
-                
                 switch encodeType {
                 case .form:
                     urlRequest.httpBody = try URLEncodedFormEncoder().encode(data)
@@ -120,7 +161,7 @@ struct API {
                 }
                 
                 urlSession.dataTask(with: urlRequest) { data, response, error in
-                    completion(self.evaluateResponse(data, response, error))
+                    completion(self.evaluateResponse(requestMethod: .post, url, data, response, error))
                 }
                 .resume()
             }

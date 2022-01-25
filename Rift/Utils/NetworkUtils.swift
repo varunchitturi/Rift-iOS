@@ -53,6 +53,13 @@ extension URL {
         
         return components.url
     }
+    
+    func removingQueries() -> URL? {
+        var components = URLComponents(string: self.absoluteString)
+        components?.query = nil
+        return components?.url
+    }
+    
 }
 
 extension Array where Element: HTTPCookie {
@@ -197,6 +204,25 @@ extension HTTPCookieStorage {
     /// Clears all cookies in HTTPCookieStorage
     func clearCookies() {
         self.removeCookies(since: .distantPast)
+    }
+    
+    /// Gets all cookies that have a given name
+    /// - Parameter name: Cookie name to filter by
+    /// - Returns: All cookies that have a given name
+    func getCookies(name: String) -> [HTTPCookie]? {
+        return self.cookies?.filter({$0.name == name})
+    }
+    
+    
+    /// Deletes all cookies with a given name
+    /// - Parameter name: Cookie name  to filter by
+    func deleteCookie(name: String) {
+        guard let cookiesToDelete = getCookies(name: name) else {
+            return
+        }
+        cookiesToDelete.forEach { cookie in
+            self.deleteCookie(cookie)
+        }
     }
 }
 

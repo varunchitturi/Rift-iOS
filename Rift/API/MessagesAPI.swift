@@ -48,22 +48,28 @@ extension API {
             guard let url = URL(
                 string: locale.districtBaseURL.appendingPathComponent(endpoint).description.removingPercentEncoding ?? ""
             ) else {
-                completion(.failure(APIError.invalidRequest))
-                return
+                return completion(.failure(APIError.invalidRequest))
             }
             
             API.defaultRequestManager.get(url: url) { result in
                 switch result {
-                case .success((let data, _)):
-                    do {
-                        guard let messageHTML = String(data: data, encoding: .ascii) else {
-                            throw APIError.invalidData
+                case .success((let data, let response)):
+                    if let requestURL = url.removingQueries(),
+                        let responseURL = response.url?.removingQueries(),
+                        requestURL == responseURL {
+                        do {
+                            guard let messageHTML = String(data: data, encoding: .ascii) else {
+                                throw APIError.invalidData
+                            }
+                            let doc = try SwiftSoup.parse(messageHTML)
+                            completion(.success(try doc.text()))
                         }
-                        let doc = try SwiftSoup.parse(messageHTML)
-                        completion(.success(try doc.text()))
+                        catch {
+                            completion(.failure(error))
+                        }
                     }
-                    catch {
-                        completion(.failure(error))
+                    else {
+                        completion(.failure(APIError.responseError(response.status)))
                     }
                 case .failure(let error):
                     completion(.failure(error))
