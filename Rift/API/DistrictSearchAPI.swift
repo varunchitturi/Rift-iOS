@@ -31,11 +31,10 @@ extension API {
                 guard let url = getDistrictQueryURL(query: query, state: state) else {
                     return completion(.failure(APIError.invalidRequest))
                 }
-                API.defaultURLSession.dataTask(with: url) { data, response, error in
-                    if let error = (error ?? APIError(response: response)) {
-                        completion(.failure(error))
-                    }
-                    else if let data = data {
+                
+                API.defaultRequestManager.get(url: url) { result in
+                    switch result {
+                    case .success((let data, _)):
                         do {
                             let decoder = JSONDecoder()
                             let localesData = try decoder.decode([String: [Locale]].self, from: data)
@@ -47,13 +46,14 @@ extension API {
                             completion(.success(locales))
                         }
                         catch {
-                            completion(.failure(error))
+                            completion(.success([]))
                         }
+                    case .failure(_):
+                        completion(.success([]))
                     }
-                    else {
-                        completion(.failure(APIError.invalidData))
-                    }
-                }.resume()
+                    
+                    
+                }
             }
             else {
                 completion(.success([]))

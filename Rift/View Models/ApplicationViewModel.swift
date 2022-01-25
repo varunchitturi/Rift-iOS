@@ -40,9 +40,10 @@ class ApplicationViewModel: ObservableObject {
                     case .success(let authenticationState):
                         self?.applicationModel.authenticationState = authenticationState
                         self?.networkState = .success
-                        Analytics.logEvent(Analytics.LogInEvent(method: .automatic))
+                        if authenticationState == .authenticated {
+                            Analytics.logEvent(Analytics.LogInEvent(method: .automatic))
+                        }
                     case .failure(let error):
-                        print(error)
                         self?.networkState = .failure(error)
                     }
                 }
@@ -50,8 +51,20 @@ class ApplicationViewModel: ObservableObject {
         }
     }
     
-    func resetApplicationState() {
+    private func resetApplicationState() {
         applicationModel.resetUserState()
         authenticationState = .unauthenticated
+    }
+    
+    func logOut() {
+        networkState = .loading
+        API.Authentication.logOut { _ in
+            Analytics.logEvent(Analytics.LogOutEvent())
+            FirebaseApp.clearUser()
+            DispatchQueue.main.async {
+                self.resetApplicationState()
+                self.networkState = .idle
+            }
+        }
     }
 }

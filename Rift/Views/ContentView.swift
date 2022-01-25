@@ -13,7 +13,7 @@ struct ContentView: View {
         Group {
             ApplicationView(viewModel: applicationViewModel)
                 .apiHandler(asyncState: applicationViewModel.networkState)  {
-                    ProgressView("Logging In")
+                    ProgressView("Loading")
                 } retryAction: { _ in
                     applicationViewModel.authenticateUsingCookies()
                 }
