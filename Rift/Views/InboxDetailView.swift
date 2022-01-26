@@ -25,13 +25,13 @@ struct InboxDetailView: View {
                 .padding()
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(inboxDetailViewModel.messageType.rawValue)
         .apiHandler(asyncState: inboxDetailViewModel.networkState) {
             InboxDetailLoadingView()
         } retryAction: { _ in
             inboxDetailViewModel.getMessageDetail()
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(inboxDetailViewModel.messageType.rawValue)
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }

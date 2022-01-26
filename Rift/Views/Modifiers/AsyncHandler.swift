@@ -9,9 +9,15 @@ import Foundation
 import Firebase
 import SwiftUI
 
+enum LoadingStyle {
+    case progressCircle
+    case skeleton
+}
+
 private struct DefaultAsyncHandler: ViewModifier {
     
     let asyncState: AsyncState
+    let loadingStyle: LoadingStyle
     let retryAction: ((Error) -> ())?
     
     func body(content: Content) -> some View {
@@ -25,8 +31,14 @@ private struct DefaultAsyncHandler: ViewModifier {
                 ErrorDisplay(error: error, retryAction: retryAction)
             }
         case .loading:
-            VStack {
-                ProgressView("Loading")
+            switch loadingStyle {
+            case .progressCircle:
+                VStack {
+                    ProgressView("Loading")
+                }
+            case .skeleton:
+                content
+                    .skeletonLoad()
             }
         }
     }
@@ -34,21 +46,11 @@ private struct DefaultAsyncHandler: ViewModifier {
 
 private struct CustomAsyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>: ViewModifier {
     
-    init(asyncState: AsyncState, idleView: @escaping () -> IdleContent, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, failureView: @escaping (Error) -> FailureContent) {
-        self.asyncState = asyncState
-        self.idleView = idleView
-        self.successView = successView
-        self.failureView = failureView
-        self.loadingView = loadingView
-    }
-
-    
     let asyncState: AsyncState
-    
     let idleView: () -> IdleContent
     let successView: () -> SuccessContent
-    let failureView: (Error) -> FailureContent
     let loadingView: () -> LoadingContent
+    let failureView: (Error) -> FailureContent
     
     func body(content: Content) -> some View {
         switch asyncState {
@@ -113,13 +115,8 @@ private struct APIErrorDisplay: View {
 
 private struct DefaultAPIAsyncHandler: ViewModifier {
     
-    init(asyncState: AsyncState, retryAction: ((Error) -> ())?) {
-        self.asyncState = asyncState
-        self.retryAction = retryAction
-    }
-    
-    
     let asyncState: AsyncState
+    let loadingStyle: LoadingStyle
     let retryAction: ((Error) -> ())?
     
     func body(content: Content) -> some View {
@@ -131,26 +128,25 @@ private struct DefaultAPIAsyncHandler: ViewModifier {
         case .failure(let error):
             APIErrorDisplay(error: error, retryAction: retryAction)
         case .loading:
-            content
-                .skeletonLoad()
+            switch loadingStyle {
+            case .progressCircle:
+                VStack {
+                    ProgressView("Loading")
+                }
+            case .skeleton:
+                content
+                    .skeletonLoad()
+            }
         }
     }
 }
 
 private struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>: ViewModifier {
-    
-    init(asyncState: AsyncState, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())?) {
-        self.asyncState = asyncState
-        self.retryAction = retryAction
-        self.successView = successView
-        self.loadingView = loadingView
-    }
-    
-    
+
     let asyncState: AsyncState
-    let retryAction: ((Error) -> ())?
     let successView: () -> SuccessContent
     let loadingView: () -> LoadingContent
+    let retryAction: ((Error) -> ())?
     
     func body(content: Content) -> some View {
         switch asyncState {
@@ -167,16 +163,16 @@ private struct CustomAPIAsyncHandler<SuccessContent: View, LoadingContent: View>
 }
 
 extension View {
-    func asyncHandler(asyncState: AsyncState, retryAction: ((Error) -> ())? = nil) -> some View{
-        modifier(DefaultAsyncHandler(asyncState: asyncState, retryAction: retryAction))
+    func asyncHandler(asyncState: AsyncState, loadingStyle: LoadingStyle = .progressCircle,retryAction: ((Error) -> ())? = nil) -> some View {
+        modifier(DefaultAsyncHandler(asyncState: asyncState, loadingStyle: loadingStyle, retryAction: retryAction))
     }
     
     func asyncHandler<IdleContent: View, SuccessContent: View, FailureContent: View, LoadingContent: View>(asyncState: AsyncState, idleView: @escaping () -> IdleContent, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, failureView: @escaping (Error) -> FailureContent) -> some View {
         modifier(CustomAsyncHandler(asyncState: asyncState, idleView: idleView, successView: successView, loadingView: loadingView, failureView: failureView))
     }
     
-    func apiHandler(asyncState: AsyncState, retryAction: ((Error) -> ())? = nil) -> some View {
-        modifier(DefaultAPIAsyncHandler(asyncState: asyncState, retryAction: retryAction))
+    func apiHandler(asyncState: AsyncState, loadingStyle: LoadingStyle = .skeleton, retryAction: ((Error) -> ())? = nil) -> some View {
+        modifier(DefaultAPIAsyncHandler(asyncState: asyncState, loadingStyle: loadingStyle, retryAction: retryAction))
     }
     
     func apiHandler<SuccessContent: View, LoadingContent: View>(asyncState: AsyncState, successView: @escaping () -> SuccessContent, loadingView: @escaping () -> LoadingContent, retryAction: ((Error) -> ())? = nil) -> some View {

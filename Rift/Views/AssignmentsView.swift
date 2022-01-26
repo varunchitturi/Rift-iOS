@@ -10,8 +10,7 @@ import SwiftUI
 struct AssignmentsView: View {
     @ObservedObject var assignmentsViewModel: AssignmentsViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
-    // TODO: add more space for scroll so tab bar doesn't hide certain assignments
-    // TODO: change colors to match courses
+    
     init(viewModel: AssignmentsViewModel) {
         assignmentsViewModel = viewModel
     }

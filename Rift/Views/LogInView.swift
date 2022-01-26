@@ -87,9 +87,7 @@ struct LogInView: View {
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
-                .apiHandler(asyncState: logInViewModel.webViewNetworkState) {
-                    ProgressView("Loading")
-                } retryAction: { _ in
+                .apiHandler(asyncState: logInViewModel.webViewNetworkState, loadingStyle: .progressCircle) { _ in
                     logInViewModel.provisionSSOAuthentication()
                 }
         }
