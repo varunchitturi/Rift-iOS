@@ -80,7 +80,7 @@ private struct APIErrorDisplay: View {
     var body: some View {
         VStack {
             switch error {
-            case API.APIError.responseError(_):
+            case API.APIError.responseError(_), API.APIError.invalidRedirect:
                 ErrorDisplay("""
                      An Authentication Error Occured
                      Please Log Out and Log Back In
@@ -95,7 +95,7 @@ private struct APIErrorDisplay: View {
                     Crashlytics.crashlytics().record(error: error)
                 }
             case is URLError:
-                ErrorDisplay("Couldn't Connect to Internet",
+                ErrorDisplay("Couldn't Connect to the Internet",
                              error: error,
                              retryAction: retryAction
                 )
