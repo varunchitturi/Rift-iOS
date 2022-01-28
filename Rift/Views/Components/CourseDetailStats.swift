@@ -10,47 +10,31 @@ import SwiftUI
 struct CourseDetailStats: View {
     // TODO: make sure that the preview objects file doesn't compile on release
     // TODO: check if percentages are rounded or truncated
-    var courseGradeDisplay: String
+    @State private var detailIsPresented = false
     let gradeDetail: GradeDetail
     let editingGradeDetail: GradeDetail
     
     var body: some View {
-        
         HStack {
             VStack(alignment: .leading) {
-               
-                HStack(alignment: .top) {
-                    Group {
-                        Text("Grade")
-                            .offset(x: DrawingConstants.gradeXAdjustment)
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
                         Text("Category")
+                        Spacer()
+                        Text("Percentage")
                     }
-                    .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
-                
-                    Spacer()
+                    .foregroundColor(Rift.DrawingConstants.accentColor)
+                    .font(.caption.bold())
                     
-                    Group {
-                        Text("Real")
-                        Text("Calculated")
-                    }
-                    .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
+                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade:  editingGradeDetail.totalPercentage)
                 }
-                .foregroundColor(Rift.DrawingConstants.accentColor)
-                .font(.caption.bold())
-                
                 HStack {
-                    VStack {
-                        CircleBadge(courseGradeDisplay, size: .large)
-                            .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
-                        
-                    }
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
                         let categories = gradeDetail.categories
                         let editingCategories = editingGradeDetail.categories
                         ForEach(gradeDetail.categories.indices, id: \.self){ index in
-                            CourseDetailStatsRow(category: categories[index].name, realGrade: categories[index].percentageDisplay, calculatedGrade:  editingCategories[index].percentageDisplay)
+                            CourseDetailStatsRow(category: categories[index].name, realGrade: categories[index].percentage, calculatedGrade:  editingCategories[index].percentage)
                         }
-                        CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentageDisplay, calculatedGrade:  editingGradeDetail.totalPercentageDisplay)
                     }
                 }
             }
@@ -67,8 +51,9 @@ struct CourseDetailStats: View {
 #if DEBUG
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
-        CourseDetailStats(courseGradeDisplay: PreviewObjects.course.gradeDisplay, gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
+            .padding()
+        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
             .previewDevice("iPhone 13 Pro Max")
     }
 }

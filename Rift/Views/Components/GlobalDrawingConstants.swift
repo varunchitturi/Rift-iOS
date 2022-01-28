@@ -10,7 +10,6 @@ import SwiftUI
 
 enum DrawingConstants {
     
-    // core colors
     static let accentColor = Color("Primary")
     static let foregroundColor = Color("Tertiary")
     static let secondaryForegroundColor = Color("Quartenary")
@@ -23,5 +22,6 @@ enum DrawingConstants {
     
     static let disableOpacity: CGFloat = 0.6
     
+    static let decimalCutoff: Int = 2
     
 }

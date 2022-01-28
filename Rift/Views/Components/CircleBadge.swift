@@ -24,6 +24,16 @@ struct CircleBadge: View {
         
     }
     
+    init(_ text: String, size: CGFloat, style: Style = .primary) {
+        self.text = text
+        self.size = .custom
+        self.style = style
+        minDiameter = size
+        maxDiameter = size + 5
+        textPadding = DrawingConstants.textPadding
+        
+    }
+    
     let text: String
     let size: Size
     let style: Style
@@ -60,6 +70,7 @@ struct CircleBadge: View {
     enum Size {
         case large
         case `default`
+        case custom
     }
     
     enum Style {

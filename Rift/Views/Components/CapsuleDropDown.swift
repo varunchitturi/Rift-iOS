@@ -18,10 +18,10 @@ struct CapsuleDropDown: View {
         selectionIndex != nil ? options[selectionIndex!] : nil
     }
     private var options: [String]
-    private var label: String
+    private var label: String?
     private var description: String
     
-    init(_ label: String, description: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, accentColor: Color = DrawingConstants.accentColor) {
+    init(_ label: String? = nil, description: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, accentColor: Color = DrawingConstants.accentColor) {
         self.options = options
         self.label = label
         self.description = description
@@ -36,7 +36,9 @@ struct CapsuleDropDown: View {
                                 .padding(.trailing)
         
         VStack(alignment: .leading) {
-            CapsuleFieldLabel(label: label, accentColor: accentColor, isEditing: $isEditing)
+            if label != nil {
+                CapsuleFieldLabel(label: label!, accentColor: accentColor, isEditing: $isEditing)
+            }
             HStack {
                 pickerField
                     .foregroundColor(DrawingConstants.foregroundColor)
