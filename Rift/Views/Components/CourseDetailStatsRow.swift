@@ -34,12 +34,10 @@ struct CourseDetailStatsRow: View {
             HStack {
                 TextTag(category)
                 Spacer()
-                Group {
-                    Text(String(displaying: calculatedGrade, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff))
-                }
-                .foregroundColor(gradeChangeColor)
-                .multilineTextAlignment(.center)
-                
+                Text(String(displaying: calculatedGrade, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff))
+                    .lineLimit(1)
+                    .foregroundColor(gradeChangeColor)
+                    .multilineTextAlignment(.center)
             }
             Divider()
         }

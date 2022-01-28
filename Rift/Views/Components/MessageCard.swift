@@ -22,12 +22,12 @@ struct MessageCard: View {
                     Text(String(displaying: message?.name))
                     Group {
                         if message?.date != nil {
-                            Text(DateFormatter.simpleDate.string(from: message!.date!))
+                            Text(DateFormatter.simple.string(from: message!.date!))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
                         else {
-                            Text(DateFormatter.simpleDate.string(from: message?.postedTime ?? Date()))
+                            Text(DateFormatter.simple.string(from: message?.postedTime ?? Date()))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
