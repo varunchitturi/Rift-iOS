@@ -35,12 +35,6 @@ struct MessageCard: View {
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                 }
                 Spacer()
-                if message?.unread == true {
-                    Circle()
-                        .fill(Rift.DrawingConstants.accentBackgroundColor)
-                        .frame(width: DrawingConstants.badgeRadius, height: DrawingConstants.badgeRadius)
-                        .padding(.trailing)
-                }
                 Image(systemName: "chevron.right")
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                     .font(.callout.bold())

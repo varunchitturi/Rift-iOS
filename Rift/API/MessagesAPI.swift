@@ -62,7 +62,14 @@ extension API {
                                 throw APIError.invalidData
                             }
                             let doc = try SwiftSoup.parse(messageHTML)
-                            completion(.success(try doc.text()))
+                            guard let elements = try? doc.getElementsByTag("p") else {
+                                return completion(.failure(APIError.invalidData))
+                            }
+                            var body = ""
+                            for element in elements {
+                                body += "\(try element.text())\n"
+                            }
+                            completion(.success(body))
                         }
                         catch {
                             completion(.failure(error))

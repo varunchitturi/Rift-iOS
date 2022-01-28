@@ -21,6 +21,15 @@ class InboxDetailViewModel: ObservableObject {
         inboxDetailModel.message.type
     }
     
+    var messageTitle: String {
+        inboxDetailModel.message.name
+    }
+    
+    var messageDate: Date? {
+        inboxDetailModel.message.date
+    }
+    
+    
     init(message: Message) {
         inboxDetailModel = InboxDetailModel(message: message)
     }

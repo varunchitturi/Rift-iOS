@@ -34,17 +34,7 @@ class AssignmentsViewModel: ObservableObject {
             return lhs != nil ? false : true
         }
     }
-    
-    static let dateFormatter: DateFormatter = {
-       let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        dateFormatter.locale = .current
-        return dateFormatter
-    }()
-    
-    
-    
+        
     init() {
         fetchAssignments()
     }

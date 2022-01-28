@@ -50,7 +50,7 @@ struct AssignmentDetailView: View {
                     let text = remarks[key]!
 
                     if text != nil {
-                        AssignmentDetailSection(header: header, text!)
+                        TextSection(header: header, text!)
                     }
                 }
         
