@@ -17,7 +17,7 @@ struct AddAssignmentModel {
         newAssignment = Assignment(id: UUID().hashValue,
                                    isActive: true,
                                    name: "",
-                                   dueDate: nil,
+                                   dueDate: Date.now,
                                    assignedDate: Date.now,
                                    courseName: courseName,
                                    totalPoints: nil,
