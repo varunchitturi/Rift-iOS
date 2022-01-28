@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct CourseDetailStatsRow: View {
+    
+    internal init(category: String, realGrade: Double?, calculatedGrade: Double?, isProminent: Bool = false) {
+        self.category = category
+        self.realGrade = realGrade
+        self.calculatedGrade = calculatedGrade
+        self.isProminent = isProminent
+    }
+    
     let category: String
     let realGrade: Double?
     let calculatedGrade: Double?
+    let isProminent: Bool
     
     private var gradeChangeColor: Color {
         guard let realGrade = realGrade?.truncated(Rift.DrawingConstants.decimalCutoff),
               let calculatedGrade = calculatedGrade?.truncated(Rift.DrawingConstants.decimalCutoff) else {
             return Rift.DrawingConstants.foregroundColor
         }
-        
-        print(realGrade)
-        print(calculatedGrade)
+    
         if calculatedGrade < realGrade {
             return Color.red
         }
@@ -38,6 +45,7 @@ struct CourseDetailStatsRow: View {
                     .lineLimit(1)
                     .foregroundColor(gradeChangeColor)
                     .multilineTextAlignment(.center)
+                    .font(isProminent ? .body : .callout)
             }
             Divider()
         }

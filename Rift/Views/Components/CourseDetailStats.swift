@@ -27,7 +27,7 @@ struct CourseDetailStats: View {
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                     .font(.caption.bold())
                     
-                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade:  editingGradeDetail.totalPercentage)
+                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade:  editingGradeDetail.totalPercentage, isProminent: true)
                 }
                 HStack {
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {

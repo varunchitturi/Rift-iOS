@@ -11,7 +11,7 @@ import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
-    @Published var networkState: AsyncState = .loading
+    @Published var networkState: AsyncState = .idle
     @Binding var assignmentToEdit: Assignment
     var assignmentIsDeleted = false
     
@@ -95,6 +95,7 @@ class AssignmentDetailViewModel: ObservableObject {
     
     func fetchAssignmentDetail() {
         if let originalAssignment = originalAssignment {
+            networkState = .loading
             API.Assignments.getAssignmentDetail(for: originalAssignment) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {

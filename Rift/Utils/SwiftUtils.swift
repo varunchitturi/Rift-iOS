@@ -17,10 +17,11 @@ extension String {
     init<T>(displaying element: T?) {
         if element != nil {
             self.init(describing: element!)
-            return
         }
-
-        self = String.nilDisplay
+        else {
+            self = String.nilDisplay
+        }
+        
     }
     
     /// Create a string for a display for optional numeric elements
@@ -74,7 +75,9 @@ extension String {
         if let date = date {
             self = formatter.string(from: date)
         }
-        self = String.nilDisplay
+        else {
+            self = String.nilDisplay
+        }
     }
     
     /// Formatting style for strings of numeric elements
