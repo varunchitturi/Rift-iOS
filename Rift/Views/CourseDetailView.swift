@@ -22,9 +22,16 @@ struct CourseDetailView: View {
         // TODO: change background color if assignment is edited
         ScrollView(showsIndicators: false) {
             VStack(spacing: DrawingConstants.cardSpacing) {
-                CapsuleDropDown("Term", description: "Choose a Term", options: courseDetailViewModel.gradeDetailOptions, selectionIndex: $courseDetailViewModel.chosenGradeDetailIndex, isEditing: $gradeDetailChoiceIsEditing)
+                HStack {
+                    VStack {
+                        CircleBadge(courseDetailViewModel.courseGradeDisplay, size: .large)
+                    }
+                   
+                    CapsuleDropDown(description: "Choose a Term", options: courseDetailViewModel.gradeDetailOptions, selectionIndex: $courseDetailViewModel.chosenGradeDetailIndex, isEditing: $gradeDetailChoiceIsEditing)
+                }
+                
                 if courseDetailViewModel.hasGradeDetail {
-                    CourseDetailStats(courseGradeDisplay: courseDetailViewModel.courseGradeDisplay, gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
+                    CourseDetailStats(gradeDetail: courseDetailViewModel.gradeDetail!, editingGradeDetail: courseDetailViewModel.editingGradeDetail!)
                         .padding(.bottom)
                     ForEach ($courseDetailViewModel.editingGradeDetail.unwrap()!.assignments) { `assignment` in
                         NavigationLink(
@@ -43,9 +50,9 @@ struct CourseDetailView: View {
             }
             .padding()
         }
-        .apiHandler(asyncState: courseDetailViewModel.networkState) { _ in
-            courseDetailViewModel.fetchGradeDetails()
-        }
+//        .apiHandler(asyncState: courseDetailViewModel.networkState) { _ in
+//            courseDetailViewModel.fetchGradeDetails()
+//        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {

@@ -13,7 +13,7 @@ struct CourseAssignmentCard: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment.assignmentName)
+                Text(assignment.name)
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 if assignment.categoryName != nil {
                     TextTag(assignment.categoryName!)

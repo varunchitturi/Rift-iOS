@@ -35,7 +35,7 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     
     var assignmentName: String {
-        assignmentToEdit.assignmentName
+        assignmentToEdit.name
     }
     
     var assignedDateDisplay: String {
@@ -80,8 +80,8 @@ class AssignmentDetailViewModel: ObservableObject {
             // TODO: have anything to do with displays such as percentage display functions in view models
             StatsDisplay(header: "Due", text: dueDateDisplay),
             StatsDisplay(header: "Assigned", text: assignedDateDisplay),
-            StatsDisplay(header: "Real", text: percentageDisplay(for: originalAssignment ?? assignmentToEdit)),
-            StatsDisplay(header: "Calculated", text: percentageDisplay(for: modifiedAssignment)),
+            StatsDisplay(header: "Real", text: String(displaying: originalAssignment?.percentage ?? assignmentToEdit.percentage, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff)),
+            StatsDisplay(header: "Calculated", text: String(displaying: modifiedAssignment.percentage, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff)),
         ]
     }
     
@@ -115,14 +115,6 @@ class AssignmentDetailViewModel: ObservableObject {
     }
     
     // TODO: organize structure of files
-    
-    private func percentageDisplay(for assignment: Assignment) -> String {
-        if let totalPoints = assignment.totalPoints, let scorePoints = assignment.scorePoints {
-            return ((scorePoints/totalPoints) * 100).truncated(2).description.appending("%")
-        }
-        return String.nilDisplay
-    }
-    
     
     private func provisionInput(with assignment: Assignment) {
         totalPointsText = assignment.totalPoints?.description ?? ""

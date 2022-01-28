@@ -9,23 +9,41 @@ import SwiftUI
 
 struct CourseDetailStatsRow: View {
     let category: String
-    let realGrade: String
-    let calculatedGrade: String
+    let realGrade: Double?
+    let calculatedGrade: Double?
+    
+    private var gradeChangeColor: Color {
+        guard let realGrade = realGrade?.truncated(Rift.DrawingConstants.decimalCutoff),
+              let calculatedGrade = calculatedGrade?.truncated(Rift.DrawingConstants.decimalCutoff) else {
+            return Rift.DrawingConstants.foregroundColor
+        }
+        
+        print(realGrade)
+        print(calculatedGrade)
+        if calculatedGrade < realGrade {
+            return Color.red
+        }
+        else if calculatedGrade > realGrade{
+            return Color.green
+        }
+        return Rift.DrawingConstants.foregroundColor
+    }
     
     var body: some View {
-        HStack {
-            TextTag(category)
-            
-            Spacer()
-            
-            Group {
-                Text(realGrade)
-                Text(calculatedGrade)
+        VStack {
+            HStack {
+                TextTag(category)
+                Spacer()
+                Group {
+                    Text(String(displaying: calculatedGrade, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff))
+                }
+                .foregroundColor(gradeChangeColor)
+                .multilineTextAlignment(.center)
+                
             }
-            .frame(width: DrawingConstants.tableCellWidth, alignment: .leading)
-            .foregroundColor(Rift.DrawingConstants.foregroundColor)
-            .font(.caption)
+            Divider()
         }
+        
     }
     
     private enum DrawingConstants {
@@ -36,7 +54,7 @@ struct CourseDetailStatsRow: View {
 #if DEBUG
 struct CourseDetailStatsRow_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStatsRow(category: "Test", realGrade: "90%", calculatedGrade: "100%")
+        CourseDetailStatsRow(category: "Test", realGrade: 90, calculatedGrade: 100)
     }
 }
 #endif

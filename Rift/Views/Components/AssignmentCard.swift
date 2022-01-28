@@ -18,10 +18,10 @@ struct AssignmentCard: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment?.assignmentName ?? String.nilDisplay)
+                Text(String(displaying: assignment?.name))
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 
-                Text(assignment?.courseName ?? String.nilDisplay)
+                Text(String(displaying: assignment?.courseName))
                     .fontWeight(.semibold)
                     .font(.caption)
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)

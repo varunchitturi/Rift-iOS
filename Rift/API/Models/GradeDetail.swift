@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct GradeDetail: Decodable, Equatable, Identifiable {
-    
+    // TODO: fix the huge calculations done for this
     var grade: Grade
     private(set) var categories: [GradingCategory]
     let linkedGrades: [Grade]?

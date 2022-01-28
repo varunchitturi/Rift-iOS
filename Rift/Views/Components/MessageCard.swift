@@ -19,7 +19,7 @@ struct MessageCard: View {
         Group {
             HStack {
                 VStack(alignment: .leading, spacing: DrawingConstants.textSpacing) {
-                    Text(message?.name ?? String.nilDisplay)
+                    Text(String(displaying: message?.name))
                     Group {
                         if message?.date != nil {
                             Text(DateFormatter.simpleDate.string(from: message!.date!))
