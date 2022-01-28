@@ -29,6 +29,18 @@ extension DateFormatter {
         formatter.dateFormat =  "MM-dd-yyyy"
         return formatter
     }
+    
+    static var natural: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "EEEE', 'M-d-yy"
+        return formatter
+    }
+    
+    static var naturalFull: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "EEEE, M-d-yy, h:mm a"
+        return formatter
+    }
 }
 
 extension DecodingError {

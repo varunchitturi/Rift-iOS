@@ -21,7 +21,7 @@ struct AssignmentsView: View {
                     let dates = assignmentsViewModel.dates
                     let assignmentDateList = assignmentsViewModel.assignmentDateList
                     ForEach(dates, id: \.hashValue) {date in
-                        Section(header: Text(date != nil ? AssignmentsViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
+                        Section(header: Text(date != nil ? String(displaying: date, formatter: .naturalFull) : "No Due Date")) {
                             ForEach(assignmentDateList[date]!) { `assignment` in
                                 AssignmentCard(assignment: `assignment`)
                             }

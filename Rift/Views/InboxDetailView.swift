@@ -17,13 +17,16 @@ struct InboxDetailView: View {
     }
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack {
-                    Text(inboxDetailViewModel.messageBody ?? "")
+        ScrollView {
+            VStack(spacing: DrawingConstants.sectionSpacing) {
+                TextSection(header: "Subject", inboxDetailViewModel.messageTitle)
+                TextSection(header: "Date", String(displaying: inboxDetailViewModel.messageDate, formatter: .naturalFull))
+                if inboxDetailViewModel.messageBody != nil {
+                    TextSection(header: "Message", inboxDetailViewModel.messageBody!)
                 }
-                .padding()
+                
             }
+            .padding()
         }
         .apiHandler(asyncState: inboxDetailViewModel.networkState) {
             InboxDetailLoadingView()
@@ -37,21 +40,29 @@ struct InboxDetailView: View {
         }
         .logViewAnlaytics(self)
     }
+    
+    private enum DrawingConstants {
+        static let sectionSpacing: CGFloat = 15
+    }
 }
 
 private struct InboxDetailLoadingView: View {
     
     var body: some View {
-        VStack {
-            Text(String(repeating: " ", count: DrawingConstants.placeholderTextLength))
-            Spacer()
+        ScrollView {
+            VStack(spacing: DrawingConstants.sectionSpacing) {
+                TextSection(header: "Subject", String.nilDisplay)
+                TextSection(header: "Date", String.nilDisplay)
+                TextSection(header: "Message", String(repeating: String.nilDisplay, count: DrawingConstants.placeholderTextLength))
+            }
+            .padding()
+            .skeletonLoad()
         }
-        .padding()
-        .skeletonLoad()
     }
     
     private enum DrawingConstants {
         static let placeholderTextLength = 500
+        static let sectionSpacing: CGFloat = 15
     }
 }
 
