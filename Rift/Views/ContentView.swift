@@ -12,16 +12,13 @@ struct ContentView: View {
     var body: some View {
         Group {
             ApplicationView(viewModel: applicationViewModel)
-                .apiHandler(asyncState: applicationViewModel.networkState)  {
-                    ProgressView("Logging In")
-                } retryAction: { _ in
+                .apiHandler(asyncState: applicationViewModel.networkState, loadingStyle: .progressCircle) { _ in
                     applicationViewModel.authenticateUsingCookies()
                 }
-
-
         }
         .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
+        .environmentObject(applicationViewModel)
     }
 }
 

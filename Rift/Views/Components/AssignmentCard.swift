@@ -18,10 +18,10 @@ struct AssignmentCard: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment?.assignmentName ?? String.nilDisplay)
+                Text(String(displaying: assignment?.name))
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 
-                Text(assignment?.courseName ?? String.nilDisplay)
+                Text(String(displaying: assignment?.courseName))
                     .fontWeight(.semibold)
                     .font(.caption)
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
@@ -40,7 +40,7 @@ struct AssignmentCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 15
         static let textPadding: CGFloat = 11
         static let textInsetPadding: CGFloat = 1.5

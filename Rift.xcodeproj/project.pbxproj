@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,7 @@
 		273261D5271CECC000BC1FF5 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D4271CECC000BC1FF5 /* InboxView.swift */; };
 		273261D7271CEE9F00BC1FF5 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273261D6271CEE9F00BC1FF5 /* MessageCard.swift */; };
 		273CD48C274CCABD00369FBD /* CategoryGrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273CD48B274CCABD00369FBD /* CategoryGrade.swift */; };
-		273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */; };
+		273DB8FE2719085D006D936A /* TextSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FD2719085D006D936A /* TextSection.swift */; };
 		273DB90027190FE0006D936A /* AssignmentDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB8FF27190FE0006D936A /* AssignmentDetail.swift */; };
 		273DB90327194356006D936A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 273DB90227194356006D936A /* OrderedCollections */; };
 		273DB909271961F2006D936A /* UIToolbarDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB908271961F2006D936A /* UIToolbarDismiss.swift */; };
@@ -177,7 +177,7 @@
 		273261D4271CECC000BC1FF5 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		273261D6271CEE9F00BC1FF5 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		273CD48B274CCABD00369FBD /* CategoryGrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryGrade.swift; sourceTree = "<group>"; };
-		273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailSection.swift; sourceTree = "<group>"; };
+		273DB8FD2719085D006D936A /* TextSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSection.swift; sourceTree = "<group>"; };
 		273DB8FF27190FE0006D936A /* AssignmentDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetail.swift; sourceTree = "<group>"; };
 		273DB908271961F2006D936A /* UIToolbarDismiss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIToolbarDismiss.swift; sourceTree = "<group>"; };
 		273EA32226F9C25600D4FD20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -415,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				27761BB626F7B7A700601A37 /* AssignmentCard.swift */,
-				273DB8FD2719085D006D936A /* AssignmentDetailSection.swift */,
+				273DB8FD2719085D006D936A /* TextSection.swift */,
 				2799A10627174E6000136C23 /* AssignmentDetailStats.swift */,
 				2701CD5626FD2DC900D65B84 /* Capsule Field Components */,
 				27B4AA3126D225D10080BF65 /* CapsuleButton.swift */,
@@ -572,7 +572,7 @@
 				274E622826C21FB400C855D4 /* Frameworks */,
 				274E622926C21FB400C855D4 /* Resources */,
 				27D4E6D5270915130063CB65 /* Sources */,
-				27E79B13277EB8A8001EF268 /* ShellScript */,
+				27E79B13277EB8A8001EF268 /* Upload DYSM to Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -647,8 +647,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		27E79B13277EB8A8001EF268 /* ShellScript */ = {
+		27E79B13277EB8A8001EF268 /* Upload DYSM to Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -658,6 +659,7 @@
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
+			name = "Upload DYSM to Crashlytics";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -675,7 +677,7 @@
 			files = (
 				274F4345270AD9C7001D5D4A /* Course.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
-				273DB8FE2719085D006D936A /* AssignmentDetailSection.swift in Sources */,
+				273DB8FE2719085D006D936A /* TextSection.swift in Sources */,
 				27D98986271C2CBC00311973 /* MessagesAPI.swift in Sources */,
 				27D4E6D92709152F0063CB65 /* LogInModel.swift in Sources */,
 				27C33601270FF40E002A8D52 /* NumberUtils.swift in Sources */,
@@ -864,6 +866,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -918,6 +921,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -930,7 +934,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
@@ -942,7 +946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -961,7 +965,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
@@ -972,7 +976,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";

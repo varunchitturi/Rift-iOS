@@ -24,6 +24,7 @@ struct CapsuleFieldLabel: View {
             .font(.caption)
             .fontWeight(.bold)
             .foregroundColor(isEditing ? DrawingConstants.accentColor : DrawingConstants.foregroundColor)
+            .lineLimit(1)
     }
 }
 

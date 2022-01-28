@@ -19,15 +19,15 @@ struct MessageCard: View {
         Group {
             HStack {
                 VStack(alignment: .leading, spacing: DrawingConstants.textSpacing) {
-                    Text(message?.name ?? String.nilDisplay)
+                    Text(String(displaying: message?.name))
                     Group {
                         if message?.date != nil {
-                            Text(DateFormatter.simpleDate.string(from: message!.date!))
+                            Text(DateFormatter.simple.string(from: message!.date!))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
                         else {
-                            Text(DateFormatter.simpleDate.string(from: message?.postedTime ?? Date()))
+                            Text(DateFormatter.simple.string(from: message?.postedTime ?? Date()))
                                 .fontWeight(.semibold)
                                 .font(.caption)
                         }
@@ -35,12 +35,6 @@ struct MessageCard: View {
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                 }
                 Spacer()
-                if message?.unread == true {
-                    Circle()
-                        .fill(Rift.DrawingConstants.accentBackgroundColor)
-                        .frame(width: DrawingConstants.badgeRadius, height: DrawingConstants.badgeRadius)
-                        .padding(.trailing)
-                }
                 Image(systemName: "chevron.right")
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                     .font(.callout.bold())
@@ -56,7 +50,7 @@ struct MessageCard: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let textSpacing: CGFloat = 5
         static let badgeRadius: CGFloat = 15
         static let backgroundCornerRadius: CGFloat = 15

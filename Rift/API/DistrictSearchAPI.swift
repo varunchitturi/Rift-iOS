@@ -29,14 +29,12 @@ extension API {
         static func searchDistrict(for query: String, state: Locale.USTerritory, completion: @escaping (Result<[Locale], Error>) -> Void) {
             if query.count >= DistrictSearch.minimumDistrictQueryLength {
                 guard let url = getDistrictQueryURL(query: query, state: state) else {
-                    completion(.failure(APIError.invalidRequest))
-                    return
+                    return completion(.failure(APIError.invalidRequest))
                 }
-                API.defaultURLSession.dataTask(with: url) { data, response, error in
-                    if let error = (error ?? APIError(response: response)) {
-                        completion(.failure(error))
-                    }
-                    else if let data = data {
+                
+                API.defaultRequestManager.get(url: url) { result in
+                    switch result {
+                    case .success((let data, _)):
                         do {
                             let decoder = JSONDecoder()
                             let localesData = try decoder.decode([String: [Locale]].self, from: data)
@@ -48,21 +46,20 @@ extension API {
                             completion(.success(locales))
                         }
                         catch {
-                            completion(.failure(error))
+                            completion(.success([]))
                         }
+                    case .failure(_):
+                        completion(.success([]))
                     }
-                    else {
-                        completion(.failure(APIError.invalidData))
-                    }
-                }.resume()
+                    
+                    
+                }
             }
             else {
                 completion(.success([]))
             }
             
         }
-        
-        
     }
 }
 

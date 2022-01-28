@@ -31,9 +31,13 @@ struct AssignmentDetailView: View {
                         .font(.title2)
                     Spacer()
                 }
-                AssignmentDetailStats()
-                    .environmentObject(assignmentDetailViewModel)
-                // TODO: make sure that there is no logic in views. The below mapping should be done in the view model and only expose the array of category names.
+                AssignmentDetailStats(dueDate: assignmentDetailViewModel.originalAssignment?.dueDate,
+                                      assignedDate: assignmentDetailViewModel.originalAssignment?.assignedDate,
+                                      realPercentage: (assignmentDetailViewModel.originalAssignment?.percentage ??
+                                                       assignmentDetailViewModel.assignmentToEdit.percentage),
+                                      calculatedPercentage: assignmentDetailViewModel.modifiedAssignment.percentage
+                )
+        
                 CapsuleDropDown("Category", description: "Select Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
                 HStack {
                     CapsuleTextField("Score", text: $assignmentDetailViewModel.scorePointsText, isEditing: $scoreIsEditing, inputType: .decimal)
@@ -46,15 +50,10 @@ struct AssignmentDetailView: View {
                     let text = remarks[key]!
 
                     if text != nil {
-                        AssignmentDetailSection(header: header, text!)
+                        TextSection(header: header, text!)
                     }
                 }
-                .apiHandler(asyncState: assignmentDetailViewModel.networkState) {
-                    AssignmentDetailSection("")
-                        .skeletonLoad()
-                } retryAction: { _ in
-                    assignmentDetailViewModel.fetchAssignmentDetail()
-                }
+        
                 DestructiveButton("Delete Assignment") {
                     assignmentDetailViewModel.assignmentIsDeleted = true
                     courseDetailViewModel.deleteAssignment(assignmentDetailViewModel.assignmentToEdit)
@@ -63,6 +62,9 @@ struct AssignmentDetailView: View {
             }
             .padding()
             .foregroundColor(Rift.DrawingConstants.foregroundColor)
+        }
+        .apiHandler(asyncState: assignmentDetailViewModel.networkState, loadingStyle: .progressCircle) { _ in
+            assignmentDetailViewModel.fetchAssignmentDetail()
         }
         .navigationTitle("Assignment")
         .onAppear {
@@ -93,7 +95,7 @@ struct AssignmentDetailView: View {
         .logViewAnlaytics(self)
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let spacing: CGFloat = 15
     }
 }

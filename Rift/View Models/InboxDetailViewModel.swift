@@ -11,6 +11,7 @@ import SwiftUI
 class InboxDetailViewModel: ObservableObject {
     
     @Published private var inboxDetailModel: InboxDetailModel
+    @Published var networkState: AsyncState = .idle
     
     var messageBody: String? {
         inboxDetailModel.messageBody
@@ -20,6 +21,15 @@ class InboxDetailViewModel: ObservableObject {
         inboxDetailModel.message.type
     }
     
+    var messageTitle: String {
+        inboxDetailModel.message.name
+    }
+    
+    var messageDate: Date? {
+        inboxDetailModel.message.date
+    }
+    
+    
     init(message: Message) {
         inboxDetailModel = InboxDetailModel(message: message)
     }
@@ -27,14 +37,15 @@ class InboxDetailViewModel: ObservableObject {
     // MARK: - Intents
     
     func getMessageDetail() {
+        networkState = .loading
         API.Messages.getMessageBody(message: inboxDetailModel.message) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let body):
                     self?.inboxDetailModel.messageBody = body
+                    self?.networkState = .success
                 case .failure(let error):
-                    // TODO: better error handling here
-                    print(error)
+                    self?.networkState = .failure(error)
                 }
             }
         }

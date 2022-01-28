@@ -1,5 +1,5 @@
 //
-//  AssignmentDetailSection.swift
+//  TextSection.swift
 //  Rift
 //
 //  Created by Varun Chitturi on 10/14/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AssignmentDetailSection: View {
+struct TextSection: View {
     
     init(header: String? = nil, _ text: String) {
         self.header = header
@@ -34,15 +34,15 @@ struct AssignmentDetailSection: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let rectangleCornerRadius: CGFloat = 15
     }
 }
 
 #if DEBUG
-struct AssignmentDetailSection_Previews: PreviewProvider {
+struct TextSection_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentDetailSection(header: "Section Header", "This is an assignment detail section")
+        TextSection(header: "Section Header", "This is an assignment detail section")
     }
 }
 #endif

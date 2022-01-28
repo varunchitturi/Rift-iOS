@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct UserPreferenceModel: Identifiable {
     
@@ -77,7 +78,7 @@ struct UserPreferenceModel: Identifiable {
         var id: Int {
             self.rawValue.hashValue
         }
-        case user = "User", courses = "Courses", assignments = "Assignments", notifications = "Notifications"
+        case user = "User", courses = "Courses", assignments = "Assignments", notifications = "Notifications", links = "Links"
     }
     
     enum Prominence {

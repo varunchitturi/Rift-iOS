@@ -13,7 +13,7 @@ struct CourseAssignmentCard: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(assignment.assignmentName)
+                Text(assignment.name)
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 if assignment.categoryName != nil {
                     TextTag(assignment.categoryName!)
@@ -38,7 +38,7 @@ struct CourseAssignmentCard: View {
         
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 15
         static let textHorizontalPadding: CGFloat = 11
         static let textVerticalPadding: CGFloat = 16

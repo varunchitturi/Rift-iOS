@@ -10,8 +10,7 @@ import SwiftUI
 struct AssignmentsView: View {
     @ObservedObject var assignmentsViewModel: AssignmentsViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
-    // TODO: add more space for scroll so tab bar doesn't hide certain assignments
-    // TODO: change colors to match courses
+    
     init(viewModel: AssignmentsViewModel) {
         assignmentsViewModel = viewModel
     }
@@ -22,9 +21,9 @@ struct AssignmentsView: View {
                     let dates = assignmentsViewModel.dates
                     let assignmentDateList = assignmentsViewModel.assignmentDateList
                     ForEach(dates, id: \.hashValue) {date in
-                        Section(header: Text(date != nil ? AssignmentsViewModel.dateFormatter.string(from: date!) : "No Due Date")) {
-                            ForEach(assignmentDateList[date]!) { assignment in
-                                AssignmentCard(assignment: assignment)
+                        Section(header: Text(date != nil ? String(displaying: date, formatter: .naturalFull) : "No Due Date")) {
+                            ForEach(assignmentDateList[date]!) { `assignment` in
+                                AssignmentCard(assignment: `assignment`)
                             }
 
                         }
@@ -33,14 +32,7 @@ struct AssignmentsView: View {
                     }
                 }
                 .apiHandler(asyncState: assignmentsViewModel.networkState) {
-                    List {
-                        Section(header: Text(String.nilDisplay)) {
-                            ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
-                                AssignmentCard()
-                            }
-                        }
-                        .skeletonLoad()
-                    }
+                    AssignmentsLoadingView()
                 } retryAction: { _ in
                     assignmentsViewModel.fetchAssignments()
                 }
@@ -57,11 +49,25 @@ struct AssignmentsView: View {
         .navigationViewStyle(.stack)
         .logViewAnlaytics(self)
     }
+}
+
+private struct AssignmentsLoadingView: View {
+    var body: some View {
+        List {
+            Section(header: Text(String.nilDisplay)) {
+                ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+                    AssignmentCard()
+                }
+            }
+            .skeletonLoad()
+        }
+    }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let placeholderCardCount = 8
     }
 }
+
 #if DEBUG
 struct AssignmentsView_Previews: PreviewProvider {
     static var previews: some View {

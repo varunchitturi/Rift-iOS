@@ -16,15 +16,15 @@ struct CardAssignmentGrade: View {
     let assignment: Assignment?
     var body: some View {
         HStack {
-            CircleBadge(assignment?.scorePointsDisplay ?? String.nilDisplay, style: .secondary)
+            CircleBadge(String(displaying: assignment?.scorePoints), style: .secondary)
             Capsule()
                 .fill(Rift.DrawingConstants.accentBackgroundColor)
                 .frame(width: DrawingConstants.scoreDividerWidth)
                 .padding(.vertical, DrawingConstants.scoreDividerPadding)
-            CircleBadge(assignment?.totalPointsDisplay ?? String.nilDisplay)
+            CircleBadge(String(displaying: assignment?.totalPoints))
         }
     }
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let scoreDividerWidth: CGFloat = 1.5
         static let scoreDividerPadding: CGFloat = 20
     }

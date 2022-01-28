@@ -33,7 +33,7 @@ class UIToolbarDismiss: UIToolbar {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let toolBarHeight: CGFloat = 50
     }
 }

@@ -29,13 +29,7 @@ struct InboxView: View {
                 .padding()
             }
             .apiHandler(asyncState: inboxViewModel.networkState, loadingView: {
-                VStack(spacing: DrawingConstants.cardSpacing) {
-                    ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
-                        MessageCard()
-                    }
-                }
-                .padding()
-                .skeletonLoad()
+                InboxLoadingView()
             }, retryAction: { _ in
                 inboxViewModel.fetchMessages()
             })
@@ -50,11 +44,29 @@ struct InboxView: View {
         }
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
+        static let cardSpacing: CGFloat = 15
+    }
+}
+
+private struct InboxLoadingView: View {
+    
+    var body: some View {
+        VStack(spacing: DrawingConstants.cardSpacing) {
+            ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+                MessageCard()
+            }
+        }
+        .padding()
+        .skeletonLoad()
+    }
+    
+    private enum DrawingConstants {
         static let cardSpacing: CGFloat = 15
         static let placeholderCardCount = 7
     }
 }
+
 
 #if DEBUG
 struct InboxView_Previews: PreviewProvider {

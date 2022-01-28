@@ -31,6 +31,16 @@ extension URL {
         }
     }
     
+    var hostURL: URL? {
+        guard let host = self.host else {
+            return nil
+        }
+        var components = URLComponents()
+        components.host = host
+        components.scheme = "https"
+        return components.url
+    }
+    
     func appendingQueryItems(_ queries: [URLQueryItem]) -> URL? {
         
         guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
@@ -43,6 +53,13 @@ extension URL {
         
         return components.url
     }
+    
+    func removingQueries() -> URL? {
+        var components = URLComponents(string: self.absoluteString)
+        components?.query = nil
+        return components?.url
+    }
+    
 }
 
 extension Array where Element: HTTPCookie {
@@ -164,6 +181,7 @@ extension URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         configuration.httpCookieAcceptPolicy = .always
+        
         return configuration
     }()
     
@@ -182,25 +200,29 @@ extension URLSessionConfiguration {
 }
 
 extension HTTPCookieStorage {
-    func removeSessionCookies() {
-        if let cookies = self.cookies {
-            cookies.forEach { cookie in
-                if cookie.name != API.Authentication.Cookie.persistent.name {
-                   deleteCookie(cookie)
-                }
-            }
-        }
-    }
+    
+    /// Clears all cookies in HTTPCookieStorage
     func clearCookies() {
         self.removeCookies(since: .distantPast)
     }
-}
-
-
-extension URLSession {
-    class func reset(from session: URLSession) -> URLSession {
-        let configuration = session.configuration
-        session.invalidateAndCancel()
-        return URLSession(configuration: configuration)
+    
+    /// Gets all cookies that have a given name
+    /// - Parameter name: Cookie name to filter by
+    /// - Returns: All cookies that have a given name
+    func getCookies(name: String) -> [HTTPCookie]? {
+        return self.cookies?.filter({$0.name == name})
+    }
+    
+    
+    /// Deletes all cookies with a given name
+    /// - Parameter name: Cookie name  to filter by
+    func deleteCookie(name: String) {
+        guard let cookiesToDelete = getCookies(name: name) else {
+            return
+        }
+        cookiesToDelete.forEach { cookie in
+            self.deleteCookie(cookie)
+        }
     }
 }
+

@@ -26,7 +26,7 @@ struct DistrictSearchResultCard: View {
         }.padding(.vertical)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let minimumTextTrailingSpace: CGFloat = 25
         static let textLineLimit = 1
     }

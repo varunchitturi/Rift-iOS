@@ -41,16 +41,40 @@ extension UserPreferenceModel {
                         if let viewModels = viewModels as? (ApplicationViewModel, HomeViewModel) {
                             let applicationViewModel = viewModels.0
                             let homeViewModel = viewModels.1
-                            API.Authentication.logOut { _ in
-                                Analytics.logEvent(Analytics.LogOutEvent())
-                                FirebaseApp.clearUser()
-                                DispatchQueue.main.async {
-                                    applicationViewModel.resetApplicationState()
-                                }
-                            }
+                            applicationViewModel.logOut()
                         }
                     }
                 )
+        ],
+        .links: [
+            UserPreferenceModel(label: "\(Bundle.main.displayName ?? "App") Website",
+                                preferenceGroup: .links,
+                                action: { _ in
+                                    guard let url = URL(string: "https://riftapp.io/index.html") else { return }
+                                    UIApplication.shared.open(url)
+                                }
+            ),
+            UserPreferenceModel(label: "Feedback Form",
+                                preferenceGroup: .links,
+                                action: { _ in
+                                    guard let url = URL(string: "https://schoolscope.typeform.com/feedback") else { return }
+                                    UIApplication.shared.open(url)
+                                }
+            ),
+            UserPreferenceModel(label: "Terms and Conditions",
+                                preferenceGroup: .links,
+                                action: { _ in
+                                    guard let url = URL(string: "https://riftapp.io/rift_terms_and_co.html") else { return }
+                                    UIApplication.shared.open(url)
+                                }
+            ),
+            UserPreferenceModel(label: "Privacy Policy",
+                                preferenceGroup: .links,
+                                action: { _ in
+                                    guard let url = URL(string: "https://riftapp.io/rift_privacy_policy.html") else { return }
+                                    UIApplication.shared.open(url)
+                                }
+            )
         ]
     ]
 }

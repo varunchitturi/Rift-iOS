@@ -46,10 +46,10 @@ class AddAssignmentViewModel: ObservableObject {
     
     var assignmentName: String {
         get {
-            newAssignment.assignmentName
+            newAssignment.name
         }
         set {
-            newAssignment.assignmentName = newValue
+            newAssignment.name = newValue
         }
     }
     
@@ -66,17 +66,17 @@ class AddAssignmentViewModel: ObservableObject {
     
     var asignmentName: String {
         get {
-            addAssignmentModel.newAssignment.assignmentName
+            addAssignmentModel.newAssignment.name
         }
         set {
-            addAssignmentModel.newAssignment.assignmentName = newValue
+            addAssignmentModel.newAssignment.name = newValue
         }
     }
     
     var assignmentIsValid: Bool {
         addAssignmentModel.newAssignment.categoryID != nil &&
         addAssignmentModel.newAssignment.categoryName != nil &&
-        addAssignmentModel.newAssignment.assignmentName != ""
+        addAssignmentModel.newAssignment.name != ""
     }
 
     func addAssignment() {

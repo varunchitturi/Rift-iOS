@@ -34,17 +34,7 @@ class AssignmentsViewModel: ObservableObject {
             return lhs != nil ? false : true
         }
     }
-    
-    static let dateFormatter: DateFormatter = {
-       let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        dateFormatter.locale = .current
-        return dateFormatter
-    }()
-    
-    
-    
+        
     init() {
         fetchAssignments()
     }
@@ -60,7 +50,6 @@ class AssignmentsViewModel: ObservableObject {
                 case .failure(let error):
                     print(error.localizedDescription)
                     self?.networkState = .failure(error)
-                    // TODO: do better error handling here
                 }
             }
         }

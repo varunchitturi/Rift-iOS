@@ -23,8 +23,8 @@ struct CourseCard: View {
                 }
                 Spacer()
                 VStack {
-                    CircleBadge(course.gradeDisplay)
-                    Text(course.percentageDisplay)
+                    CircleBadge(String(displaying: course.currentGrade?.letterGrade))
+                    Text(String(displaying: course.currentGrade?.percentage, style: .percentage, roundedTo: Rift.DrawingConstants.decimalCutoff))
                         .font(.caption)
                         .frame(width: DrawingConstants.percentageDisplayWidth)
                     
@@ -45,7 +45,7 @@ struct CourseCard: View {
         
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 20
         static let percentageDisplayWidth: CGFloat = 80
     }
