@@ -1,4 +1,0 @@
-- Errors with viewing courses should be fix.
-- New term picker in the courses view.
-
-Add your friends via the link in our instagram bio @rift_schoolscope!

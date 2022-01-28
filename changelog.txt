@@ -1,4 +1,10 @@
-- Bug Fixes + Errors are handled better
-- Authentication Flow handled better
+- Feature - Credential Login
+- Feature - New View for viewing messages
+- Feature - New links in settings page
+- Bug Fix - Better SSO error handling
+- Bug Fix - Fixes to error handlers and loaders
+- Bug Fix - You no longer get logged out if your session expires
+- Bug Fix - Other minor ui changes and bug fixes
+
 
 Add your friends via the link in our instagram bio @rift_schoolscope!
