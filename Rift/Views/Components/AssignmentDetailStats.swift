@@ -70,6 +70,7 @@ struct AssignmentDetailStats: View {
                         .padding(.bottom, DrawingConstants.headerPadding)
                     Text(display)
                         .foregroundColor(displayColor)
+                        .font(.callout)
                 }
                 .lineLimit(1)
             }
