@@ -31,8 +31,12 @@ struct AssignmentDetailView: View {
                         .font(.title2)
                     Spacer()
                 }
-                AssignmentDetailStats()
-                    .environmentObject(assignmentDetailViewModel)
+                AssignmentDetailStats(dueDate: assignmentDetailViewModel.originalAssignment?.dueDate,
+                                      assignedDate: assignmentDetailViewModel.originalAssignment?.assignedDate,
+                                      realPercentage: (assignmentDetailViewModel.originalAssignment?.percentage ??
+                                                       assignmentDetailViewModel.assignmentToEdit.percentage),
+                                      calculatedPercentage: assignmentDetailViewModel.modifiedAssignment.percentage
+                )
         
                 CapsuleDropDown("Category", description: "Select Category", options: assignmentDetailViewModel.gradingCategories.map { $0.name }, selectionIndex: $assignmentDetailViewModel.categorySelectionIndex, isEditing: $categoryIsEditing)
                 HStack {

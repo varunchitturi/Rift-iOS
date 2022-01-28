@@ -23,6 +23,7 @@ struct CourseDetailStats: View {
                         Spacer()
                         Text("Percentage")
                     }
+                    .lineLimit(1)
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                     .font(.caption.bold())
                     

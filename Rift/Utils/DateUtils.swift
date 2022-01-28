@@ -24,7 +24,7 @@ extension DateFormatter {
         return formatter
     }
     
-    static var simpleDate: DateFormatter {
+    static var simple: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat =  "MM-dd-yyyy"
         return formatter

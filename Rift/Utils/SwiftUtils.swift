@@ -66,6 +66,17 @@ extension String {
         }
     }
     
+    /// Create a displayable string for dates
+    /// - Parameters:
+    ///   - date: Date to display
+    ///   - formatter: The `DateFormatter` to use for the date
+    init(displaying date: Date?, formatter: DateFormatter) {
+        if let date = date {
+            self = formatter.string(from: date)
+        }
+        self = String.nilDisplay
+    }
+    
     /// Formatting style for strings of numeric elements
     enum NumericStyle {
         case percentage

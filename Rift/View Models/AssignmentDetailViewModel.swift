@@ -18,7 +18,7 @@ class AssignmentDetailViewModel: ObservableObject {
     
     // TODO: remove all extensions and make them computed vars in view model
     
-    private var originalAssignment: Assignment? {
+    var originalAssignment: Assignment? {
         assignmentDetailModel.originalAssignment
     }
     var modifiedAssignment: Assignment {
@@ -37,23 +37,7 @@ class AssignmentDetailViewModel: ObservableObject {
     var assignmentName: String {
         assignmentToEdit.name
     }
-    
-    var assignedDateDisplay: String {
-        if let assignedDate = originalAssignment?.assignedDate {
-            let formatter = DateFormatter.simpleDate
-            return formatter.string(from: assignedDate)
-        }
-        return String.nilDisplay
-        
-    }
-    var dueDateDisplay: String {
-        if let dueDate = originalAssignment?.assignedDate {
-            let formatter = DateFormatter.simpleDate
-            return formatter.string(from: dueDate)
-        }
-        return String.nilDisplay
-    }
-    
+
     var remarks: OrderedDictionary<String, String?> {
         let assignmentDetail = assignmentDetailModel.assignmentDetail
         let remarks: OrderedDictionary<String, String?> =  [
@@ -67,22 +51,6 @@ class AssignmentDetailViewModel: ObservableObject {
     
     var gradingCategories: [GradingCategory] {
         assignmentDetailModel.gradingCategories
-    }
-    
-    
-    struct StatsDisplay {
-        let header: String
-        let text: String
-    }
-    
-    var statsDisplays: [StatsDisplay] {
-        return [
-            // TODO: have anything to do with displays such as percentage display functions in view models
-            StatsDisplay(header: "Due", text: dueDateDisplay),
-            StatsDisplay(header: "Assigned", text: assignedDateDisplay),
-            StatsDisplay(header: "Real", text: String(displaying: originalAssignment?.percentage ?? assignmentToEdit.percentage, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff)),
-            StatsDisplay(header: "Calculated", text: String(displaying: modifiedAssignment.percentage, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff)),
-        ]
     }
     
     var totalPointsText: String = "" {
