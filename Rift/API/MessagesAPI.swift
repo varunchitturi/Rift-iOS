@@ -66,8 +66,11 @@ extension API {
                                 return completion(.failure(APIError.invalidData))
                             }
                             var body = ""
-                            for element in elements {
-                                body += "\(try element.text())\n"
+                            for (index, element) in elements.enumerated() {
+                                body += "\(try element.text())"
+                                if index != elements.endIndex-1 {
+                                    body += "\n"
+                                }
                             }
                             completion(.success(body))
                         }
