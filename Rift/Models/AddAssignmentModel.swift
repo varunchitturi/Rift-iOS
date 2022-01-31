@@ -16,7 +16,7 @@ struct AddAssignmentModel {
     init(courseName: String, gradingCategories: [GradingCategory]) {
         newAssignment = Assignment(id: UUID().hashValue,
                                    isActive: true,
-                                   name: "",
+                                   name: "Assignment",
                                    dueDate: Date.now,
                                    assignedDate: Date.now,
                                    courseName: courseName,

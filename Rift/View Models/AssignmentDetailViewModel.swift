@@ -11,7 +11,7 @@ import SwiftUI
 
 class AssignmentDetailViewModel: ObservableObject {
     @Published private var assignmentDetailModel: AssignmentDetailModel
-    @Published var networkState: AsyncState = .idle
+    @Published var networkState: AsyncState = .loading
     @Binding var assignmentToEdit: Assignment
     var assignmentIsDeleted = false
     
@@ -101,13 +101,16 @@ class AssignmentDetailViewModel: ObservableObject {
                     switch result {
                     case .success(let detail):
                         self?.assignmentDetailModel.assignmentDetail = detail
-                        self?.networkState = .idle
+                        self?.networkState = .success
                     case .failure(let error):
                         self?.networkState = .failure(error)
                         print(error)
                     }
                 }
             }
+        }
+        else {
+            networkState = .success
         }
     }
     
