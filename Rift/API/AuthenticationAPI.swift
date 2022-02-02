@@ -54,7 +54,8 @@ extension API {
         static let successPath = "nav-wrapper"
 
         private enum Endpoint {
-            static let portalConfig = "resources/fremont/portal/config"
+            static let resources = "resources/"
+            static let portalConfig = "portal/config"
             static let provisionalCookies = "mobile/hybridAppUtil.jsp"
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
             static let logOut = "logoff.jsp"
@@ -97,7 +98,8 @@ extension API {
         }
         
         private static func getPortalConfig(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            API.authenticationRequestManager.get(endpoint: Endpoint.portalConfig, locale: locale) { result in
+            let configEndpoint = "\(Endpoint.resources)\(locale.districtAppName)/\(Endpoint.portalConfig)"
+            API.authenticationRequestManager.get(endpoint: configEndpoint, locale: locale) { result in
                 switch result {
                 case .success(_):
                     completion(nil)
@@ -215,14 +217,13 @@ extension API {
         }
         
         static func logOut(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
+            guard let locale = locale ?? PersistentLocale.getLocale() else { return completion(APIError.invalidLocale) }
             let query = URLQueryItem(name: "app", value: ApplicationModel.appType.rawValue)
             guard let url = locale.districtBaseURL
                                     .appendingPathComponent(Endpoint.logOut)
                                     .appendingQueryItems([query])
             else {
-                completion(APIError.invalidRequest)
-                return
+                return completion(APIError.invalidRequest)
             }
             API.authenticationRequestManager.get(url: url) { result in
                 switch result {
