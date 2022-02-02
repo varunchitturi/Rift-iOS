@@ -12,6 +12,8 @@ import SwiftUI
 fileprivate extension Analytics {
 
     
+    /// Sets the user properties for analytics
+    /// - Parameter user: The user to set the properties for
     static func setUserProperties(_ user: User) {
         
         let userPropertyMaxLength = 36
@@ -28,6 +30,8 @@ fileprivate extension Analytics {
         }
     }
     
+    /// Sets the `Locale` for analytics events
+    /// - Parameter locale: The locale to set in the events
     static func setLocale(_ locale: Locale? = nil) {
         guard let locale = (locale ?? PersistentLocale.getLocale()) else {
             return
@@ -35,11 +39,11 @@ fileprivate extension Analytics {
         Analytics.setDefaultEventParameters(try? locale.allProperties())
     }
     
+    /// Clears all user properties in analytics
     private static func clearUserProperties() {
         
         setUserID(nil)
         
-        // temp user to access properties
         let user = UserAccount(userID: 0, personID: 0, firstName: "", lastName: "", username: "")
         
         (try? user.allProperties())?.forEach { property, value in
@@ -47,11 +51,13 @@ fileprivate extension Analytics {
         }
     }
     
+    /// Clears any default event parameters in analytics
     private static func clearDefaultProperties() {
         setDefaultEventParameters(nil)
     }
     
-    static func clearProperties() {
+    /// Clears any user properties and default event properties including any `Locale` that was set
+    fileprivate static func clearProperties() {
         clearUserProperties()
         clearDefaultProperties()
         
@@ -60,10 +66,13 @@ fileprivate extension Analytics {
 
 extension Analytics {
     
+    /// Logs a given `AnalyticsEvent`
+    /// - Parameter event: The `AnalyticsEvent` to log
     static func logEvent(_ event: AnalyticsEvent) {
         logEvent(event.name, parameters: event.parameters)
     }
-   
+    
+    /// An `AnalyticsEvent` for when a user logs in
     struct LogInEvent: AnalyticsEvent {
         
         let method: Method
@@ -92,6 +101,7 @@ extension Analytics {
         
     }
     
+    /// An `AnalyticsEvent` for when a user logs out
     struct LogOutEvent: AnalyticsEvent {
         
         let name: String = "logout"
@@ -100,6 +110,7 @@ extension Analytics {
         
     }
     
+    /// An `AnalyticsEvent` for when a user views a screen
     struct ScreenViewEvent: AnalyticsEvent {
         
         let name: String = AnalyticsEventScreenView
@@ -113,6 +124,8 @@ extension Analytics {
         }
     }
     
+    
+    /// A `User` to log analytics for
     struct User: PropertyIterable {
         let id: String
         let name: String?
@@ -138,6 +151,7 @@ extension Analytics {
     }
 }
 
+/// An event that analytics could be logged for
 protocol AnalyticsEvent {
  
     var name: String  { get }
@@ -146,7 +160,12 @@ protocol AnalyticsEvent {
 }
 
 
-extension FirebaseApp {
+extension FirebaseApp
+{
+    /// Sets a user for all firebase logging
+    /// - Parameters:
+    ///   - account: The `UserAccount` for the user
+    ///   - student: The student information for a user
     static func setUser(account: UserAccount, student: Student?) {
         Analytics.setUserProperties(Analytics.User(userAccount: account, student: student))
         Analytics.setLocale()
@@ -154,6 +173,7 @@ extension FirebaseApp {
         
     }
     
+    /// Clears a user from all firebase logging
     static func clearUser() {
         Analytics.clearProperties()
         Crashlytics.crashlytics().setUserID("")

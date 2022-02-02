@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 extension Binding {
+    
+    /// Converts a `Binding` of an optional to an optional `Binding`
+    /// - Returns: An optional binding
     func unwrap<Wrapped>() -> Binding<Wrapped>? where Optional<Wrapped> == Value {
         guard let value = self.wrappedValue else { return nil }
         return Binding<Wrapped>(

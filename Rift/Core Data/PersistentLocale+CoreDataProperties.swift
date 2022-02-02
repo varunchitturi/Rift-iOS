@@ -18,7 +18,6 @@ extension PersistentLocale {
         return NSFetchRequest<PersistentLocale>(entityName: entityName)
     }
 
-    // TODO: make sure to explain the context this uses
     @nonobjc class func getLocale() -> Locale? {
         let viewContext = PersistenceController.shared.container.viewContext
         guard let fetchedPersistentLocales = try? viewContext.fetch(PersistentLocale.fetchRequest()),

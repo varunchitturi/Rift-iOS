@@ -11,10 +11,12 @@ import SwiftUI
 
 extension UserPreferenceModel {
     
+    // TODO: implement a style guide. A tutorial for this would be good for documentation
     
-    // TODO: implement a style guide
+    ///  The key in the `UserDefaults` storage for whether the user should stay logged in or not
     static let persistencePreferenceKey = "persistence"
     
+    /// A collection of User Preferences that should be displayed in a settings/user preferences view
     static let shared: [UserPreferenceModel.PreferenceGroup: [UserPreferenceModel]] = [
         .user: [
                 UserPreferenceModel(
