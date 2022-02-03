@@ -57,7 +57,7 @@ fileprivate extension Analytics {
     }
     
     /// Clears any user properties and default event properties including any `Locale` that was set
-    fileprivate static func clearProperties() {
+    static func clearProperties() {
         clearUserProperties()
         clearDefaultProperties()
         

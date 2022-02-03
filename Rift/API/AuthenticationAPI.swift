@@ -11,8 +11,11 @@ import URLEncodedForm
 import SwiftSoup
 
 extension API {
+    
+    /// API for all authentication based requests
     struct Authentication {
         
+        /// Cookie used in authentication
         enum Cookie: CaseIterable {
             case jsession
             case sis
@@ -20,6 +23,7 @@ extension API {
             case portalApp
             case persistent
             
+            /// The name of the cookie
             var name: String {
                 switch self {
                 case .jsession:
@@ -35,6 +39,7 @@ extension API {
                 }
             }
             
+            /// Gives if the cookie is needed to make API calls
             var isRequired: Bool {
                 switch self {
                 case .jsession:
@@ -51,17 +56,36 @@ extension API {
             }
         }
         
+        /// A path included in the `URL` that is given after authentication success
+        /// - If a SSO authentication page redirects to a `URL` that includes this path, then you know that the user has been authenticated
         static let successPath = "nav-wrapper"
-
+        
+        /// Collection of endpoints used in authentication
         private enum Endpoint {
+            
+            /// A path for authentication resources
             static let resources = "resources/"
+            
+            /// Endpoint to get cookies for portal configuration
             static let portalConfig = "portal/config"
+            
+            /// Endpoint to get cookies for provisioning mobile devices
             static let provisionalCookies = "mobile/hybridAppUtil.jsp"
+            
+            /// Endpoint to get a `persistent-cookie`
             static let persistenceUpdate = "resources/portal/hybrid-device/update"
+            
+            /// Endpoint used to logoff a user
             static let logOut = "logoff.jsp"
+            
+            /// Endpoint to post credentials to for credential based authentication
             static let authorization = "verify.jsp"
         }
         
+        /// Gets all cookies needed to begin authentication
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
             
             API.authenticationRequestManager.resetSession()
@@ -97,6 +121,10 @@ extension API {
             }
         }
         
+        /// Gets portal configuration cookies
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         private static func getPortalConfig(for locale: Locale, completion: @escaping (Error?) -> ()) {
             let configEndpoint = "\(Endpoint.resources)\(locale.districtAppName)/\(Endpoint.portalConfig)"
             API.authenticationRequestManager.get(endpoint: configEndpoint, locale: locale) { result in
@@ -109,6 +137,10 @@ extension API {
             }
         }
         
+        /// Gets provisional cookies for mobile devices
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         private static func getProvisions(for locale: Locale, completion: @escaping (Error?) -> ()) {
             API.authenticationRequestManager.get(endpoint: Endpoint.provisionalCookies, locale: locale) { result in
                 switch result {
@@ -125,6 +157,10 @@ extension API {
             }
         }
         
+        /// Gets the SSO login link for a district if one exists
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getLogInSSO(for locale: Locale, completion: @escaping (Result<URL?, Error>)  -> ())  {
             API.authenticationRequestManager.get(url: locale.logInURL) { result in
                 switch result {
@@ -145,7 +181,12 @@ extension API {
             }
         }
         
-        static func usePersistence(locale: Locale? = nil, _ isPersistent: Bool, completion: @escaping (Error?) -> ()) {
+        /// Tries to obtain a `persistent-cookie`
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
+        /// - Note: The user must be currently logged in and have a valid session cookies in order to obtain a `persistent-cookie`
+        static func usePersistence(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
             
             API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: PersistenceUpdateConfiguration(), encodeType: .json, locale: locale) { result in
                 switch result {
@@ -154,7 +195,6 @@ extension API {
                         completion(nil)
                     }
                     else {
-                        print("invalid")
                         completion(API.APIError.invalidCookies)
                     }
                 case .failure(let error):
@@ -164,6 +204,8 @@ extension API {
             }
         }
         
+        /// Tries to authenticate a user using an existing `persistent-cookie`
+        /// - Parameter completion: Completion function
         static func attemptCookieAuthentication(completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             if let locale = PersistentLocale.getLocale(),
                HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
@@ -188,6 +230,11 @@ extension API {
             }
         }
         
+        /// Tries to authenticate a user using a `Credential`
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - credentials: Credentials for the user
+        ///   - completion: Completion function
         static func attemptCredentialAuthentication(locale: Locale, credentials: Credentials, completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             
             guard let appCookie = HTTPCookie(properties: [.name : Authentication.Cookie.appName.name,
@@ -216,6 +263,10 @@ extension API {
             }
         }
         
+        /// Logs out the user and invalidates session cookies. If a `persistent-cookie` is being used, it will be invalidated.
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func logOut(locale: Locale? = nil, completion: @escaping (Error?) -> ()) {
             guard let locale = locale ?? PersistentLocale.getLocale() else { return completion(APIError.invalidLocale) }
             let query = URLQueryItem(name: "app", value: ApplicationModel.appType.rawValue)
@@ -235,6 +286,7 @@ extension API {
             }
         }
         
+        /// A type that is encoded to obtain provisional cookies
         private struct ProvisionalCookieConfiguration: Encodable {
             
             init(appName: String) {
@@ -257,6 +309,7 @@ extension API {
             let appName: String
         }
         
+        /// A type that is encoded in order to obtain a `persistent-cookie`
         private struct PersistenceUpdateConfiguration: Encodable {
             let registrationToken = ProvisionalCookieConfiguration.registrationToken
             let deviceType = UIDevice.current.systemVersion
@@ -267,6 +320,7 @@ extension API {
             let deviceID = ProvisionalCookieConfiguration.deviceID
         }
         
+        /// A type to hold credentials for credential based authentication
         struct Credentials: Codable {
             let username: String
             let password: String

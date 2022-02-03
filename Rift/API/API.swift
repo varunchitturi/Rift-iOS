@@ -10,9 +10,13 @@ import URLEncodedForm
 
 struct API {
     
-    static let authenticationRequestManager = RequestManager(sessionType: .authentication)
-    static let defaultRequestManager = RequestManager(sessionType: .data)
+    /// The `RequestManager` for all authentication related network requests
+    static let authenticationRequestManager = RequestManager(sessionConfiguration: .authentication)
     
+    /// The default `RequestManager` for network requests
+    static let defaultRequestManager = RequestManager(sessionConfiguration: .dataLoad)
+    
+    /// An error produced when making an API based network call
     enum APIError: LocalizedError {
         
         case invalidUser
@@ -30,7 +34,7 @@ struct API {
             case .invalidData:
                 return "No or invalid data was found in the API response."
             case .invalidRequest:
-                return "An invalid request was made. Please check your request paramaters."
+                return "An invalid request was made. Please check your request parameters."
             case .invalidLocale:
                 return "There is no associated district found with this request."
             case .responseError(let status):
@@ -42,6 +46,7 @@ struct API {
             }
         }
         
+        /// Creates an APIError from a URLResponse based on its status
         init?(response: URLResponse?) {
             guard let response = response as? HTTPURLResponse else {
                 return nil
@@ -56,24 +61,29 @@ struct API {
        
     }
     
+    /// An abstraction over all network calls to the API. Creates get and post requests and automatically handles network-based configuration
+    /// such as cookie handling, data decoding, and error handling.
     class RequestManager {
         
-        init(sessionType: SessionType) {
-            switch sessionType {
-            case .data:
-                urlSession = URLSession(configuration: .dataLoad)
-            case .authentication:
-                urlSession = URLSession(configuration: .authentication)
-            }
+        /// Creates a `RequestManager` to make API calls with
+        /// - Parameter sessionConfiguration: the `URLSessionConfiguration`  you want to use for the network requests
+        init(sessionConfiguration: URLSessionConfiguration) {
+            urlSession = URLSession(configuration: sessionConfiguration)
         }
         
-        enum SessionType {
-            case data
-            case authentication
-        }
         
+        /// The URLSession that this `RequestManger` uses to make network requests
         private var urlSession: URLSession
         
+        /// Handles a response from a `URLSessionDataTask`
+        /// - Parameters:
+        ///   - requestMethod: The HTTP method for the network request
+        ///   - requestURL: The` URL` that the network request is being made to
+        ///   - data: The data found in the network response
+        ///   - response: A `URLResponse` found in the the network response
+        ///   - error: An error found in the network response
+        /// - Returns: A `Result` that is successful if data can be decoded and no errors have been found
+        /// - Note: An `APIError.invalidRedirect` is thrown if requestURL doesn't match the responseURL. API calls for data should not be redirected.
         private func evaluateResponse(requestMethod: URLRequest.HTTPMethod, _ requestURL: URL, _ data: Data?, _ response: URLResponse?, _ error: Error?) -> Result<(Data, HTTPURLResponse), Error>  {
             if let error = (error ?? APIError(response: response)) {
                 return .failure(error)
@@ -98,6 +108,12 @@ struct API {
             }
         }
         
+        /// API call to get data
+        /// - Parameters:
+        ///   - endpoint: The endpoint you want to make the `GET` call to
+        ///   - locale: A locale that provides the district URL to make the call to
+        ///   - retryAuthentication: A `Bool` telling whether the request should re-authenticate and retry if the authentication credentials have expired
+        ///   - completion: Completion function
         func get(endpoint: String, locale: Locale? = nil, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             guard let locale = (locale ?? PersistentLocale.getLocale()) else {
                 return completion(.failure(APIError.invalidLocale))
@@ -106,6 +122,11 @@ struct API {
             get(url: locale.districtBaseURL.appendingPathComponent(endpoint), retryAuthentication: retryAuthentication, completion: completion)
         }
         
+        /// API call to get data
+        /// - Parameters:
+        ///   - url: The `URL` you want to make the `GET` call to
+        ///   - retryAuthentication: A `Bool` telling whether the request should re-authenticate and retry if the authentication credentials have expired
+        ///   - completion: Completion function
         func get(url: URL, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             urlSession.dataTask(with: url) { data, response, error in
                 let result = self.evaluateResponse(requestMethod: .get, url, data, response, error)
@@ -141,15 +162,29 @@ struct API {
         
         
         
+        
+        /// API call to post data
+        /// - Parameters:
+        ///   - endpoint: The endpoint you want to make the `POST` call to
+        ///   - data: An encodable type that is encoded to be sent in the `POST` request
+        ///   - encodeType: Specifies the format that the data is encoded in
+        ///   - locale: A locale that provides the district URL to make the call to
+        ///   - completion: Completion function
         func post<T>(endpoint: String, data: T, encodeType: URLRequest.ContentType, locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
             guard let locale = (locale ?? PersistentLocale.getLocale()) else {
                 return completion(.failure(APIError.invalidLocale))
             }
             
-            post(url: locale.districtBaseURL.appendingPathComponent(endpoint), data: data, encodeType: encodeType, locale: locale, completion: completion)
+            post(url: locale.districtBaseURL.appendingPathComponent(endpoint), data: data, encodeType: encodeType, completion: completion)
         }
         
-        func post<T>(url: URL, data: T, encodeType: URLRequest.ContentType, locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
+        /// API call to post data
+        /// - Parameters:
+        ///   - url: The `URL` you want to make the `POST` call to
+        ///   - data: An encodable type that is encoded to be sent in the `POST` request
+        ///   - encodeType: Specifies the format that the data is encoded in
+        ///   - completion: Completion function
+        func post<T>(url: URL, data: T, encodeType: URLRequest.ContentType, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
             
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
@@ -173,7 +208,9 @@ struct API {
                 completion(.failure(error))
             }
         }
-
+        
+        /// Cancels and invalidates any active URLSession Data Tasks, clears all cookies in shared storage,
+        /// and creates a new `URLSession` with the current configuration
         func resetSession() {
             urlSession.invalidateAndCancel()
             urlSession = URLSession(configuration: urlSession.configuration)

@@ -199,7 +199,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     func setPersistence(_ persistence: Bool, completion: @escaping () -> () = {}) {
         if (try? PersistentLocale.saveLocale(locale: self.locale)) != nil {
-            API.Authentication.usePersistence(locale: locale, persistence) { error in
+            API.Authentication.usePersistence(locale: locale) { error in
                 if error != nil {
                     UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
                 }
