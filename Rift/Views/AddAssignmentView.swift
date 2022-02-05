@@ -63,7 +63,7 @@ struct AddAssignmentView: View {
 #if DEBUG
 struct AddAssignmentView_Previews: PreviewProvider {
     static var previews: some View {
-        AddAssignmentView(courseName: PreviewObjects.course.courseName, assignments: .constant(PreviewObjects.gradeDetail.assignments), gradingCategories: PreviewObjects.gradeDetail.categories)
+        AddAssignmentView(courseName: PreviewObjects.course.name, assignments: .constant(PreviewObjects.gradeDetail.assignments), gradingCategories: PreviewObjects.gradeDetail.categories)
     }
 }
 #endif

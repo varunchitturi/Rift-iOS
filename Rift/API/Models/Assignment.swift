@@ -8,20 +8,46 @@
 import Foundation
 
 
+/// An assignment for the user
 struct Assignment: Decodable, Identifiable, Equatable {
     
+    /// The id for this `Assignment`. In infinite campus, it is known as the `objectSelectionID`
     let id: Int
+    
+    /// Gives whether the `Assignment` is active or not
+    /// - If it is active, it is included in calculating the grade for the `Assignment`'s category
     let isActive: Bool
+    
+    /// The `Assignment`'s name
     var name: String
+    
+    /// Due date for this `Assignment`
     let dueDate: Date?
+    
+    /// The date which this `Assignment` was assigned
     let assignedDate: Date?
+    
+    /// The name of the course that this `Assignment` is from
     let courseName: String
+    
+    /// The total points that this `Assignment` is worth
     var totalPoints: Double?
+    
+    /// The points earned for this `Assignment`
     var scorePoints: Double?
+    
+    /// Instructor comments on this `Assignment`
     let comments: String?
+    
+    /// The name of the category that this `Assignment` is part of
     var categoryName: String?
+    
+    /// The ID of the assignment's category
+    /// - This ID is used for grouping together `Assignment`s of a category
     var categoryID: Int?
     
+    /// The percentage for this `Assignment`
+    /// - This is calculated from the `scorePoints` and the `totalPoints`
     var percentage: Double? {
         if let totalPoints = totalPoints, let scorePoints = scorePoints {
             return ((scorePoints/totalPoints) * 100)

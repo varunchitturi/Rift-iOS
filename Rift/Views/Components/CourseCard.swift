@@ -15,7 +15,7 @@ struct CourseCard: View {
         Group {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(course.courseName)
+                    Text(course.name)
                     Text(course.teacherName ?? "")
                         .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
@@ -57,7 +57,7 @@ extension CourseCard {
         course = Course(
             id: UUID().hashValue,
             sectionID: UUID().hashValue,
-            courseName: "Course Name",
+            name: "Course Name",
             teacherName: "Teacher Name",
             grades: nil,
             isDropped: false

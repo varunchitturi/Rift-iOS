@@ -19,7 +19,7 @@ class CourseDetailViewModel: ObservableObject {
     // TODO: make this process more effecient
 
     var courseName: String {
-        courseDetailModel.course.courseName
+        courseDetailModel.course.name
     }
 
     var gradeDetailOptions: [String] {
