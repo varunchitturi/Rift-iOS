@@ -51,7 +51,7 @@ struct AddAssignmentView: View {
             }
             .navigationTitle("Add Assignment")
             .navigationBarTitleDisplayMode(.inline)
-            .logViewAnlaytics(self)
+            .logViewAnalytics(self)
         }
     }
     

@@ -84,7 +84,7 @@ struct CourseDetailView: View {
             
         }
         .navigationTitle(courseDetailViewModel.courseName)
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
     
     private enum DrawingConstants {

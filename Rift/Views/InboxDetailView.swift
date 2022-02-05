@@ -38,7 +38,7 @@ struct InboxDetailView: View {
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
     
     private enum DrawingConstants {

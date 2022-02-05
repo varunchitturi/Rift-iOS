@@ -35,7 +35,7 @@ struct UserPreferenceView: View {
             .listStyle(.insetGrouped)
             .navigationTitle("Preferences")
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
 }
 
