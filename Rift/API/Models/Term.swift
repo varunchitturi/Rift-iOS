@@ -21,9 +21,13 @@ struct Term: Decodable, Identifiable {
     
     /// The id for this `Term`
     let id: Int
+    
     /// The name of this `Term`
     let termName: String
+    
     /// The schedule name for this `Term`
+    /// - Gives information on the grading period
+    /// - Example: Quarters, Semesters, Trimesters
     let termScheduleName: String
     
     /// The start date for this `Term`
