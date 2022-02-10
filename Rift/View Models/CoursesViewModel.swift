@@ -25,7 +25,7 @@ class CoursesViewModel: ObservableObject {
     }
 
     var termOptions: [String] {
-        (coursesModel.terms ?? []).map{ $0.termName }
+        (coursesModel.terms ?? []).map{ $0.name }
     }
 
 
@@ -62,6 +62,6 @@ class CoursesViewModel: ObservableObject {
                 return index
             }
         }
-        return terms.lastIndex {$0.termName == terms.last?.termName}
+        return terms.lastIndex {$0.name == terms.last?.name}
     }
 }

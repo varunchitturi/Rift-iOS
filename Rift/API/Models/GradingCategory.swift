@@ -23,7 +23,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
         self.categoryGrade = categoryGrade
     }
     
-    /// An Infinite Campus generated `ID` for a category
+    /// An Infinite Campus generated `id` for a category
     /// - Equivalent to `groupID` in the official Infinite Campus API
     let id: Int
     
@@ -67,6 +67,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     
     /// The total points earned from all assignments in this category
     /// - Note: Calculation of this value is affected by `isCalculated`
+    /// - Complexity: If `isCalculated`: O(n), where n is the number of assignments . Else: O(1)
     var currentPoints: Double? {
         if isCalculated {
             var currentPoints: Double?
@@ -83,6 +84,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     
     /// The total points from all assignments in this category
     /// - Note: Calculation of this value is affected by `isCalculated`
+    /// - Complexity: If `isCalculated`: O(n), where n is the number of assignments . Else: O(1)
     var totalPoints: Double? {
         if isCalculated {
             var totalPoints: Double?
@@ -98,7 +100,8 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     }
     
     /// The final grade percentage of this category
-    /// - Note: Calculation of this value is affected by `isCalculated`
+    /// - Note: Calculation of this value is affected by `isCalculated`'
+    /// - Complexity: If `isCalculated`: O(n), where n is the number of assignments . Else: O(1)
     var percentage: Double? {
         if isCalculated {
             guard let currentPoints = currentPoints, let totalPoints = totalPoints else {

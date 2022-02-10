@@ -46,7 +46,7 @@ struct PreviewObjects {
     
     static let gradingCategory = GradingCategory(id: 4, name: "Judgement", isWeighted: true, weight: 100, isExcluded: false, assignments: [assignment], usePercent: false)
         
-    static let message = Message(id: 5, courseID: 6, postedTime: Date(), date: Date(), unread: true, endpoint: "portal/messageView.xsl?x=messenger.MessengerEngine-getMessageRecipientView&messageID=5063&messageRecipientID=1777546&processMessageID=965771", type: .default, name: "Library Closure")
+    static let message = Message(id: 5, postedTime: Date(), date: Date(), unread: true, endpoint: "portal/messageView.xsl?x=messenger.MessengerEngine-getMessageRecipientView&messageID=5063&messageRecipientID=1777546&processMessageID=965771", type: .default, name: "Library Closure")
     
 }
 #endif

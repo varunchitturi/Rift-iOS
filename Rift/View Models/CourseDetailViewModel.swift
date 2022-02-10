@@ -16,7 +16,7 @@ class CourseDetailViewModel: ObservableObject {
     @Published var chosenGradeDetailIndex: Int?
     @Published var networkState: AsyncState = .loading
 
-    // TODO: make this process more effecient
+    // TODO: make this process more efficient
 
     var courseName: String {
         courseDetailModel.course.name

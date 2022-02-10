@@ -7,14 +7,31 @@
 
 import Foundation
 
+/// Gives information on the institution that a student is enrolled in
 struct Enrollment: Decodable, Identifiable {
+    
+    /// The `id` of the institution
     let id: Int
+    
+    /// An `id` given to identify a student
+    /// - Important: Do not use this to identify Infinite Campus users across your app
     let personID: Int
+    
+    /// An `id` given to identify structures from this `Enrollment`
     let structureID: Int
+    
+    /// The `id` of the school
     let schoolID: Int
+    /// The end year for this `Enrollment`
     let endYear: Int
+    
+    /// The start year for this `Enrollment`
     let startDate: Date
+    
+    /// The grade the student is enrolling in at the school
     let grade: String
+    
+    /// The name of the school
     let schoolName: String
 
     
