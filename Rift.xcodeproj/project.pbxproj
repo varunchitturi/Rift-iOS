@@ -444,13 +444,13 @@
 			isa = PBXGroup;
 			children = (
 				274F4346270ADB02001D5D4A /* API.swift */,
+				274F434F270ADBF4001D5D4A /* Models */,
 				274F4353270AE0D5001D5D4A /* AssignmentsAPI.swift */,
 				274F435F270AE867001D5D4A /* AuthenticationAPI.swift */,
 				274F4361270AE94C001D5D4A /* GradesAPI.swift */,
 				274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */,
 				27D98985271C2CBC00311973 /* MessagesAPI.swift */,
 				278EAABD278046CA001C0CA5 /* ResourcesAPI.swift */,
-				274F434F270ADBF4001D5D4A /* Models */,
 			);
 			path = API;
 			sourceTree = "<group>";
