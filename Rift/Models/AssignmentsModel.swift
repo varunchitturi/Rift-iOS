@@ -7,8 +7,10 @@
 
 import Foundation
 
+/// MVVM model to manage the `AssignmentsView`
 struct AssignmentsModel {
     
+    /// A list of all the user's assignments
     var assignmentList = [Assignment]()
     
 }

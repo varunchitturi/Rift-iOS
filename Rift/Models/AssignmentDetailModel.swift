@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// MVVM model to handle the `AssignmentDetailView`
 struct AssignmentDetailModel {
     
     var originalAssignment: Assignment?

@@ -22,6 +22,7 @@ struct Enrollment: Decodable, Identifiable {
     
     /// The `id` of the school
     let schoolID: Int
+    
     /// The end year for this `Enrollment`
     let endYear: Int
     

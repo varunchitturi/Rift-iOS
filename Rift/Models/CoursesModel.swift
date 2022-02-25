@@ -8,9 +8,13 @@
 import Foundation
 
 
+/// MVVM model to manage the `CoursesView`
 struct CoursesModel {
     
-    var courseList = [Course]()    
+    /// A list of all the user's courses
+    var courseList = [Course]()
+    
+    /// A list of all `GradeTerm`s for the user
     var terms: [GradeTerm]?
 }
 

@@ -125,7 +125,7 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
     
     /// Adds a `GradingCategory` to a list a `GradeDetail`
     /// The `GradingCategory` gets inserted into the `GradeDetail`'s `categories` property
-    /// - Parameter gradingCategory: <#gradingCategory description#>
+    /// - Parameter gradingCategory: The `GradingCategory` to add
     mutating func addGradingCategory(_ gradingCategory: GradingCategory) {
         self.categories.append(gradingCategory)
     }
@@ -140,7 +140,7 @@ extension Array where Element == GradeDetail {
     }
     
     /// Resolves terms that have linked grades
-    /// - When terms grades are calculated as an accumulation of other terms, we need make sure that they contain all the necessary information to manually calculate their grade. Calling `resolveTerms` on an array of `GradeDetail`s makes sure that every `GradeDetail` contains its own assignments as well as assignments from linked grades.
+    /// - When term grades are calculated as an accumulation of other terms, we need make sure that they contain all the necessary information to manually calculate their grade. Calling `resolveTerms` on an array of `GradeDetail`s makes sure that every `GradeDetail` contains its own assignments as well as assignments from linked terms.
     /// - Complexity: O(k\*n^2), where `n` is the number of `GradeDetail`s in the array and `k` is the max number of assignments that a `GradeDetail` originally has.
     mutating func resolveTerms() {
         
