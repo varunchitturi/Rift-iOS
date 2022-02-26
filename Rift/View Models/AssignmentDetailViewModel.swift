@@ -9,18 +9,35 @@ import Foundation
 import OrderedCollections
 import SwiftUI
 
+/// MVVM view model for the `AssignmentDetailView`
 class AssignmentDetailViewModel: ObservableObject {
+    
+    /// MVVM model
     @Published private var assignmentDetailModel: AssignmentDetailModel
+    
+    /// `AsyncState` to manage network calls in views
     @Published var networkState: AsyncState = .loading
+    
+    /// The `Assignment` that is being viewed
+    /// - This is the `Assignment` that was previously shown in the `CourseDetailView`
+    /// - Changes that the user makes to `modifiedAssignment` will be applied to this `Assignment` when the `AssignmentDetailView` disappears
     @Binding var assignmentToEdit: Assignment
+    
+    /// Gives if the user wanted to delete the `Assignment` and remove it from grade calculation
     var assignmentIsDeleted = false
     
     
     // TODO: remove all extensions and make them computed vars in view model
     
+    /// The original, unedited `Assignment` from Infinite Campus if available
+    /// - This property is `nil` if the user created the `Assignment` themselves
+    /// - Note: The user should not be able to edit this `Assignment`
     var originalAssignment: Assignment? {
         assignmentDetailModel.originalAssignment
     }
+    /// A temporary `Assignment` created for the user to edit
+    /// - This is the assignment that is currently being edited in the `AssignmentDetailView`
+    /// - Once the `AssignmentDetailView` disappears, changes to this `Assignment` will be applied to `assignmentToEdit`
     var modifiedAssignment: Assignment {
         get {
             assignmentDetailModel.modifiedAssignment
@@ -29,11 +46,13 @@ class AssignmentDetailViewModel: ObservableObject {
             assignmentDetailModel.modifiedAssignment = newValue
         }
     }
-
+    
+    /// Gives whether the user has edited the `Assignment`
     var hasModifications: Bool {
         (originalAssignment ?? assignmentToEdit) != modifiedAssignment
     }
     
+    /// The name of 
     var assignmentName: String {
         assignmentToEdit.name
     }
