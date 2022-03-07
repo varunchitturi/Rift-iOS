@@ -113,9 +113,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == self?.courseDetailModel.termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
                     self?.networkState = .idle
                 case .failure(let error):
-                    // TODO: better error handling here
                     self?.networkState = .failure(error)
-                    print(error)
                 }
             }
         }
