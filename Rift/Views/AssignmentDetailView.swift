@@ -49,7 +49,7 @@ struct AssignmentDetailView: View {
                     let header = key.description
                     let text = remarks[key]!
 
-                    if text != nil {
+                    if text != nil && text!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                         TextSection(header: header, text!)
                     }
                 }

@@ -14,6 +14,7 @@ struct CourseDetailStats: View {
     @State private var detailIsPresented = false
     let gradeDetail: GradeDetail
     let editingGradeDetail: GradeDetail
+    let showCalculatedGrade: Bool
     
     var body: some View {
         HStack {
@@ -27,15 +28,21 @@ struct CourseDetailStats: View {
                     .lineLimit(1)
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                     .font(.caption.bold())
-                    
-                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade:  editingGradeDetail.totalPercentage, isProminent: true)
+                    Divider()
+                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: showCalculatedGrade ? editingGradeDetail.totalPercentage : gradeDetail.totalPercentage, isProminent: true)
                 }
                 HStack {
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
                         let categories = gradeDetail.categories
                         let editingCategories = editingGradeDetail.categories
                         ForEach(gradeDetail.categories.indices, id: \.self){ index in
-                            CourseDetailStatsRow(category: categories[index].name, realGrade: categories[index].percentage, calculatedGrade:  editingCategories[index].percentage)
+                            let realPercentage = categories[index].percentage
+                            let calculatedPercentage = editingCategories[index].percentage
+                            CourseDetailStatsRow(
+                                category: categories[index].name,
+                                realGrade: categories[index].percentage,
+                                calculatedGrade: showCalculatedGrade ? realPercentage : calculatedPercentage
+                            )
                         }
                     }
                 }
@@ -53,9 +60,9 @@ struct CourseDetailStats: View {
 #if DEBUG
 struct GradeDetailStatView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail, showCalculatedGrade: true)
             .padding()
-        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail)
+        CourseDetailStats(gradeDetail: PreviewObjects.gradeDetail, editingGradeDetail: PreviewObjects.gradeDetail, showCalculatedGrade: true)
             .previewDevice("iPhone 13 Pro Max")
     }
 }
