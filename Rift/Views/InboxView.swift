@@ -40,7 +40,7 @@ struct InboxView: View {
                         .environmentObject(homeViewModel)
                 }
             }
-            .logViewAnlaytics(self)
+            .logViewAnalytics(self)
         }
     }
     

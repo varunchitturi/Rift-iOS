@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row to represent an `Assignment` in the `AssignmentsView`
 struct AssignmentCard: View {
     
     init(assignment: Assignment? = nil) {

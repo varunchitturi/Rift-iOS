@@ -105,6 +105,8 @@ extension String {
 }
 
 protocol PropertyIterable {
+    /// All properties in a PropertyIterable type
+    /// - Returns: A dictionary in which the keys are the property names and values are the property values
     func allProperties() throws -> [String: Any]
 }
 

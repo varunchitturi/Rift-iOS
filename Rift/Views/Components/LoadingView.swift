@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A custom, unbounded, circular loading indicator
 struct LoadingView: View {
     @State private var isRotating = false
     private var animationStyle: Animation = .linear(duration: DrawingConstants.animationDuration).repeatForever(autoreverses: false)

@@ -92,7 +92,7 @@ struct AssignmentDetailView: View {
                 }
             }
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
 
     private enum DrawingConstants {

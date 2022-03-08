@@ -8,11 +8,16 @@
 import Foundation
 import SwiftUI
 
+/// MVVM view model for the `InboxView`
 class InboxViewModel: ObservableObject {
     
+    /// MVVM model
     @Published private var inboxModel: InboxModel = InboxModel()
+    
+    /// `AsyncState` to manage network calls in views
     @Published var networkState: AsyncState = .idle
     
+    /// List of messages for the user
     var messages: [Message] {
         inboxModel.messages
     }
@@ -21,6 +26,7 @@ class InboxViewModel: ObservableObject {
         fetchMessages()
     }
     
+    /// Gets the list of messages for the user from the API
     func fetchMessages() {
         networkState = .loading
         API.Messages.getMessageList { [weak self] result in

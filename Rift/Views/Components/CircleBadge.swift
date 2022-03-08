@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A circular badge to represent an important number or letter
+/// - Has colored text with a contrasting, circular background
 struct CircleBadge: View {
     
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in the list of assignments in the `CourseDetailView`
 struct CourseAssignmentCard: View {
     let assignment: Assignment
     var body: some View {

@@ -7,8 +7,10 @@
 
 import Foundation
 
-// TODO: make this file only available in debug builds
+
 extension Data {
+    /// An `NSString` representing the data as `JSON`
+    ///  - Note: is `nil` if the data cannot be represented as `JSON`
     var JSONString: NSString? {
         guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
               let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),

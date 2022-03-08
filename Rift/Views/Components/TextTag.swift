@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A tag like view for `Text` views
+/// - Colored text with a contrasting background
 struct TextTag: View {
     
     init(_ text: String) {

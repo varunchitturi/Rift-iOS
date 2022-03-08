@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+/// A dropdown button that actives a picker view when pressed with a capsule-like background
 struct CapsuleDropDown: View {
 
     @Binding var isEditing: Bool

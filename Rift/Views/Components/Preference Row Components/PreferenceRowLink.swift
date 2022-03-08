@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in a `UserPreferenceView` that acts as a `NavigationLink` to a subsection of preferences
 struct PreferenceRowLink: View {
     init(_ preference: UserPreferenceModel) {
         self.preference = preference

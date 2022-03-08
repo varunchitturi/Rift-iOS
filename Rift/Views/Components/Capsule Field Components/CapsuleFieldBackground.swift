@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A full-width capsule like background
 struct CapsuleFieldBackground: View {
     
     internal init(accentColor: Color = DrawingConstants.accentColor, isEditing: Binding<Bool> = .constant(false)) {

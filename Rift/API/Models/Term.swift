@@ -18,13 +18,22 @@ struct Term: Decodable, Identifiable {
         self.startDate = startDate
         self.endDate = endDate
     }
-
-    // TODO: change this to actual grades
     
+    /// The id for this `Term`
     let id: Int
+    
+    /// The name of this `Term`
     let termName: String
+    
+    /// The schedule name for this `Term`
+    /// - Gives information on the grading period
+    /// - Example: Quarters, Semesters, Trimesters
     let termScheduleName: String
+    
+    /// The start date for this `Term`
     let startDate: Date
+    
+    /// The end date for this `Term`
     let endDate: Date
     
     enum CodingKeys: String, CodingKey {

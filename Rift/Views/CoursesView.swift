@@ -81,7 +81,7 @@ struct CourseList: View {
                 }
             }
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
 }
 

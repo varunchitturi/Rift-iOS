@@ -16,9 +16,9 @@ struct RiftApp: App {
     }
     
     var body: some Scene {
-        // TODO: Change status bar color
         WindowGroup {
             ContentView()
+                // Introduce the persistent storage context as an environment variable
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }

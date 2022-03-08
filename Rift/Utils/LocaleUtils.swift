@@ -7,8 +7,10 @@
 
 import Foundation
 
-extension Locale: StorageManager {
+extension Locale {
     
+    /// An enum for a USTerritory
+    /// - Example: California is represented as `USTerritory.CA`
     enum USTerritory: String, CaseIterable, Comparable, Decodable {
         static func < (lhs: USTerritory, rhs: USTerritory) -> Bool {
             lhs.rawValue < rhs.rawValue
@@ -19,6 +21,8 @@ extension Locale: StorageManager {
         
         case AL, AK, AS, AZ, AR, CA, CO, CT, DE, DC, FM, FL, GA, GU, HI, ID, IL, IN, IA, KS, KY, LA, ME, MH, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, MP, OH, OK, OR, PW, PA, PR, RI, SC, SD, TN, TX, UT, VT, VI, VA, WA, WV, WI, WY
         
+        /// A dictionary containing all US Territory abbreviations and their corresponding full name
+        /// - This dictionary is used to get the full territory name from a `USTerritory` raw value
         private static let stateDescriptionDictionary =  [
             "AL": "Alabama",
             "AK": "Alaska",
