@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view to present details about an `Assignment`
 struct AssignmentDetailStats: View {
     
     init(dueDate: Date?, assignedDate: Date?, realPercentage: Double?, calculatedPercentage: Double?) {

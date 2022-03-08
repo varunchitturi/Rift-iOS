@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view to clearly present a section of text
 struct TextSection: View {
     
     init(header: String? = nil, _ text: String) {

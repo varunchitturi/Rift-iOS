@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in a `UserPreferenceView`
 struct PreferenceRow: View {
     init(_ preference: UserPreferenceModel) {
         self.preference = preference

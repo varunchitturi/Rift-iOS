@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in a `UserPreferenceView` with a toggle button
 struct PreferenceRowToggle: View {
     
     @State private var toggleState: Bool
@@ -14,7 +15,6 @@ struct PreferenceRowToggle: View {
     let preference: UserPreferenceModel
     
     init(_ preference: UserPreferenceModel) {
-        print("initializing view")
         self.preference = preference
         self.toggleState = preference.initialState ?? false
     }

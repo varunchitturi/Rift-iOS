@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in a `UserPreferenceView` that acts as a button
 struct PreferenceRowButton: View {
     @EnvironmentObject var applicationViewModel: ApplicationViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel

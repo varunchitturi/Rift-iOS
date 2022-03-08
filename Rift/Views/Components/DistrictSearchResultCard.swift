@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row in the `DistrictSearchView`
 struct DistrictSearchResultCard: View {
     
     init(for result: Locale) {

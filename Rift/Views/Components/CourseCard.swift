@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in the list of courses in the `CoursesView`
 struct CourseCard: View {
     
     let course: Course

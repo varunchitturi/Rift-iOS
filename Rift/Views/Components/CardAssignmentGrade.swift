@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A view to show a fraction-based score on an assignment
+/// - Shows 2 numbers separated by a vertical divider
 struct CardAssignmentGrade: View {
     
     init(assignment: Assignment? = nil) {

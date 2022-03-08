@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A divider with a `Text` view in the middle of it
 struct TextDivider: View {
     init(_ text: String = "") {
         self.text = text

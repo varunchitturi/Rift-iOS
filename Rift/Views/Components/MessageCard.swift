@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// The card view for displaying a message summary in a list
 struct MessageCard: View {
     
     init(_ message: Message? = nil) {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in the `CourseDetailStats` view
 struct CourseDetailStatsRow: View {
     
     internal init(category: String, realGrade: Double?, calculatedGrade: Double?, isProminent: Bool = false) {

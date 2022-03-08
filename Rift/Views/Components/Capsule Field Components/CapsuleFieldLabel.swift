@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A label for views that use `CapsuleFieldBackground`
 struct CapsuleFieldLabel: View {
     
     init(label: String, accentColor: Color = DrawingConstants.accentColor, isEditing: Binding<Bool>) {

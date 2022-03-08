@@ -13,7 +13,7 @@ struct HomeView: View {
     @StateObject var assignmentsViewModel: AssignmentsViewModel = AssignmentsViewModel()
     @StateObject var inboxViewModel: InboxViewModel = InboxViewModel()
     
-    // TODO: display header in home view naviagtion such as name + assignment information
+    // TODO: display header in home view navigation such as name + assignment information
 
     var body: some View {
         TabView {

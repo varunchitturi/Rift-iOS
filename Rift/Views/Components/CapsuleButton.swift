@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A button with a capsule-like background
 struct CapsuleButton: View {
 
     var label: String

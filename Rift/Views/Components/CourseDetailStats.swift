@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A view to display all grade stats in the `CourseDetailView`
 struct CourseDetailStats: View {
     // TODO: make sure that the preview objects file doesn't compile on release
     // TODO: check if percentages are rounded or truncated
