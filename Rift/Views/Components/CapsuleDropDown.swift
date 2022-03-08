@@ -43,7 +43,6 @@ struct CapsuleDropDown: View {
             HStack {
                 pickerField
                     .foregroundColor(DrawingConstants.foregroundColor)
-                    .padding(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 dropDownIcon

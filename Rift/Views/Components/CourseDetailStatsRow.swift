@@ -40,7 +40,10 @@ struct CourseDetailStatsRow: View {
     var body: some View {
         VStack {
             HStack {
-                TextTag(category)
+                Text(category)
+                    .font(.footnote.bold())
+                    .lineLimit(1)
+                    .foregroundColor(Rift.DrawingConstants.accentColor)
                 Spacer()
                 Text(String(displaying: calculatedGrade, style: .percentage, truncatedTo: Rift.DrawingConstants.decimalCutoff))
                     .lineLimit(1)
