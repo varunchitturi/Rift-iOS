@@ -27,7 +27,7 @@ struct CourseDetailStats: View {
                     }
                     .lineLimit(1)
                     .foregroundColor(Rift.DrawingConstants.accentColor)
-                    .font(.caption.bold())
+                    .font(.callout.bold())
                     Divider()
                     CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: showCalculatedGrade ? editingGradeDetail.totalPercentage : gradeDetail.totalPercentage, isProminent: true)
                 }
@@ -41,10 +41,16 @@ struct CourseDetailStats: View {
                             CourseDetailStatsRow(
                                 category: categories[index].name,
                                 realGrade: categories[index].percentage,
-                                calculatedGrade: showCalculatedGrade ? realPercentage : calculatedPercentage
+                                calculatedGrade: showCalculatedGrade ? calculatedPercentage : realPercentage
                             )
                         }
                     }
+                }
+                if gradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) != editingGradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) &&
+                    gradeDetail.assignments == editingGradeDetail.assignments {
+                    Text("The real and calculated grade are different because the teacher may have chose to hide some assignments.")
+                        .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
+                        .font(.caption2)
                 }
             }
         }

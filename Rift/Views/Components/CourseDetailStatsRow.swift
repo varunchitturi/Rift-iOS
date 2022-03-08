@@ -41,7 +41,7 @@ struct CourseDetailStatsRow: View {
         VStack {
             HStack {
                 Text(category)
-                    .font(.footnote)
+                    .font(.footnote.bold())
                     .lineLimit(1)
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                 Spacer()

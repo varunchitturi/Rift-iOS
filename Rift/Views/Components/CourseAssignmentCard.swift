@@ -17,10 +17,7 @@ struct CourseAssignmentCard: View {
                 Text(assignment.name)
                     .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 if assignment.categoryName != nil {
-                    Text(assignment.categoryName!)
-                        .font(.footnote)
-                        .lineLimit(1)
-                        .foregroundColor(Rift.DrawingConstants.accentColor)
+                    TextTag(assignment.categoryName!)
                         .padding(.top, DrawingConstants.textInsetPadding)
                 }
             }
