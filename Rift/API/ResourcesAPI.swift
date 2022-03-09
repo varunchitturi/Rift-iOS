@@ -8,23 +8,26 @@
 import Foundation
 
 extension API {
+    /// API for to get user and school information
     struct Resources {
         
+        /// Collection of endpoints to get user and school information
         private enum Endpoint {
+            /// Endpoint to get a user's account
             static let userAccount = "resources/my/userAccount/"
+            /// Endpoint to get a student's information
             static let students = "api/portal/students"
         }
         
-        // TODO: make these functions more modular. To create a new API request function, I shouldn't be copy pasting from a previous API. Maybe create an API Request struct for get request in the API struct?
-        
+        /// Gets a user account
+        /// - Parameters:
+        ///   - locale: <#locale description#>
+        ///   - completion: <#completion description#>
         static func getUserAccount(locale: Locale? = nil, completion: @escaping (Result<UserAccount, Error>) -> ()) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Resources.Endpoint.userAccount))
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
-                    completion(.failure(error))
-                }
-                else if let data = data {
+    
+            API.defaultRequestManager.get(endpoint: Endpoint.userAccount, locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
                     do {
                         let decoder = JSONDecoder()
                         let responseBody = try decoder.decode(UserAccount.self, from: data)
@@ -33,21 +36,21 @@ extension API {
                     catch {
                         completion(.failure(error))
                     }
-                }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
-            }.resume()
-        }
-        
-        static func getStudents(locale: Locale? = nil, completion: @escaping (Result<[Student], Error>) -> ()) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else { return }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Resources.Endpoint.students))
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
+                case .failure(let error):
                     completion(.failure(error))
                 }
-                else if let data = data {
+            }
+        }
+        
+        /// Gets student information
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
+        static func getStudents(locale: Locale? = nil, completion: @escaping (Result<[Student], Error>) -> ()) {
+            
+            API.defaultRequestManager.get(endpoint: Endpoint.students, locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
                     do {
                         let decoder = JSONDecoder()
                         let responseBody = try decoder.decode([Student].self, from: data)
@@ -56,11 +59,10 @@ extension API {
                     catch {
                         completion(.failure(error))
                     }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
-            }.resume()
+            }
         }
     }
 }

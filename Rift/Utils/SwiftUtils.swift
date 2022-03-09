@@ -8,10 +8,124 @@
 import Foundation
 
 extension String {
+    
+    
+    /// A string to display nil elements cleanly in a view
     static let nilDisplay = "-"
+    
+    /// Create a string for a display for an optional element
+    init<T>(displaying element: T?) {
+        if element != nil {
+            self.init(describing: element!)
+        }
+        else {
+            self = String.nilDisplay
+        }
+        
+    }
+    
+    /// Create a string for a display for optional numeric elements
+    init<T>(displaying element: T?, style: NumericStyle) where T: Numeric {
+        let string = String(displaying: element)
+        
+        if element != nil {
+            self = string.addingNumericToken(style)
+        }
+        else {
+            self = string
+        }
+       
+    }
+    
+    
+    /// Create a displayable string for doubles
+    /// - Parameters:
+    ///   - double: Double to display
+    ///   - style: The `NumericStyle` to use for the double
+    ///   - roundAmount: The amount to round the double to
+    init(displaying double: Double?, style: NumericStyle? = nil, roundedTo roundAmount: Int) {
+        if let style = style {
+            self = String(displaying: double?.rounded(roundAmount), style: style)
+        }
+        else {
+            self = String(displaying: double?.rounded(roundAmount))
+        }
+    }
+    
+    
+    /// Create a displayable string for doubles
+    /// - Parameters:
+    ///   - double: Double to display
+    ///   - style: The `NumericStyle` to use for the double
+    ///   - roundAmount: The amount to truncate the double to
+    init(displaying double: Double?, style: NumericStyle? = nil, truncatedTo truncateAmount: Int) {
+        if let style = style {
+            self = String(displaying: double?.truncated(truncateAmount), style: style)
+        }
+        else {
+            self = String(displaying: double?.truncated(truncateAmount))
+        }
+    }
+    
+    /// Create a displayable string for dates
+    /// - Parameters:
+    ///   - date: Date to display
+    ///   - formatter: The `DateFormatter` to use for the date
+    init(displaying date: Date?, formatter: DateFormatter) {
+        if let date = date {
+            self = formatter.string(from: date)
+        }
+        else {
+            self = String.nilDisplay
+        }
+    }
+    
+    /// Formatting style for strings of numeric elements
+    enum NumericStyle {
+        case percentage
+        case dollar
+        
+        var token: String {
+            switch self {
+            case .percentage:
+                return "%"
+            case .dollar:
+                return "$"
+            }
+        }
+    }
+    
+    
+    /// Adds string tokens for a certain `NumericStyle`
+    /// - Parameter style: The `NumericStyle` to use
+    /// - Returns: A String that has been formatted according to the given `NumericStyle`
+    func addingNumericToken(_ style: NumericStyle) -> String {
+        switch style {
+        case .percentage:
+            return self.appending(style.token)
+        case .dollar:
+            return style.token.appending(self)
+        }
+        
+    }
+    
+    /// Formats all links into markdown style
+    /// - Returns: A string with all its links formatted in markdown style
+    func formattingForMarkdownLinks() -> String{
+        var newString = self
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
+        for match in matches {
+            guard let range = Range(match.range, in: self) else { continue }
+            newString.replaceSubrange(range, with: "[\(self[range])](\(self[range]))")
+        }
+        return newString
+    }
 }
 
 protocol PropertyIterable {
+    /// All properties in a PropertyIterable type
+    /// - Returns: A dictionary in which the keys are the property names and values are the property values
     func allProperties() throws -> [String: Any]
 }
 

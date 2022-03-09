@@ -11,65 +11,104 @@ import Foundation
 import SwiftUI
 import WebKit
 
+/// MVVM view model for the `LogInView`
 class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
+    /// MVVM model
     @Published private var logInModel: LogInModel
+    /// Gives whether a web view for single sign on is presented
     @Published var singleSignOnIsPresented = false
+    /// Gives the type of alert that is being presented
+    /// - `nil` if there is no alert being presented
+    @Published var presentedAlert: AlertType? = nil
+    
+    /// `AsyncState` to manage network calls in views
     @Published var defaultNetworkState: AsyncState = .idle
+    
+    /// `AsyncState` to manage network calls in the web view
     @Published var webViewNetworkState: AsyncState = .idle
     
-    private static let SSOURLS = [
+    
+    /// SSO URLs that the presented web view is allowed to navigate to
+    private static let ssoURLs = [
         URL(string: "https://accounts.google.com/")!
     ]
     
+    /// The current URL of the web view
     var webViewURL: URL? = nil
     
-    var authenticationState: ApplicationModel.AuthenticationState {
+    /// Gives whether the user is authenticated
+    /// - The user could have been authenticated using credentials or SSO
+    var isAuthenticated: Bool {
+        ssoAuthenticationState == .authenticated || credentialAuthenticationState == .authenticated
+    }
+    
+    /// Gives whether the user has been authenticated using SSO
+    var ssoAuthenticationState: ApplicationModel.AuthenticationState {
         guard let webViewURL = webViewURL else {
             return .unauthenticated
         }
         let portalURL = locale.districtBaseURL.appendingPathComponent(API.Authentication.successPath)
 
-        let webViewURLSearchingRange = min(3,webViewURL.pathComponents.count)
-        let baseURLSearchingRange = min(3,portalURL.pathComponents.count)
+        let webViewURLSearchingRange = min(3, webViewURL.pathComponents.count)
+        let baseURLSearchingRange = min(3, portalURL.pathComponents.count)
         
-        if webViewURL.host == portalURL.host && webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] {
-            if let _ = try? PersistentLocale.saveLocale(locale: locale) {
-                return .authenticated
-            }
+        if webViewURL.host == portalURL.host &&
+            webViewURL.pathComponents[..<webViewURLSearchingRange] == portalURL.pathComponents[..<baseURLSearchingRange] &&
+            webViewURL.lastPathComponent == API.Authentication.successPath {
+            return .authenticated
         }
         
         return .unauthenticated
     }
-
+    
+    /// Gives whether the user been authenticated using credentials
+    private var credentialAuthenticationState = ApplicationModel.AuthenticationState.unauthenticated
+    
+    /// The locale the user chose for the log in process
     private var locale: Locale {
         logInModel.locale
     }
     
+    /// The sso URL for the locale, if available
     var ssoURL: URL? {
         logInModel.ssoURL
     }
     
+    /// The URL the web view goes to if sso authentication has failed
+    var ssoConfirmationURL: URL? {
+        if ssoURL != nil {
+            return locale.districtBaseURL.appendingPathComponent("SSO/\(locale.districtAppName)/SIS")
+        }
+        return nil
+    }
+    
+    /// The url for the log in page for the locale
     var logInURL: URL {
         locale.logInURL
     }
     
+    /// Gives whether the chosen locale supports sso authentication
     var hasSSOLogin: Bool {
         logInModel.ssoURL != nil
     }
     
+    /// All URLs that the presented web view is allowed to navigate to
     var safeWebViewHostURLs: [URL] {
-        LogInViewModel.SSOURLS + [locale.districtBaseURL]
+        LogInViewModel.ssoURLs + [locale.districtBaseURL]
     }
     
     init(locale: Locale) {
         logInModel = LogInModel(locale: locale)
         super.init()
+        loadLogInOptions()
     }
     
+    /// Function that is run every time the cookies in a cookie store of a web view are updated
+    /// - Parameter cookieStore: The cookie store to observe
     func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
         cookieStore.getAllCookies { cookies in
-            let cookies = cookies.filter {API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
+            let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
             cookies.forEach {
                 // explain why we do this. We don't want to replace the JSESSIONID obtained from provisional cookies
                 if $0.name != API.Authentication.Cookie.jsession.name {
@@ -77,6 +116,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                 }
                 // provide better documentation on this. This is done to make sure that authentication passes. If we get conflicting cookie names that means authentication might have failed.
                 else if let jsessionCookie = HTTPCookieStorage.shared.cookies?.first(where: {$0.name == API.Authentication.Cookie.jsession.name}), jsessionCookie.value != $0.value {
+                    self.singleSignOnIsPresented = false
                     Crashlytics.crashlytics().record(error: API.APIError.invalidUser)
                 }
             }
@@ -92,7 +132,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
                     return
                 }
                 webViewURL = url
-                if authenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
+                if ssoAuthenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
                     singleSignOnIsPresented = false
                 }
             default:
@@ -102,9 +142,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     }
     
     
+    /// Load the available log in methods for the given locale
     func loadLogInOptions() {
         defaultNetworkState = .loading
-        API.Authentication.getLogInSSO(for: self.locale) { [weak self] result in
+        API.Authentication.getLogInSSO(for: locale) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let ssoURL):
@@ -117,35 +158,18 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         }
     }
     
-    func provisionAuthentication(for authenticationType: LogInModel.AuthenticationType) {
-        var networkState: AsyncState {
-            get {
-                switch authenticationType {
-                case .credential:
-                    return defaultNetworkState
-                case .sso:
-                    return webViewNetworkState
-                }
-            }
-            set {
-                switch authenticationType {
-                case .credential:
-                    self.defaultNetworkState = newValue
-                case .sso:
-                    self.webViewNetworkState = newValue
-                }
-            }
-        }
-        networkState = .loading
-        API.Authentication.getProvisionalCookies(for: locale) { error in
+    /// Gets the cookies needed to start sso authentication
+    func provisionSSOAuthentication() {
+        webViewNetworkState = .loading
+        API.Authentication.getProvisionalCookies(for: locale) { [weak self] error in
             if let error = error {
                 DispatchQueue.main.async {
-                    networkState = .failure(error)
+                    self?.webViewNetworkState = .failure(error)
                 }
             }
             else {
                 DispatchQueue.main.async {
-                    networkState = .success
+                    self?.webViewNetworkState = .success
                 }
             }
         }
@@ -153,30 +177,87 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     // MARK: - Intents
     
-    func authenticate(with credentials: LogInModel.Credentials) {
-        // TODO: implement this for normal sign in
-        Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .credential))
-        
-    }
-    
-    func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
-        state.wrappedValue = authenticationState
-        Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .sso))
-    }
-    
-    func setPersistence(_ persistence: Bool, completion: @escaping () -> () = {}) {
-        API.Authentication.usePersistence(locale: locale, persistence) { error in
-            if let _ = error {
-                UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+    /// Authenticates the user using credentials
+    /// - Parameter credentials: The log in credentials of the user
+    func authenticate(using credentials: API.Authentication.Credentials) {
+        defaultNetworkState = .loading
+        API.Authentication.getProvisionalCookies(for: locale) { [weak self] error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self?.defaultNetworkState = .failure(error)
+                }
             }
-            else {
-                UserDefaults.standard.set(persistence, forKey: UserPreferenceModel.persistencePreferenceKey)
+            else if let self = self {
+                API.Authentication.attemptCredentialAuthentication(locale: self.locale, credentials: credentials) { result in
+                    switch result {
+                    case .success(let authenticationState):
+                        DispatchQueue.main.async {
+                            self.credentialAuthenticationState = authenticationState
+                            self.defaultNetworkState = .success
+                            switch authenticationState {
+                            case .authenticated:
+                                self.presentedAlert = .persistencePrompt
+                            case .unauthenticated:
+                                self.presentedAlert = .credentialError
+                            }
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self.defaultNetworkState = .failure(error)
+                        }
+                    }
+                }
             }
-            completion()
         }
     }
-
     
+    /// Updates the application authentication state based on whether credential or sso authentication has succeeded
+    /// - Parameter state: A binding to the application's authentication to update
+    func authenticate(for state: Binding<ApplicationModel.AuthenticationState>) {
+        switch (ssoAuthenticationState, credentialAuthenticationState) {
+        case (let ssoAuthenticationState, _ ) where ssoAuthenticationState == .authenticated:
+            state.wrappedValue = ssoAuthenticationState
+            Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .sso))
+        case ( _ , let credentialAuthenticationState) where credentialAuthenticationState == .authenticated:
+            state.wrappedValue = credentialAuthenticationState
+            Analytics.logEvent(Analytics.LogInEvent(method: .manual, process: .credential))
+        default:
+            state.wrappedValue = .unauthenticated
+        }
+    }
+    
+    /// Gets the necessary cookies need to persist log in and sets the "remember me" preference for the user
+    /// - Parameters:
+    ///   - persistencePreference:Boolean indicating whether the user wants to persist their log in
+    ///   - completion: Completion function
+    func setPersistence(_ persistencePreference: Bool, completion: @escaping () -> () = {}) {
+        if (try? PersistentLocale.saveLocale(locale: self.locale)) != nil {
+            API.Authentication.usePersistence(locale: locale) { error in
+                if error != nil {
+                    UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                else {
+                    UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                completion()
+            }
+        }
+        else {
+            self.defaultNetworkState = .failure(API.APIError.invalidLocale)
+        }
+    }
+    
+    /// A type of alert to present during log in errors
+    enum AlertType: String, Identifiable {
+        case persistencePrompt
+        case credentialError
+        case serverError
+        
+        var id: Int {
+            return self.hashValue
+        }
+        
+    }
    
     
 }

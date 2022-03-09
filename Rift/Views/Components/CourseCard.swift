@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A single row in the list of courses in the `CoursesView`
 struct CourseCard: View {
     
     let course: Course
@@ -15,7 +16,7 @@ struct CourseCard: View {
         Group {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(course.courseName)
+                    Text(course.name)
                     Text(course.teacherName ?? "")
                         .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                         .fontWeight(.semibold)
@@ -23,8 +24,8 @@ struct CourseCard: View {
                 }
                 Spacer()
                 VStack {
-                    CircleBadge(course.gradeDisplay)
-                    Text(course.percentageDisplay)
+                    CircleBadge(String(displaying: course.currentGrade?.letterGrade))
+                    Text(String(displaying: course.currentGrade?.percentage, style: .percentage, roundedTo: Rift.DrawingConstants.decimalCutoff))
                         .font(.caption)
                         .frame(width: DrawingConstants.percentageDisplayWidth)
                     
@@ -45,7 +46,7 @@ struct CourseCard: View {
         
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 20
         static let percentageDisplayWidth: CGFloat = 80
     }
@@ -57,7 +58,7 @@ extension CourseCard {
         course = Course(
             id: UUID().hashValue,
             sectionID: UUID().hashValue,
-            courseName: "Course Name",
+            name: "Course Name",
             teacherName: "Teacher Name",
             grades: nil,
             isDropped: false

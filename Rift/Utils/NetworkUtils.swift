@@ -10,6 +10,11 @@ import SwiftUI
 import WebKit
 
 extension URL {
+    
+    /// Insert a path component after a given path component
+    /// - Parameters:
+    ///   - component: The component to insert after
+    ///   - path: The path to insert
     mutating func insertPathComponent(after component: String, with path: String) {
         let insertingComponent = component
         var components = self.pathComponents
@@ -31,6 +36,21 @@ extension URL {
         }
     }
     
+    /// The host URL of a `URL`
+    /// - Note: is`nil` if the data cannot be represented as `JSON`
+    var hostURL: URL? {
+        guard let host = self.host else {
+            return nil
+        }
+        var components = URLComponents()
+        components.host = host
+        components.scheme = "https"
+        return components.url
+    }
+    
+    /// Creates a new `URL` with queries
+    /// - Parameter queries: Queries to add to the `URL`
+    /// - Returns: A new `URL` with the query items appended
     func appendingQueryItems(_ queries: [URLQueryItem]) -> URL? {
         
         guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
@@ -43,9 +63,21 @@ extension URL {
         
         return components.url
     }
+    
+    /// Creates a new `URL` without any queries
+    /// - Returns: A new `URL` without any queries
+    func removingQueries() -> URL? {
+        var components = URLComponents(string: self.absoluteString)
+        components?.query = nil
+        return components?.url
+    }
+    
 }
 
 extension Array where Element: HTTPCookie {
+    
+    /// A string to use in value of the `Cookie` HTTP header field such that the network request will
+    /// contain the cookies in the array.
     var cookieHeader: String {
         var header = ""
         self.forEach {header.append("\($0.name)=\($0.value); ")}
@@ -55,18 +87,24 @@ extension Array where Element: HTTPCookie {
 
 
 extension URLRequest {
+    
+    /// A HTTP method to use in a `URLRequest`
     enum HTTPMethod: String {
         case post = "POST", get = "GET", put = "PUT", options = "OPTIONS", head = "HEAD"
     }
     
+    /// The content type to use in a `URLRequest`
     enum ContentType: String {
         case json = "application/json", form = "application/x-www-form-urlencoded"
     }
     
+    /// A key in a HTTP Header Field
     enum Header: String {
         case cookie = "Cookie", contentType = "Content-Type", accept = "Accept"
     }
     
+    /// Sets the cookies to use for a `URLRequest`
+    /// - Parameter cookies: An array of cookies that will be used in a `URLRequest`
     mutating func setCookieHeader(for cookies: [HTTPCookie]?) {
         if let cookies = cookies {
             self.setValue(cookies.cookieHeader, forHTTPHeaderField: Header.cookie.rawValue)
@@ -75,6 +113,8 @@ extension URLRequest {
 }
 
 extension HTTPURLResponse {
+    
+    /// The status for a `HTTPURLResponse`
     enum Status {
         case information
         case success
@@ -94,6 +134,7 @@ extension HTTPURLResponse {
         }
     }
     
+    /// The status of this `HTTPURLResponse`
     var status: Status {
         switch statusCode {
         case 100..<200:
@@ -126,6 +167,8 @@ extension HTTPURLResponse {
 
 extension WKHTTPCookieStore {
     
+    /// Clears all cookies in this cookie store
+    /// - Parameter completion: completion function
     func clearCookies(completion: @escaping () -> () = {}) {
         
         self.getAllCookies { cookies in
@@ -142,6 +185,10 @@ extension WKHTTPCookieStore {
         }
     }
     
+    /// Adds the given cookies to the cookie store and removes any other cookies
+    /// - Parameters:
+    ///   - cookies: The cookies to add to the cookie store
+    ///   - completion: completion function
     func useOnlyCookies(from cookies: [HTTPCookie], completion: @escaping () -> () = {}) {
         clearCookies {
             let waitGroup = DispatchGroup()
@@ -160,13 +207,24 @@ extension WKHTTPCookieStore {
 }
 
 extension URLSessionConfiguration {
+    
+    /// A URLSession that is used for authentication based network requests
+    /// - Cookie Store: `HTTPCookieStorage.shared`
+    /// - Cache Policy: `reloadIgnoringLocalAndRemoteCacheData`
+    /// - Cookie Accept Policy: `always`
+    /// - Uses `URLSessionConfiguration.default` for all other configuration
     static let authentication: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         configuration.httpCookieAcceptPolicy = .always
+        
         return configuration
     }()
     
+    /// A URLSession that is used for more secure network requests
+    /// - Cookie Store: `HTTPCookieStorage.shared`
+    /// - Should Set Cookies: `true`
+    /// - Uses `URLSessionConfiguration.ephemeral` for all other configuration
     static let secure: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.httpShouldSetCookies = true
@@ -174,6 +232,10 @@ extension URLSessionConfiguration {
         return configuration
     }()
     
+    /// A URLSession that is used for all API based network requests
+    /// - Cookie Store: `HTTPCookieStorage.shared`
+    /// - Cache Policy: `reloadIgnoringLocalCacheData`
+    /// - Uses `URLSessionConfiguration.default` for all other configuration
     static let dataLoad: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -182,25 +244,29 @@ extension URLSessionConfiguration {
 }
 
 extension HTTPCookieStorage {
-    func removeSessionCookies() {
-        if let cookies = self.cookies {
-            cookies.forEach { cookie in
-                if cookie.name != API.Authentication.Cookie.persistent.name {
-                   deleteCookie(cookie)
-                }
-            }
-        }
-    }
+    
+    /// Clears all cookies in HTTPCookieStorage
     func clearCookies() {
         self.removeCookies(since: .distantPast)
     }
-}
-
-
-extension URLSession {
-    class func reset(from session: URLSession) -> URLSession {
-        let configuration = session.configuration
-        session.invalidateAndCancel()
-        return URLSession(configuration: configuration)
+    
+    /// Gets all cookies that have a given name
+    /// - Parameter name: Cookie name to filter by
+    /// - Returns: All cookies that have a given name
+    func getCookies(name: String) -> [HTTPCookie]? {
+        return self.cookies?.filter({$0.name == name})
+    }
+    
+    
+    /// Deletes all cookies with a given name
+    /// - Parameter name: Cookie name  to filter by
+    func deleteCookie(name: String) {
+        guard let cookiesToDelete = getCookies(name: name) else {
+            return
+        }
+        cookiesToDelete.forEach { cookie in
+            self.deleteCookie(cookie)
+        }
     }
 }
+

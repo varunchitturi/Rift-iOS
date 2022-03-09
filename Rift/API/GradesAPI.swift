@@ -9,27 +9,30 @@ import Foundation
 
 extension API {
     
+    /// API to obtain information on grades
     struct Grades {
         
+        /// Collection of endpoints to obtain information on grades
         private enum Endpoint {
+            
+            /// Endpoint to get all terms and their corresponding grades
             static let termGrades = "resources/portal/grades"
+            
+            /// Endpoint to get detail on a specific `Course`
             static let termGradeDetails = termGrades + "/detail"
         }
         
+        /// Gets all terms and their corresponding grades
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[GradeTerm], Error>) -> Void) {
-            guard let locale = locale ?? PersistentLocale.getLocale() else {
-                completion(.failure(APIError.invalidLocale))
-                return
-            }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGrades))
             
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
-                    completion(.failure(error))
-                }
-                else if let data = data {
+            API.defaultRequestManager.get(endpoint: Endpoint.termGrades, locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
                     struct Response: Decodable {
-                        // TODO: use custom term here
+                        
                         let gradeTerms: [GradeTerm]
                         
                         enum CodingKeys: String, CodingKey {
@@ -44,26 +47,27 @@ extension API {
                     catch {
                         completion(.failure(error))
                     }
+                case .failure(let error):
+                    switch error {
+                    case APIError.invalidData:
+                        completion(.success([]))
+                    default:
+                        completion(.failure(error))
+                    }
                 }
-                else {
-                    completion(.success([]))
-                }
-            }.resume()
+                
+            }
         }
         
-        static func getGradeDetails(for assignmentID: Int, locale: Locale? = nil, completion: @escaping (Result<([Term],[GradeDetail]), Error>) -> ()) {
-            
-            guard let locale = locale ?? PersistentLocale.getLocale() else {
-                completion(.failure(APIError.invalidLocale))
-                return
-            }
-            let urlRequest = URLRequest(url: locale.districtBaseURL.appendingPathComponent(Endpoint.termGradeDetails + "/\(assignmentID)"))
-            
-            API.defaultURLSession.dataTask(with: urlRequest) { data, response, error in
-                if let error = (error ?? APIError(response: response)) {
-                    completion(.failure(error))
-                }
-                else if let data = data {
+        /// Gets detail on a specific course
+        /// - Parameters:
+        ///   - course: The course to get detail for
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
+        static func getGradeDetails(for course: Course, locale: Locale? = nil, completion: @escaping (Result<([Term],[GradeDetail]), Error>) -> ()) {
+            API.defaultRequestManager.get(endpoint: Endpoint.termGradeDetails + "/\(course.sectionID)", locale: locale) { result in
+                switch result {
+                case .success((let data, _)):
                     struct Response: Decodable {
                         let terms: [Term]
                         var gradeDetails: [GradeDetail]
@@ -73,7 +77,6 @@ extension API {
                             case gradeDetails = "details"
                         }
                     }
-                    
                     do {
                         let decoder = JSONDecoder()
                         var response = try decoder.decode(Response.self, from: data)
@@ -84,12 +87,11 @@ extension API {
                     catch {
                         completion(.failure(error))
                     }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-                else {
-                    completion(.failure(APIError.invalidData))
-                }
-            }.resume()
-            
+                
+            }
         }
         
     }

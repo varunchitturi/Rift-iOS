@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A tag like view for `Text` views
+/// - Colored text with a contrasting background
 struct TextTag: View {
     
     init(_ text: String) {
@@ -28,7 +30,7 @@ struct TextTag: View {
             .clipShape(RoundedRectangle(cornerRadius: DrawingConstants.tagCornerRadius))
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let tagCornerRadius: CGFloat = 3
         static let verticalPadding: CGFloat = 1
         static let horizontalPadding: CGFloat = 4

@@ -9,24 +9,33 @@ import Firebase
 import Foundation
 import SwiftUI
 
+/// MVVM view model for the `HomeView`
 class HomeViewModel: ObservableObject {
     
+    /// MVVM model
     @Published private var homeModel = HomeModel()
+    
+    /// Boolean that gives whether the `UserPreferenceView` is presented
     @Published var settingsIsPresented: Bool = false
+    
+    /// `AsyncState` to manage network calls in views
     @Published var networkState: AsyncState = .idle
     
     init() {
         fetchUser()
     }
     
+    /// The account of the user
     var account: UserAccount? {
         homeModel.account
     }
     
+    /// Student Information of the user
     var studentInformation: Student? {
         homeModel.student
     }
     
+    /// Fetches user properties and configuration from the API
     func fetchUser() {
         API.Resources.getUserAccount { [weak self] result in
             switch result {

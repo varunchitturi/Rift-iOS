@@ -17,25 +17,53 @@ struct InboxDetailView: View {
     }
     // TODO: better this message view. Text should be presented much nicer. Add ability to delete a message
     var body: some View {
-        VStack {
-            if inboxDetailViewModel.messageBody != nil {
-                ScrollView {
-                    VStack {
-                        Text(inboxDetailViewModel.messageBody!)
-                    }
-                    .padding()
+        ScrollView {
+            VStack(spacing: DrawingConstants.sectionSpacing) {
+                TextSection(header: "Subject", inboxDetailViewModel.messageTitle)
+                TextSection(header: "Date", String(displaying: inboxDetailViewModel.messageDate, formatter: .naturalFull))
+                if inboxDetailViewModel.messageBody != nil {
+                    let bodyWithFormattedLinks = inboxDetailViewModel.messageBody!.formattingForMarkdownLinks()
+                    TextSection(header: "Message", (try? AttributedString(markdown: bodyWithFormattedLinks, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(bodyWithFormattedLinks))
                 }
             }
-            else {
-                LoadingView()
-            }
+            .textSelection(.enabled)
+            .padding()
+        }
+        .apiHandler(asyncState: inboxDetailViewModel.networkState) {
+            InboxDetailLoadingView()
+        } retryAction: { _ in
+            inboxDetailViewModel.getMessageDetail()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(inboxDetailViewModel.messageType.rawValue)
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
+    }
+    
+    private enum DrawingConstants {
+        static let sectionSpacing: CGFloat = 15
+    }
+}
+
+private struct InboxDetailLoadingView: View {
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: DrawingConstants.sectionSpacing) {
+                TextSection(header: "Subject", String.nilDisplay)
+                TextSection(header: "Date", String.nilDisplay)
+                TextSection(header: "Message", String(repeating: String.nilDisplay, count: DrawingConstants.placeholderTextLength))
+            }
+            .padding()
+            .skeletonLoad()
+        }
+    }
+    
+    private enum DrawingConstants {
+        static let placeholderTextLength = 500
+        static let sectionSpacing: CGFloat = 15
     }
 }
 

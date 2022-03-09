@@ -8,6 +8,7 @@
 import Foundation
 import SwiftSoup
 
+/// Gives detail information on an `Assignment`
 struct AssignmentDetail: Decodable, Identifiable, Equatable {
     
     // TODO: make sure API naming schemes are consistent
@@ -51,18 +52,33 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
     }
     
     
+    /// The `id` of the `Assignment`
     let id: Int
     
+    /// The start date for the `Assignment`
     let startDate: Date?
+    
+    /// The end date for the `Assignment`
     let endDate: Date?
+    
+    /// The date when the `Assignment` was last modified
     let modifiedDate: Date?
     
+    /// Gives whether the `Assignment` is active and should be used in grade calculation
     let isActive: Bool
     
+    /// The rubrics for the `Assignment`
+    /// - Gives information on how the assignment is graded
     private let rubrics: [Rubric]?
+    
+    /// The scores for the `Assignment`
+    /// - Gives information on student performance on an `Assignment`
     private let scores: [Score]?
+    
+    /// The description for the `Assignment`
     let description: Description
     
+    /// The weightage if present for the `Assignment`
     private var weight: Double? {
         guard let rubrics = rubrics, let rubric = rubrics.first, let weight = rubric.weight else {
             return nil
@@ -70,6 +86,7 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
         return weight
     }
     
+    /// The total points that the `assignment` is out of
     private var totalPoints: Double? {
         guard let rubrics = rubrics, let rubric = rubrics.first, let totalPoints = rubric.totalPoints else {
             return nil
@@ -78,6 +95,7 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
     }
     
     
+    /// The points earned on the `Assignment`
     var scorePoints: Double? {
         guard let scores = scores,
                 !scores.isEmpty,
@@ -87,6 +105,7 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
         return scorePoints * (weight ?? 1)
     }
     
+    /// Comments that are present on an `Assignment`
     var comments: String? {
         scores?.first != nil ? scores!.first!.comments : nil
     }
@@ -100,6 +119,7 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
         case scores
     }
     
+    /// Contains information on student performance of an `Assignment`
     private struct Score: Decodable, Identifiable, Equatable {
         
         init(id: Int, scorePoints: Double?, comments: String?) {
@@ -108,8 +128,13 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
             self.comments = comments
         }
         
+        /// The `id` of the `Score`
         let id: Int
+        
+        /// The points earned on the `Assignment`
         let scorePoints: Double?
+        
+        /// Comments on the score of an `Assignment`
         let comments: String?
         
         enum CodingKeys: String, CodingKey {
@@ -133,9 +158,14 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
         }
         
     }
+    
+    /// Description for an `Assignment`
     struct Description: Decodable, Equatable {
         
+        /// Gives information on the description summary of an assignment
         struct SummaryContent: Decodable {
+            
+            /// The description of an assignment in the form of HTML
             let content: String
         }
         
@@ -144,7 +174,10 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
             self.summary = summary
         }
         
+        /// The name of the assignment
         let assignmentName: String
+        
+        /// The summary of the description of an assignment
         let summary: String?
         
         enum CodingKeys: String, CodingKey {
@@ -172,9 +205,16 @@ struct AssignmentDetail: Decodable, Identifiable, Equatable {
         }
     }
     
+    /// Gives information on how an `Assignment` is graded
     private struct Rubric: Decodable, Equatable {
+        
+        /// The points that an `Assignment` is out of
         let totalPoints: Double?
+        
+        /// The weightage of an `Assignment`
         let weight: Double?
+        
+        /// The `id` of the category that the assignment is part of
         let categoryID: Int
     }
 

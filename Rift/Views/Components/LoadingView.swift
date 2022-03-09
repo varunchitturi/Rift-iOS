@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A custom, unbounded, circular loading indicator
 struct LoadingView: View {
     @State private var isRotating = false
     private var animationStyle: Animation = .linear(duration: DrawingConstants.animationDuration).repeatForever(autoreverses: false)
@@ -31,7 +32,7 @@ struct LoadingView: View {
         }
     }
 
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let loaderLineWidth: CGFloat = 5
         static let animationDuration: CGFloat = 0.5
         static let loaderSize: CGFloat = 35

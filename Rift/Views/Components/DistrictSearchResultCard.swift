@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row in the `DistrictSearchView`
 struct DistrictSearchResultCard: View {
     
     init(for result: Locale) {
@@ -26,7 +27,7 @@ struct DistrictSearchResultCard: View {
         }.padding(.vertical)
     }
     
-    private struct DrawingConstants {
+    private enum DrawingConstants {
         static let minimumTextTrailingSpace: CGFloat = 25
         static let textLineLimit = 1
     }

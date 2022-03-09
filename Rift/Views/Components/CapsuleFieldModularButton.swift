@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A button that allows its text to be a binding to another value
 struct CapsuleFieldModularButton: View {
     
     var label: String
