@@ -32,7 +32,6 @@ struct TextSection: View {
                 RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
                     .foregroundColor(Rift.DrawingConstants.backgroundColor)
                 Text(text)
-                    .textSelection(.enabled)
                     .font(.callout)
                     .padding()
             }
