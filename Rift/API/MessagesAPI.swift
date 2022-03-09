@@ -121,7 +121,7 @@ extension API {
             }
         }
         
-        /// A type that is encoded in order to make a request to delete a message
+        /// A type that is encoded in order to make a network request to delete a message
         private struct DeleteMessageBodyRequest: Encodable {
             let request = "messenger.MessengerEngine-deleteMessageRecipientView"
             let processMessageID: Int

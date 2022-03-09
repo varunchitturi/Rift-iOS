@@ -43,7 +43,6 @@ struct CourseDetailView: View {
                         editingGradeDetail: courseDetailViewModel.editingGradeDetail!,
                         showCalculatedGrade: showCalculatedGrade
                     )
-                        .padding(.bottom)
                     ForEach ($courseDetailViewModel.editingGradeDetail.unwrap()!.assignments) { `assignment` in
                         NavigationLink(
                             destination: AssignmentDetailView(

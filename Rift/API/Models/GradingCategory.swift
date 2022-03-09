@@ -107,7 +107,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
             guard let currentPoints = currentPoints, let totalPoints = totalPoints else {
                 return nil
             }
-            return ((currentPoints/totalPoints) * 100).truncated(2)
+            return ((currentPoints/totalPoints) * 100)
         }
         return categoryGrade?.percentage
     }

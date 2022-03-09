@@ -31,7 +31,6 @@ struct CapsuleFieldModularButton: View {
             HStack {
                 Text(text ?? description)
                     .foregroundColor(text != nil ? DrawingConstants.foregroundColor : DrawingConstants.disabledColor)
-                    .padding(.leading)
                 Spacer()
                 if icon != nil {
                     Image(systemName: icon!)
