@@ -26,7 +26,7 @@ struct TextSection: View {
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
                     .foregroundColor(Rift.DrawingConstants.backgroundColor)
-                Text(text)
+                Text("[This is an assignment detail section](https://google.com)")
                     .font(.callout)
                     .padding()
             }
@@ -43,7 +43,7 @@ struct TextSection: View {
 #if DEBUG
 struct TextSection_Previews: PreviewProvider {
     static var previews: some View {
-        TextSection(header: "Section Header", "This is an assignment detail section")
+        TextSection(header: "Section Header", "[This is an assignment detail section](https://google.com)")
     }
 }
 #endif

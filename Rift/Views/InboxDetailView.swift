@@ -22,10 +22,11 @@ struct InboxDetailView: View {
                 TextSection(header: "Subject", inboxDetailViewModel.messageTitle)
                 TextSection(header: "Date", String(displaying: inboxDetailViewModel.messageDate, formatter: .naturalFull))
                 if inboxDetailViewModel.messageBody != nil {
+                    let bodyWithFormattedLinks = ""
                     TextSection(header: "Message", inboxDetailViewModel.messageBody!)
                 }
-                
             }
+            .textSelection(.enabled)
             .padding()
         }
         .apiHandler(asyncState: inboxDetailViewModel.networkState) {
