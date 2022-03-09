@@ -12,11 +12,16 @@ struct TextSection: View {
     
     init(header: String? = nil, _ text: String) {
         self.header = header
+        self.text = AttributedString(text)
+    }
+    
+    init(header: String? = nil, _ text: AttributedString) {
+        self.header = header
         self.text = text
     }
     
     let header: String?
-    let text: String
+    let text: AttributedString
     var body: some View {
         VStack(alignment: .leading) {
             if header != nil {
@@ -24,9 +29,9 @@ struct TextSection: View {
                     .font(.caption.bold())
             }
             ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
+                RoundedRectangle(cornerRadius: DrawingConstants().rectangleCornerRadius)
                     .foregroundColor(Rift.DrawingConstants.backgroundColor)
-                Text("[This is an assignment detail section](https://google.com)")
+                Text(text)
                     .font(.callout)
                     .padding()
             }
@@ -35,15 +40,15 @@ struct TextSection: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private enum DrawingConstants {
-        static let rectangleCornerRadius: CGFloat = 15
+    private struct DrawingConstants {
+        let rectangleCornerRadius: CGFloat = 15
     }
 }
 
 #if DEBUG
 struct TextSection_Previews: PreviewProvider {
     static var previews: some View {
-        TextSection(header: "Section Header", "[This is an assignment detail section](https://google.com)")
+        TextSection(header: "Section Header", try! AttributedString(markdown: "[https//:google.com](https//:gooddgle.com)"))
     }
 }
 #endif
