@@ -1,7 +1,3 @@
-- Feature - Credential Login
-- Feature - New View for viewing messages
-- Feature - New links in settings page
-- Bug Fix - Better SSO error handling
-- Bug Fix - Fixes to error handlers and loaders
-- Bug Fix - You no longer get logged out if your session expires
-- Bug Fix - Other minor ui changes and bug fixes
+- Feature - New Inbox View
+- Feature - New Credential Log In
+- Bugfix - Other minor bugfixes and UI adjustments

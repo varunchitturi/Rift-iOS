@@ -22,8 +22,7 @@ struct InboxDetailView: View {
                 TextSection(header: "Subject", inboxDetailViewModel.messageTitle)
                 TextSection(header: "Date", String(displaying: inboxDetailViewModel.messageDate, formatter: .naturalFull))
                 if inboxDetailViewModel.messageBody != nil {
-                    let bodyWithFormattedLinks = inboxDetailViewModel.messageBody!.formattingForMarkdownLinks()
-                    TextSection(header: "Message", (try? AttributedString(markdown: bodyWithFormattedLinks, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(bodyWithFormattedLinks))
+                    TextSection(header: "Message", (try? AttributedString(markdown: inboxDetailViewModel.messageBody!, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(inboxDetailViewModel.messageBody!))
                 }
             }
             .textSelection(.enabled)
