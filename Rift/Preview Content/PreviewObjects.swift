@@ -40,13 +40,13 @@ struct PreviewObjects {
     static let grade = Grade(letterGrade: "A", percentage: 90, currentPoints: 90, totalPoints: 100, termName: "Q1", termType: "Quarter", termID: 1, hasInitialAssignments: true, hasCompositeTasks: false, cumulativeTermName: nil)
     static let assignment = Assignment(id: 1, isActive: true, name: "Find a frog", dueDate: Date() + 2, assignedDate: Date(), courseName: "How to cook frogs", totalPoints: 100, scorePoints: 90, comments: nil, categoryName: "Unit Test")
     
-    static let course = Course(id: 2, sectionID: 3, courseName: "The Magic Arts", teacherName: "Mr. ooba", grades: [grade], isDropped: false)
+    static let course = Course(id: 2, sectionID: 3, name: "The Magic Arts", teacherName: "Mr. ooba", grades: [grade], isDropped: false)
     
     static let gradeDetail = GradeDetail(grade: grade, categories: [gradingCategory], linkedGrades: nil)
     
     static let gradingCategory = GradingCategory(id: 4, name: "Judgement", isWeighted: true, weight: 100, isExcluded: false, assignments: [assignment], usePercent: false)
         
-    static let message = Message(id: 5, courseID: 6, postedTime: Date(), date: Date(), unread: true, endpoint: "portal/messageView.xsl?x=messenger.MessengerEngine-getMessageRecipientView&messageID=5063&messageRecipientID=1777546&processMessageID=965771", type: .default, name: "Library Closure")
+    static let message = Message(id: 5, postedTime: Date(), date: Date(), unread: true, endpoint: "portal/messageView.xsl?x=messenger.MessengerEngine-getMessageRecipientView&messageID=5063&messageRecipientID=1777546&processMessageID=965771", type: .default, name: "Library Closure")
     
 }
 #endif

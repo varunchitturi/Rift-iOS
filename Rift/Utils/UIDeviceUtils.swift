@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 extension UIDevice {
+    
+    /// A unique device ID used to identify devices in analytics or network requests
     static var currentDeviceID: String {
         UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
     }

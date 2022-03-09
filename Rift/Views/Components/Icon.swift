@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// An `Image` of the Rift logo
 struct Icon: View {
     var body: some View {
         Image("Icon")

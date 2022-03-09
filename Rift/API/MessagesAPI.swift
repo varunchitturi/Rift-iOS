@@ -11,13 +11,21 @@ import URLEncodedForm
 
 extension API {
     
+    /// API to get messages for a user
     struct Messages {
         
+        /// Collection of endpoints for messages
         enum Endpoint {
+            /// Endpoint to get all messages for a user
             static let messageList = "api/portal/process-message/"
+            /// Endpoint to delete a message
             static let deleteMessage = "execute/"
         }
         
+        /// Gets all messages for a user
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getMessageList(locale: Locale? = nil, completion: @escaping (Result<[Message], Error>) -> Void) {
             API.defaultRequestManager.get(endpoint: Endpoint.messageList, locale: locale) { result in
                 switch result {
@@ -36,6 +44,11 @@ extension API {
             }
         }
         
+        /// Gets a body for a `Message`
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - message: The message to get a body for
+        ///   - completion: Completion function
         static func getMessageBody(locale: Locale? = nil, message: Message, completion: @escaping (Result<String, Error>) -> Void) {
             guard let locale = locale ?? PersistentLocale.getLocale() else {
                 completion(.failure(API.APIError.invalidLocale))
@@ -62,12 +75,19 @@ extension API {
                                 throw APIError.invalidData
                             }
                             let doc = try SwiftSoup.parse(messageHTML)
-                            guard let elements = try? doc.getElementsByTag("p") else {
-                                return completion(.failure(APIError.invalidData))
+                            
+                            for anchor in try doc.getElementsByTag("a") {
+                                // Converts links in html to links in markdown. Allows for easy embedding of links.
+                                try anchor.html("[\(try anchor.text())](\(try anchor.attr("href")))")
                             }
+                            
+                            let elements = try doc.getElementsByTag("p")
                             var body = ""
-                            for element in elements {
-                                body += "\(try element.text())\n"
+                            for (index, element) in elements.enumerated() {
+                                body += "\(try element.text())"
+                                if index != elements.endIndex-1 {
+                                    body += "\n"
+                                }
                             }
                             completion(.success(body))
                         }
@@ -84,6 +104,11 @@ extension API {
             }
         }
         
+        /// Deletes a given message
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - message: Message to delete
+        ///   - completion: Completion function
         static func deleteMessage(locale: Locale? = nil, message: Message, completion: @escaping (Error?) -> Void) {
             API.defaultRequestManager.post(endpoint: Endpoint.deleteMessage, data: DeleteMessageBodyRequest(processMessageID: message.id), encodeType: .form, locale: locale) { result in
                 switch result {
@@ -96,6 +121,7 @@ extension API {
             }
         }
         
+        /// A type that is encoded in order to make a request to delete a message
         private struct DeleteMessageBodyRequest: Encodable {
             let request = "messenger.MessengerEngine-deleteMessageRecipientView"
             let processMessageID: Int

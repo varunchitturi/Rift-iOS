@@ -47,7 +47,7 @@ struct AssignmentsView: View {
                 
         }
         .navigationViewStyle(.stack)
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
 }
 

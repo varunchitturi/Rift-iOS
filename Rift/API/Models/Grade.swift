@@ -11,15 +11,36 @@ import Foundation
 
 struct Grade: Decodable, Equatable {
     
+    /// The letter grade for this `Grade`
     var letterGrade: String?
+    
+    /// The total percentage for this `Grade`
     let percentage: Double?
+    
+    /// The points earned for this `Grade`
     let currentPoints: Double?
+    
+    /// The total points that are part of this `Grade`
     let totalPoints: Double?
+    
+    /// The name of the grading term
     let termName: String
+    
+    /// The type of grading term
     let termType: String
+    
+    /// The ID for the grading term
     let termID: Int
+    
+    /// Gives whether the term inherently has assignment
     let hasInitialAssignments: Bool
+    
+    /// Gives whether the term is a composite of other terms
+    /// - If it does have composite tasks, assignments from other terms are included in the grade calculation
     let hasCompositeTasks: Bool
+    
+    /// The term that this term is accumulating over
+    /// - If a cumulative term name exists, then assignments from that term is included in calculating this grade
     let cumulativeTermName: String?
 
     enum CodingKeys: String, CodingKey {

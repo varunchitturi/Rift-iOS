@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+/// A dropdown button that actives a picker view when pressed with a capsule-like background
 struct CapsuleDropDown: View {
 
     @Binding var isEditing: Bool
@@ -42,7 +43,6 @@ struct CapsuleDropDown: View {
             HStack {
                 pickerField
                     .foregroundColor(DrawingConstants.foregroundColor)
-                    .padding(.leading)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 dropDownIcon

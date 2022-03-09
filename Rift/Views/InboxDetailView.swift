@@ -22,10 +22,10 @@ struct InboxDetailView: View {
                 TextSection(header: "Subject", inboxDetailViewModel.messageTitle)
                 TextSection(header: "Date", String(displaying: inboxDetailViewModel.messageDate, formatter: .naturalFull))
                 if inboxDetailViewModel.messageBody != nil {
-                    TextSection(header: "Message", inboxDetailViewModel.messageBody!)
+                    TextSection(header: "Message", (try? AttributedString(markdown: inboxDetailViewModel.messageBody!, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(inboxDetailViewModel.messageBody!))
                 }
-                
             }
+            .textSelection(.enabled)
             .padding()
         }
         .apiHandler(asyncState: inboxDetailViewModel.networkState) {
@@ -38,7 +38,7 @@ struct InboxDetailView: View {
         .onAppear {
             inboxDetailViewModel.getMessageDetail()
         }
-        .logViewAnlaytics(self)
+        .logViewAnalytics(self)
     }
     
     private enum DrawingConstants {

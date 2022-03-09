@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+/// A full-width text field with a capsule shape
 struct CapsuleTextField: View {
 
     

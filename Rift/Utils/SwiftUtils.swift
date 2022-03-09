@@ -100,11 +100,32 @@ extension String {
     /// - Parameter style: The `NumericStyle` to use
     /// - Returns: A String that has been formatted according to the given `NumericStyle`
     func addingNumericToken(_ style: NumericStyle) -> String {
-        return self.appending(style.token)
+        switch style {
+        case .percentage:
+            return self.appending(style.token)
+        case .dollar:
+            return style.token.appending(self)
+        }
+        
+    }
+    
+    /// Formats all links into markdown style
+    /// - Returns: A string with all its links formatted in markdown style
+    func formattingForMarkdownLinks() -> String{
+        var newString = self
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
+        for match in matches {
+            guard let range = Range(match.range, in: self) else { continue }
+            newString.replaceSubrange(range, with: "[\(self[range])](\(self[range]))")
+        }
+        return newString
     }
 }
 
 protocol PropertyIterable {
+    /// All properties in a PropertyIterable type
+    /// - Returns: A dictionary in which the keys are the property names and values are the property values
     func allProperties() throws -> [String: Any]
 }
 

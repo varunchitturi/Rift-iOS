@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A full-width button with red text and a contrasting background to indicate a destructive action
 struct DestructiveButton: View {
     
     init(_ label: String, action: @escaping () -> ()) {

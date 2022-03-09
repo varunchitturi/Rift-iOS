@@ -7,16 +7,19 @@
 
 import Foundation
 
+/// MVVM model to handle the `AddAssignmentView`
 struct AddAssignmentModel {
     
+    /// The new that will be added
     var newAssignment: Assignment
     
+    /// The possible `GradingCategories` that can be chosen for this assignment
     var gradingCategories: [GradingCategory]
     
     init(courseName: String, gradingCategories: [GradingCategory]) {
         newAssignment = Assignment(id: UUID().hashValue,
                                    isActive: true,
-                                   name: "",
+                                   name: "Assignment",
                                    dueDate: Date.now,
                                    assignedDate: Date.now,
                                    courseName: courseName,

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A text header with a full-width, contrasting background
 struct SectionHeader: View {
     init(_ text: String) {
         self.text = text

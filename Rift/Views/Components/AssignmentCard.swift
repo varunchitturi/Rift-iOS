@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A row to represent an `Assignment` in the `AssignmentsView`
 struct AssignmentCard: View {
     
     init(assignment: Assignment? = nil) {
@@ -25,10 +26,11 @@ struct AssignmentCard: View {
                     .fontWeight(.semibold)
                     .font(.caption)
                     .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
-                    .padding([.vertical], DrawingConstants.textInsetPadding)
+                    .padding([.bottom], DrawingConstants.textInsetPadding)
             }
             .lineLimit(1)
-            .padding(DrawingConstants.textPadding)
+            .padding(.vertical)
+            .padding(.horizontal, DrawingConstants.textPadding)
             Spacer()
             CardAssignmentGrade(assignment: assignment)
         }
@@ -42,7 +44,7 @@ struct AssignmentCard: View {
     
     private enum DrawingConstants {
         static let backgroundCornerRadius: CGFloat = 15
-        static let textPadding: CGFloat = 11
+        static let textPadding: CGFloat = 5
         static let textInsetPadding: CGFloat = 1.5
     }
 }

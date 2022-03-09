@@ -9,12 +9,18 @@ import Foundation
 import CoreData
 
 struct PersistenceController {
+    
+    /// The default persistence controller to use for Core Data
     static let shared = PersistenceController()
     
+    /// A  container for persistent data storage
     let container: NSPersistentContainer
     
+    /// The default name for a persistent container
     private static let persistentContainerName = "Model"
     
+    /// Creates a persistent store
+    /// - Parameter inMemory: Choose whether the data should be saved to a file in memory
     init(inMemory: Bool = false) {
         
         container = NSPersistentContainer(name: PersistenceController.persistentContainerName)
@@ -34,21 +40,13 @@ struct PersistenceController {
         }
     }
     
+    /// Saves the current container context to the store
+    /// - Use this whenever you want too save any changes in a `viewContext` to memory
     func save() throws {
         let context = container.viewContext
 
         if context.hasChanges {
             try context.save()
         }
-    }
-}
-
-protocol StorageManager {
-    static var storageIdentifier: String { get }
-}
-
-extension StorageManager {
-    static var storageIdentifier: String {
-        return String(describing: Self.self)
     }
 }

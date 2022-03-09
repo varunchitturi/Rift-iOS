@@ -9,13 +9,23 @@ import Foundation
 
 extension API {
     
+    /// API to obtain information on grades
     struct Grades {
         
+        /// Collection of endpoints to obtain information on grades
         private enum Endpoint {
+            
+            /// Endpoint to get all terms and their corresponding grades
             static let termGrades = "resources/portal/grades"
+            
+            /// Endpoint to get detail on a specific `Course`
             static let termGradeDetails = termGrades + "/detail"
         }
         
+        /// Gets all terms and their corresponding grades
+        /// - Parameters:
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getTermGrades(locale: Locale? = nil, completion: @escaping (Result<[GradeTerm], Error>) -> Void) {
             
             API.defaultRequestManager.get(endpoint: Endpoint.termGrades, locale: locale) { result in
@@ -49,6 +59,11 @@ extension API {
             }
         }
         
+        /// Gets detail on a specific course
+        /// - Parameters:
+        ///   - course: The course to get detail for
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getGradeDetails(for course: Course, locale: Locale? = nil, completion: @escaping (Result<([Term],[GradeDetail]), Error>) -> ()) {
             API.defaultRequestManager.get(endpoint: Endpoint.termGradeDetails + "/\(course.sectionID)", locale: locale) { result in
                 switch result {

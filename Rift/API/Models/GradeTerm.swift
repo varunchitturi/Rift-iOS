@@ -8,35 +8,50 @@
 import Foundation
 import SwiftUI
 
+/// Similar to `Term` but isn't specific to a course
 struct GradeTerm: Decodable, Identifiable {
     
-    init(id: Int, startDate: Date, endDate: Date, termName: String, termScheduleName: String, courses: [Course]?) {
+    init(id: Int, startDate: Date, endDate: Date, name: String, termScheduleName: String, courses: [Course]?) {
         self.id = id
         self.startDate = startDate
         self.endDate = endDate
-        self.termName = termName
+        self.name = name
         self.termScheduleName = termScheduleName
         self.courses = courses
     }
     
+    /// The `id` for this `GradeTerm`
     let id: Int
+    
+    /// When the `GradeTerm` starts
     let startDate: Date
+    
+    /// When the `GradeTerm` ends
     let endDate: Date
-    let termName: String
+    
+    /// The name of the `GradeTerm`
+    let name: String
+    
+    /// The schedule name for this `GradeTerm`
+    /// - Gives information on the grading period
+    /// - Example: Quarters, Semesters, Trimesters
     let termScheduleName: String
+    
+    /// All the courses in this `GradeTerm`
     let courses: [Course]?
     
     enum CodingKeys: String, CodingKey {
         case id = "termID"
         case startDate, endDate
-        case termName, termScheduleName
+        case name="termName"
+        case termScheduleName
         case courses
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(Int.self, forKey: .id)
-        let termName = try container.decode(String.self, forKey: .termName)
+        let name = try container.decode(String.self, forKey: .name)
         let termScheduleName = try container.decode(String.self, forKey: .termScheduleName)
         let courses = try container.decode([Course]?.self, forKey: .courses)
         
@@ -53,6 +68,6 @@ struct GradeTerm: Decodable, Identifiable {
             throw DecodingError.dateDecodingError(for: [CodingKeys.endDate])
         }
         
-        self.init(id: id, startDate: startDate, endDate: endDate, termName: termName, termScheduleName: termScheduleName, courses: courses)
+        self.init(id: id, startDate: startDate, endDate: endDate, name: name, termScheduleName: termScheduleName, courses: courses)
     }
 }
