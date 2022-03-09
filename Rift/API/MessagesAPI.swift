@@ -75,9 +75,13 @@ extension API {
                                 throw APIError.invalidData
                             }
                             let doc = try SwiftSoup.parse(messageHTML)
-                            guard let elements = try? doc.getElementsByTag("p") else {
-                                return completion(.failure(APIError.invalidData))
+                            
+                            for anchor in try doc.getElementsByTag("a") {
+                                // Converts links in html to links in markdown. Allows for easy embedding of links.
+                                try anchor.html("[\(try anchor.text())](\(try anchor.attr("href")))")
                             }
+                            
+                            let elements = try doc.getElementsByTag("p")
                             var body = ""
                             for (index, element) in elements.enumerated() {
                                 body += "\(try element.text())"
