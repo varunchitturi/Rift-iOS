@@ -25,7 +25,6 @@ struct InboxDetailView: View {
                     TextSection(header: "Message", (try? AttributedString(markdown: inboxDetailViewModel.messageBody!, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(inboxDetailViewModel.messageBody!))
                 }
             }
-            .textSelection(.enabled)
             .padding()
         }
         .apiHandler(asyncState: inboxDetailViewModel.networkState) {
