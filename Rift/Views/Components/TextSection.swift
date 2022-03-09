@@ -29,7 +29,7 @@ struct TextSection: View {
                     .font(.caption.bold())
             }
             ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: DrawingConstants().rectangleCornerRadius)
+                RoundedRectangle(cornerRadius: DrawingConstants.rectangleCornerRadius)
                     .foregroundColor(Rift.DrawingConstants.backgroundColor)
                 Text(text)
                     .font(.callout)
@@ -40,15 +40,15 @@ struct TextSection: View {
         .fixedSize(horizontal: false, vertical: true)
     }
     
-    private struct DrawingConstants {
-        let rectangleCornerRadius: CGFloat = 15
+    private enum DrawingConstants {
+        static let rectangleCornerRadius: CGFloat = 15
     }
 }
 
 #if DEBUG
 struct TextSection_Previews: PreviewProvider {
     static var previews: some View {
-        TextSection(header: "Section Header", try! AttributedString(markdown: "[https//:google.com](https//:gooddgle.com)"))
+        TextSection(header: "Section Header", try! AttributedString(markdown: "[https//:google.com](https//:google.com)"))
     }
 }
 #endif

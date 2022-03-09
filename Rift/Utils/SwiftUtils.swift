@@ -117,7 +117,6 @@ extension String {
         let matches = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
         for match in matches {
             guard let range = Range(match.range, in: self) else { continue }
-            print(self[range])
             newString.replaceSubrange(range, with: "[\(self[range])](\(self[range]))")
         }
         return newString
