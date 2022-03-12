@@ -36,8 +36,6 @@ class InboxViewModel: ObservableObject {
                     self?.inboxModel.messages = messages
                     self?.networkState = .success
                 case .failure(let error):
-                    // TODO: better error handling here
-                    print(error)
                     self?.networkState = .failure(error)
                 }
             }

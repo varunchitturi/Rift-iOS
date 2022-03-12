@@ -198,7 +198,6 @@ extension API {
                         completion(API.APIError.invalidCookies)
                     }
                 case .failure(let error):
-                    print(error)
                     completion(error)
                 }
             }

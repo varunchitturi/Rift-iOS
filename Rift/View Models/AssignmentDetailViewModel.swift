@@ -132,7 +132,6 @@ class AssignmentDetailViewModel: ObservableObject {
                         self?.networkState = .success
                     case .failure(let error):
                         self?.networkState = .failure(error)
-                        print(error)
                     }
                 }
             }
