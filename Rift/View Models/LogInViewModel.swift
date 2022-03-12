@@ -31,7 +31,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     /// SSO URLs that the presented web view is allowed to navigate to
     private static let ssoURLs = [
-        URL(string: "https://accounts.google.com/")!
+        URL(string: "https://accounts.google.com/")!,
+        URL(string: "https://login.microsoftonline.com/")!,
+        URL(string: "https://login.live.com/")!,
+        URL(string: "https://github.com/")!,
     ]
     
     /// The current URL of the web view

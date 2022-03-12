@@ -22,7 +22,7 @@ struct CapsuleDropDown: View {
     private var label: String?
     private var description: String
     
-    init(_ label: String? = nil, description: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, accentColor: Color = DrawingConstants.accentColor) {
+    init(_ label: String? = nil, description: String, options: [String], selectionIndex: Binding<Int?>, isEditing: Binding<Bool>, accentColor: Color = Rift.DrawingConstants.accentColor) {
         self.options = options
         self.label = label
         self.description = description
@@ -42,8 +42,9 @@ struct CapsuleDropDown: View {
             }
             HStack {
                 pickerField
-                    .foregroundColor(DrawingConstants.foregroundColor)
+                    .foregroundColor(Rift.DrawingConstants.foregroundColor)
                     .fixedSize(horizontal: false, vertical: true)
+                    .padding(.leading, DrawingConstants.leadingFieldPadding)
                 Spacer()
                 dropDownIcon
             }
@@ -57,9 +58,13 @@ struct CapsuleDropDown: View {
             }
             
         }
-        .foregroundColor(isEditing ? accentColor : DrawingConstants.foregroundColor)
+        .foregroundColor(isEditing ? accentColor : Rift.DrawingConstants.foregroundColor)
     }
     
+    
+    private struct DrawingConstants {
+        static let leadingFieldPadding: CGFloat = 5
+    }
     
 }
 

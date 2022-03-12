@@ -23,7 +23,7 @@ struct CapsuleTextField: View {
     private let onCommit: (String) -> ()
     private let inputType: LegacyTextField.InputType
  
-    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, inputType: LegacyTextField.InputType = .default, accentColor: Color = DrawingConstants.accentColor, isSecureStyle: Bool = false, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> () = {_ in}, configuration: @escaping (UITextField) -> () = {_ in}) {
+    init(_ label: String? = nil, text: Binding<String>, isEditing: Binding<Bool>, icon: String? = nil, inputType: LegacyTextField.InputType = .default, accentColor: Color = Rift.DrawingConstants.accentColor, isSecureStyle: Bool = false, onEditingChanged: @escaping (String) -> () = {_ in}, onCommit: @escaping (String) -> () = {_ in}, configuration: @escaping (UITextField) -> () = {_ in}) {
         self.label = label
         self.icon = icon
         self.inputType = inputType
@@ -44,7 +44,7 @@ struct CapsuleTextField: View {
             HStack {
                 if icon != nil {
                     Image(systemName: icon!)
-                        .foregroundColor(isEditing ? accentColor : DrawingConstants.secondaryForegroundColor)
+                        .foregroundColor(isEditing ? accentColor : Rift.DrawingConstants.secondaryForegroundColor)
                         .unredacted()
                 }
                 
@@ -53,7 +53,7 @@ struct CapsuleTextField: View {
                     textField.textColor = UIColor(Rift.DrawingConstants.foregroundColor)
                     configuration(textField)
                 })
-                
+                    .padding(.leading, DrawingConstants.leadingFieldPadding)
             }
             .disableable()
             .padding()
@@ -68,7 +68,10 @@ struct CapsuleTextField: View {
         }
         
     }
-
+    
+    private struct DrawingConstants {
+        static let leadingFieldPadding: CGFloat = 5
+    }
 
 }
 
