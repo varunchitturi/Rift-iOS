@@ -14,15 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
 
       - name: Fastlane Action
-        uses: maierj/fastlane-action@v3.0.0
+        uses: maierj/fastlane-action@v2.1.0
         with:
           lane: stage
         env:
