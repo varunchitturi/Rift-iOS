@@ -53,7 +53,7 @@ private struct InboxLoadingView: View {
     
     var body: some View {
         VStack(spacing: DrawingConstants.cardSpacing) {
-            ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+            ForEach(0..<DrawingConstants.placeholderCardCount, id: \.self) { _ in
                 MessageCard()
             }
         }

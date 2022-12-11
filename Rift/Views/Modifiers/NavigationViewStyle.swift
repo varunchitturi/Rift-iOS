@@ -32,6 +32,7 @@ private struct NavigationViewStyle: ViewModifier {
 }
 
 extension View {
+    @available(iOS, deprecated: 16, message: "Use `.toolbarBackground`")
     func navigationBarColor(backgroundColor: Color, foregroundColor: Color? = nil) -> some View {
         modifier(NavigationViewStyle(backgroundColor: backgroundColor, foregroundColor: foregroundColor))
     }

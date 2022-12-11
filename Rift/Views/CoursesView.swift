@@ -56,7 +56,7 @@ private struct CourseLoadingView: View {
             VStack {
                 Group {
                     CapsuleTextField(text: .constant(""), isEditing: .constant(false))
-                    ForEach(0..<DrawingConstants.placeholderCourseCount) { _ in
+                    ForEach(0..<DrawingConstants.placeholderCourseCount, id: \.self) { _ in
                         CourseCard()
                     }
                 }
