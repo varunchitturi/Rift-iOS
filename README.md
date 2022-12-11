@@ -6,26 +6,27 @@ Rift for Infinite Campus is an iOS client-app that allows for students who use I
 
 
 ---
-Currently Rift is in the beta stage with expected deployment date of December 1, 2021
+Currently Rift is now able to be downloaded on the iOS App store see https://riftapp.io for more details
 
 
 ---
 
 ## Used By
 
-This project is used by:
+This project is to be used by:
 
-- Students who use Infinite Campus
+- Students who use Infinite Campus as their Student Information System (SIS)
 
 
 Coming soon
 
-- Parents who use Infintie Campus to see their childs grades
+- Parents who use Infinite Campus to see their users grades
 
 
 ## Tech Stack
 
 **Client:** Swift, SwiftUI, RestAPIs
+**API** Infinite Campus Internal APIs
 
 
 

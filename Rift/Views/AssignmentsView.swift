@@ -55,7 +55,7 @@ private struct AssignmentsLoadingView: View {
     var body: some View {
         List {
             Section(header: Text(String.nilDisplay)) {
-                ForEach(0..<DrawingConstants.placeholderCardCount) { _ in
+                ForEach(0..<DrawingConstants.placeholderCardCount, id: \.self) { _ in
                     AssignmentCard()
                 }
             }
