@@ -54,7 +54,6 @@ class HomeViewModel: ObservableObject {
                         case .failure(let error):
                             DispatchQueue.main.async {
                                 self.networkState = .failure(error)
-                                print(error)
                             }
                         }
                     }

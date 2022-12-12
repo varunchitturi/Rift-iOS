@@ -13,14 +13,15 @@ import SwiftUI
 struct LogInView: View {
     
     @EnvironmentObject private var applicationViewModel: ApplicationViewModel
-    @ObservedObject var logInViewModel: LogInViewModel
+    @StateObject private var logInViewModel: LogInViewModel
     @State private var usernameIsEditing = false
     @State private var passwordIsEditing = false
     @State private var username: String = ""
     @State private var password: String = ""
     
+    
     init(locale: Locale) {
-        logInViewModel = LogInViewModel(locale: locale)
+        self._logInViewModel = StateObject(wrappedValue: LogInViewModel(locale: locale))
     }
     
     var body: some View {
@@ -75,60 +76,47 @@ struct LogInView: View {
         }
         .navigationTitle("Log In")
         .sheet(isPresented: $logInViewModel.singleSignOnIsPresented) {
-            if logInViewModel.ssoAuthenticationState == .authenticated {
-                logInViewModel.presentedAlert = .persistencePrompt
+            DispatchQueue.main.async {
+                if logInViewModel.ssoAuthenticationState == .authenticated {
+                    logInViewModel.presentedAlert = .persistencePrompt
+                }
+                else if logInViewModel.webViewURL == logInViewModel.ssoConfirmationURL {
+                    logInViewModel.presentedAlert = .serverError
+                }
             }
-            else if logInViewModel.webViewURL == logInViewModel.ssoConfirmationURL {
-                logInViewModel.presentedAlert = .serverError
-            }
+          
         } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
                     cookieObserver: logInViewModel,
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies
             )
-                .apiHandler(asyncState: logInViewModel.webViewNetworkState, loadingStyle: .progressCircle) { _ in
-                    logInViewModel.provisionSSOAuthentication()
-                }
-        }
-        .alert(item: $logInViewModel.presentedAlert) { alertType in
-            switch alertType {
-            case .credentialError:
-                let errorMessage = "Please make sure that your credentials are correct\(logInViewModel.hasSSOLogin ? " and you are using the correct log in method." : ".")"
-               
-                return Alert(
-                        title: Text("Unable to Log In"),
-                        message: Text(errorMessage),
-                        dismissButton: .default(Text("Dismiss"))
-                    )
-            case .serverError:
-                let errorMessage = "An error occured while logging you in. Please try again in a few moments."
-               
-                return Alert(
-                        title: Text("Unable to Log In"),
-                        message: Text(errorMessage),
-                        dismissButton: .default(Text("Dismiss"))
-                    )
-            case .persistencePrompt:
-                return Alert(title: Text("Stay Logged In"),
-                          message: Text("Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"),
-                          primaryButton: .default(Text("Not Now")) {
-                                logInViewModel.setPersistence(false) {
-                                    DispatchQueue.main.async {
-                                        logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                                    }
-                                }
-                          },
-                          secondaryButton: .default(Text("Yes")) {
-                                logInViewModel.setPersistence(true) {
-                                    DispatchQueue.main.async {
-                                        logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
-                                    }
-                                }
-                         }
-                    )
+            .apiHandler(asyncState: logInViewModel.webViewNetworkState, loadingStyle: .progressCircle) { _ in
+                logInViewModel.provisionSSOAuthentication()
             }
-            
+        }
+        .alert(logInViewModel.presentedAlert?.title ?? "", isPresented: $logInViewModel.alertIsPresented, presenting: logInViewModel.presentedAlert) { alert in
+            switch alert {
+            case .persistencePrompt:
+                Button("Not Now") {
+                    logInViewModel.setPersistence(false) {
+                        DispatchQueue.main.async {
+                            logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                        }
+                    }
+                }
+                Button("Yes") {
+                    logInViewModel.setPersistence(true) {
+                        DispatchQueue.main.async {
+                            logInViewModel.authenticate(for: $applicationViewModel.authenticationState)
+                        }
+                    }
+                }
+            default:
+                Button("Dismiss", role: .cancel, action: {})
+            }
+        } message: { alert in
+            Text(alert.message)
         }
     }
     

@@ -16,10 +16,17 @@ struct ContentView: View {
                     applicationViewModel.authenticateUsingCookies()
                 }
         }
-        .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
         .usingCustomTableViewStyle()
+        .modify {
+            if #unavailable(iOS 16) {
+                $0
+                .navigationBarColor(backgroundColor: DrawingConstants.accentColor)
+            }
+        }
         .environmentObject(applicationViewModel)
+        
     }
+    
 }
 
 #if DEBUG

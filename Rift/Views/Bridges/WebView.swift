@@ -14,15 +14,13 @@ struct WebView: UIViewRepresentable {
     var urlObserver: NSObject?
     let initialCookies: [HTTPCookie]
     
+    private let webView = WKWebView()
+    
     init(request: URLRequest, cookieObserver: WKHTTPCookieStoreObserver? = nil, urlObserver: NSObject? = nil, initialCookies: [HTTPCookie]? = nil) {
         self.request = request
         self.cookieObserver = cookieObserver
         self.urlObserver = urlObserver
         self.initialCookies = initialCookies ?? []
-    }
-        
-    func makeUIView(context: Context) -> WKWebView  {
-        let webView = WKWebView()
         
         webView.configuration.websiteDataStore = .nonPersistent()
         
@@ -33,13 +31,17 @@ struct WebView: UIViewRepresentable {
             webView.addObserver(urlObserver, forKeyPath: "URL", options: .new, context: nil)
         }
         
+        webView.load(request)
+        
+    }
+        
+    func makeUIView(context: Context) -> WKWebView  {
+        webView.configuration.websiteDataStore.httpCookieStore.useOnlyCookies(from: self.initialCookies)
         return webView
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.configuration.websiteDataStore.httpCookieStore.useOnlyCookies(from: initialCookies) {
-            uiView.load(request)
-        }
+        
     }
     
     static func dismantleUIView(_ uiView: WKWebView, coordinator: ()) {

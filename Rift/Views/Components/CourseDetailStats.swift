@@ -43,11 +43,6 @@ struct CourseDetailStats: View {
                                 realGrade: categories[index].percentage,
                                 calculatedGrade: showCalculatedGrade ? calculatedPercentage : realPercentage
                             )
-                                .onAppear {
-                                    print(realPercentage)
-                                    print(calculatedPercentage)
-                                    print("-------")
-                                }
                         }
                     }
                 }

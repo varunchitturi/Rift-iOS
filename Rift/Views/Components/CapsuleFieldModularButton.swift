@@ -27,14 +27,15 @@ struct CapsuleFieldModularButton: View {
     @ViewBuilder
     private var labelView: some View {
         VStack(alignment: .leading) {
-            CapsuleFieldLabel(label: label, accentColor: DrawingConstants.foregroundColor, isEditing: .constant(false))
+            CapsuleFieldLabel(label: label, accentColor: Rift.DrawingConstants.foregroundColor, isEditing: .constant(false))
             HStack {
                 Text(text ?? description)
-                    .foregroundColor(text != nil ? DrawingConstants.foregroundColor : DrawingConstants.disabledColor)
+                    .foregroundColor(text != nil ? Rift.DrawingConstants.foregroundColor : Rift.DrawingConstants.disabledColor)
+                    .padding(.leading, DrawingConstants.leadingFieldPadding)
                 Spacer()
                 if icon != nil {
                     Image(systemName: icon!)
-                        .foregroundColor(DrawingConstants.foregroundColor)
+                        .foregroundColor(Rift.DrawingConstants.foregroundColor)
                         .padding(.trailing)
                 }
             }
@@ -60,6 +61,11 @@ struct CapsuleFieldModularButton: View {
             labelView
                 .disableable()
         }
+    }
+    
+    
+    private struct DrawingConstants {
+        static let leadingFieldPadding: CGFloat = 5
     }
 }
 

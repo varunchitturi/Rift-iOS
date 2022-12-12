@@ -57,7 +57,6 @@ class AssignmentsViewModel: ObservableObject {
                     self?.assignmentsModel.assignmentList = assignmentList
                     self?.networkState = .success
                 case .failure(let error):
-                    print(error.localizedDescription)
                     self?.networkState = .failure(error)
                 }
             }

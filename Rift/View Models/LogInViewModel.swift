@@ -16,8 +16,10 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     
     /// MVVM model
     @Published private var logInModel: LogInModel
+    
     /// Gives whether a web view for single sign on is presented
     @Published var singleSignOnIsPresented = false
+    
     /// Gives the type of alert that is being presented
     /// - `nil` if there is no alert being presented
     @Published var presentedAlert: AlertType? = nil
@@ -28,10 +30,23 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     /// `AsyncState` to manage network calls in the web view
     @Published var webViewNetworkState: AsyncState = .idle
     
-    
+    var alertIsPresented: Bool {
+        get {
+            presentedAlert != nil
+        }
+
+        set {
+            presentedAlert = newValue ? .none : nil
+        }
+    }
+
     /// SSO URLs that the presented web view is allowed to navigate to
     private static let ssoURLs = [
-        URL(string: "https://accounts.google.com/")!
+        URL(string: "https://accounts.google.com/")!,
+        URL(string: "https://accounts.youtube.com/")!,
+        URL(string: "https://login.microsoftonline.com/")!,
+        URL(string: "https://login.live.com/")!,
+        URL(string: "https://github.com/")!,
     ]
     
     /// The current URL of the web view
@@ -110,15 +125,7 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         cookieStore.getAllCookies { cookies in
             let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
             cookies.forEach {
-                // explain why we do this. We don't want to replace the JSESSIONID obtained from provisional cookies
-                if $0.name != API.Authentication.Cookie.jsession.name {
-                    HTTPCookieStorage.shared.setCookie($0)
-                }
-                // provide better documentation on this. This is done to make sure that authentication passes. If we get conflicting cookie names that means authentication might have failed.
-                else if let jsessionCookie = HTTPCookieStorage.shared.cookies?.first(where: {$0.name == API.Authentication.Cookie.jsession.name}), jsessionCookie.value != $0.value {
-                    self.singleSignOnIsPresented = false
-                    Crashlytics.crashlytics().record(error: API.APIError.invalidUser)
-                }
+                HTTPCookieStorage.shared.setCookie($0)
             }
         }
     }
@@ -256,6 +263,30 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         var id: Int {
             return self.hashValue
         }
+        
+        var title: String {
+            let errorTitle = "Unable to Log In"
+            switch self {
+            case .persistencePrompt:
+                return "Stay Logged In"
+            case .credentialError:
+                return errorTitle
+            case .serverError:
+                return errorTitle
+            }
+        }
+        
+        var message: String {
+            switch self {
+            case .persistencePrompt:
+                return "Would you like \(Bundle.main.displayName ?? "us") to keep you logged in?"
+            case .credentialError:
+                return "Please make sure that your credentials are correct and you are using the correct log in method."
+            case .serverError:
+                return "An error occurred while logging you in. Please try again in a few moments."
+            }
+        }
+        
         
     }
    

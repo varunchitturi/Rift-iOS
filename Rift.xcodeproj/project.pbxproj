@@ -42,6 +42,7 @@
 		274F4360270AE867001D5D4A /* AuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F435F270AE867001D5D4A /* AuthenticationAPI.swift */; };
 		274F4362270AE94C001D5D4A /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4361270AE94C001D5D4A /* GradesAPI.swift */; };
 		274F4364270AE9FC001D5D4A /* DistrictSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */; };
+		2757219F2945D96800FEE18C /* SwiftUIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2757219E2945D96800FEE18C /* SwiftUIUtils.swift */; };
 		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
 		277AD63F270B7CE000AF441E /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /* Term.swift */; };
 		277BDB112765609A0073A239 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277BDB102765609A0073A239 /* ErrorDisplay.swift */; };
@@ -199,6 +200,7 @@
 		274F435F270AE867001D5D4A /* AuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPI.swift; sourceTree = "<group>"; };
 		274F4361270AE94C001D5D4A /* GradesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPI.swift; sourceTree = "<group>"; };
 		274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchAPI.swift; sourceTree = "<group>"; };
+		2757219E2945D96800FEE18C /* SwiftUIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIUtils.swift; sourceTree = "<group>"; };
 		276F222926D4329F00588588 /* CapsuleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleTextField.swift; sourceTree = "<group>"; };
 		2771159C26D8297C00EBBB99 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
 		27761BB026F73CE000601A37 /* AssignmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsView.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				270EC7F7277ACB510064E550 /* AsyncUtils.swift */,
 				278EAAC327804DBD001C0CA5 /* FirebaseUtils.swift */,
 				278EAAC527804EE2001C0CA5 /* SwiftUtils.swift */,
+				2757219E2945D96800FEE18C /* SwiftUIUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2757219F2945D96800FEE18C /* SwiftUIUtils.swift in Sources */,
 				274F4345270AD9C7001D5D4A /* Course.swift in Sources */,
 				27D4E6D82709152F0063CB65 /* Locale.swift in Sources */,
 				273DB8FE2719085D006D936A /* TextSection.swift in Sources */,
@@ -922,19 +926,20 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3;
+				CURRENT_PROJECT_VERSION = 1.3.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -954,18 +959,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.3;
+				CURRENT_PROJECT_VERSION = 1.3.1;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = NO;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
