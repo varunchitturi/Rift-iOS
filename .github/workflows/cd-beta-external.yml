@@ -14,8 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-
+      - name: Update Fastlane
+        run: bundle update fastlane
+        shell: bash
       - name: Fastlane Action
         uses: maierj/fastlane-action@v2.1.0
         with:
