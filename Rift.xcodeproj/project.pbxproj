@@ -1012,6 +1012,7 @@
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1042,6 +1043,7 @@
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = NO;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
