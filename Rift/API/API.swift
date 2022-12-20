@@ -10,11 +10,21 @@ import URLEncodedForm
 
 struct API {
     
+    /// The `RequestManager` for requests that shouldn't have their data, such as cache and cookies, remembered.
+    static let secureRequestManager = RequestManager(sessionConfiguration: .secure)
+    
     /// The `RequestManager` for all authentication related network requests
     static let authenticationRequestManager = RequestManager(sessionConfiguration: .authentication)
     
     /// The default `RequestManager` for network requests
     static let defaultRequestManager = RequestManager(sessionConfiguration: .dataLoad)
+    
+    /// Cancels and invalidates any active URLSession Data Tasks and creates a new `URLSession` with the current configuration
+    static func stopPendingTasks() {
+        secureRequestManager.stopPendingTasks()
+        authenticationRequestManager.stopPendingTasks()
+        defaultRequestManager.stopPendingTasks()
+    }
     
     /// An error produced when making an API based network call
     enum APIError: LocalizedError {
@@ -114,21 +124,21 @@ struct API {
         ///   - locale: A locale that provides the district URL to make the call to
         ///   - retryAuthentication: A `Bool` telling whether the request should re-authenticate and retry if the authentication credentials have expired
         ///   - completion: Completion function
-        func get(endpoint: String, locale: Locale? = nil, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
+        func get(endpoint: String, locale: Locale? = nil, retryAttempts: Int = 1, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
             guard let locale = (locale ?? PersistentLocale.getLocale()) else {
                 return completion(.failure(APIError.invalidLocale))
             }
             
-            get(url: locale.districtBaseURL.appendingPathComponent(endpoint), retryAuthentication: retryAuthentication, completion: completion)
+            get(url: locale.districtBaseURL.appendingPathComponent(endpoint), retryAttempts: retryAttempts, retryAuthentication: retryAuthentication, completion: completion)
         }
         
         /// API call to get data
         /// - Parameters:
         ///   - url: The `URL` you want to make the `GET` call to
-        ///   - retryAuthentication: A `Bool` telling whether the request should re-authenticate and retry if the authentication credentials have expired
+        ///   - retryAuthentication: A `Bool` telling whether the request should re-authenticate using `persistent-cookie` and retry if the authentication credentials have expired
         ///   - completion: Completion function
-        func get(url: URL, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
-            urlSession.dataTask(with: url) { data, response, error in
+        func get(url: URL, retryAttempts: Int = 1, retryAuthentication: Bool = true, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) {
+            urlSession.retryingURLRequest(with: url, retryAttempts: retryAttempts) { data, response, error in
                 let result = self.evaluateResponse(requestMethod: .get, url, data, response, error)
                 switch result {
                 case .success(let successResult) :
@@ -157,7 +167,6 @@ struct API {
                     }
                 }
             }
-            .resume()
         }
         
         
@@ -209,12 +218,19 @@ struct API {
             }
         }
         
-        /// Cancels and invalidates any active URLSession Data Tasks, clears all cookies in shared storage,
-        /// and creates a new `URLSession` with the current configuration
-        func resetSession() {
+        /// Cancels and invalidates any active URLSession Data Tasks and creates a new `URLSession` with the current configuration
+        func stopPendingTasks() {
             urlSession.invalidateAndCancel()
             urlSession = URLSession(configuration: urlSession.configuration)
-            urlSession.configuration.httpCookieStorage?.clearCookies()
         }
+        
+        /// Cancels and invalidates any active URLSession Data Tasks, clears all cookies in the configuration's cookie storage,
+        /// and creates a new `URLSession` with the current configuration
+        func resetSession(completion: @escaping () -> ()) {
+            urlSession.reset {
+                completion()
+            }
+        }
+        
     }
 }

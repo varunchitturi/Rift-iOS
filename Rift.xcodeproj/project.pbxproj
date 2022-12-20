@@ -42,6 +42,8 @@
 		274F4360270AE867001D5D4A /* AuthenticationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F435F270AE867001D5D4A /* AuthenticationAPI.swift */; };
 		274F4362270AE94C001D5D4A /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4361270AE94C001D5D4A /* GradesAPI.swift */; };
 		274F4364270AE9FC001D5D4A /* DistrictSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */; };
+		2753CBA829502C9600BF5E61 /* RiftUITestsAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2753CBA729502C9600BF5E61 /* RiftUITestsAuthenticationTests.swift */; };
+		2753CBB32950D8CD00BF5E61 /* UITestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2753CBB22950D8CD00BF5E61 /* UITestUtils.swift */; };
 		2757219F2945D96800FEE18C /* SwiftUIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2757219E2945D96800FEE18C /* SwiftUIUtils.swift */; };
 		277A1F092704504F005E9EB0 /* URLEncodedForm in Frameworks */ = {isa = PBXBuildFile; productRef = 277A1F082704504F005E9EB0 /* URLEncodedForm */; };
 		277AD63F270B7CE000AF441E /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277AD63E270B7CE000AF441E /* Term.swift */; };
@@ -145,6 +147,16 @@
 		27FBFDE927606EB300113578 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FBFDE827606EB300113578 /* Icon.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2753CBAB29502C9600BF5E61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 274E622326C21FB400C855D4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 274E622A26C21FB400C855D4;
+			remoteInfo = Rift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		077B524F27305AAD00C27673 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2701CD4A26FD05E600D65B84 /* UserPreferenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceModel.swift; sourceTree = "<group>"; };
@@ -200,6 +212,9 @@
 		274F435F270AE867001D5D4A /* AuthenticationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPI.swift; sourceTree = "<group>"; };
 		274F4361270AE94C001D5D4A /* GradesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPI.swift; sourceTree = "<group>"; };
 		274F4363270AE9FC001D5D4A /* DistrictSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictSearchAPI.swift; sourceTree = "<group>"; };
+		2753CBA529502C9600BF5E61 /* RiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2753CBA729502C9600BF5E61 /* RiftUITestsAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftUITestsAuthenticationTests.swift; sourceTree = "<group>"; };
+		2753CBB22950D8CD00BF5E61 /* UITestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestUtils.swift; sourceTree = "<group>"; };
 		2757219E2945D96800FEE18C /* SwiftUIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIUtils.swift; sourceTree = "<group>"; };
 		276F222926D4329F00588588 /* CapsuleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleTextField.swift; sourceTree = "<group>"; };
 		2771159C26D8297C00EBBB99 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
@@ -295,6 +310,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2753CBA229502C9600BF5E61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -341,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				077B524F27305AAD00C27673 /* README.md */,
+				2753CBA629502C9600BF5E61 /* RiftUITests */,
 				274E622C26C21FB400C855D4 /* Products */,
 				274E622D26C21FB400C855D4 /* Rift */,
 			);
@@ -350,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				274E622B26C21FB400C855D4 /* Rift.app */,
+				2753CBA529502C9600BF5E61 /* RiftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -478,6 +502,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2753CBA629502C9600BF5E61 /* RiftUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2753CBA729502C9600BF5E61 /* RiftUITestsAuthenticationTests.swift */,
+				2753CBB22950D8CD00BF5E61 /* UITestUtils.swift */,
+			);
+			path = RiftUITests;
+			sourceTree = "<group>";
+		};
 		27D0F5CB26DB7BBF0004F0A2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,17 +619,39 @@
 			productReference = 274E622B26C21FB400C855D4 /* Rift.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2753CBA429502C9600BF5E61 /* RiftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2753CBAF29502C9600BF5E61 /* Build configuration list for PBXNativeTarget "RiftUITests" */;
+			buildPhases = (
+				2753CBA129502C9600BF5E61 /* Sources */,
+				2753CBA229502C9600BF5E61 /* Frameworks */,
+				2753CBA329502C9600BF5E61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2753CBAC29502C9600BF5E61 /* PBXTargetDependency */,
+			);
+			name = RiftUITests;
+			productName = RiftUITests;
+			productReference = 2753CBA529502C9600BF5E61 /* RiftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		274E622326C21FB400C855D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					274E622A26C21FB400C855D4 = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					2753CBA429502C9600BF5E61 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 274E622A26C21FB400C855D4;
 					};
 				};
 			};
@@ -622,6 +677,7 @@
 			projectRoot = "";
 			targets = (
 				274E622A26C21FB400C855D4 /* Rift */,
+				2753CBA429502C9600BF5E61 /* RiftUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -635,6 +691,13 @@
 				27E79B12277EB717001EF268 /* GoogleService-Info.plist in Resources */,
 				274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */,
 				274E623326C21FB500C855D4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2753CBA329502C9600BF5E61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +728,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2753CBA129502C9600BF5E61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2753CBA829502C9600BF5E61 /* RiftUITestsAuthenticationTests.swift in Sources */,
+				2753CBB32950D8CD00BF5E61 /* UITestUtils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27D4E6D5270915130063CB65 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -799,6 +871,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2753CBAC29502C9600BF5E61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 274E622A26C21FB400C855D4 /* Rift */;
+			targetProxy = 2753CBAB29502C9600BF5E61 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		274E623826C21FB500C855D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -926,7 +1006,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
@@ -959,7 +1038,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.3.1;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_ASSET_PATHS = "Rift/Preview\\ Content";
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
@@ -983,6 +1061,51 @@
 			};
 			name = Release;
 		};
+		2753CBAD29502C9600BF5E61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P3BD6D8HQC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.varunchitturi.RiftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rift;
+			};
+			name = Debug;
+		};
+		2753CBAE29502C9600BF5E61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3BD6D8HQC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.varunchitturi.RiftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rift;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1000,6 +1123,15 @@
 			buildConfigurations = (
 				274E623B26C21FB500C855D4 /* Debug */,
 				274E623C26C21FB500C855D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2753CBAF29502C9600BF5E61 /* Build configuration list for PBXNativeTarget "RiftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2753CBAD29502C9600BF5E61 /* Debug */,
+				2753CBAE29502C9600BF5E61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

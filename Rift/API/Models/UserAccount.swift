@@ -26,7 +26,7 @@ struct UserAccount: Decodable, Identifiable, PropertyIterable {
     /// - Important: Do not use this value to identify Infinite Campus users in your app
     let personID: Int
     
-    /// The first name of the user 
+    /// The first name of the user
     let firstName: String?
     
     /// The last name of the user

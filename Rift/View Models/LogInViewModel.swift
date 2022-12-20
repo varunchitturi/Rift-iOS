@@ -12,7 +12,7 @@ import SwiftUI
 import WebKit
 
 /// MVVM view model for the `LogInView`
-class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
+class LogInViewModel: NSObject, ObservableObject {
     
     /// MVVM model
     @Published private var logInModel: LogInModel
@@ -39,6 +39,8 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
             presentedAlert = newValue ? .none : nil
         }
     }
+    
+    let webViewDataStore = WKWebsiteDataStore.default()
 
     /// SSO URLs that the presented web view is allowed to navigate to
     private static let ssoURLs = [
@@ -117,17 +119,6 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
         logInModel = LogInModel(locale: locale)
         super.init()
         loadLogInOptions()
-    }
-    
-    /// Function that is run every time the cookies in a cookie store of a web view are updated
-    /// - Parameter cookieStore: The cookie store to observe
-    func cookiesDidChange(in cookieStore: WKHTTPCookieStore) {
-        cookieStore.getAllCookies { cookies in
-            let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
-            cookies.forEach {
-                HTTPCookieStorage.shared.setCookie($0)
-            }
-        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -239,14 +230,20 @@ class LogInViewModel: NSObject, ObservableObject, WKHTTPCookieStoreObserver {
     ///   - completion: Completion function
     func setPersistence(_ persistencePreference: Bool, completion: @escaping () -> () = {}) {
         if (try? PersistentLocale.saveLocale(locale: self.locale)) != nil {
-            API.Authentication.usePersistence(locale: locale) { error in
-                if error != nil {
-                    UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+            webViewDataStore.httpCookieStore.getAllCookies { cookies in
+                let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
+                cookies.forEach {
+                    HTTPCookieStorage.shared.setCookie($0)
                 }
-                else {
-                    UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
+                API.Authentication.usePersistence(locale: self.locale) { error in
+                    if error != nil {
+                        UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                    }
+                    else {
+                        UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
+                    }
+                    completion()
                 }
-                completion()
             }
         }
         else {

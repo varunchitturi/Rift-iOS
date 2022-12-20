@@ -21,8 +21,8 @@ extension API {
         
         /// Gets a user account
         /// - Parameters:
-        ///   - locale: <#locale description#>
-        ///   - completion: <#completion description#>
+        ///   - locale: A locale that provides the district to make the call to
+        ///   - completion: Completion function
         static func getUserAccount(locale: Locale? = nil, completion: @escaping (Result<UserAccount, Error>) -> ()) {
     
             API.defaultRequestManager.get(endpoint: Endpoint.userAccount, locale: locale) { result in

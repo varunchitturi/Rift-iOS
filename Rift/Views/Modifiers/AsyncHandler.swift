@@ -84,7 +84,7 @@ private struct APIErrorDisplay: View {
             switch error {
             case API.APIError.responseError(_), API.APIError.invalidRedirect:
                 ErrorDisplay("""
-                     An Authentication Error Occured
+                     An Authentication Error Occurred
                      Please Log Out and Log Back In
                      """,
                              error: error,
