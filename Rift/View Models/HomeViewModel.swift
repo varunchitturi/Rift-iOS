@@ -25,16 +25,6 @@ class HomeViewModel: ObservableObject {
         fetchUser()
     }
     
-    /// The account of the user
-    var account: UserAccount? {
-        homeModel.account
-    }
-    
-    /// Student Information of the user
-    var studentInformation: Student? {
-        homeModel.student
-    }
-    
     /// Fetches user properties and configuration from the API
     func fetchUser() {
         API.Resources.getUserAccount { [weak self] result in

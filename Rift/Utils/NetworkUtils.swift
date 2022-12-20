@@ -132,6 +132,15 @@ extension HTTPURLResponse {
         var description: String {
             String(describing: self)
         }
+        
+        var isError: Bool {
+            switch self {
+            case .information, .success, .noResponse, .moved, .found, .notModified:
+                return false
+            default:
+                return true
+            }
+        }
     }
     
     /// The status of this `HTTPURLResponse`
@@ -215,9 +224,10 @@ extension URLSessionConfiguration {
     /// - Uses `URLSessionConfiguration.default` for all other configuration
     static let authentication: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         configuration.httpCookieAcceptPolicy = .always
-        
+        configuration.httpShouldUsePipelining = false
+        configuration.httpAdditionalHeaders = ["Connection" : "close"]
         return configuration
     }()
     
@@ -238,7 +248,9 @@ extension URLSessionConfiguration {
     /// - Uses `URLSessionConfiguration.default` for all other configuration
     static let dataLoad: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        configuration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        configuration.httpShouldUsePipelining = false
+        configuration.httpAdditionalHeaders = ["Connection" : "close"]
         return configuration
     }()
 }
@@ -270,3 +282,16 @@ extension HTTPCookieStorage {
     }
 }
 
+extension URLSession {
+    func retryingURLRequest(with url: URL, retryAttempts: Int = 1, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        self.dataTask(with: url) { data, response, error in
+            if (response as? HTTPURLResponse)?.status.isError == true && retryAttempts >= 1 {
+                self.retryingURLRequest(with: url, retryAttempts: retryAttempts - 1, completion: completion)
+            }
+            else {
+                completion(data, response, error)
+            }
+        }
+        .resume()
+    }
+}
