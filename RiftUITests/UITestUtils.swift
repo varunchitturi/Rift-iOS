@@ -9,7 +9,7 @@ import XCTest
 
 extension XCUIElement {
     
-    private static let defaultTimeout: Double = 15
+    private static let defaultTimeout: Double = 25
     
     /// Waits for a condition on a `XCUIElement` to pass to run a `completion` function
     /// - Parameters:
@@ -26,10 +26,28 @@ extension XCUIElement {
         completion(self)
     }
     
+    func `if`(timeout: Double = defaultTimeout, condition: @escaping (XCUIElement) -> Bool, completion: @escaping (XCUIElement) -> ()) {
+        let startTime = Date.now
+        while(!condition(self)) {
+            if startTime.distance(to: .now) >= timeout {
+                return
+            }
+        }
+        completion(self)
+    }
+    
     /// Taps a `XCUIElement` when it appears
     /// - Parameter timeout: The time to wait for the element to appear
     func tapOnAppear(timeout: Double = defaultTimeout) {
         onAppearAndEnabled(timeout: timeout) { element in
+            element.tap()
+        }
+    }
+    
+    /// Taps a `XCUIElement` if and when it appears
+    /// - Parameter timeout: The time to wait for the element to appear
+    func tapIfAppear(timeout: Double = defaultTimeout) {
+        self.if(timeout: timeout, condition: {$0.exists && $0.isEnabled}) { element in
             element.tap()
         }
     }

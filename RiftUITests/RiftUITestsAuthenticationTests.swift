@@ -46,6 +46,14 @@ final class RiftUITestsAuthenticationTests: XCTestCase {
         }
         
         XCTAssert(accounts.count > 0, "No accounts provided to test.")
+        
+        let app = XCUIApplication()
+        app.launch()
+        
+        if !app.textFields["Choose State"].exists {
+            app.buttons["Log Out"].tapIfAppear(timeout: 7)
+            logOut(app)
+        }
     }
 
     override func tearDownWithError() throws {
