@@ -66,9 +66,9 @@ class WelcomeViewModel: ObservableObject {
                     switch result {
                     case .success(let locales):
                         self?.welcome.districtSearchResults = locales
-                    case .failure(let error):
+                    case .failure(_):
                         // TODO: better error handling here
-                        print(error.localizedDescription)
+                        self?.welcome.districtSearchResults = []
                     }
                 }
             }

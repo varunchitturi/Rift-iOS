@@ -87,9 +87,9 @@ struct LogInView: View {
           
         } content: {
             WebView(request: URLRequest(url: logInViewModel.ssoURL!),
-                    cookieObserver: logInViewModel,
                     urlObserver: logInViewModel,
-                    initialCookies: HTTPCookieStorage.shared.cookies
+                    initialCookies: HTTPCookieStorage.shared.cookies,
+                    dataStore: logInViewModel.webViewDataStore
             )
             .apiHandler(asyncState: logInViewModel.webViewNetworkState, loadingStyle: .progressCircle) { _ in
                 logInViewModel.provisionSSOAuthentication()
