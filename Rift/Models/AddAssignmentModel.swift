@@ -26,6 +26,7 @@ struct AddAssignmentModel {
                                    totalPoints: nil,
                                    scorePoints: nil,
                                    comments: nil,
+                                   multiplier: 1,
                                    categoryName: nil,
                                    categoryID: nil
         )

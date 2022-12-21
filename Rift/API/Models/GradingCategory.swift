@@ -73,7 +73,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
             var currentPoints: Double?
             assignments.forEach { `assignment` in
                 if let assignmentScorePoints = `assignment`.scorePoints, let assignmentTotalPoints = `assignment`.totalPoints {
-                    let assignmentScore = usePercent ? (assignmentScorePoints/assignmentTotalPoints) * 100 : assignmentScorePoints
+                    let assignmentScore = usePercent ? (assignmentScorePoints/assignmentTotalPoints) * 100 : assignmentScorePoints * `assignment`.multiplier
                     currentPoints = (currentPoints ?? 0) + assignmentScore
                 }
             }
@@ -90,7 +90,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
             var totalPoints: Double?
             assignments.forEach { `assignment` in
                 if `assignment`.scorePoints != nil, let assignmentTotalPoints = `assignment`.totalPoints {
-                    let assignmentTotal = usePercent ? 100 : assignmentTotalPoints
+                    let assignmentTotal = usePercent ? 100 : assignmentTotalPoints * `assignment`.multiplier
                     totalPoints = (totalPoints ?? 0) + assignmentTotal
                 }
             }
