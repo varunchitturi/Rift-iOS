@@ -39,10 +39,6 @@ struct WebView: UIViewRepresentable {
             uiView.load(request)
         }
     }
-    
-    static func dismantleUIView(_ uiView: WKWebView, coordinator: ()) {
-        uiView.stopLoading()
-    }
 }
 
 #if DEBUG
