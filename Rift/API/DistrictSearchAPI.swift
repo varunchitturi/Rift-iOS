@@ -63,10 +63,10 @@ extension API {
                             completion(.success(locales))
                         }
                         catch {
-                            completion(.success([]))
+                            completion(.failure(error))
                         }
-                    case .failure(_):
-                        completion(.success([]))
+                    case .failure(let error):
+                        completion(.failure(error))
                     }
                     
                     

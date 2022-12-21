@@ -27,4 +27,13 @@ enum AsyncState {
     case success
     case failure(Error)
     case loading
+    
+    var isFailure: Bool {
+        switch self {
+        case .failure(_):
+            return true
+        default:
+            return false
+        }
+    }
 }

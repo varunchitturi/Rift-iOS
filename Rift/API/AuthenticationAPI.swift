@@ -186,12 +186,7 @@ extension API {
                         API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, locale: locale) { result in
                             switch result {
                             case .success(_):
-                                if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
-                                    completion(nil)
-                                }
-                                else {
-                                    completion(API.APIError.invalidCookies)
-                                }
+                                completion(nil)
                             case .failure(let error):
                                 completion(error)
                             }

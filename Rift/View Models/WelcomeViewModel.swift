@@ -15,6 +15,9 @@ class WelcomeViewModel: ObservableObject {
     /// MVVM model
     @Published private var welcome = WelcomeModel()
     
+    /// `AsyncState` to manage network calls in views
+    @Published var districtSearchNetworkState: AsyncState = .idle
+    
     /// The index of selected state
     @Published var stateSelectionIndex: Int? {
         willSet {
@@ -61,14 +64,15 @@ class WelcomeViewModel: ObservableObject {
     /// - `query`
     func searchDistrict(for query: String) {
         if let stateSelection = stateSelection {
+            districtSearchNetworkState = .loading
             API.DistrictSearch.searchDistrict(for: query, state: stateSelection) {[weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let locales):
                         self?.welcome.districtSearchResults = locales
-                    case .failure(_):
-                        // TODO: better error handling here
-                        self?.welcome.districtSearchResults = []
+                        self?.districtSearchNetworkState = .success
+                    case .failure(let error):
+                        self?.districtSearchNetworkState = .failure(error)
                     }
                 }
             }
