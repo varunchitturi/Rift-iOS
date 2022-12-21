@@ -230,7 +230,6 @@ class LogInViewModel: NSObject, ObservableObject {
     ///   - completion: Completion function
     func setPersistence(_ persistencePreference: Bool, completion: @escaping () -> () = {}) {
         if (try? PersistentLocale.saveLocale(locale: self.locale)) != nil {
-            defaultNetworkState = .loading
             webViewDataStore.httpCookieStore.getAllCookies { cookies in
                 let cookies = cookies.filter { API.Authentication.Cookie.allCases.map { $0.name }.contains($0.name)}
                 cookies.forEach {
