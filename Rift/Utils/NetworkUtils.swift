@@ -294,4 +294,35 @@ extension URLSession {
         }
         .resume()
     }
+    
+    func retryingURLRequest(with request: URLRequest, retryAttempts: Int = 1, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        self.dataTask(with: request) { data, response, error in
+            if (response as? HTTPURLResponse)?.status.isError == true && retryAttempts >= 1 {
+                self.retryingURLRequest(with: request, retryAttempts: retryAttempts - 1, completion: completion)
+            }
+            else {
+                completion(data, response, error)
+            }
+        }
+        .resume()
+    }
+}
+
+extension WKWebsiteDataStore {
+    func reset(completion: @escaping () -> ()) {
+        self.httpCookieStore.clearCookies() {
+            let waitGroup = DispatchGroup()
+            self.fetchDataRecords(ofTypes: Self.allWebsiteDataTypes()) { records in
+                records.forEach { record in
+                    waitGroup.enter()
+                    self.removeData(ofTypes: record.dataTypes, for: [record]) {
+                        waitGroup.leave()
+                    }
+                }
+            }
+            waitGroup.notify(queue: .main) {
+                completion()
+            }
+        }
+    }
 }

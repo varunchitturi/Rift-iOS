@@ -86,7 +86,8 @@ struct LogInView: View {
             }
           
         } content: {
-            WebView(request: URLRequest(url: logInViewModel.ssoURL!),
+            
+            WebView(request: logInViewModel.ssoRequest!,
                     urlObserver: logInViewModel,
                     initialCookies: HTTPCookieStorage.shared.cookies,
                     dataStore: logInViewModel.webViewDataStore

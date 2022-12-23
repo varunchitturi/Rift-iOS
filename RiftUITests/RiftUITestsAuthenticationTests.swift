@@ -161,12 +161,20 @@ final class RiftUITestsAuthenticationTests: XCTestCase {
         app.buttons["Single Sign-On"].tapOnAppear()
         let webViewsQuery = app.webViews.webViews.webViews
         let ssoEmailField = webViewsQuery/*@START_MENU_TOKEN@*/.textFields["Email or phone"]/*[[".otherElements[\"Sign in - Google Accounts\"].textFields[\"Email or phone\"]",".textFields[\"Email or phone\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        ssoEmailField.tapOnAppear()
-        app.typeOnReady(account.username)
+        ssoEmailField.onAppear { element in
+            element.perform(while: {_ in app.keyboards.count == 0}) { element in
+                element.tap()
+            }
+        }
+        app.typeText(account.username)
         webViewsQuery/*@START_MENU_TOKEN@*/.buttons["Next"]/*[[".otherElements[\"Sign in - Google Accounts\"].buttons[\"Next\"]",".buttons[\"Next\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         let ssoPasswordField = webViewsQuery.otherElements["Google Accounts"].children(matching: .secureTextField).element
-        ssoPasswordField.tapOnAppear()
-        app.typeOnReady(account.password)
+        ssoPasswordField.onAppear { element in
+            element.perform(while: {element in app.keyboards.count == 0 && !element.isSelected}) { element in
+                element.tap()
+            }
+        }
+        app.typeText(account.password)
         webViewsQuery/*@START_MENU_TOKEN@*/.otherElements["Google Accounts"].buttons["Sign in"]/*[[".otherElements[\"Google Accounts\"].buttons[\"Sign in\"]",".buttons[\"Sign in\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
         app.alerts["Stay Logged In"].onAppear { element in
             element.buttons["Yes"].tap()
@@ -194,7 +202,9 @@ final class RiftUITestsAuthenticationTests: XCTestCase {
     /// - Parameter app: A launched app
     /// - Note: The user must be at the home of the app
     private func logOutWithPersistenceCheck(_ app: XCUIApplication) {
-        app.navigationBars["Courses"]/*@START_MENU_TOKEN@*/.buttons["gearshape.fill"]/*[[".otherElements[\"gearshape.fill\"].buttons[\"gearshape.fill\"]",".buttons[\"gearshape.fill\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tapOnAppear()
+        app.navigationBars["Courses"]/*@START_MENU_TOKEN@*/.buttons["gearshape.fill"]/*[[".otherElements[\"gearshape.fill\"].buttons[\"gearshape.fill\"]",".buttons[\"gearshape.fill\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.perform(timeout: 5, while: {_ in !app.collectionViews/*@START_MENU_TOKEN@*/.switches["Stay Logged In"]/*[[".cells.switches[\"Stay Logged In\"]",".switches[\"Stay Logged In\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.exists}) { element in
+            element.tap()
+        }
         XCTAssert(app.collectionViews/*@START_MENU_TOKEN@*/.switches["Stay Logged In"]/*[[".cells.switches[\"Stay Logged In\"]",".switches[\"Stay Logged In\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.value as! String == "1")
         app.collectionViews/*@START_MENU_TOKEN@*/.buttons["Log Out"]/*[[".cells.buttons[\"Log Out\"]",".buttons[\"Log Out\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tapOnAppear()
         app.textFields["Choose State"].continueOnAppear()
