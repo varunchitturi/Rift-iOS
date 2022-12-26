@@ -18,7 +18,7 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
     var grade: Grade
     
     /// The categories that make up the overall grade for the term
-    private(set) var categories: [GradingCategory]
+    var categories: [GradingCategory]
     
     /// A list of terms that the current term accumulates over
     /// - If the the current term isn't calculated based on other terms, then this value is `nil`

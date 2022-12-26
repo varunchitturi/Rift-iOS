@@ -33,15 +33,12 @@ struct CourseDetailStats: View {
                 }
                 HStack {
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
-                        let categories = gradeDetail.categories
-                        let editingCategories = editingGradeDetail.categories
-                        ForEach(gradeDetail.categories.indices, id: \.self) { index in
-                            let realPercentage = categories[index].percentage
-                            let calculatedPercentage = editingCategories[index].percentage
+                        let categories = editingGradeDetail.categories
+                        ForEach(categories.indices, id: \.self) { index in
                             CourseDetailStatsRow(
                                 category: categories[index].name,
-                                realGrade: categories[index].percentage,
-                                calculatedGrade: showCalculatedGrade ? calculatedPercentage : realPercentage
+                                realGrade: categories[index].categoryGrade?.percentage,
+                                calculatedGrade: categories[index].percentage
                             )
                         }
                     }
