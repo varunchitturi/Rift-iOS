@@ -27,6 +27,7 @@ extension PersistentLocale {
     }
     
     @nonobjc class func saveLocale(locale: Locale) throws {
+        try clearLocale()
         let viewContext = PersistenceController.shared.container.viewContext
         _ = PersistentLocale(locale: locale, context: viewContext)
         try viewContext.save()

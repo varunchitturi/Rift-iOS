@@ -86,15 +86,20 @@ class LogInViewModel: NSObject, ObservableObject {
     private var locale: Locale {
         logInModel.locale
     }
-    
-    /// The sso URL for the locale, if available
-    var ssoURL: URL? {
-        logInModel.ssoURL
+
+    /// The sso `URLRequest` for the locale, if available
+    var ssoRequest: URLRequest? {
+        guard let ssoURL = logInModel.ssoURL else {
+            return nil
+        }
+        var request = URLRequest(url: ssoURL)
+        request.addValue("close", forHTTPHeaderField: "Connection")
+        return request
     }
     
     /// The URL the web view goes to if sso authentication has failed
     var ssoConfirmationURL: URL? {
-        if ssoURL != nil {
+        if logInModel.ssoURL != nil {
             return locale.districtBaseURL.appendingPathComponent("SSO/\(locale.districtAppName)/SIS")
         }
         return nil
@@ -126,12 +131,16 @@ class LogInViewModel: NSObject, ObservableObject {
             switch keyPath {
             case "URL":
                 guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, url.host != nil else {
-                    self.singleSignOnIsPresented = false
+                   Task { @MainActor in
+                        self.singleSignOnIsPresented = false
+                    }
                     return
                 }
                 webViewURL = url
                 if ssoAuthenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
-                    singleSignOnIsPresented = false
+                    Task { @MainActor in
+                        self.singleSignOnIsPresented = false
+                    }
                 }
             default:
                 return
@@ -159,15 +168,17 @@ class LogInViewModel: NSObject, ObservableObject {
     /// Gets the cookies needed to start sso authentication
     func provisionSSOAuthentication() {
         webViewNetworkState = .loading
-        API.Authentication.getProvisionalCookies(for: locale) { [weak self] error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    self?.webViewNetworkState = .failure(error)
+        webViewDataStore.reset {
+            API.Authentication.getProvisionalCookies(for: self.locale) { [weak self] error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self?.webViewNetworkState = .failure(error)
+                    }
                 }
-            }
-            else {
-                DispatchQueue.main.async {
-                    self?.webViewNetworkState = .success
+                else {
+                    DispatchQueue.main.async {
+                        self?.webViewNetworkState = .success
+                    }
                 }
             }
         }
