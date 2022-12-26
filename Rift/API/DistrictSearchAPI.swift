@@ -51,7 +51,7 @@ extension API {
                 
                 API.defaultRequestManager.get(url: url) { result in
                     switch result {
-                    case .success((let data, _)):
+                    case .success((let data, let response)):
                         do {
                             let decoder = JSONDecoder()
                             let localesData = try decoder.decode([String: [Locale]].self, from: data)
@@ -63,7 +63,12 @@ extension API {
                             completion(.success(locales))
                         }
                         catch {
-                            completion(.failure(error))
+                            if response.status == .success {
+                                completion(.success([]))
+                            }
+                            else {
+                                completion(.failure(error))
+                            }
                         }
                     case .failure(let error):
                         completion(.failure(error))

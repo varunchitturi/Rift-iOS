@@ -12,6 +12,7 @@ import Algorithms
 /// MVVM view model for the `CourseDetailView`
 class CourseDetailViewModel: ObservableObject {
     
+    
     /// MVVM model
     @Published private var courseDetailModel: CourseDetailModel
     
@@ -23,6 +24,7 @@ class CourseDetailViewModel: ObservableObject {
     
     /// `AsyncState` to manage network calls in views
     @Published var networkState: AsyncState = .loading
+    
 
     // TODO: make this process more efficient
     

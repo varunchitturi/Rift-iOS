@@ -10,7 +10,6 @@ import SwiftUI
 struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
-    @State private var addAssignmentIsPresented = false
     @State private var gradeDetailChoiceIsEditing = false
     @State private var showCalculatedGrade = true
     
@@ -64,8 +63,13 @@ struct CourseDetailView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
                     if courseDetailViewModel.hasGradeDetail {
-                        Button {
-                            addAssignmentIsPresented = true
+                        Menu {
+                            Button("Add Assignment") {
+                                addAssignmentIsPresented = true
+                            }
+                            Button("Add Category") {
+                                addAssignmentIsPresented = true
+                            }
                         } label: {
                             Image(systemName: "plus")
                         }
