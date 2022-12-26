@@ -19,7 +19,7 @@ struct InboxView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: DrawingConstants.cardSpacing) {
+                LazyVStack(spacing: DrawingConstants.cardSpacing) {
                     ForEach(inboxViewModel.messages) { message in
                         NavigationLink(destination: InboxDetailView(message)) {
                             MessageCard(message)

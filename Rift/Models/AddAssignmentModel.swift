@@ -10,7 +10,7 @@ import Foundation
 /// MVVM model to handle the `AddAssignmentView`
 struct AddAssignmentModel {
     
-    /// The new that will be added
+    /// The new assignment that will be added
     var newAssignment: Assignment
     
     /// The possible `GradingCategories` that can be chosen for this assignment
