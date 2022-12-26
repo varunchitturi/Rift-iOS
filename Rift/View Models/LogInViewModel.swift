@@ -131,12 +131,16 @@ class LogInViewModel: NSObject, ObservableObject {
             switch keyPath {
             case "URL":
                 guard let value = change?[NSKeyValueChangeKey.newKey], let url = value as? URL, url.host != nil else {
-                    self.singleSignOnIsPresented = false
+                   Task { @MainActor in
+                        self.singleSignOnIsPresented = false
+                    }
                     return
                 }
                 webViewURL = url
                 if ssoAuthenticationState == .authenticated || (!safeWebViewHostURLs.contains(where: {$0.host == url.host})) {
-                    singleSignOnIsPresented = false
+                    Task { @MainActor in
+                        self.singleSignOnIsPresented = false
+                    }
                 }
             default:
                 return
