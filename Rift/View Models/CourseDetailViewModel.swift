@@ -30,7 +30,7 @@ class CourseDetailViewModel: ObservableObject {
     @Published var chosenGradeDetailIndex: Int?
     
     /// `AsyncState` to manage network calls in views
-    @Published var networkState: AsyncState = .loading
+    @Published var networkState: AsyncState = .idle
     
     /// The type of view that is presented on the view's `sheet`.
     /// - `nil` if no `sheet` is presented
@@ -106,8 +106,10 @@ class CourseDetailViewModel: ObservableObject {
     
     /// Fetches grade details from the API
     func fetchGradeDetails() {
+        if self.networkState != .success {
+            self.networkState = .loading
+        }
         API.Grades.getGradeDetails(for: courseDetailModel.course) {[weak self] result in
-
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
@@ -125,7 +127,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == self?.courseDetailModel.termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
-                    self?.networkState = .idle
+                    self?.networkState = .success
                 case .failure(let error):
                     self?.networkState = .failure(error)
                 }

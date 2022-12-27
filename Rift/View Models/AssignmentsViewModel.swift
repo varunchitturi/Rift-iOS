@@ -49,7 +49,9 @@ class AssignmentsViewModel: ObservableObject {
     
     /// Fetches assignments from the API
     func fetchAssignments() {
-        networkState = .loading
+        if networkState != .success {
+            networkState = .loading
+        }
         API.Assignments.getList {[weak self] result in
             DispatchQueue.main.async {
                 switch result {

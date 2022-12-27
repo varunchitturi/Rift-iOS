@@ -40,6 +40,9 @@ struct CoursesView: View {
                         .environmentObject(homeViewModel)
                 }
             }
+            .refreshable {
+                coursesViewModel.fetchGrades()
+            }
         }
     }
 

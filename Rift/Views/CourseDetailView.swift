@@ -104,6 +104,10 @@ struct CourseDetailView: View {
             }
         })
         .navigationTitle(courseDetailViewModel.courseName)
+        .apiHandler(asyncState: courseDetailViewModel.networkState)
+        .refreshable {
+            courseDetailViewModel.fetchGradeDetails()
+        }
         .logViewAnalytics(self)
     }
     

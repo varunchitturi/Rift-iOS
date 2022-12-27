@@ -37,6 +37,9 @@ struct AssignmentsView: View {
                     assignmentsViewModel.fetchAssignments()
                 }
                 .listStyle(.plain)
+                .refreshable {
+                    assignmentsViewModel.fetchAssignments()
+                }
                 .navigationTitle(HomeModel.Tab.assignments.label)
                 .toolbar {
                     ToolbarItem(id: UUID().uuidString) {

@@ -34,6 +34,9 @@ struct InboxView: View {
                 inboxViewModel.fetchMessages()
             })
             .navigationTitle(HomeModel.Tab.inbox.label)
+            .refreshable {
+                inboxViewModel.fetchMessages()
+            }
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
                     UserPreferencesSheetToggle()
