@@ -59,6 +59,9 @@ struct CourseDetailView: View {
             }
             .padding()
         }
+        .refreshable {
+            courseDetailViewModel.fetchGradeDetails()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
@@ -105,9 +108,6 @@ struct CourseDetailView: View {
         })
         .navigationTitle(courseDetailViewModel.courseName)
         .apiHandler(asyncState: courseDetailViewModel.networkState)
-        .refreshable {
-            courseDetailViewModel.fetchGradeDetails()
-        }
         .logViewAnalytics(self)
     }
     

@@ -22,14 +22,20 @@ struct AddCategoryView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: DrawingConstants.spacing) {
+                VStack(alignment: .leading, spacing: DrawingConstants.spacing) {
                     
                     CapsuleTextField("Name", text: $addCategoryViewModel.categoryName, isEditing: $nameIsEditing)
                     
                     if addCategoryViewModel.isWeighted {
                         CapsuleTextField("Weight", text: $addCategoryViewModel.weightText, isEditing: $weightIsEditing, inputType: .decimal)
                     }
+                    Toggle(isOn: $addCategoryViewModel.usePercent) {
+                        Text("Use Percent")
+                    }
+                    Text("If on, an assignment scored 50/100 is worth the same as an assignment scored 1/2.")
+                        .font(.caption2)
                 }
+                .foregroundColor(Rift.DrawingConstants.foregroundColor)
                 .padding()
             }
             .toolbar {
