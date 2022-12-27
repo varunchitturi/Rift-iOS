@@ -28,7 +28,9 @@ class InboxViewModel: ObservableObject {
     
     /// Gets the list of messages for the user from the API
     func fetchMessages() {
-        networkState = .loading
+        if networkState != .success {
+            networkState = .loading
+        }
         API.Messages.getMessageList { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

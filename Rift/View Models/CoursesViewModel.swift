@@ -44,16 +44,20 @@ class CoursesViewModel: ObservableObject {
     
     /// Fetches the terms and courses for the user from the API
     func fetchGrades() {
-        networkState = .loading
+        if networkState != .success {
+            networkState = .loading
+        }
         API.Grades.getTermGrades { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let terms):
-                    self?.chosenTermIndex = self?.getCurrentTermIndex(from: terms)
-                    self?.coursesModel.terms = terms
-                    self?.networkState = .success
-                case .failure(let error):
-                    self?.networkState = .failure(error)
+            if let self {
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let terms):
+                        self.chosenTermIndex = self.getCurrentTermIndex(from: terms)
+                        self.coursesModel.terms = terms
+                        self.networkState = .success
+                    case .failure(let error):
+                        self.networkState = .failure(error)
+                    }
                 }
             }
         }

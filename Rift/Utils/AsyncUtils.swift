@@ -23,6 +23,11 @@ enum AsyncState {
             return false
         }
     }
+    
+    static func != (lhs: AsyncState, rhs: AsyncState) -> Bool {
+        !(lhs == rhs)
+    }
+    
     case idle
     case success
     case failure(Error)
