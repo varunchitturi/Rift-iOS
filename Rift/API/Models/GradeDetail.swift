@@ -18,7 +18,7 @@ struct GradeDetail: Decodable, Equatable, Identifiable {
     var grade: Grade
     
     /// The categories that make up the overall grade for the term
-    private(set) var categories: [GradingCategory]
+    var categories: [GradingCategory]
     
     /// A list of terms that the current term accumulates over
     /// - If the the current term isn't calculated based on other terms, then this value is `nil`
@@ -141,7 +141,7 @@ extension Array where Element == GradeDetail {
     
     /// Resolves terms that have linked grades
     /// - When term grades are calculated as an accumulation of other terms, we need make sure that they contain all the necessary information to manually calculate their grade. Calling `resolveTerms` on an array of `GradeDetail`s makes sure that every `GradeDetail` contains its own assignments as well as assignments from linked terms.
-    /// - Complexity: O(k\*n^2), where `n` is the number of `GradeDetail`s in the array and `k` is the max number of assignments that a `GradeDetail` originally has.
+    /// - Complexity: O(k*n^2), where `n` is the number of `GradeDetail`s in the array and `k` is the max number of assignments that a `GradeDetail` originally has.
     mutating func resolveTerms() {
         
         // Collects all categories by termName and resets all categories for each GradingDetail

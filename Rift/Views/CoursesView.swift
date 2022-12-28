@@ -34,6 +34,9 @@ struct CoursesView: View {
                 coursesViewModel.fetchGrades()
             })
             .navigationTitle(HomeModel.Tab.courses.label)
+            .refreshable {
+                coursesViewModel.fetchGrades()
+            }
             .toolbar {
                 ToolbarItem(id: UUID().uuidString) {
                     UserPreferencesSheetToggle()

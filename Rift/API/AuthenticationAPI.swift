@@ -95,56 +95,29 @@ extension API {
         ///   - completion: Completion function
         static func getProvisionalCookies(for locale: Locale, completion: @escaping (Error?) -> ()) {
             API.authenticationRequestManager.resetSession {
-                getPortalConfig(for: locale) { error in
-                    if let error = error {
-                        completion(error)
-                    }
-                    else {
-                        API.authenticationRequestManager.get(endpoint: Endpoint.provisionalCookies, locale: locale) { result in
-                            switch result {
-                            case .success(_):
-                                if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == API.Authentication.Cookie.sis.name}) == true {
-                                    API.authenticationRequestManager.post(endpoint: Endpoint.provisionalCookies, data: ProvisionalCookieConfiguration(appName: locale.districtAppName), encodeType: .form, locale: locale) { result in
-                                        switch result {
-                                        case .success(_):
-                                            completion(nil)
-                                        case .failure(let error):
-                                            completion(error)
-                                        }
-                                    }
+                API.authenticationRequestManager.get(endpoint: Endpoint.provisionalCookies, locale: locale) { result in
+                    switch result {
+                    case .success(_):
+                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == API.Authentication.Cookie.sis.name}) == true {
+                            API.authenticationRequestManager.post(endpoint: Endpoint.provisionalCookies, data: ProvisionalCookieConfiguration(appName: locale.districtAppName), encodeType: .form, locale: locale) { result in
+                                switch result {
+                                case .success(_):
+                                    completion(nil)
+                                case .failure(let error):
+                                    completion(error)
                                 }
-                                else {
-                                    completion(APIError.invalidCookies)
-                                }
-                            case .failure(let error):
-                                completion(error)
                             }
                         }
+                        else {
+                            completion(APIError.invalidCookies)
+                        }
+                    case .failure(let error):
+                        completion(error)
                     }
                 }
             }
         }
         
-        /// Gets portal configuration cookies
-        /// - Parameters:
-        ///   - locale: A locale that provides the district to make the call to
-        ///   - completion: Completion function
-        private static func getPortalConfig(for locale: Locale, completion: @escaping (Error?) -> ()) {
-            let configEndpoint = "\(Endpoint.resources)\(locale.districtAppName)/\(Endpoint.portalConfig)"
-            guard let url = locale.districtBaseURL
-                .appendingPathComponent(configEndpoint)
-                .appendingQueryItems([.init(name: "_t", value: Date.now.timeIntervalSince1970.description)]) else {
-                    return completion(APIError.invalidRequest)
-                }
-            API.authenticationRequestManager.get(url: url, retryAuthentication: false) { result in
-                switch result {
-                case .success(_):
-                    completion(nil)
-                case .failure(let error):
-                    completion(error)
-                }
-            }
-        }
         
         /// Gets the SSO login link for a district if one exists
         /// - Parameters:
@@ -179,31 +152,34 @@ extension API {
             
             let config = PersistenceUpdateConfiguration()
             
-            API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, locale: locale) { result in
-                switch result {
-                case .success(_):
-                    if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
-                        API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, locale: locale) { result in
-                            switch result {
-                            case .success(_):
-                                if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
+            let headers = ["Origin": locale?.districtBaseURL.hostURL?.description ?? "",
+                           "Referrer": locale?.districtBaseURL.appendingPathComponent(API.Authentication.successPath).description ?? ""]
+            
+            
+            //API.authenticationRequestManager.get(endpoint: "prism") { result in
+                
+                API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, headers: headers, locale: locale) { result in
+                    switch result {
+                    case .success(_):
+                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == Cookie.persistent.name}) == true {
+                            API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, headers: headers, locale: locale) { result in
+                                switch result {
+                                case .success(_):
                                     completion(nil)
+                                case .failure(let error):
+                                    completion(error)
                                 }
-                                else {
-                                    completion(API.APIError.invalidCookies)
-                                }
-                            case .failure(let error):
-                                completion(error)
                             }
                         }
+                        else {
+                            completion(API.APIError.invalidCookies)
+                        }
+                    case .failure(let error):
+                        completion(error)
                     }
-                    else {
-                        completion(API.APIError.invalidCookies)
-                    }
-                case .failure(let error):
-                    completion(error)
                 }
-            }
+                
+            //}
         }
         
         /// Tries to authenticate a user using an existing `persistent-cookie`
@@ -274,7 +250,7 @@ extension API {
                 return completion(APIError.invalidRequest)
             }
             API.stopPendingTasks()
-            API.authenticationRequestManager.get(url: url) { result in
+            API.authenticationRequestManager.get(url: url, retryAuthentication: false) { result in
                 switch result {
                 case .success(_):
                     completion(nil)

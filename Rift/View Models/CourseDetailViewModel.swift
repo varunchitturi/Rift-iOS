@@ -12,6 +12,14 @@ import Algorithms
 /// MVVM view model for the `CourseDetailView`
 class CourseDetailViewModel: ObservableObject {
     
+    /// An enum to describe the type's of views that can be presented in `CourseDetailView`'s `sheet`
+    enum PresentingSheetView: Identifiable {
+        case addAssignment
+        case addCategory
+        
+        var id: Self { self }
+    }
+
     /// MVVM model
     @Published private var courseDetailModel: CourseDetailModel
     
@@ -22,7 +30,12 @@ class CourseDetailViewModel: ObservableObject {
     @Published var chosenGradeDetailIndex: Int?
     
     /// `AsyncState` to manage network calls in views
-    @Published var networkState: AsyncState = .loading
+    @Published var networkState: AsyncState = .idle
+    
+    /// The type of view that is presented on the view's `sheet`.
+    /// - `nil` if no `sheet` is presented
+    @Published var presentingSheet: PresentingSheetView? = nil
+    
 
     // TODO: make this process more efficient
     
@@ -75,9 +88,10 @@ class CourseDetailViewModel: ObservableObject {
     }
     
     /// A boolean value that gives if the user has made any changes to the `GradeDetail`
-    /// - Checks if whether all the assignments in `editingGradeDetail` are the same as the one is `gradeDetail`
+    /// - Checks if whether all the assignments and categories in `editingGradeDetail` are the same as the one is `gradeDetail`
     var hasModifications: Bool {
-        editingGradeDetail?.assignments != gradeDetail?.assignments
+        editingGradeDetail?.assignments != gradeDetail?.assignments ||
+        editingGradeDetail?.categories.map({$0.id}) != gradeDetail?.categories.map({$0.id})
     }
     
     /// Checks if the chosen `GradeDetail` is `nil`
@@ -92,8 +106,10 @@ class CourseDetailViewModel: ObservableObject {
     
     /// Fetches grade details from the API
     func fetchGradeDetails() {
+        if self.networkState != .success {
+            self.networkState = .loading
+        }
         API.Grades.getGradeDetails(for: courseDetailModel.course) {[weak self] result in
-
             DispatchQueue.main.async {
                 switch result {
                 case .success((let terms , let gradeDetails)):
@@ -111,7 +127,7 @@ class CourseDetailViewModel: ObservableObject {
                     self?.editingGradeDetails = gradeDetails
                     self?.editingGradeDetails?.setCalculation(to: true)
                     self?.chosenGradeDetailIndex =  self?.courseDetailModel.gradeDetails?.firstIndex(where: {$0.grade.termID == self?.courseDetailModel.termSelectionID}) ?? self?.getCurrentGradeDetailIndex(from: terms)
-                    self?.networkState = .idle
+                    self?.networkState = .success
                 case .failure(let error):
                     self?.networkState = .failure(error)
                 }

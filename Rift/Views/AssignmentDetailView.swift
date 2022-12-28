@@ -31,6 +31,14 @@ struct AssignmentDetailView: View {
                         .font(.title2)
                     Spacer()
                 }
+                if assignmentDetailViewModel.assignmentToEdit.multiplier != 1 {
+                    HStack {
+                        Text("Multiplier: \(assignmentDetailViewModel.assignmentToEdit.multiplier)")
+                            .font(.callout.bold())
+                            .foregroundColor(Rift.DrawingConstants.accentColor)
+                        Spacer()
+                    }
+                }
                 AssignmentDetailStats(dueDate: assignmentDetailViewModel.originalAssignment?.dueDate,
                                       assignedDate: assignmentDetailViewModel.originalAssignment?.assignedDate,
                                       realPercentage: (assignmentDetailViewModel.originalAssignment?.percentage ??

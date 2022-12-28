@@ -42,8 +42,7 @@ struct DistrictSearchView: View {
                     }
                 }
             }
-            .padding()
-            
+            .padding([.horizontal, .top])
             Spacer()
             ScrollView {
                 ForEach(welcomeViewModel.districtSearchResults) { searchResult in
@@ -59,8 +58,13 @@ struct DistrictSearchView: View {
                     }
                 }
             }
-            
-            .padding()
+            .padding([.horizontal, .top])
+            .apiHandler(asyncState: welcomeViewModel.districtSearchNetworkState, loadingStyle: .progressCircle) { _ in
+                welcomeViewModel.searchDistrict(for: searchQuery)
+            }
+            if welcomeViewModel.districtSearchNetworkState.isFailure || welcomeViewModel.districtSearchNetworkState == .loading {
+                Spacer()
+            }
         }
     }
 }

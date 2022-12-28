@@ -10,7 +10,6 @@ import SwiftUI
 struct CourseDetailView: View {
     
     @ObservedObject var courseDetailViewModel: CourseDetailViewModel
-    @State private var addAssignmentIsPresented = false
     @State private var gradeDetailChoiceIsEditing = false
     @State private var showCalculatedGrade = true
     
@@ -60,12 +59,25 @@ struct CourseDetailView: View {
             }
             .padding()
         }
+        .refreshable {
+            courseDetailViewModel.fetchGradeDetails()
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
                     if courseDetailViewModel.hasGradeDetail {
-                        Button {
-                            addAssignmentIsPresented = true
+                        Menu {
+                            Button {
+                                courseDetailViewModel.presentingSheet = .addAssignment
+                            } label: {
+                                Label("Add Assignment", systemImage: "plus")
+                            }
+                            
+                            Button {
+                                courseDetailViewModel.presentingSheet = .addCategory
+                            } label: {
+                                Label("Add Category", systemImage: "plus")
+                            }
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -84,13 +96,18 @@ struct CourseDetailView: View {
                 .animation(.easeInOut, value: courseDetailViewModel.hasModifications)
             }
         }
-        .sheet(isPresented: $addAssignmentIsPresented) {
+        .sheet(item: $courseDetailViewModel.presentingSheet, content: { sheetView in
             if courseDetailViewModel.editingGradeDetail != nil {
-                AddAssignmentView(courseName: courseDetailViewModel.courseName, assignments: $courseDetailViewModel.editingGradeDetail.unwrap()!.assignments, gradingCategories: courseDetailViewModel.editingGradeDetail!.categories)
+                switch sheetView {
+                case .addCategory:
+                    AddCategoryView(categories: $courseDetailViewModel.editingGradeDetail.unwrap()!.categories)
+                case .addAssignment:
+                    AddAssignmentView(courseName: courseDetailViewModel.courseName, assignments: $courseDetailViewModel.editingGradeDetail.unwrap()!.assignments, gradingCategories: courseDetailViewModel.editingGradeDetail!.categories)
+                }
             }
-            
-        }
+        })
         .navigationTitle(courseDetailViewModel.courseName)
+        .apiHandler(asyncState: courseDetailViewModel.networkState)
         .logViewAnalytics(self)
     }
     

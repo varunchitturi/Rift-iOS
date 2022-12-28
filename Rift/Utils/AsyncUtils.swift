@@ -23,8 +23,22 @@ enum AsyncState {
             return false
         }
     }
+    
+    static func != (lhs: AsyncState, rhs: AsyncState) -> Bool {
+        !(lhs == rhs)
+    }
+    
     case idle
     case success
     case failure(Error)
     case loading
+    
+    var isFailure: Bool {
+        switch self {
+        case .failure(_):
+            return true
+        default:
+            return false
+        }
+    }
 }

@@ -179,12 +179,12 @@ struct API {
         ///   - encodeType: Specifies the format that the data is encoded in
         ///   - locale: A locale that provides the district URL to make the call to
         ///   - completion: Completion function
-        func post<T>(endpoint: String, data: T, encodeType: URLRequest.ContentType, locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
+        func post<T>(endpoint: String, retryAttempts: Int = 0, data: T, encodeType: URLRequest.ContentType, headers: [String: String] = [:], locale: Locale? = nil, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
             guard let locale = (locale ?? PersistentLocale.getLocale()) else {
                 return completion(.failure(APIError.invalidLocale))
             }
             
-            post(url: locale.districtBaseURL.appendingPathComponent(endpoint), data: data, encodeType: encodeType, completion: completion)
+            post(url: locale.districtBaseURL.appendingPathComponent(endpoint), retryAttempts: retryAttempts, data: data, encodeType: encodeType, headers: headers, completion: completion)
         }
         
         /// API call to post data
@@ -193,7 +193,7 @@ struct API {
         ///   - data: An encodable type that is encoded to be sent in the `POST` request
         ///   - encodeType: Specifies the format that the data is encoded in
         ///   - completion: Completion function
-        func post<T>(url: URL, data: T, encodeType: URLRequest.ContentType, completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
+        func post<T>(url: URL, retryAttempts: Int = 0, data: T, encodeType: URLRequest.ContentType, headers: [String: String] = [:], completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> ()) where T: Encodable {
             
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = URLRequest.HTTPMethod.post.rawValue
@@ -208,10 +208,13 @@ struct API {
                     urlRequest.setValue(URLRequest.ContentType.json.rawValue, forHTTPHeaderField: URLRequest.Header.contentType.rawValue)
                 }
                 
-                urlSession.dataTask(with: urlRequest) { data, response, error in
+                headers.forEach { (header, value) in
+                    urlRequest.addValue(value, forHTTPHeaderField: header)
+                }
+                
+                urlSession.retryingURLRequest(with: urlRequest, retryAttempts: retryAttempts) { data, response, error in
                     completion(self.evaluateResponse(requestMethod: .post, url, data, response, error))
                 }
-                .resume()
             }
             catch {
                 completion(.failure(error))

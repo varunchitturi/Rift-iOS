@@ -29,26 +29,24 @@ struct CourseDetailStats: View {
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                     .font(.callout.bold())
                     Divider()
-                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: showCalculatedGrade ? editingGradeDetail.totalPercentage : gradeDetail.totalPercentage, isProminent: true)
+                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: editingGradeDetail.totalPercentage, showCalculated: showCalculatedGrade, isProminent: true)
                 }
                 HStack {
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
-                        let categories = gradeDetail.categories
-                        let editingCategories = editingGradeDetail.categories
-                        ForEach(gradeDetail.categories.indices, id: \.self) { index in
-                            let realPercentage = categories[index].percentage
-                            let calculatedPercentage = editingCategories[index].percentage
+                        let categories = editingGradeDetail.categories
+                        ForEach(categories.indices, id: \.self) { index in
                             CourseDetailStatsRow(
                                 category: categories[index].name,
-                                realGrade: categories[index].percentage,
-                                calculatedGrade: showCalculatedGrade ? calculatedPercentage : realPercentage
+                                realGrade: categories[index].categoryGrade?.percentage,
+                                calculatedGrade: categories[index].percentage,
+                                showCalculated: showCalculatedGrade
                             )
                         }
                     }
                 }
                 if gradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) != editingGradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) &&
                     gradeDetail.assignments == editingGradeDetail.assignments {
-                    Text("The real and calculated grade are different because the teacher may have chose to hide some assignments.")
+                    Text("The real and calculated grade are different because of an inconsistency in Infinite Campus.")
                         .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                         .font(.caption2)
                 }

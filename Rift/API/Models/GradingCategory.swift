@@ -11,7 +11,7 @@ import Foundation
 /// - A `GradingCategory` contains the grade, assignments, and other metadata for a category
 struct GradingCategory: Identifiable, Decodable, Equatable {
     
-    init(id: Int, name: String, isWeighted: Bool, weight: Double, isExcluded: Bool, isCalculated: Bool = false, assignments: [Assignment], usePercent: Bool, categoryGrade: CategoryGrade? = nil) {
+    init(id: Int, name: String, isWeighted: Bool, weight: Double, isExcluded: Bool = false, isCalculated: Bool = false, assignments: [Assignment], usePercent: Bool, categoryGrade: CategoryGrade? = nil) {
         self.id = id
         self.name = name
         self.isWeighted = isWeighted
@@ -28,7 +28,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     let id: Int
     
     /// The name of the category
-    let name: String
+    var name: String
     
     /// Gives whether this category is weighted in terms of grade calculation
     /// - If `false`, then this category doesn't use weight-style grade calculation
@@ -38,7 +38,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
      /// If the term uses a weighted grading style, then the `weight` is how much this category is weighted
      /// - The weight is given as a whole number.
      /// - Note: If `isWeighted` is false, this value will be 0
-    let weight: Double
+    var weight: Double
     
     /// Gives whether this category should be excluded when calculating the grade for a term
     let isExcluded: Bool
@@ -48,17 +48,16 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     /// - If `true` the `currentPoints`, `totalPoints`, and `percentage` will be calculated manually by iterating over all the assignments
     /// - Note: `currentPoints`, `totalPoints`, and `percentage` are computed values and are reactive to changes to `assignments` when this is `true`
     ///
-    /// \
     ///   The default value of `isCalculated` is `false`
     var isCalculated = false
     
     /// The assignments that are in this category
     var assignments: [Assignment]
     
-    /// Gives whether the percentage or points of assignments  should be used in grade calculation
-    /// - If `true`, then the number of points for assignments won't be considered. Only the ratio between scored points over total points (percentage) will be sued to calculated the grade. For example. an assignment that is scored as 1/2 has the same affect on your grade as an assignment that is scored as 50/100.
+    /// Gives whether the percentage or points of assignments should be used in grade calculation
+    /// - If `true`, then the number of points for assignments won't be considered. Only the ratio between scored points over total points (percentage) will be used to calculate the grade. For example, an assignment that is scored as 1/2 has the same affect on your grade as an assignment that is scored as 50/100.
     /// - If `false`, then the number of points for assignment will be considered. For example, an assignment that is scored as 1/2 will affect your grade less than an assignment that is scored as 50/100.
-    let usePercent: Bool
+    var usePercent: Bool
     
     /// The grade for this category provided by Infinite Campus
     /// - If `isCalculated` is `true`, then the values in `categoryGrade` will be disregarded and the grades will be calculated manually from `assignments`
@@ -73,7 +72,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
             var currentPoints: Double?
             assignments.forEach { `assignment` in
                 if let assignmentScorePoints = `assignment`.scorePoints, let assignmentTotalPoints = `assignment`.totalPoints {
-                    let assignmentScore = usePercent ? (assignmentScorePoints/assignmentTotalPoints) * 100 : assignmentScorePoints
+                    let assignmentScore = usePercent ? (assignmentScorePoints/assignmentTotalPoints) * 100 : assignmentScorePoints * `assignment`.multiplier
                     currentPoints = (currentPoints ?? 0) + assignmentScore
                 }
             }
@@ -90,7 +89,7 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
             var totalPoints: Double?
             assignments.forEach { `assignment` in
                 if `assignment`.scorePoints != nil, let assignmentTotalPoints = `assignment`.totalPoints {
-                    let assignmentTotal = usePercent ? 100 : assignmentTotalPoints
+                    let assignmentTotal = usePercent ? 100 : assignmentTotalPoints * `assignment`.multiplier
                     totalPoints = (totalPoints ?? 0) + assignmentTotal
                 }
             }
