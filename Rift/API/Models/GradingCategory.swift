@@ -54,10 +54,10 @@ struct GradingCategory: Identifiable, Decodable, Equatable {
     /// The assignments that are in this category
     var assignments: [Assignment]
     
-    /// Gives whether the percentage or points of assignments  should be used in grade calculation
+    /// Gives whether the percentage or points of assignments should be used in grade calculation
     /// - If `true`, then the number of points for assignments won't be considered. Only the ratio between scored points over total points (percentage) will be used to calculate the grade. For example, an assignment that is scored as 1/2 has the same affect on your grade as an assignment that is scored as 50/100.
     /// - If `false`, then the number of points for assignment will be considered. For example, an assignment that is scored as 1/2 will affect your grade less than an assignment that is scored as 50/100.
-    let usePercent: Bool
+    var usePercent: Bool
     
     /// The grade for this category provided by Infinite Campus
     /// - If `isCalculated` is `true`, then the values in `categoryGrade` will be disregarded and the grades will be calculated manually from `assignments`

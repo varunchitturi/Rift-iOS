@@ -29,7 +29,7 @@ struct CourseDetailStats: View {
                     .foregroundColor(Rift.DrawingConstants.accentColor)
                     .font(.callout.bold())
                     Divider()
-                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: showCalculatedGrade ? editingGradeDetail.totalPercentage : gradeDetail.totalPercentage, isProminent: true)
+                    CourseDetailStatsRow(category: "Total", realGrade: gradeDetail.totalPercentage, calculatedGrade: editingGradeDetail.totalPercentage, showCalculated: showCalculatedGrade, isProminent: true)
                 }
                 HStack {
                     VStack (alignment: .leading, spacing: DrawingConstants.rowSpacing) {
@@ -38,14 +38,15 @@ struct CourseDetailStats: View {
                             CourseDetailStatsRow(
                                 category: categories[index].name,
                                 realGrade: categories[index].categoryGrade?.percentage,
-                                calculatedGrade: categories[index].percentage
+                                calculatedGrade: categories[index].percentage,
+                                showCalculated: showCalculatedGrade
                             )
                         }
                     }
                 }
                 if gradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) != editingGradeDetail.totalPercentage?.truncated(Rift.DrawingConstants.decimalCutoff) &&
                     gradeDetail.assignments == editingGradeDetail.assignments {
-                    Text("The real and calculated grade are different because the teacher may have chose to hide some assignments.")
+                    Text("The real and calculated grade are different because of an inconsistency in Infinite Campus.")
                         .foregroundColor(Rift.DrawingConstants.secondaryForegroundColor)
                         .font(.caption2)
                 }

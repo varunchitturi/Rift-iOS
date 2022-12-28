@@ -20,7 +20,7 @@ struct AddCategoryModel {
                                       weight: 0,
                                       isCalculated: true,
                                       assignments: [],
-                                      usePercent: true)
+                                      usePercent: false)
         
     }
     

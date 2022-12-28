@@ -22,6 +22,17 @@ class AddCategoryViewModel: ObservableObject {
         addCategoryModel.newCategory.isWeighted
     }
     
+    /// Gives whether the new `GradingCategory` uses assignment percentage to calculate the categories score.
+    /// - Read more about `usePercent` in the ``GradingCategory`` 
+    var usePercent: Bool {
+        get {
+            addCategoryModel.newCategory.usePercent
+        }
+        set {
+            addCategoryModel.newCategory.usePercent = newValue
+        }
+    }
+    
     init(categories: Binding<[GradingCategory]>) {
         addCategoryModel = AddCategoryModel(useWeight: categories.wrappedValue.allSatisfy({$0.isWeighted}))
         self._categories = categories
