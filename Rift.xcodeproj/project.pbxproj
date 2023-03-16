@@ -1032,13 +1032,14 @@
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rift;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1063,13 +1064,14 @@
 				DEVELOPMENT_TEAM = P3BD6D8HQC;
 				ENABLE_PREVIEWS = NO;
 				INFOPLIST_FILE = Rift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rift;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.schoolscope.rift-infinite-campus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
