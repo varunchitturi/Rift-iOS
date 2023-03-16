@@ -64,14 +64,14 @@ extension UserPreferenceModel {
             UserPreferenceModel(label: "Terms and Conditions",
                                 preferenceGroup: .links,
                                 action: { _ in
-                                    guard let url = URL(string: "https://riftapp.io/rift_terms_and_co.html") else { return }
+                                    guard let url = URL(string: "https://riftapp.io/terms") else { return }
                                     UIApplication.shared.open(url)
                                 }
             ),
             UserPreferenceModel(label: "Privacy Policy",
                                 preferenceGroup: .links,
                                 action: { _ in
-                                    guard let url = URL(string: "https://riftapp.io/rift_privacy_policy.html") else { return }
+                                    guard let url = URL(string: "https://riftapp.io/privacy") else { return }
                                     UIApplication.shared.open(url)
                                 }
             )
