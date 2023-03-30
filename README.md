@@ -1,7 +1,7 @@
 
-# Rift for Infinite Campus® iOS
+# Rift Student iOS
 
-Rift for Infinite Campus® is an iOS client-app that allows for students who use Infinite Campus® to better see their grades in a clear and straightforward way.
+Rift is an iOS client-app that allows for students who use Infinite Campus® to better see their grades in a clear and straightforward way.
 
 
 

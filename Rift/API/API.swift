@@ -103,7 +103,7 @@ struct API {
                 case .get:
                     if let responseURL = response.url?.removingQueries(),
                        let requestURL = requestURL.removingQueries(),
-                       responseURL == requestURL {
+                       responseURL.hostURL == requestURL.hostURL {
                         return .success((data, response))
                     }
                     else {

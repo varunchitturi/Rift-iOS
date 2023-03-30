@@ -40,7 +40,7 @@ extension PersistentLocale {
         try viewContext.execute(batchDeleteRequest)
     }
     
-    @NSManaged public var id: Int32
+    @NSManaged public var id: String
     @NSManaged public var districtName: String
     @NSManaged public var districtAppName: String
     @NSManaged public var districtBaseURL: URL
@@ -52,7 +52,7 @@ extension PersistentLocale {
     
     var locale: Locale? {
         guard let state = Locale.USTerritory(rawValue: state) else { return nil }
-        return Locale(id: Int(id),
+        return Locale(id: id,
                districtName: districtName,
                districtAppName: districtAppName,
                districtBaseURL: districtBaseURL,
@@ -66,7 +66,7 @@ extension PersistentLocale {
     
     convenience init(locale: Locale, context: NSManagedObjectContext) {
         self.init(context: context)
-        id = Int32(locale.id)
+        id = locale.id
         districtName = locale.districtName
         districtBaseURL = locale.districtBaseURL
         districtAppName = locale.districtAppName

@@ -16,7 +16,7 @@ import SwiftUI
 struct Locale: Identifiable, Decodable, PropertyIterable {
     
     /// The id for the school district
-    var id: Int
+    var id: String
     
     /// The name of the school district
     var districtName: String

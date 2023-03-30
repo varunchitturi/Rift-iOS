@@ -131,7 +131,7 @@ struct LogInView: View {
 #if DEBUG
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView(locale: Locale(id: 1, districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLogInURL: URL(string: "https://")!, studentLogInURL: URL(string: "https://")!, parentLogInURL: URL(string: "https://")!))
+        LogInView(locale: Locale(id: "1", districtName: "District Name", districtAppName: "FUSD", districtBaseURL: URL(string: "https://")!, districtCode: "fusd", state: .CA, staffLogInURL: URL(string: "https://")!, studentLogInURL: URL(string: "https://")!, parentLogInURL: URL(string: "https://")!))
             .preferredColorScheme(.dark)
     }
 }
