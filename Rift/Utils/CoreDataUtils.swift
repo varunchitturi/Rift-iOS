@@ -35,6 +35,10 @@ struct PersistenceController {
                 fatalError("Error: \(error.localizedDescription)")
             }
             else {
+                let description = NSPersistentStoreDescription()
+                description.shouldMigrateStoreAutomatically = false
+                description.shouldInferMappingModelAutomatically = true
+                container?.persistentStoreDescriptions = [description]
                 container?.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             }
         }

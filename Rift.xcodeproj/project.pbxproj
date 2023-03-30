@@ -27,6 +27,8 @@
 		273DB909271961F2006D936A /* UIToolbarDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DB908271961F2006D936A /* UIToolbarDismiss.swift */; };
 		274165CF270C2C9400F9EFCF /* GradingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165CE270C2C9400F9EFCF /* GradingCategory.swift */; };
 		274165D3270C2F1A00F9EFCF /* GradeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274165D2270C2F1A00F9EFCF /* GradeDetail.swift */; };
+		2743859129D6197200391AE7 /* ModeltoModelv2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2743859029D6197200391AE7 /* ModeltoModelv2.xcmappingmodel */; };
+		2743859329D61C6100391AE7 /* PersistentLocaleTransformationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2743859229D61C6100391AE7 /* PersistentLocaleTransformationPolicy.swift */; };
 		274E623326C21FB500C855D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623226C21FB500C855D4 /* Assets.xcassets */; };
 		274E623626C21FB500C855D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274E623526C21FB500C855D4 /* Preview Assets.xcassets */; };
 		274F432C270A3998001D5D4A /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274F432B270A3998001D5D4A /* CourseDetailView.swift */; };
@@ -198,6 +200,9 @@
 		273EA32626F9C5F800D4FD20 /* UserPreferencesSheetToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesSheetToggle.swift; sourceTree = "<group>"; };
 		274165CE270C2C9400F9EFCF /* GradingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradingCategory.swift; sourceTree = "<group>"; };
 		274165D2270C2F1A00F9EFCF /* GradeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeDetail.swift; sourceTree = "<group>"; };
+		2743858F29D6192D00391AE7 /* Model v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v2.xcdatamodel"; sourceTree = "<group>"; };
+		2743859029D6197200391AE7 /* ModeltoModelv2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = ModeltoModelv2.xcmappingmodel; sourceTree = "<group>"; };
+		2743859229D61C6100391AE7 /* PersistentLocaleTransformationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentLocaleTransformationPolicy.swift; sourceTree = "<group>"; };
 		274E622B26C21FB400C855D4 /* Rift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274E622E26C21FB400C855D4 /* RiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiftApp.swift; sourceTree = "<group>"; };
 		274E623026C21FB400C855D4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -551,6 +556,8 @@
 			children = (
 				27D4E722270916DA0063CB65 /* PersistentLocale+CoreDataClass.swift */,
 				27D4E723270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift */,
+				2743859029D6197200391AE7 /* ModeltoModelv2.xcmappingmodel */,
+				2743859229D61C6100391AE7 /* PersistentLocaleTransformationPolicy.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -850,12 +857,14 @@
 				274F432C270A3998001D5D4A /* CourseDetailView.swift in Sources */,
 				2799A10D2717637F00136C23 /* AssignmentDetailModel.swift in Sources */,
 				27D4E7092709152F0063CB65 /* RectangleCornerStyle.swift in Sources */,
+				2743859129D6197200391AE7 /* ModeltoModelv2.xcmappingmodel in Sources */,
 				27D4E70A2709152F0063CB65 /* NavigationViewStyle.swift in Sources */,
 				273CD48C274CCABD00369FBD /* CategoryGrade.swift in Sources */,
 				27D4E70B2709152F0063CB65 /* PickerFieldStyle.swift in Sources */,
 				27D98988271C34AA00311973 /* Message.swift in Sources */,
 				27D4E70C2709152F0063CB65 /* DisabledStyle.swift in Sources */,
 				27D4E70D2709152F0063CB65 /* TableViewStyle.swift in Sources */,
+				2743859329D61C6100391AE7 /* PersistentLocaleTransformationPolicy.swift in Sources */,
 				27D4E725270916DA0063CB65 /* PersistentLocale+CoreDataProperties.swift in Sources */,
 				27D4E70E2709152F0063CB65 /* WelcomeView.swift in Sources */,
 				27D4E70F2709152F0063CB65 /* LogInView.swift in Sources */,
@@ -1255,9 +1264,10 @@
 		27D4E71B270915EE0063CB65 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2743858F29D6192D00391AE7 /* Model v2.xcdatamodel */,
 				27D4E71C270915EE0063CB65 /* Model.xcdatamodel */,
 			);
-			currentVersion = 27D4E71C270915EE0063CB65 /* Model.xcdatamodel */;
+			currentVersion = 2743858F29D6192D00391AE7 /* Model v2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -50,14 +50,14 @@ extension UserPreferenceModel {
             UserPreferenceModel(label: "\(Bundle.main.displayName ?? "App") Website",
                                 preferenceGroup: .links,
                                 action: { _ in
-                                    guard let url = URL(string: "https://riftapp.io/index.html") else { return }
+                                    guard let url = URL(string: "https://riftapp.io/") else { return }
                                     UIApplication.shared.open(url)
                                 }
             ),
-            UserPreferenceModel(label: "Feedback Form",
+            UserPreferenceModel(label: "Support",
                                 preferenceGroup: .links,
                                 action: { _ in
-                                    guard let url = URL(string: "https://schoolscope.typeform.com/feedback") else { return }
+                                    guard let url = URL(string: "mailto:support@schoolscope.org") else { return }
                                     UIApplication.shared.open(url)
                                 }
             ),

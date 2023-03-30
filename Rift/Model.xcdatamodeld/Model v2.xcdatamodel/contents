@@ -5,7 +5,7 @@
         <attribute name="districtBaseURL" optional="YES" attributeType="URI"/>
         <attribute name="districtCode" optional="YES" attributeType="String"/>
         <attribute name="districtName" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="parentLogInURL" optional="YES" attributeType="URI"/>
         <attribute name="staffLogInURL" optional="YES" attributeType="URI"/>
         <attribute name="state" optional="YES" attributeType="String"/>
