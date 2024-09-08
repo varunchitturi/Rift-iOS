@@ -156,7 +156,6 @@ extension API {
                            "Referrer": locale?.districtBaseURL.appendingPathComponent(API.Authentication.successPath).description ?? ""]
             
             
-            //API.authenticationRequestManager.get(endpoint: "prism") { result in
                 
                 API.authenticationRequestManager.post(endpoint: Endpoint.persistenceUpdate, data: config, encodeType: .json, headers: headers, locale: locale) { result in
                     switch result {
@@ -213,7 +212,8 @@ extension API {
         ///   - locale: A locale that provides the district to make the call to
         ///   - credentials: Credentials for the user
         ///   - completion: Completion function
-        static func attemptCredentialAuthentication(locale: Locale, credentials: Credentials, completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
+        ///   - remember: Whether to remember the login for future sessions or not (obtains `persistent-cookie`)
+        static func attemptCredentialAuthentication(locale: Locale, credentials: Credentials, remember: Bool = true, completion: @escaping (Result<ApplicationModel.AuthenticationState, Error>) -> ()) {
             
             guard let appCookie =  Cookie.appName.getHTTPCookie(in: locale) else {
                 return completion(.failure(APIError.invalidLocale))
@@ -221,7 +221,20 @@ extension API {
       
             HTTPCookieStorage.shared.setCookie(appCookie)
             
-            API.authenticationRequestManager.post(endpoint: Endpoint.authorization, data: credentials, encodeType: .form, locale: locale) { result in
+            struct CredentialAuthenticationRequest: Codable {
+                let username: String
+                let password: String
+                let remember: Bool
+                
+                enum CodingKeys: String, CodingKey {
+                    case username, password
+                    case remember = "hybridDeviceKeepMeLoggedIn"
+                }
+            }
+            
+            let request = CredentialAuthenticationRequest(username: credentials.username, password: credentials.password, remember: remember)
+            
+            API.authenticationRequestManager.post(endpoint: Endpoint.authorization, data: request, encodeType: .form, locale: locale) { result in
                 switch result {
                 case .success((_, let response)):
                     if response.url?.lastPathComponent == Authentication.successPath {

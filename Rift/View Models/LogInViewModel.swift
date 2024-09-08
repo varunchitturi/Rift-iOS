@@ -193,7 +193,6 @@ class LogInViewModel: NSObject, ObservableObject {
         API.Authentication.getProvisionalCookies(for: locale) { [weak self] error in
             if let error = error {
                 DispatchQueue.main.async {
-                    print(error)
                     self?.defaultNetworkState = .failure(error)
                 }
             }
@@ -212,8 +211,6 @@ class LogInViewModel: NSObject, ObservableObject {
                             }
                         }
                     case .failure(let error):
-                        print("2")
-                        print(error)
                         DispatchQueue.main.async {
                             self.defaultNetworkState = .failure(error)
                         }
@@ -249,15 +246,21 @@ class LogInViewModel: NSObject, ObservableObject {
                 cookies.forEach {
                     HTTPCookieStorage.shared.setCookie($0)
                 }
-                API.Authentication.usePersistence(locale: self.locale) { error in
-                    if error != nil {
-                        UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                
+                if HTTPCookieStorage.shared.getCookies(name: API.Authentication.Cookie.persistent.name)?.isEmpty == true {
+                    API.Authentication.usePersistence(locale: self.locale) { error in
+                        if error != nil {
+                            UserDefaults.standard.set(false, forKey: UserPreferenceModel.persistencePreferenceKey)
+                        }
+                        else {
+                            UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
+                        }
                     }
-                    else {
-                        UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
-                    }
-                    completion()
                 }
+                else {
+                    UserDefaults.standard.set(persistencePreference, forKey: UserPreferenceModel.persistencePreferenceKey)
+                }
+                completion()
             }
         }
         else {
