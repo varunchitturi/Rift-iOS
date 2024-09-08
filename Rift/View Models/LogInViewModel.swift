@@ -193,6 +193,7 @@ class LogInViewModel: NSObject, ObservableObject {
         API.Authentication.getProvisionalCookies(for: locale) { [weak self] error in
             if let error = error {
                 DispatchQueue.main.async {
+                    print(error)
                     self?.defaultNetworkState = .failure(error)
                 }
             }
@@ -211,6 +212,8 @@ class LogInViewModel: NSObject, ObservableObject {
                             }
                         }
                     case .failure(let error):
+                        print("2")
+                        print(error)
                         DispatchQueue.main.async {
                             self.defaultNetworkState = .failure(error)
                         }

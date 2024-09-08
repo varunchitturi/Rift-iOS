@@ -1,3 +1,1 @@
-- Feature - New Inbox View
-- Feature - New Credential Log In
-- Bugfix - Other minor bugfixes and UI adjustments
+- Bugfix - login errors

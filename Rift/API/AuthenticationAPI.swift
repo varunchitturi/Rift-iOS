@@ -98,7 +98,7 @@ extension API {
                 API.authenticationRequestManager.get(endpoint: Endpoint.provisionalCookies, locale: locale) { result in
                     switch result {
                     case .success(_):
-                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name == API.Authentication.Cookie.sis.name}) == true {
+                        if HTTPCookieStorage.shared.cookies?.contains(where: {$0.name.contains("cookie")}) == true {
                             API.authenticationRequestManager.post(endpoint: Endpoint.provisionalCookies, data: ProvisionalCookieConfiguration(appName: locale.districtAppName), encodeType: .form, locale: locale) { result in
                                 switch result {
                                 case .success(_):
